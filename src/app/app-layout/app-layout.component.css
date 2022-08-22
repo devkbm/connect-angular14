@@ -1,0 +1,72 @@
+.logo {
+  display: flex;
+  /*위에서 아래로 수직 배치*/
+  flex-direction: column;
+  /*중앙정렬*/
+  justify-content: center;
+  text-align: center;
+  width: 200px;
+  height: 60px;
+
+  background-color: darkslategray;
+  color: white;
+  font-weight: 300;
+  font-size: 30px;
+  line-height: 0.6;
+  font-family: 'Bangers', cursive;
+  letter-spacing: 5px;
+  text-shadow: 5px 2px #222324, 2px 4px #222324, 3px 5px #222324;
+}
+
+.sidebar {
+  background: black;
+  height: calc(100vh - 60px);
+}
+
+
+.header {
+  height: 60px;
+  padding: 0;
+  margin: 0;
+  align-content: center;
+  vertical-align: middle;
+}
+
+.collapse-icon {
+  margin-top: 16px;
+  margin-left: 5px;
+  font-size: 24px;
+  color:rgb(185, 173, 159);
+  vertical-align: top;
+}
+
+.sidemenugroup {
+  width: 150px;
+  margin-right: 10px;
+  margin-left: 10px;
+}
+
+.avatar {
+  float: right;
+  margin-top: 6px;
+  margin-right: 20px;
+  vertical-align: top;
+}
+
+.main-content {
+  margin: 12px 12px 0px 12px;
+  background-color: black;
+  height: calc(100vh - 108px);
+  width: auto;
+  overflow-y: auto;
+}
+
+.footer {
+  position: sticky;
+  margin: 0px;
+  padding: 8px;
+  height: 36px;
+  text-align: center;
+  vertical-align: middle;
+  background-color: black;
+}

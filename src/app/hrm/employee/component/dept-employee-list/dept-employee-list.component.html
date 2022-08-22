@@ -1,0 +1,39 @@
+
+<div class="grid-wrapper">
+  <div>
+    <input nz-input [(ngModel)]="treeSearchText">
+
+    <app-checkable-dept-tree
+      #deptTree
+      id="deptTree"
+      [searchValue]="treeSearchText"      
+      (itemSelected)="deptTreeSelected($event)"
+      (itemChecked)="deptTreeChecked($event)">           
+    </app-checkable-dept-tree> 
+    <app-dept-select>
+
+    </app-dept-select>
+  </div>
+  
+  
+  <div>            
+      <h1>sfdsa</h1>
+      <app-employee-grid
+        #employeeGrid
+        id="employeeGrid">
+      </app-employee-grid>         
+    </div>
+  
+</div>
+
+
+
+<!-- 
+ <app-dept-tree
+    #deptTree
+    id="deptTree"
+    [searchValue]="queryValue"
+    (itemSelected)="selectedItem($event)">              
+</app-dept-tree> 
+ 
+ -->

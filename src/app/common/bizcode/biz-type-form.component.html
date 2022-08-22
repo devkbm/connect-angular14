@@ -1,0 +1,97 @@
+{{fg.value | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+
+  <!-- ERROR TEMPLATE-->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="id" [fieldName]="'id'"
+        [itemId]="'id'"
+        placeholder="업무구분코드를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">업무구분코드
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!--코드명 필드-->
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="name" [fieldName]="'name'"
+        [itemId]="'name'"
+        [required]="true" [nzErrorTip]="errorTpl">코드명
+      </app-nz-input-text>
+    </div>
+
+  </div>
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--사용여부 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="useYn" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          사용여부
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <label id="useYn" nz-checkbox formControlName="useYn"></label>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!--순번 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="sequence" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          순번
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="sequence" formControlName="sequence">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--도메인 필드-->
+
+      <app-nz-select-custom
+        [parentFormGroup]="fg"  [fieldName]="'bizType'" formControlName="bizType"
+        [itemId]="'bizType'"
+        [options]="bizTypeList" [opt_value]="'code'" [opt_label]="'name'"
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">권한
+      </app-nz-select-custom>
+
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!--비고 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="comment" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          비고
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" >
+          <input nz-input id="comment" formControlName="comment">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <app-nz-crud-button-group
+    (searchClick)="loadForm(fg.get('id')?.value)"
+    (closeClick)="closeForm()"
+    (saveClick)="saveForm()"
+    (deleteClick)="deleteForm(fg.get('id')?.value)">
+  </app-nz-crud-button-group>
+</div>
+

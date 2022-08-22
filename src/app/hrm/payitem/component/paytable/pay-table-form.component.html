@@ -1,0 +1,112 @@
+{{fg.value | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- row 1 -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--급여테이블 id 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="id" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          급여테이블ID
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="id" formControlName="id" placeholder="급여테이블ID를 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!--급여테이블명 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="name" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          급여테이블명
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="name" formControlName="name" placeholder="급여테이블명을 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- row 2 -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <!--구분코드1 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="typeCode1" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          구분코드1
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="typeCode1" formControlName="typeCode1" placeholder="구분코드1을 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <!--구분코드2 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="typeCode2" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          구분코드2
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="typeCode2" formControlName="typeCode2" placeholder="구분코드2을 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="8">
+      <!--구분코드3 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="typeCode3" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          구분코드3
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="typeCode3" formControlName="typeCode3" placeholder="구분코드3을 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- row 3 -->
+  <div nz-row nzGutter="8">
+    <!--설명 필드-->
+    <nz-form-item>
+      <nz-form-label nzFor="comment" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+        설명
+      </nz-form-label>
+      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+        <textarea nz-input id="comment" formControlName="comment" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+      </nz-form-control>
+    </nz-form-item>
+
+    <!--사용여부 필드-->
+    <nz-form-item>
+      <nz-form-label nzFor="enabled" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          사용여부
+      </nz-form-label>
+
+      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <label id="enabled" nz-checkbox formControlName="enabled"></label>
+      </nz-form-control>
+    </nz-form-item>
+  </div>
+
+</form>
+
+<div class="footer">
+  <button nz-button (click)="closeForm()">
+    <i nz-icon nzType="close" nzTheme="outline"></i>
+    닫기
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="primary"
+    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+    (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    저장
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzDanger
+    nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+    (nzOnConfirm)="deleteForm(fg.get('id')?.value)" (nzOnCancel)="false">
+    <i nz-icon nzType="delete" nzTheme="outline"></i>
+    삭제
+  </button>
+</div>

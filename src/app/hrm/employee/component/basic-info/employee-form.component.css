@@ -1,0 +1,14 @@
+.container {
+    display: grid;
+    grid-template-columns: 500px 1fr;
+}
+
+.img {
+    grid-row: 1 / 1;
+    grid-column: 1 / 2;
+    background-color: pink;
+}
+
+.nameEng-field {
+    grid-column: 2 / 4;
+}

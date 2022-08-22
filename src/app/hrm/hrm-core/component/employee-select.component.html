@@ -1,0 +1,30 @@
+<!--(input)="onChange($event.target.value)"-->
+
+<nz-select
+    nzShowSearch
+
+    [nzDisabled]="disabled"
+    [nzPlaceHolder]="placeholder"
+    (input)="_input($event)"
+    [(ngModel)]="_value"
+    (ngModelChange)="_selectChanged($event)"
+    (nzBlur)="onTouched($event)">
+    <nz-option
+        *ngFor="let option of employeeList"
+        [nzLabel]="option.name + '[' + option.id + ']'"
+        [nzValue]="option.id">
+    </nz-option>
+</nz-select>
+
+<!--
+<select
+    (input)="onChange($event)"
+    (ngModelChange)="_selectChanged($event)"
+    (nzBlur)="onTouched($event)">
+    <option
+        *ngFor="let option of employeeList"
+        [value]="option.id">
+        {{option.name + '[' + option.id + ']'}}
+      </option>
+</select>
+-->

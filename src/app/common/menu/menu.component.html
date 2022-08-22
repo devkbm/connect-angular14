@@ -1,0 +1,100 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="메뉴 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<app-nz-search-area>
+  <div nz-col [nzSpan]="8">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+      <input type="text" [(ngModel)]="queryValue1" nz-input placeholder="input search text" (keyup.enter)="getMenuGroupList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+      <nz-select [(ngModel)]="queryKey1">
+        <nz-option *ngFor="let option of queryOptionList1" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      </nz-select>
+    </ng-template>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+
+  <div nz-col [nzSpan]="8">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate2" [nzSuffix]="suffixIconSearch2">
+      <input type="text" [(ngModel)]="queryValue2" nz-input placeholder="input search text" (keyup.enter)="getMenuList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate2>
+      <nz-select [(ngModel)]="queryKey2">
+        <nz-option *ngFor="let option of queryOptionList2" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      </nz-select>
+    </ng-template>
+    <ng-template #suffixIconSearch2>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+
+  <div nz-col [nzSpan]="8" style="text-align: right;">
+    <button nz-button (click)="newMenuGroupForm()">
+      <i nz-icon nzType="search"></i>메뉴그룹등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nz-button (click)="newMenu()">
+      <i nz-icon nzType="form"></i>메뉴등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+
+    <button nz-button (click)="getMenuGroupList()">
+      <i nz-icon nzType="form"></i>조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+  </div>
+</app-nz-search-area>
+
+<div class="content">
+  <h3 class="pgm-title">메뉴 그룹 목록</h3>
+  <app-menu-group-grid
+    #menuGroupGrid
+    id="menuGroupGrid"
+    (rowSelected)="selectMenuGroup($event)"
+    (editButtonClicked)="menuGroupFormOpen($event)"
+    (rowDoubleClicked)="menuGroupFormOpen($event)">
+  </app-menu-group-grid>
+
+  <h3 class="pgm-title">메뉴 목록</h3>
+  <app-menu-grid
+    id="menuGrid"
+    #menuGrid
+    (rowSelected)="selectMenu($event)"
+    (editButtonClicked)="menuFormOpen($event)"
+    (rowDoubleClicked)="menuFormOpen($event)">
+  </app-menu-grid>
+</div>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="menuGroupFormVisible"
+  nzTitle="메뉴그룹 등록"
+  (nzOnClose)="menuGroupFormClose()">
+    <app-menu-group-form #menuGroupForm *nzDrawerContent
+      [initLoadId]="this.selectedMenuGroupId"
+      (formSaved)="getMenuGroupList()"
+      (formDeleted)="getMenuGroupList()"
+      (formClosed)="menuGroupFormClose()">
+    </app-menu-group-form>
+</nz-drawer>
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="menuFormVisible"
+  nzTitle="메뉴 등록"
+  (nzOnClose)="menuFormClose()">
+    <app-menu-form #menuForm *nzDrawerContent
+      [menuGroupId]="this.selectedMenuGroupId"
+      [initLoadId]="this.selectedMenuId"
+      (formSaved)="getMenuList()"
+      (formDeleted)="getMenuList()"
+      (formClosed)="menuFormClose()">
+    </app-menu-form>
+</nz-drawer>

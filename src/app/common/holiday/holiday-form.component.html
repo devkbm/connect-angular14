@@ -1,0 +1,68 @@
+{{fg.value | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+
+    <!-- 1 row -->
+    <div nz-row nzGutter="8">
+        <div nz-col nzSpan="12">
+          <!--휴일 필드-->
+          <nz-form-item class="form-item">
+            <nz-form-label nzFor="date" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">휴일</nz-form-label>
+            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+                <nz-date-picker id="date" formControlName="date" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12">
+            <!--휴일명 필드 -->
+            <nz-form-item class="form-item">
+                <nz-form-label nzFor="holidayName" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">휴일명</nz-form-label>
+                <nz-form-control nzHasFeedback [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+                    <input nz-input id="holidayName" formControlName="holidayName" placeholder="부서코드를 입력해주세요.">
+                    <ng-template #errorTpl let-control>
+                        <ng-container *ngIf="control.hasError('required')">
+                            필수 입력 값입니다.
+                        </ng-container>
+                        <ng-container *ngIf="control.hasError('exists')">
+                            기존 코드가 존재합니다.
+                        </ng-container>
+                    </ng-template>
+                </nz-form-control>
+            </nz-form-item>
+        </div>
+    </div>
+
+    <!-- 2 row -->
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <!--설명 필드-->
+        <nz-form-item>
+            <nz-form-label nzFor="comment" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">설명</nz-form-label>
+            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+                <textarea nz-input id="comment" formControlName="comment" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+            </nz-form-control>
+        </nz-form-item>
+       </div>
+    </div>
+
+</form>
+
+<div class="footer">
+    <button nz-button (click)="closeForm()">
+        <i nz-icon nzType="form" nzTheme="outline"></i>
+        닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary"
+        nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+        (nzOnConfirm)="submitEntity()" (nzOnCancel)="false">
+        <i nz-icon nzType="save" nzTheme="outline"></i>
+        저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger
+        nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteEntity(this.fg.get('date')?.value)" (nzOnCancel)="false">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+        삭제
+    </button>
+</div>

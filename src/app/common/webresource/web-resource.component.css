@@ -1,0 +1,9 @@
+.pgm-title {
+  padding-left: 5px;
+  border-left: 5px solid green;
+}
+
+.grid-wrapper {
+  height: calc(100% - 160px)
+}
+

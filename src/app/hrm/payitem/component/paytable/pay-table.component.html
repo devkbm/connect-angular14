@@ -1,0 +1,89 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="급여테이블 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<div nz-row class="btn-group">
+
+    <div nz-col [nzSpan]="8">
+      <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+        <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="reloadGridMatser()">
+      </nz-input-group>
+      <ng-template #addOnBeforeTemplate>
+          <nz-select [(ngModel)]="queryKey">
+            <nz-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+          </nz-select>
+        </ng-template>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
+
+    <div nz-col [nzSpan]="8" style="text-align: right;">
+      <button nz-button (click)="newFormMaster()">
+        <i nz-icon nzType="search"></i>
+        급여테이블등록
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+
+      <button nz-button (click)="newFormDetail()">
+        <i nz-icon nzType="form"></i>
+        급여테이블항목 등록
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+
+      <button nz-button (click)="reloadGridMatser()">
+        <i nz-icon nzType="form"></i>
+        조회
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+    </div>
+  </div>
+mst
+
+
+<div class="content">
+    <h3 class="pgm-title">급여테이블 목록</h3>
+    <app-pay-table-grid #gridMaster
+        (rowSelected)="selectedGridMasterRow($event)"
+        (editButtonClicked)="editDrawerMaster($event)"
+        (rowDoubleClicked)="editDrawerMaster($event)">
+    </app-pay-table-grid>
+
+
+    <h3 class="pgm-title">급여테이블 항목 목록</h3>
+    <app-pay-table-item-grid #gridDetail
+        (editButtonClicked)="editDrawerDetail($event)"
+        (rowDoubleClicked)="editDrawerDetail($event)">
+    </app-pay-table-item-grid>
+
+</div>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerVisibleMaster"
+    nzTitle="급여테이블 등록"
+    (nzOnClose)="closeDrawerMaster()">
+    <app-pay-table-form #formMaster
+        (formSaved)="reloadGridMatser()"
+        (formDeleted)="reloadGridMatser()"
+        (formClosed)="closeDrawerMaster()">
+    </app-pay-table-form>
+</nz-drawer>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerVisibleDetail"
+    nzTitle="발령상세코드 등록"
+    (nzOnClose)="closeDrawerDetail()">
+
+    <app-pay-table-item-form #formDetail
+        (formSaved)="reloadGridDetail()"
+        (formDeleted)="reloadGridDetail()"
+        (formClosed)="closeDrawerDetail()">
+
+    </app-pay-table-item-form>
+</nz-drawer>

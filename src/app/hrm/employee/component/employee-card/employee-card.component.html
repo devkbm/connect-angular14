@@ -1,0 +1,11 @@
+<nz-card>
+  <nz-card-meta [nzAvatar]="avatarTemplate" [nzTitle]="getTitle()" [nzDescription]="descTemplate"></nz-card-meta>
+</nz-card>
+<ng-template #avatarTemplate>
+  <nz-avatar [nzSrc]="getImangePath()" [nzShape]="'square'" [nzSize]="64" [nzIcon]="'user'"></nz-avatar>
+</ng-template>
+<ng-template #descTemplate>
+  {{employee?.id}}
+  {{employee?.deptHistory[employee?.deptHistory.length-1]?.deptCode}}
+</ng-template>
+{{employee?.deptHistory.length}}

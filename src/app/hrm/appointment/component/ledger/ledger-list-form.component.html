@@ -1,0 +1,210 @@
+{{fg.value | json}}
+<!--{{comboList | json}}-->
+
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--발령번호 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="list_ledgerId" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          발령번호
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <input nz-input id="list_ledgerId" formControlName="ledgerId" placeholder="발령번호를 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <!--발령명단식별자 필드 (생성)-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="list_listId" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          발령명단식별자
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+            <input nz-input id="list_listId" formControlName="listId" placeholder="발령명단식별자를 입력해주세요.">
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--사번 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          사번
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-select formControlName="empId" nzShowSearch
+               [nzDisabled]="this.formType == 'MODIFY'" nzPlaceHolder="Please select">
+            <nz-option
+                *ngFor="let option of employeeList"
+                [nzLabel]="option.name + '[' + option.id + ']'"
+                [nzValue]="option.id">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <!--발령코드 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          발령코드
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-select formControlName="appointmentCode" nzShowSearch
+               nzPlaceHolder="Please select"
+              (ngModelChange)="appointmentCodeChanged($event)">
+            <nz-option *ngFor="let option of appointmentCodeList"
+                [nzLabel]="option.codeName"
+                [nzValue]="option.code"
+                [nzDisabled]="!option.useYn">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <!--시작일 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          시작일
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-date-picker formControlName="appointmentFromDate" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <!--종료일 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          종료일
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+            <nz-date-picker formControlName="appointmentToDate" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <!--순번 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="list_sequence" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          순번
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-input-number nzId="list_sequence" formControlName="sequence" placeholder="순번을 입력해주세요."></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <button (click)="getChangeInfo(fg.get('appointmentCode')?.value)">
+      상세조회
+  </button>
+
+  <div formArrayName="changeInfoList" *ngFor="let list of changeInfoList.controls; let i=index;">
+    <ng-container [formGroupName]="i"  nzLayout="vertical">
+      <input type="hidden" formControlName="id" placeholder="id">
+
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <!--유형 필드-->
+          <nz-form-item class="form-item">
+            <nz-form-label [nzFor]="'changeType'+i" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+              인사 유형
+            </nz-form-label>
+            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+              <input nz-input [attr.id]="'changeType'+i" formControlName="changeType" placeholder="인사 유형을 입력해주세요.">
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="8">
+          <!--유형상세 필드-->
+          <nz-form-item class="form-item">
+            <nz-form-label [nzFor]="'changeTypeDetail'+i" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+              인사 유형 코드
+            </nz-form-label>
+            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+              <input nz-input [attr.id]="'changeTypeDetail'+i" formControlName="changeTypeDetail" placeholder="인사유형 코드를 입력해주세요."/>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <!--코드 필드-->
+          <nz-form-item class="form-item">
+            <nz-form-label [nzFor]="'changeCode'+i" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+              코드
+            </nz-form-label>
+            <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+              <nz-select *ngIf="list.get('changeType')?.value == 'JOB'"
+                  formControlName="changeCode" nzShowSearch
+                  nzPlaceHolder="Please select">
+                  <nz-option *ngFor="let option of comboList[i]"
+                      [nzLabel]="option.codeName" [nzValue]="option.code"
+                      [nzDisabled]="!option.useYn">
+                  </nz-option>
+              </nz-select>
+
+              <nz-select *ngIf="list.get('changeType')?.value == 'DEPT'"
+                  formControlName="changeCode" nzShowSearch
+                  nzPlaceHolder="Please select">
+                  <nz-option *ngFor="let option of comboList[i]"
+                      [nzLabel]="option.deptNameKorean" [nzValue]="option.deptCode">
+                  </nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+
+      </div>
+    </ng-container>
+
+  </div>
+
+    <!--
+    <div style="height: 300px;">
+        <app-ledger-list-detail-grid>
+
+        </app-ledger-list-detail-grid>
+    </div>
+    -->
+</form>
+
+<div class="footer">
+  <button nz-button (click)="getForm(this.fg.get('listId')?.value)">
+    <i nz-icon nzType="search" nzTheme="outline"></i>
+    조회
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button (click)="closeForm()">
+    <i nz-icon nzType="form" nzTheme="outline"></i>
+    닫기
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="primary"
+    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+    (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    저장
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzDanger
+    nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+    (nzOnConfirm)="deleteForm()" (nzOnCancel)="false">
+    <i nz-icon nzType="delete" nzTheme="outline"></i>
+    삭제
+  </button>
+
+</div>
+

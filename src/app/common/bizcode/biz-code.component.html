@@ -1,0 +1,56 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="업무코드 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<div nz-row class="btn-group">
+  <div nz-col [nzSpan]="12">
+      <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+          <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="true">
+      </nz-input-group>
+      <ng-template #addOnBeforeTemplate>
+          <nz-select [(ngModel)]="queryKey">
+              <nz-option [nzLabel]="'권한'" [nzValue]="'authority'"></nz-option>
+              <nz-option [nzLabel]="'설명'" [nzValue]="'description'"></nz-option>
+          </nz-select>
+          </ng-template>
+      <ng-template #suffixIconSearch>
+          <i nz-icon nzType="search"></i>
+      </ng-template>
+  </div>
+
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+      <button nz-button (click)="true">
+          <i nz-icon nzType="search" nzTheme="outline"></i>
+          조회
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button nz-button (click)="openDrawer()">
+          <i nz-icon nzType="form" nzTheme="outline"></i>
+          신규
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+      <button nz-button nzDanger
+          nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+          (nzOnConfirm)="true" (nzOnCancel)="false">
+          <i nz-icon nzType="delete" nzTheme="outline"></i>
+          삭제
+      </button>
+  </div>
+</div>
+
+<h3 class="pgm-title">업무코드</h3>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="720"
+    [nzVisible]="formDrawerVisible"
+    nzTitle="업무 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-biz-type-form *nzDrawerContent
+        id="bizForm"
+        #bizForm
+        (formSaved)="true"
+        (formDeleted)="true"
+        (formClosed)="true">
+    </app-biz-type-form>
+</nz-drawer>

@@ -1,0 +1,123 @@
+{{fg.value | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="code" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          인사유형코드
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <input nz-input id="code" formControlName="code" placeholder="인사유형코드를 입력해주세요.">
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              필수 입력 값입니다.
+            </ng-container>
+            <ng-container *ngIf="control.hasError('exists')">
+              기존 코드가 존재합니다.
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+    <div nz-col nzSpan="12">
+      <!--인사유형코드명(한글) 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="codeName" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          인사유형코드명
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <input nz-input id="codeName" formControlName="codeName" placeholder="인사유형코드명을 입력해주세요.">
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              필수 입력 값입니다.
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <!--사용여부 필드-->
+      <nz-form-item>
+        <nz-form-label nzFor="useYn" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          사용여부
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <label id="useYn" nz-checkbox formControlName="useYn"></label>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <!--인사유형 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="hrmType" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          발령시사용구분
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-select formControlName="appointmentType"  nzShowSearch nzPlaceHolder="인사유형을 선택해주세요.">
+            <nz-option *ngFor="let option of appointmentTypeList"
+                [nzLabel]="option.codeName"
+                [nzValue]="option.code">
+            </nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <!--출력순번 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="sequence" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          출력 순번
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-input-number id="sequence" formControlName="sequence" [nzMin]="0" [nzMax]="9999" [nzStep]="1"></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!--설명 필드-->
+  <nz-form-item>
+    <nz-form-label nzFor="comment" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+      설명
+    </nz-form-label>
+    <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+      <textarea nz-input id="comment" formControlName="comment" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+    </nz-form-control>
+  </nz-form-item>
+
+</form>
+
+<div class="footer">
+  <button nz-button (click)="getHrmType(fg.get('code')?.value)">
+    <i nz-icon nzType="search" nzTheme="outline"></i>
+    조회
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button (click)="closeForm()">
+    <i nz-icon nzType="form" nzTheme="outline"></i>
+    닫기
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="primary"
+    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+    (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    저장
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzDanger
+    nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+    (nzOnConfirm)="deleteHrmType()" (nzOnCancel)="false">
+    <i nz-icon nzType="delete" nzTheme="outline"></i>
+    삭제
+  </button>
+
+</div>
+

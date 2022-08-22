@@ -1,0 +1,63 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="급여 항목 코드 관리" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<div nz-row class="btn-group">
+  <div nz-col [nzSpan]="12">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getPayItemList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+        <nz-select [(ngModel)]="queryKey">
+          <nz-option *ngFor="let option of optionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+        </nz-select>
+      </ng-template>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button
+      (click)="getPayItemList()">
+      <i nz-icon nzType="search"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button
+      (click)="initForm()">
+      <i nz-icon nzType="form" nzTheme="outline"></i>
+      신규
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+      (nzOnConfirm)="deletePayItem()"
+      (nzOnCancel)="false">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+      삭제
+    </button>
+  </div>
+</div>
+
+<h3 class="pgm-title">급여항목 목록</h3>
+
+<div class="grid-wrapper">
+  <app-pay-item-grid #grid
+    (rowSelected)="selectedItem($event)"
+    (editButtonClicked)="editDrawerOpen($event)"
+    (rowDoubleClicked)="editDrawerOpen($event)">
+  </app-pay-item-grid>
+</div>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="720"
+    [nzVisible]="drawerVisible"
+    nzTitle="근무코드 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-pay-item-form
+        id="formDutyCode"
+        #form
+        (formSaved)="getPayItemList()"
+        (formDeleted)="getPayItemList()"
+        (formClosed)="closeDrawer()">
+    </app-pay-item-form>
+</nz-drawer>

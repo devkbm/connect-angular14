@@ -1,0 +1,135 @@
+{{fg.value | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--근태신청ID 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="dutyId" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          근태신청ID
+        </nz-form-label>
+        <nz-form-control nzHasFeedback [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <input nz-input id="dutyId" formControlName="dutyId">
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              필수 입력 값입니다.
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!--사번 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          사번
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-select formControlName="employeeId" nzShowSearch
+               [nzDisabled]="this.formType == 'MODIFY'"
+              nzPlaceHolder="Please select">
+            <nz-option *ngFor="let option of employeeList"
+                [nzLabel]="option.name + '[' + option.id + ']'"
+                [nzValue]="option.id">
+            </nz-option>
+          </nz-select>
+          <app-employee-select formControlName="employeeId"
+            [disabled]="this.formType == 'MODIFY'"
+            [placeholder]="'Please select'">
+          </app-employee-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--근태코드 필드-->
+      <nz-form-item>
+        <nz-form-label nzFor="dutyCode" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+            근태코드
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-select formControlName="dutyCode"  nzMode="default" nzPlaceHolder="Please select">
+            <nz-option *ngFor="let option of dutyCodeList" [nzLabel]="option.dutyName" [nzValue]="option.dutyCode"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!-- 근태사유 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="dutyReason" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          근태사유
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
+          <input nz-input id="dutyReason" formControlName="dutyReason" placeholder="근태사유를 입력해주세요.">
+          <ng-template #errorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">
+              필수 입력 값입니다.
+            </ng-container>
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--근태 시작일 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="dutyStartDateTime" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          근태 시작일
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-date-picker id="dutyStartDateTime" formControlName="dutyStartDateTime" nzFormat="yyyy-MM-dd"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <!--근태 종료일 필드-->
+      <nz-form-item class="form-item">
+        <nz-form-label nzFor="dutyEndDateTime" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
+          근태 종료일
+        </nz-form-label>
+        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
+          <nz-date-picker id="dutyEndDateTime" formControlName="dutyEndDateTime" nzFormat="yyyy-MM-dd"></nz-date-picker>
+        </nz-form-control>
+      </nz-form-item>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <button nz-button (click)="getForm(fg.get('dutyId')?.value)">
+    <i nz-icon nzType="search" nzTheme="outline"></i>
+    조회
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button (click)="closeForm()">
+    <i nz-icon nzType="form" nzTheme="outline"></i>
+    닫기
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="primary"
+    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+    (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
+    <i nz-icon nzType="save" nzTheme="outline"></i>
+    저장
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzDanger
+    nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+    (nzOnConfirm)= "deleteForm(fg.get('dutyId')?.value)"(nzOnCancel)="false">
+    <i nz-icon nzType="delete" nzTheme="outline"></i>
+    삭제
+  </button>
+</div>
+

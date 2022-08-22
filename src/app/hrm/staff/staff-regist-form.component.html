@@ -1,0 +1,171 @@
+<!--{{fg.getRawValue() | json}}-->
+<!--{{formModel | json}}-->
+<!--{{fileList | json}}-->
+<div class='container'>
+  <form nz-form [formGroup]="fg">
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="6">
+        <div class="img">
+          <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='96' [nzSrc]="imageUrl"></nz-avatar>
+        </div>
+      </div>
+      <div nz-col>
+          <nz-upload
+                  nzAction="http://localhost:8090/hrm/staff/changeimage"
+                  nzWithCredentials="true"
+                  (nzChange)="handleChange($event)"
+                  [nzShowUploadList]="false"
+                  [nzData]="imageUploadParam">
+              <button nz-button nzType="default" nzShape="round"><i nz-icon nzType="upload"></i></button>
+          </nz-upload>
+          <button nz-button nzType="default" nzShape="round" (click)="downloadImage($event)"><i nz-icon nzType="download"></i></button>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <!--아이디 필드-->
+        <nz-form-item>
+            <nz-form-label nzFor="staffId" nzRequired [nzXs]="8" [nzSm]="8">
+                아이디
+            </nz-form-label>
+            <nz-form-control nzHasFeedback [nzXs]="16" [nzSm]="16">
+                <input nz-input id="staffId" formControlName="staffId" placeholder="아이디를 입력해주세요.">
+            </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <!--이름 필드-->
+        <nz-form-item>
+          <nz-form-label nzFor="name" nzRequired [nzXs]="8" [nzSm]="8">
+            이름
+          </nz-form-label>
+          <nz-form-control [nzXs]="16" [nzSm]="16" nzHasFeedback>
+            <input id="name" nz-input formControlName="name" style="IME-MODE: disabled">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12">
+        <!--이름(영문) 필드-->
+        <nz-form-item>
+          <nz-form-label nzFor="nameEng" [nzXs]="8" [nzSm]="8">
+            이름(영문)
+          </nz-form-label>
+
+          <nz-form-control [nzXs]="16" [nzSm]="16" nzHasFeedback>
+            <input id="nameEng" nz-input formControlName="nameEng" style="IME-MODE: inactive">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <!--이름(한문) 필드-->
+        <nz-form-item>
+          <nz-form-label nzFor="nameChi" [nzXs]="8" [nzSm]="8">
+            이름(한문)
+          </nz-form-label>
+
+          <nz-form-control [nzXs]="16" [nzSm]="16" nzHasFeedback>
+            <input id="nameChi" nz-input formControlName="nameChi" style="IME-MODE: inactive">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <!--성별 필드-->
+        <nz-form-item>
+          <nz-form-label nzFor="gender" [nzXs]="4" [nzSm]="4">
+            성별
+          </nz-form-label>
+          <nz-radio-group id="gender" formControlName="gender">
+            <label nz-radio nzValue="M">Male</label>
+            <label nz-radio nzValue="F">Female</label>
+          </nz-radio-group>
+        </nz-form-item>
+      </div>
+    </div>
+
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="12" >
+        <!--주민등록번호 필드-->
+        <nz-form-item>
+          <nz-form-label nzFor="residentRegistrationNumber" nzRequired [nzXs]="8" [nzSm]="8">
+            주민번호
+          </nz-form-label>
+          <nz-form-control [nzXs]="16" [nzSm]="16" nzHasFeedback>
+            <input style="ime-mode: inactive" id="residentRegistrationNumber" nz-input formControlName="residentRegistrationNumber">
+          </nz-form-control>
+        </nz-form-item>
+      </div>
+
+      <div nz-col nzSpan="12">
+        <!--생년월일 필드-->
+        <nz-form-item class="form-item">
+          <nz-form-label nzFor="birthday" [nzXs]="8" [nzSm]="8">생년월일</nz-form-label>
+            <nz-form-control [nzXs]="16" [nzSm]="16">
+              <nz-date-picker id="birthday" formControlName="birthday" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
+            </nz-form-control>
+          </nz-form-item>
+      </div>
+    </div>
+
+  </form>
+
+  <nz-tabset style="height: 500px;">
+      <nz-tab nzTitle="부서변경이력" style="height: 500px;">
+          <!--<app-dept-change-history-grid [gridList]="formModel?.deptHistory"></app-dept-change-history-grid>-->
+      </nz-tab>
+      <nz-tab nzTitle="인사변경이력" style="height: 500px;">
+          <ng-template nz-tab>
+          <!--<app-job-change-history-grid [gridList]="formModel?.jobHistory"></app-job-change-history-grid>-->
+          </ng-template>
+      </nz-tab>
+      <nz-tab nzTitle="근무상태변경이력" style="height: 500px;">
+          <ng-template nz-tab>
+          <!--<app-status-change-history-grid [gridList]="formModel?.statusHistory"></app-status-change-history-grid>-->
+          </ng-template>
+      </nz-tab>
+  </nz-tabset>
+  </div>
+
+  <div class="footer">
+    <button nz-button (click)="getForm(fg.get('staffId')?.value)">
+      <i nz-icon nzType="search" nzTheme="outline"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="closeForm()">
+      <i nz-icon nzType="close" nzTheme="outline"></i>
+      닫기
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary"
+      nz-popconfirm nzPopconfirmTitle="신규 직원을 등록하시겠습니까?"
+      (nzOnConfirm)="newEmployee()" (nzOnCancel)="false">
+      <i nz-icon nzType="save" nzTheme="outline"></i>
+      신규직원등록
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary"
+      nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+      (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
+      <i nz-icon nzType="save" nzTheme="outline"></i>
+      저장
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger
+      nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+      (nzOnConfirm)="deleteForm(this.fg.get('id')?.value)" (nzOnCancel)="false">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+      삭제
+    </button>
+  </div>
+
+  <app-staff-appointment-record-form>
+  </app-staff-appointment-record-form>

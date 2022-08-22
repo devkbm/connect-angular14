@@ -1,0 +1,77 @@
+{{fg.value | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+        필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+        기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text #resourceCode
+        [parentFormGroup]="fg" formControlName="resourceCode" [fieldName]="'resourceCode'"
+        [itemId]="'resourceCode'"
+        placeholder="리소스코드를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">리소스코드
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="resourceName" [fieldName]="'resourceName'"
+        [itemId]="'resourceName'"
+        [required]="true" [nzErrorTip]="errorTpl">리소스명
+      </app-nz-input-text>
+    </div>
+  </div>
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="resourceType" [fieldName]="'resourceType'"
+        [itemId]="'resourceType'"
+        [options]="resourceTypeList" [opt_value]="'value'" [opt_label]="'label'"
+        [placeholder]="'리소스타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">리소스타입
+      </app-nz-select-custom>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="url" [fieldName]="'url'"
+        [itemId]="'url'"
+        [required]="true"
+        placeholder="URL 정보를 입력해주세요."
+        [nzErrorTip]="errorTpl">URL 정보
+      </app-nz-input-text>
+
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
+        [itemId]="'description'"
+        placeholder="설명를 입력해주세요."
+        [rows]="20">설명
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <app-nz-crud-button-group
+    [isSavePopupConfirm]="false"
+    (closeClick)="closeForm()"
+    (saveClick)="saveForm()"
+    (deleteClick)="deleteForm(this.fg.get('resourceCode')?.value)">
+  </app-nz-crud-button-group>
+</div>

@@ -1,0 +1,65 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="권한 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<app-nz-search-area>
+  <div nz-col [nzSpan]="12">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+        <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getAuthorityList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+        <nz-select [(ngModel)]="queryKey">
+          <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+        </nz-select>
+        </ng-template>
+    <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button (click)="getAuthorityList()">
+      <i nz-icon nzType="search" nzTheme="outline"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="initForm()">
+      <i nz-icon nzType="form" nzTheme="outline"></i>
+      신규
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger
+        nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+        (nzOnConfirm)="deleteAuthority()" (nzOnCancel)="false">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+      삭제
+    </button>
+  </div>
+</app-nz-search-area>
+
+<h3 class="pgm-title">권한 목록</h3>
+
+<div class="grid-wrapper">
+  <app-authority-grid
+    id="authGrid"
+    #authGrid
+    (rowSelected)="selectedItem($event)"
+    (editButtonClicked)="editDrawOpen($event)"
+    (rowDoubleClicked)="editDrawOpen($event)">
+  </app-authority-grid>
+</div>
+
+<nz-drawer
+  #drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px'}"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="drawerVisible"
+  nzTitle="권한 등록"
+  (nzOnClose)="closeDrawer()">
+    <app-authority-form #form *nzDrawerContent
+      [initLoadId]="this.selectedId"
+      (formSaved)="getAuthorityList()"
+      (formDeleted)="getAuthorityList()"
+      (formClosed)="closeDrawer()">
+    </app-authority-form>
+</nz-drawer>
+

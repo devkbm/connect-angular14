@@ -1,0 +1,98 @@
+
+{{this.fg.value | json }}
+<!--
+{{this.fg.errors| json }}
+-->
+
+<form [formGroup]="fg">
+
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <app-nz-input-text
+    itemId="data1"
+    fieldName="input_text"
+    formControlName="input_text"
+    [required]="true"
+    [parentFormGroup]="this.fg"
+    [nzErrorTip]="errorTpl">label1
+  </app-nz-input-text>
+
+  <app-nz-input-textarea
+    [itemId]="'data2'"
+    [required]="true"
+    [parentFormGroup]="this.fg"
+    [fieldName]="'input_textarea'"
+    formControlName="input_textarea"
+    [nzErrorTip]="errorTpl">label2
+  </app-nz-input-textarea>
+
+  <app-nz-input-date
+    [itemId]="'data3'"
+    [required]="true"
+    [parentFormGroup]="this.fg"
+    [fieldName]="'input_date'"
+    formControlName="input_date"
+    [nzErrorTip]="errorTpl">label3
+  </app-nz-input-date>
+
+  <app-nz-input-number-custom
+    [itemId]="'data4'"
+    [required]="true"
+    [parentFormGroup]="this.fg"
+    [fieldName]="'input_number'"
+    formControlName="input_number"
+    [nzErrorTip]="errorTpl">label4
+  </app-nz-input-number-custom>
+
+  <app-nz-input-select
+    [itemId]="'data5'"
+    [required]="true"
+    [parentFormGroup]="fg"
+    [fieldName]="'input_select'"
+    formControlName="input_select"
+    [options]="selectList" [opt_value]="'value'" [opt_label]="'label'"
+    [placeholder]="'Please select'"
+    [nzErrorTip]="errorTpl">label5
+  </app-nz-input-select>
+
+  <app-nz-input-tree-select
+    [itemId]="'data6'"
+    [required]="true"
+    [parentFormGroup]="fg"
+    [fieldName]="'input_treeselect'"
+    formControlName="input_treeselect"
+    [nodes]="treeList"
+    [placeholder]="'please select'">label6
+  </app-nz-input-tree-select>
+
+  <app-nz-input-checkbox
+    [required]="true"
+    [parentFormGroup]="fg"
+    [fieldName]="'input_text'"
+    formControlName="input_text"
+    checkboxText="asdfdsf">asfsaf
+  </app-nz-input-checkbox>
+
+  <app-nz-input-ckeditor
+    [parentFormGroup]="fg"
+    formControlName="input_text"
+    rows="10">
+    Editor
+  </app-nz-input-ckeditor>
+
+</form>
+
+
+
+<!--
+<app-daypilot-calendar>
+
+</app-daypilot-calendar>
+-->

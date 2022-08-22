@@ -1,0 +1,102 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="발령코드 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<div nz-row class="btn-group">
+
+    <div nz-col [nzSpan]="8">
+      <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+        <input type="text" [(ngModel)]="ledgerQueryValue" nz-input placeholder="input search text" (keyup.enter)="gridCodeRefresh()">
+      </nz-input-group>
+      <ng-template #addOnBeforeTemplate>
+          <nz-select [(ngModel)]="ledgerQueryKey">
+            <nz-option [nzLabel]="'발령번호'" [nzValue]="'ledgerId'"></nz-option>
+            <nz-option [nzLabel]="'메뉴그룹명'" [nzValue]="'menuGroupName'"></nz-option>          
+          </nz-select>
+        </ng-template>
+      <ng-template #suffixIconSearch>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
+  
+    <div nz-col [nzSpan]="8">
+      <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate2" [nzSuffix]="suffixIconSearch2">
+        <input type="text" [(ngModel)]="ledgerListQueryValue" nz-input placeholder="input search text" (keyup.enter)="gridCodeRowSelected($event)">
+      </nz-input-group>
+      <ng-template #addOnBeforeTemplate2>
+          <nz-select [(ngModel)]="ledgerListQueryKey">
+            <nz-option [nzLabel]="'직원번호'" [nzValue]="'empId'"></nz-option>
+            <nz-option [nzLabel]="'메뉴명'" [nzValue]="'menuName'"></nz-option>          
+          </nz-select>
+        </ng-template>
+      <ng-template #suffixIconSearch2>
+        <i nz-icon nzType="search"></i>
+      </ng-template>
+    </div>
+  
+    <div nz-col [nzSpan]="8" style="text-align: right;">
+      <button nz-button (click)="newCodeForm()">
+        <i nz-icon nzType="search"></i>
+        발령코드등록
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+  
+      <button nz-button (click)="newCodeDetailForm()">
+        <i nz-icon nzType="form"></i>
+        발령코드상세등록
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+  
+      <button nz-button (click)="gridCodeRefresh()">
+        <i nz-icon nzType="form"></i>
+        조회
+      </button>
+      <nz-divider nzType="vertical"></nz-divider>
+    </div>
+  </div>
+
+
+<div class="content">
+    <h3 class="pgm-title">발령코드 목록</h3>  
+    <app-appointment-code-grid #gridCode
+        (rowSelected)="gridCodeRowSelected($event)"
+        (editButtonClicked)="openDrawerCode($event)"
+        (rowDoubleClicked)="openDrawerCode($event)">    
+    </app-appointment-code-grid>
+
+    <h3 class="pgm-title">발령코드상세 목록</h3>  
+    <app-appointment-code-detail-grid #gridDetail
+        (editButtonClicked)="openDrawerCodeDetail($event)"
+        (rowDoubleClicked)="openDrawerCodeDetail($event)">         
+    </app-appointment-code-detail-grid>
+</div>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerVisibleCode"
+    nzTitle="발령코드 등록"
+    (nzOnClose)="closeDrawerCode()">
+    <app-appointment-code-form #formCode
+        (formSaved)="gridCodeRefresh()"
+        (formDeleted)="gridCodeRefresh()"
+        (formClosed)="closeDrawerCode()">
+
+    </app-appointment-code-form>    
+</nz-drawer>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerVisibleCodeDetail"
+    nzTitle="발령상세코드 등록"
+    (nzOnClose)="closeDrawerCodeDetail()">
+    
+    <app-appointment-code-detail-form #formCodeDetail
+        (formSaved)="gridCodeDetailRefresh()"
+        (formDeleted)="gridCodeDetailRefresh()"
+        (formClosed)="closeDrawerCodeDetail()">
+        
+    </app-appointment-code-detail-form>    
+</nz-drawer>

@@ -1,0 +1,20 @@
+<div class="grid-wrapper">
+    <div class="left-side">
+        <app-employee-card [employee]="employee">
+
+        </app-employee-card>
+        <input nz-input [(ngModel)]="searchValue" (keyup.enter)="getEmployeeGrid($event)">
+        <app-employee-grid
+            #gridEmployee
+            style="height: fit-content;"
+            (rowSelected)="getEmployeeForm($event)">
+        </app-employee-grid>
+    </div>
+
+    <app-employee-form
+        #formEmployee
+        class="main-content">
+    </app-employee-form>
+
+</div>
+

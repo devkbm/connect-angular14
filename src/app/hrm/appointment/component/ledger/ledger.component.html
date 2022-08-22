@@ -1,0 +1,104 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="발령 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<div nz-row class="btn-group">
+
+        <div nz-col [nzSpan]="8">
+          <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+            <input type="text" [(ngModel)]="ledgerQueryValue" nz-input placeholder="input search text" (keyup.enter)="refreshGridLedger()">
+          </nz-input-group>
+          <ng-template #addOnBeforeTemplate>
+              <nz-select [(ngModel)]="ledgerQueryKey">
+                <nz-option [nzLabel]="'발령번호'" [nzValue]="'ledgerId'"></nz-option>
+                <nz-option [nzLabel]="'메뉴그룹명'" [nzValue]="'menuGroupName'"></nz-option>          
+              </nz-select>
+            </ng-template>
+          <ng-template #suffixIconSearch>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </div>
+      
+        <div nz-col [nzSpan]="8">
+          <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate2" [nzSuffix]="suffixIconSearch2">
+            <input type="text" [(ngModel)]="ledgerListQueryValue" nz-input placeholder="input search text" (keyup.enter)="refreshGridLedgerList()">
+          </nz-input-group>
+          <ng-template #addOnBeforeTemplate2>
+              <nz-select [(ngModel)]="ledgerListQueryKey">
+                <nz-option [nzLabel]="'직원번호'" [nzValue]="'empId'"></nz-option>
+                <nz-option [nzLabel]="'메뉴명'" [nzValue]="'menuName'"></nz-option>          
+              </nz-select>
+            </ng-template>
+          <ng-template #suffixIconSearch2>
+            <i nz-icon nzType="search"></i>
+          </ng-template>
+        </div>
+      
+        <div nz-col [nzSpan]="8" style="text-align: right;">
+          <button nz-button (click)="newLedgerForm()">
+            <i nz-icon nzType="search"></i>
+            발령대장등록
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+      
+          <button nz-button (click)="newLedgerList()">
+            <i nz-icon nzType="form"></i>
+            발령명단등록
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+      
+          <button nz-button (click)="refreshGridLedger()">
+            <i nz-icon nzType="form"></i>
+            조회
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+        </div>
+      </div>
+
+<div class="content">
+    <h3 class="pgm-title">발령 대장 목록</h3>  
+    <app-ledger-grid #gridLedger
+        (editButtonClicked)="openDrawerLedger($event)"
+        (rowDoubleClicked)="openDrawerLedger($event)"
+        (rowSelected)="selectLedgerRow($event)">
+
+    </app-ledger-grid>
+
+    <h3 class="pgm-title">발령 명단</h3>
+    <app-ledger-list-grid #gridLedgerList
+        [ledgerId]="selectedLedgerId"
+        (editButtonClicked)="openDrawerLedgerList($event)"
+        (rowDoubleClicked)="openDrawerLedgerList($event)">
+    </app-ledger-list-grid>
+</div>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerVisibleLedger"
+    nzTitle="발령대장 등록"
+    (nzOnClose)="closeDrawerLedger()">
+    <app-ledger-form #formLedger
+        (formSaved)="refreshGridLedger()"
+        (formDeleted)="refreshGridLedger()"
+        (formClosed)="closeDrawerLedger()">
+  
+    </app-ledger-form>    
+</nz-drawer>
+
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="800"
+    [nzVisible]="drawerVisibleLedgerList"
+    nzTitle="발령대장 등록"
+    (nzOnClose)="closeDrawerLedgerList()">
+
+    <app-ledger-list-form #formLedgerList
+        (formSaved)="refreshGridLedgerList()"
+        (formDeleted)="refreshGridLedgerList()"
+        (formClosed)="closeDrawerLedgerList()">
+    
+    </app-ledger-list-form>
+</nz-drawer>

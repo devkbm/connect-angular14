@@ -1,0 +1,68 @@
+<nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="공휴일 등록" nzSubtitle="This is a subtitle"> </nz-page-header>
+
+<div nz-row class="btn-group">
+  <div nz-col [nzSpan]="12">
+    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getHolidayList()">
+    </nz-input-group>
+    <ng-template #addOnBeforeTemplate>
+        <nz-select [(ngModel)]="queryKey">
+          <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+        </nz-select>
+      </ng-template>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+  <div nz-col [nzSpan]="12" style="text-align: right;">
+    <button nz-button (click)="getHolidayList()">
+      <i nz-icon nzType="search"></i>
+      조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="initForm()">
+      <i nz-icon nzType="form" nzTheme="outline"></i>
+      신규
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzDanger="true"
+      nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+      (nzOnConfirm)="deleteEntity()" (nzOnCancel)="false">
+      <i nz-icon nzType="delete" nzTheme="outline"></i>
+      삭제
+    </button>
+  </div>
+</div>
+
+<h3 class="pgm-title">공휴일 목록</h3>
+
+<div class="grid-wrapper">
+    <app-holiday-grid
+        #holidayGrid
+        (rowSelected)="selectedItem($event)"
+        (editButtonClicked)="editDrawerOpen($event)"
+        (rowDoubleClicked)="editDrawerOpen($event)">
+    </app-holiday-grid>
+</div>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    [nzWidth]="720"
+    [nzVisible]="drawerVisible"
+    nzTitle="휴일 등록"
+    (nzOnClose)="closeDrawer()">
+    <app-holiday-form *nzDrawerContent
+      id="holidayForm" #holidayForm
+      (formSaved)="getHolidayList()"
+      (formDeleted)="getHolidayList()"
+      (formClosed)="closeDrawer()">
+    </app-holiday-form>
+</nz-drawer>
+
+<!-- 삭제용도 Form 사용 -->
+<app-holiday-form
+  style="display:none"
+  #deleteForm
+  (formDeleted)="getHolidayList()">
+</app-holiday-form>
