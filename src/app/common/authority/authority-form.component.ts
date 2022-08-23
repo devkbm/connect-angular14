@@ -25,13 +25,15 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     super();
 
     this.fg = this.fb.group({
-      id: new FormControl(null, {
-                                  validators: Validators.required,
-                                  asyncValidators: [existingAuthorityValidator(this.service)],
-                                  updateOn: 'blur'
-                                }),
-      authorityCode : [ null ],
-      description   : [ null ]
+      id: new FormControl<string | null>(null, {
+        validators: Validators.required,
+        asyncValidators: [existingAuthorityValidator(this.service)],
+        updateOn: 'blur'
+      }),
+      authorityCode : new FormControl<string | null>('', {
+        validators: [Validators.required]
+      }),
+      description   : new FormControl<string | null>(null)
     });
   }
 

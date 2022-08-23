@@ -80,8 +80,8 @@ export class BizTypeGridComponent extends AggridFunction implements OnInit {
       { headerName: '설명',          field: 'cmt',                   width: 300 }
     ];
 
-    this.getRowId = (data: any) => {
-        return data.id;
+    this.getRowId = (args: any) => {
+        return args.data.id;
     };
   }
 

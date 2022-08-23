@@ -39,18 +39,18 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     super();
 
     this.fg = this.fb.group({
-      menuGroupId       : [ null, [ Validators.required ] ],
-      menuId            : new FormControl(null, {
-                                                  validators: Validators.required,
-                                                  asyncValidators: [existingMenuValidator(this.menuService)],
-                                                  updateOn: 'blur'
-                                                }),
-      menuCode          : [ null, [ Validators.required ] ],
-      menuName          : [ null, [ Validators.required ] ],
-      menuType          : [ null, [ Validators.required ] ],
-      parentMenuId      : [ null ],
-      sequence          : [ null ],
-      appUrl            : [ null, [ Validators.required ] ]
+      menuGroupId       : new FormControl<string | null>(null, { validators: Validators.required }),
+      menuId            : new FormControl<string | null>(null, {
+        validators: Validators.required,
+        asyncValidators: [existingMenuValidator(this.menuService)],
+        updateOn: 'blur'
+      }),
+      menuCode          : new FormControl<string | null>(null, { validators: Validators.required }),
+      menuName          : new FormControl<string | null>(null, { validators: Validators.required }),
+      menuType          : new FormControl<string | null>(null, { validators: Validators.required }),
+      parentMenuId      : new FormControl<string | null>(null),
+      sequence          : new FormControl<number | null>(null),
+      appUrl            : new FormControl<string | null>(null, { validators: Validators.required })
     });
 
     this.fg.get('menuCode')?.valueChanges.subscribe(x => {

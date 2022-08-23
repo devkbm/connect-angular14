@@ -15,18 +15,16 @@
     <div nz-col nzSpan="8">
       <!--메뉴그룹ID 필드-->
       <app-nz-input-text #menuGroupId
-        [parentFormGroup]="fg" formControlName="menuGroupId" [fieldName]="'menuGroupId'"
-        [itemId]="'menuGroupId'" [disabled]="true"
+        [parentFormGroup]="fg" formControlName="menuGroupId" fieldName="menuGroupId" itemId="menuGroupId"
         placeholder="메뉴그룹ID를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
+        [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="8">
       <!--메뉴그룹코드 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="menuGroupCode" [fieldName]="'menuGroupCode'"
-        [itemId]="'menuGroupCode'"
+        [parentFormGroup]="fg" formControlName="menuGroupCode" fieldName="menuGroupCode" itemId="menuGroupCode"
         placeholder="메뉴그룹코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹코드
       </app-nz-input-text>
@@ -35,8 +33,7 @@
     <div nz-col nzSpan="8">
       <!--메뉴그룹명 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="menuGroupName" [fieldName]="'menuGroupName'"
-        [itemId]="'menuGroupName'"
+        [parentFormGroup]="fg" formControlName="menuGroupName" fieldName="menuGroupName" itemId="menuGroupName"
         placeholder="메뉴그룹명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹명
       </app-nz-input-text>
@@ -45,10 +42,9 @@
 
   <!--비고 필드-->
   <app-nz-input-textarea
-    [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
-    [itemId]="'description'"
-    [rows]="20"
-    placeholder="비고를 입력해주세요.">비고
+    [parentFormGroup]="fg" formControlName="description" fieldName="description" itemId="description"
+    placeholder="비고를 입력해주세요."
+    [rows]="20">비고
   </app-nz-input-textarea>
 </form>
 

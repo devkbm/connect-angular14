@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
@@ -21,8 +22,6 @@ import { BizDetail } from './biz-detail.model';
 })
 export class BizDetailFormComponent extends FormBase implements OnInit {
 
-   ;
-
   constructor(private fb: FormBuilder,
               private formService: BizDetailService,
               private appAlarmService: AppAlarmService) { super(); }
@@ -33,33 +32,32 @@ export class BizDetailFormComponent extends FormBase implements OnInit {
 
   setupFormGroup(): void {
     this.fg = this.fb.group({
-      typeCode    : [ null, [ Validators.required ] ],
-      detailCode  : [ null, [ Validators.required ] ],
-      codeName    : [ null ],
-      useYn       : [ null ],
-      sequence    : [ null ],
-      comment     : [ null ]
+      typeCode    : new FormControl<string | null>('', {
+        validators: [Validators.required]
+      }),
+      detailCode  : new FormControl<string | null>('', {
+        validators: [Validators.required]
+      }),
+      codeName    : new FormControl<string | null>(null),
+      useYn       : new FormControl<boolean | null>(null),
+      sequence    : new FormControl<number | null>(null),
+      comment     : new FormControl<string | null>(null)
     });
   }
 
   newForm(): void {
     this.formType = FormType.NEW;
-    const typeCode = this.fg.get('typeCode') as AbstractControl;
-    const detailCode = this.fg.get('detailCode') as AbstractControl;
-    const useYn = this.fg.get('useYn') as AbstractControl;
 
-    typeCode.enable();
-    detailCode.enable();
-    useYn.setValue(true);
+    this.fg.get('typeCode')?.enable();
+    this.fg.get('detailCode')?.enable();
+    this.fg.get('useYn')?.setValue(true);
   }
 
   modifyForm(formData: BizDetail): void {
     this.formType = FormType.MODIFY;
-    const typeCode = this.fg.get('typeCode') as AbstractControl;
-    const detailCode = this.fg.get('detailCode') as AbstractControl;
 
-    typeCode.disable();
-    detailCode.disable();
+    this.fg.get('typeCode')?.disable();
+    this.fg.get('detailCode')?.disable();
     this.fg.patchValue(formData);
   }
 

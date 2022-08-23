@@ -29,15 +29,15 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     super();
 
     this.fg = this.fb.group({
-      resourceCode  : new FormControl(null, {
-                                              validators: Validators.required,
-                                              asyncValidators: [existingWebResourceValidator(this.service)],
-                                              updateOn: 'blur'
-                                            }),
-      resourceName  : [ null, [ Validators.required ] ],
-      resourceType  : [ null, [ Validators.required ] ],
-      url           : [ null, [ Validators.required ] ],
-      description   : [ null]
+      resourceCode  : new FormControl<string | null>(null, {
+        validators: Validators.required,
+        asyncValidators: [existingWebResourceValidator(this.service)],
+        updateOn: 'blur'
+      }),
+      resourceName  : new FormControl<string | null>('', {validators: [Validators.required]}),
+      resourceType  : new FormControl<string | null>('', {validators: [Validators.required]}),
+      url           : new FormControl<string | null>('', {validators: [Validators.required]}),
+      description   : new FormControl<string | null>(null)
     });
 
     this.getCommonCodeList();

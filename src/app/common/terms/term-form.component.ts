@@ -27,19 +27,19 @@ export class TermFormComponent extends FormBase implements OnInit {
   ngOnInit(): void {
 
     this.fg = this.fb.group({
-      pkTerm            : [ null ],
-      domain            : [ null, [ Validators.required ] ],
-      term              : [ null, [ Validators.required ] ],
-      nameKor           : [ null, [ Validators.required ] ],
-      abbreviationKor   : [ null, [ Validators.required ] ],
-      nameEng           : [ null, [ Validators.required ] ],
-      abbreviationEng   : [ null, [ Validators.required ] ],
-      description       : [ null ],
-      comment           : [ null ]
+      pkTerm            : new FormControl<string | null>(null),
+      domain            : new FormControl<string | null>(null, { validators: Validators.required }),
+      term              : new FormControl<string | null>(null, { validators: Validators.required }),
+      nameKor           : new FormControl<string | null>(null, { validators: Validators.required }),
+      abbreviationKor   : new FormControl<string | null>(null, { validators: Validators.required }),
+      nameEng           : new FormControl<string | null>(null, { validators: Validators.required }),
+      abbreviationEng   : new FormControl<string | null>(null, { validators: Validators.required }),
+      description       : new FormControl<string | null>(null),
+      comment           : new FormControl<string | null>(null)
     });
   }
 
-  public getTerm(): void {
+  getTerm(): void {
     this.termService
       .getTerm(this.fg.get('pkTerm')?.value)
       .subscribe(
@@ -54,8 +54,7 @@ export class TermFormComponent extends FormBase implements OnInit {
       );
   }
 
-  public submitTerm(): void {
-
+  submitTerm(): void {
     this.termService
         .registerTerm(this.fg.getRawValue())
         .subscribe(
@@ -66,7 +65,7 @@ export class TermFormComponent extends FormBase implements OnInit {
         );
   }
 
-  public deleteTerm(): void {
+  deleteTerm(): void {
     this.termService
       .deleteTerm(this.fg.get('pkTerm')?.value)
       .subscribe(
@@ -77,7 +76,7 @@ export class TermFormComponent extends FormBase implements OnInit {
       );
   }
 
-  public closeForm(): void {
+  closeForm(): void {
     this.formClosed.emit(this.fg.getRawValue());
   }
 

@@ -63,22 +63,23 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
               private appAlarmService: AppAlarmService) {
     super();
 
+
     this.fg = this.fb.group({
-      userId: new FormControl(null, {
+      userId: new FormControl<string | null>(null, {
         validators: Validators.required,
         asyncValidators: [existingUserValidator(this.userService)],
         updateOn: 'blur'
       }),
-      organizationCode: new FormControl({ value: null, disabled: true }, { validators: Validators.required }),
-      staffNo: [null],
-      name: new FormControl({ value: null, disabled: false }, { validators: Validators.required }),
-      enabled: [true],
-      deptCode: [null],
-      mobileNum: [null],
-      email: new FormControl({ value: null, disabled: false }, { validators: Validators.email }),
-      imageBase64: [null],
-      authorityList: new FormControl({ value: null, disabled: false }, { validators: Validators.required }),
-      menuGroupList: [null]
+      organizationCode: new FormControl<string | null>({ value: null, disabled: true }, { validators: Validators.required }),
+      staffNo: new FormControl<string | null>(null),
+      name: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
+      enabled: new FormControl<boolean>(true),
+      deptCode: new FormControl<string | null>(null),
+      mobileNum: new FormControl<string | null>(null),
+      email: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.email }),
+      imageBase64: new FormControl<string | null>(null),
+      authorityList: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
+      menuGroupList: new FormControl<string | null>(null)
     });
 
   }

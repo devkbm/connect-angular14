@@ -29,15 +29,17 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
               private appAlarmService: AppAlarmService) {
     super();
 
+
+
     this.fg = this.fb.group({
-      menuGroupId     : new FormControl(null, {
-                                                validators: Validators.required,
-                                                asyncValidators: [existingMenuGroupValidator(this.menuService)],
-                                                updateOn: 'blur'
-                                              }),
-      menuGroupCode   : [ null, [ Validators.required ] ],
-      menuGroupName   : [ null, [ Validators.required ] ],
-      description     : [ null]
+      menuGroupId     : new FormControl<string | null>(null, {
+        validators: Validators.required,
+        asyncValidators: [existingMenuGroupValidator(this.menuService)],
+        updateOn: 'blur'
+      }),
+      menuGroupCode   : new FormControl<string | null>(null, { validators: Validators.required }),
+      menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
+      description     : new FormControl<string | null>(null)
     });
 
     this.fg.get('menuGroupCode')?.valueChanges.subscribe(x => {

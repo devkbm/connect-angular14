@@ -12,8 +12,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="id" [fieldName]="'id'"
-        [itemId]="'id'"
+        [parentFormGroup]="fg" formControlName="id" fieldName="id" itemId="id"
         placeholder="업무구분코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">업무구분코드
       </app-nz-input-text>
@@ -22,8 +21,7 @@
     <div nz-col nzSpan="12">
       <!--코드명 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="name" [fieldName]="'name'"
-        [itemId]="'name'"
+        [parentFormGroup]="fg" formControlName="name" fieldName="name" itemId="name"
         [required]="true" [nzErrorTip]="errorTpl">코드명
       </app-nz-input-text>
     </div>
@@ -34,27 +32,22 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--사용여부 필드-->
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="useYn" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-          사용여부
-        </nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <label id="useYn" nz-checkbox formControlName="useYn"></label>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-checkbox
+        [parentFormGroup]="fg" formControlName="useYn" fieldName="useYn"
+        checkboxText="사용여부"
+        [required]="true">사용여부
+      </app-nz-input-checkbox>
     </div>
 
     <div nz-col nzSpan="12">
       <!--순번 필드-->
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="sequence" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-          순번
-        </nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <input nz-input id="sequence" formControlName="sequence">
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-number-custom
+        [parentFormGroup]="this.fg" formControlName="sequence" fieldName="sequence" itemId="sequence"
+        [required]="true"
+        [nzErrorTip]="errorTpl">순번
+      </app-nz-input-number-custom>
     </div>
+
   </div>
 
   <!-- 3 row -->
@@ -73,15 +66,14 @@
 
     <div nz-col nzSpan="12">
       <!--비고 필드-->
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="comment" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-          비고
-        </nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" >
-          <input nz-input id="comment" formControlName="comment">
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="comment" fieldName="comment" itemId="comment"
+        placeholder="비고를 입력해주세요."
+        [rows]="20"
+        [required]="false" [nzErrorTip]="errorTpl">비고
+      </app-nz-input-textarea>
     </div>
+
   </div>
 
 </form>

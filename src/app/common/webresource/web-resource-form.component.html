@@ -14,8 +14,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text #resourceCode
-        [parentFormGroup]="fg" formControlName="resourceCode" [fieldName]="'resourceCode'"
-        [itemId]="'resourceCode'"
+        [parentFormGroup]="fg" formControlName="resourceCode" fieldName="resourceCode" itemId="resourceCode"
         placeholder="리소스코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">리소스코드
       </app-nz-input-text>
@@ -23,8 +22,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="resourceName" [fieldName]="'resourceName'"
-        [itemId]="'resourceName'"
+        [parentFormGroup]="fg" formControlName="resourceName" fieldName="resourceName" itemId="resourceName"
         [required]="true" [nzErrorTip]="errorTpl">리소스명
       </app-nz-input-text>
     </div>
@@ -34,20 +32,17 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-select-custom
-        [parentFormGroup]="fg" formControlName="resourceType" [fieldName]="'resourceType'"
-        [itemId]="'resourceType'"
-        [options]="resourceTypeList" [opt_value]="'value'" [opt_label]="'label'"
+        [parentFormGroup]="fg" formControlName="resourceType" fieldName="resourceType" itemId="resourceType"
+        [options]="resourceTypeList"
         [placeholder]="'리소스타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">리소스타입
       </app-nz-select-custom>
     </div>
 
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="url" [fieldName]="'url'"
-        [itemId]="'url'"
-        [required]="true"
+        [parentFormGroup]="fg" formControlName="url" fieldName="url" itemId="url"
         placeholder="URL 정보를 입력해주세요."
-        [nzErrorTip]="errorTpl">URL 정보
+        [required]="true" [nzErrorTip]="errorTpl">URL 정보
       </app-nz-input-text>
 
     </div>
@@ -57,8 +52,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="description" [fieldName]="'description'"
-        [itemId]="'description'"
+        [parentFormGroup]="fg" formControlName="description" fieldName="description" itemId="description"
         placeholder="설명를 입력해주세요."
         [rows]="20">설명
       </app-nz-input-textarea>
