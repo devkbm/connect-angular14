@@ -13,7 +13,7 @@ import { NzSelectModeType } from 'ng-zorro-antd/select';
     <nz-form-control [nzErrorTip]="nzErrorTip">
       <nz-select
           [nzId]="itemId"
-          [ngModel]="value"
+          [(ngModel)]="value"
           [nzDisabled]="disabled"
           [nzPlaceHolder]="placeholder"
           [nzMode]="mode"

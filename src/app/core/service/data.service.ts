@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { GlobalProperty } from 'src/app/global-property';
+import { UnauthorizedError } from '../error/unauthorized-error';
 
 // @Injectable()
 export class DataService {
@@ -78,6 +79,10 @@ export class DataService {
 
       // TODO: 사용자가 이해할 수 있는 형태로 변환하기
       // this.log(`${operation} failed: ${error.message}`);
+
+      if (error instanceof UnauthorizedError) {
+        console.log('로그인 필요함');
+      }
 
       // 애플리케이션 로직이 끊기지 않도록 기본값으로 받은 객체를 반환합니다.
       return of(result as T);

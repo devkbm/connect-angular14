@@ -30,9 +30,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
         asyncValidators: [existingAuthorityValidator(this.service)],
         updateOn: 'blur'
       }),
-      authorityCode : new FormControl<string | null>('', {
-        validators: [Validators.required]
-      }),
+      authorityCode : new FormControl<string | null>('', { validators: [Validators.required] }),
       description   : new FormControl<string | null>(null)
     });
   }

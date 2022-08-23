@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
+  FormControl,
   FormGroup,
   Validators
 } from '@angular/forms';
@@ -33,12 +34,12 @@ export class BizTypeFormComponent extends FormBase implements OnInit {
 
   setupFormGroup(): void {
     this.fg = this.fb.group({
-      id        : [ null, [ Validators.required ] ],
-      name      : [ null, [ Validators.required ] ],
-      useYn     : [ null ],
-      sequence  : [ null ],
-      bizType   : [ null, [ Validators.required ] ],
-      comment   : [ null ]
+      id        : new FormControl<string | null>('', { validators: [Validators.required] }),
+      name      : new FormControl<string | null>('', { validators: [Validators.required] }),
+      useYn     : new FormControl<boolean | null>(null),
+      sequence  : new FormControl<number | null>(null),
+      bizType   : new FormControl<string | null>('', { validators: [Validators.required] }),
+      comment   : new FormControl<string | null>(null)
     });
   }
 

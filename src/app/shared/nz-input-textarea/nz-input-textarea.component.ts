@@ -15,7 +15,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
               [disabled]="disabled"
               [id]="itemId"
               [placeholder]="placeholder"
-              [ngModel]="value"
+              [(ngModel)]="value"
               [nzAutosize]="nzAutoSize"
               [rows]="rows"
               (ngModelChange)="onChange($event)"

@@ -12,7 +12,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
         <label nz-checkbox
           [nzId]="itemId"
           [nzDisabled]="disabled"
-          [ngModel]="value"
+          [(ngModel)]="value"
           (ngModelChange)="onChange($event)"
           (ngModelChange)="valueChange($event)"
           (blur)="onTouched()">{{checkboxText}}

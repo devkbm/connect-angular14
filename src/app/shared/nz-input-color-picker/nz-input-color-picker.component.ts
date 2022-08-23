@@ -14,7 +14,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
       <input #input nz-input
             [cpPresetColors]="preset_colors"
-            [ngModel]="value"
+            [(ngModel)]="value"
             [(colorPicker)]="value"
             [style.background]="value"
             [cpAlphaChannel]="'always'"

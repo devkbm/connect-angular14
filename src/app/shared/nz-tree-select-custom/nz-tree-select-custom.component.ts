@@ -11,7 +11,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
       <nz-form-control [nzErrorTip]="nzErrorTip">
        <nz-tree-select
             [nzId]="itemId"
-            [ngModel]="value"
+            [(ngModel)]="value"
             [nzNodes]="nodes"
             [nzDisabled]="disabled"
             [nzPlaceHolder]="placeholder"

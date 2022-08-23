@@ -17,35 +17,36 @@ export class DeptComponent extends AppBase implements OnInit {
   @ViewChild('deptTree', {static: true})
   tree!: DeptTreeComponent;
 
-  @ViewChild('deptForm', {static: false})
+  @ViewChild('deptForm', {static: true})
   form!: DeptFormComponent;
 
   constructor(location: Location) {
-      super(location);
+    super(location);
   }
 
   ngOnInit(): void {
-      this.getDeptTree();
+    this.getDeptTree();
   }
 
-  public getDeptTree(): void {
-      this.tree.getDeptHierarchy();
+  getDeptTree(): void {
+    this.tree.getDeptHierarchy();
   }
 
-  public initForm(): void {
-      this.form.newForm();
+  initForm(): void {
+    this.form.newForm();
   }
 
-  public saveDept(): void {
-      this.form.submitDept();
+  saveDept(): void {
+  console.log(this.form);
+  this.form.submitDept();
   }
 
-  public deleteDept(): void {
-      this.form.deleteDept();
+  deleteDept(): void {
+    this.form.deleteDept();
   }
 
-  public selectedItem(item: any): void {
-      this.form.getDept(item.deptCode);
+  selectedItem(item: any): void {
+    this.form.getDept(item.deptCode);
   }
 
 }

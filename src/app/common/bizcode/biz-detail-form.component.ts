@@ -32,12 +32,8 @@ export class BizDetailFormComponent extends FormBase implements OnInit {
 
   setupFormGroup(): void {
     this.fg = this.fb.group({
-      typeCode    : new FormControl<string | null>('', {
-        validators: [Validators.required]
-      }),
-      detailCode  : new FormControl<string | null>('', {
-        validators: [Validators.required]
-      }),
+      typeCode    : new FormControl<string | null>('', { validators: [Validators.required] }),
+      detailCode  : new FormControl<string | null>('', { validators: [Validators.required] }),
       codeName    : new FormControl<string | null>(null),
       useYn       : new FormControl<boolean | null>(null),
       sequence    : new FormControl<number | null>(null),

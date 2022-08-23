@@ -26,40 +26,33 @@ import { ResponseList } from '../../core/model/response-list';
 })
 export class DeptFormComponent extends FormBase implements OnInit {
 
-   ;
   deptHierarchy: DeptHierarchy[] = [];
-
-  /**
-   * Xs < 576px span size
-   * Sm >= 576px span size
-   */
-  formLabelXs = 24;
-  formLabelSm = 4;
-
-  formControlXs = 24;
-  formControlSm = 20;
 
   constructor(private fb: FormBuilder,
               private deptService: DeptService,
-              private appAlarmService: AppAlarmService) { super(); }
+              private appAlarmService: AppAlarmService) {
+    super();
 
-  ngOnInit(): void {
     this.fg = this.fb.group({
-      parentDeptId            : [ null ],
-      deptCode                : new FormControl(null, {
+      parentDeptId            : new FormControl<string | null>(null),
+      deptCode                : new FormControl<string | null>(null, {
                                   validators: Validators.required,
                                   asyncValidators: [existingDeptValidator(this.deptService)],
                                   updateOn: 'blur'
                                 }),
-      deptNameKorean          : [ null, [ Validators.required ] ],
-      deptAbbreviationKorean  : [ null ],
-      deptNameEnglish         : [ null, [ Validators.required ] ],
-      deptAbbreviationEnglish : [ null ],
-      fromDate                : [ null, [ Validators.required ] ],
-      toDate                  : [ null, [ Validators.required ] ],
-      seq                     : [ 1,    [ Validators.required ] ],
-      comment                 : [ null ]
+      deptNameKorean          : new FormControl<string | null>(null, { validators: [Validators.required] }),
+      deptAbbreviationKorean  : new FormControl<string | null>(null),
+      deptNameEnglish         : new FormControl<string | null>(null, { validators: [Validators.required] }),
+      deptAbbreviationEnglish : new FormControl<string | null>(null),
+      fromDate                : new FormControl<Date | null>(new Date(), { validators: [Validators.required] }),
+      toDate                  : new FormControl<Date | null>(new Date(), { validators: [Validators.required] }),
+      seq                     : new FormControl<number | null>(1, { validators: [Validators.required] }),
+      comment                 : new FormControl<string | null>(null)
     });
+
+  }
+
+  ngOnInit(): void {
 
     this.getDeptHierarchy();
     this.newForm();
@@ -110,8 +103,6 @@ export class DeptFormComponent extends FormBase implements OnInit {
   }
 
   submitDept(): void {
-    if (this.validForm(this.fg) === false)
-      return;
 
     this.deptService
         .saveDept(this.fg.getRawValue())

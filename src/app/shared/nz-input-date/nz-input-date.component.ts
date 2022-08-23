@@ -16,7 +16,7 @@ import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
               [nzPlaceHolder]="placeholder"
               [required]="required"
               [nzDisabled]="disabled"
-              [ngModel]="value"
+              [(ngModel)]="value"
               [nzInputReadOnly]="readonly"
               (ngModelChange)="onChange($event)"
               (ngModelChange)="valueChange($event)"

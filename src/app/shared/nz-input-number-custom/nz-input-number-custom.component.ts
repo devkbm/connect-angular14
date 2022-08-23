@@ -15,7 +15,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
           [required]="required"
           [nzDisabled]="disabled"
           placeholder="placeholder"
-          [ngModel]="value"
+          [(ngModel)]="value"
           [nzMin]="1" [nzMax]="9999" [nzStep]="1"
           (ngModelChange)="onChange($event)"
           (blur)="onTouched()">

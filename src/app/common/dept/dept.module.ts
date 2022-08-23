@@ -22,6 +22,7 @@ import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 
@@ -54,7 +55,8 @@ const nzModules = [
   NzTreeSelectModule,
   NzButtonModule,
   NzIconModule,
-  NzDatePickerModule
+  NzDatePickerModule,
+  NzPopconfirmModule
 ]
 
 @NgModule({
