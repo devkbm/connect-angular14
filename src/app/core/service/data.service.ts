@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { GlobalProperty } from 'src/app/global-property';
 import { UnauthorizedError } from '../error/unauthorized-error';
@@ -72,13 +72,17 @@ export class DataService {
    * @param result - 기본값으로 반환할 객체
    */
   protected handleError<T>(operation = 'operation', result?: T) {
-      return (error: any): Observable<T> => {
+      return (error: HttpErrorResponse): Observable<T> => {
 
       // TODO: 리모트 서버로 에러 메시지 보내기
-      console.error(error); // 지금은 콘솔에 로그를 출력합니다.
+      // console.error(error); // 지금은 콘솔에 로그를 출력합니다.
 
       // TODO: 사용자가 이해할 수 있는 형태로 변환하기
       // this.log(`${operation} failed: ${error.message}`);
+
+      if (error.status === 401) {
+        window.location.href = '/login';
+      }
 
       if (error instanceof UnauthorizedError) {
         console.log('로그인 필요함');

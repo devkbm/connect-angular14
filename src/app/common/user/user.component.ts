@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { UserGridComponent } from './user-grid.component';
-import { UserFormComponent } from './user-form.component';
 import { AppBase } from '../../core/app/app-base';
 import { UserService } from './user.service';
-import { ResponseList } from '../../core/model/response-list';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { User } from './user.model';
 
 @Component({
   selector: 'app-user',
@@ -13,20 +13,19 @@ import { ResponseList } from '../../core/model/response-list';
 })
 export class UserComponent extends AppBase implements OnInit {
 
+  @ViewChild(UserGridComponent, {static: true})
+  grid!: UserGridComponent;
+
   drawerVisible = false;
-  drawerWidth = '720px';
 
   queryKey = 'userId';
   queryValue = '';
+  queryOptionList = [
+    {label: '아이디', value: 'userId'},
+    {label: '성명', value: 'name'}
+  ];
 
-  @ViewChild('userGrid', {static: false})
-  grid!: UserGridComponent;
-
-  @ViewChild('userForm', {static: false})
-  form!: UserFormComponent;
-
-  @ViewChild('deleteForm', {static: false})
-  deleteForm!: UserFormComponent;
+  selectedUserId: string = '';
 
   constructor(location: Location,private userService: UserService) {
     super(location);
@@ -35,25 +34,21 @@ export class UserComponent extends AppBase implements OnInit {
   ngOnInit() {
   }
 
-  closeDrawer() {
-    this.drawerVisible = false;
-  }
-
   openDrawer() {
     this.drawerVisible = true;
   }
 
-  editDrawOpen(item: any) {
+  closeDrawer() {
+    this.drawerVisible = false;
+  }
+
+  newForm() {
+    this.selectedUserId = '';
     this.openDrawer();
+  }
 
-    setTimeout(() => {
-      this.form.getUser(item.userId);
-    },10);
-
-    this.drawerWidth = window.innerWidth * 0.5 + 'px';
-    console.log('window.innerWidth : ' + window.innerWidth);
-    console.log('window.innerHeight : ' + window.innerHeight);
-    console.log('this.drawerWidth : ' + this.drawerWidth)
+  editForm(item: any) {
+    this.openDrawer();
   }
 
   getUserList() {
@@ -61,29 +56,25 @@ export class UserComponent extends AppBase implements OnInit {
     if ( this.queryValue !== '') {
       params[this.queryKey] = this.queryValue;
     }
-    //params.organizationCode = "001";
 
     this.closeDrawer();
     this.grid.getUserList(params);
   }
 
-  saveUser() {
-    this.form.registerUser();
-  }
-
   deleteUser() {
-    //this.form.deleteUser(this.grid.getSelectedRow().userId);
-    this.deleteForm.deleteUser(this.grid.getSelectedRow().userId);
+    const userId: string = this.grid.getSelectedRow().userId;
+    this.userService
+        .deleteUser(userId)
+        .subscribe(
+          (model: ResponseObject<User>) => {
+            this.getUserList();
+          }
+        );
   }
 
-  initForm() {
-
-    this.openDrawer();
-
-    setTimeout(() => {
-      this.form.newForm();
-    },10);
-
+  selectGridRow(args: any) {
+    console.log(args.userId);
+    this.selectedUserId = args.userId;
   }
 
   test() {

@@ -1,4 +1,5 @@
-{{fg.value | json}}
+{{fg.getRawValue() | json}} - {{fg.valid}}
+
 <form nz-form [formGroup]="fg" nzLayout="vertical">
   <!-- 폼 오류 메시지 템플릿 -->
   <ng-template #errorTpl let-control>
@@ -11,11 +12,18 @@
   </ng-template>
 
   <div class="card-1">
+    <!--권한ID 필드-->
+    <app-nz-input-text
+      [parentFormGroup]="fg" formControlName="id" fieldName="id" itemId="id"
+      placeholder="권한ID를 입력해주세요."
+      [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">권한ID
+    </app-nz-input-text>
+
     <!--권한 필드-->
     <app-nz-input-text #authorityCode
       [parentFormGroup]="fg" formControlName="authorityCode" fieldName="authorityCode" itemId="authorityCode"
       placeholder="권한코드를 입력해주세요."
-      [required]="true" [nzErrorTip]="errorTpl">권한
+      [required]="true" [nzErrorTip]="errorTpl">권한코드
     </app-nz-input-text>
 
     <!--설명 필드-->

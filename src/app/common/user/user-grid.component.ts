@@ -21,7 +21,7 @@ import { ResponseList } from '../../core/model/response-list';
       [getRowId]="getRowId"
       [frameworkComponents]="frameworkComponents"
       (gridReady)="onGridReady($event)"
-      (selectionChanged)="selectionChanged($event)"
+      (rowClicked)="rowClickedEvent($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
   </ag-grid-angular>
   `
@@ -31,7 +31,7 @@ export class UserGridComponent extends AggridFunction implements OnInit {
   userList: User[] = [];
 
   @Output()
-  rowSelected = new EventEmitter();
+  rowClicked = new EventEmitter();
 
   @Output()
   rowDoubleClicked = new EventEmitter();
@@ -143,10 +143,10 @@ export class UserGridComponent extends AggridFunction implements OnInit {
       );
   }
 
-  selectionChanged(event: any) {
+  rowClickedEvent(event: any) {
     const selectedRows = this.gridApi.getSelectedRows();
 
-    this.rowSelected.emit(selectedRows[0]);
+    this.rowClicked.emit(selectedRows[0]);
   }
 
   rowDbClicked(event: any) {

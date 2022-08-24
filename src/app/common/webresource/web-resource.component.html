@@ -6,33 +6,27 @@
       <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
-        <nz-select [(ngModel)]="queryKey">
-          <nz-option [nzLabel]="'리소스코드'" [nzValue]="'resourceCode'"></nz-option>
-          <nz-option [nzLabel]="'리소스명'"   [nzValue]="'resourceName'"></nz-option>
-          <nz-option [nzLabel]="'URL'"        [nzValue]="'url'"></nz-option>
-          <nz-option [nzLabel]="'설명'"       [nzValue]="'description'"></nz-option>
-        </nz-select>
-      </ng-template>
+      <nz-select [(ngModel)]="queryKey">
+        <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      </nz-select>
+    </ng-template>
     <ng-template #suffixIconSearch>
       <i nz-icon nzType="search"></i>
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">
     <button nz-button (click)="getList()">
-      <i nz-icon nzType="search"></i>
-      조회
+      <i nz-icon nzType="search"></i>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button (click)="initForm()">
-      <i nz-icon nzType="form" nzTheme="outline"></i>
-      신규
+      <i nz-icon nzType="form" nzTheme="outline"></i>신규
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzDanger="true"
       nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
       (nzOnConfirm)="delete()" (nzOnCancel)="false">
-      <i nz-icon nzType="delete" nzTheme="outline"></i>
-      삭제
+      <i nz-icon nzType="delete" nzTheme="outline"></i>삭제
     </button>
   </div>
 </app-nz-search-area>
@@ -40,11 +34,11 @@
 <h3 class="pgm-title">웹서버 리소스 목록</h3>
 
 <div class="grid-wrapper">
-    <app-web-resource-grid #grid
-      (rowSelected)="selectedItem($event)"
-      (editButtonClicked)="editDrawerOpen($event)"
-      (rowDoubleClicked)="editDrawerOpen($event)">
-    </app-web-resource-grid>
+  <app-web-resource-grid #grid
+    (rowClicked)="selectedItem($event)"
+    (editButtonClicked)="editDrawerOpen($event)"
+    (rowDoubleClicked)="editDrawerOpen($event)">
+  </app-web-resource-grid>
 </div>
 
 <nz-drawer

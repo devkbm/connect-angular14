@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { TermService } from './term.service';
+import { ResponseList } from '../../core/model/response-list';
+import { AggridFunction } from '../../core/grid/aggrid-function';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
-import { ResponseList } from '../../core/model/response-list';
+import { TermService } from './term.service';
 import { Term } from './term';
-import { AggridFunction } from '../../core/grid/aggrid-function';
+
 
 @Component({
   selector: 'app-term-grid',
@@ -20,7 +21,7 @@ import { AggridFunction } from '../../core/grid/aggrid-function';
       [defaultColDef]="defaultColDef"
       [frameworkComponents]="frameworkComponents"
       (gridReady)="onGridReady($event)"
-      (selectionChanged)="selectionChanged($event)"
+      (rowClicked)="rowClickedEvent($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
   </ag-grid-angular>
   `
@@ -30,7 +31,7 @@ export class TermGridComponent extends AggridFunction implements OnInit {
   termList: Term[] = [];
 
   @Output()
-  rowSelected = new EventEmitter();
+  rowClicked = new EventEmitter();
 
   @Output()
   rowDoubleClicked = new EventEmitter();
@@ -86,7 +87,7 @@ export class TermGridComponent extends AggridFunction implements OnInit {
     this.editButtonClicked.emit(e.rowData);
   }
 
-  public getTermList(params?: any): void {
+  getTermList(params?: any): void {
     this.termService
         .getTermList(params)
         .subscribe(
@@ -101,10 +102,10 @@ export class TermGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  selectionChanged(event: any) {
+  rowClickedEvent(event: any) {
     const selectedRows = this.gridApi.getSelectedRows();
 
-    this.rowSelected.emit(selectedRows[0]);
+    this.rowClicked.emit(selectedRows[0]);
   }
 
   rowDbClicked(event: any) {

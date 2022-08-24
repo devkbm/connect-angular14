@@ -1,10 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+
+import { AppBase } from '../../core/app/app-base';
+import { ResponseList } from '../../core/model/response-list';
+
 import { CommonCodeFormComponent } from './common-code-form.component';
 import { CommonCodeTreeComponent } from './common-code-tree.component';
-import { AppBase } from '../../core/app/app-base';
 import { CommonCodeService } from './common-code.service';
-import { ResponseList } from '../../core/model/response-list';
 import { SystemTypeEnum } from './system-type-enum.model';
 
 @Component({
@@ -14,17 +16,17 @@ import { SystemTypeEnum } from './system-type-enum.model';
 })
 export class CommonCodeComponent extends AppBase implements OnInit {
 
+  @ViewChild(CommonCodeTreeComponent, {static: true})
+  tree!: CommonCodeTreeComponent;
+
+  @ViewChild(CommonCodeFormComponent, {static: true})
+  form!: CommonCodeFormComponent;
+
   systemTypeCodeList: SystemTypeEnum[] = [];
 
   systeTypeCode = 'COM';
   queryValue = '';
   selectedCode = '';
-
-  @ViewChild('commonCodeTree', {static: true})
-  tree!: CommonCodeTreeComponent;
-
-  @ViewChild('commonCodeForm', {static: false})
-  form!: CommonCodeFormComponent;
 
   constructor(location: Location,
               private commonCodeService: CommonCodeService) {
@@ -35,27 +37,27 @@ export class CommonCodeComponent extends AppBase implements OnInit {
     this.getSystemTypeCode();
   }
 
-  public getCommonCodeTree(): void {
+  getCommonCodeTree(): void {
     this.tree.getCommonCodeHierarchy(this.systeTypeCode);
     this.form.getCommonCodeHierarchy(this.systeTypeCode);
     this.selectedCode = '';
   }
 
-  public newForm(): void {
-      this.form.newForm(this.selectedCode);
+  newForm(): void {
+    this.form.newForm(this.selectedCode);
   }
 
-  public saveCommonCode(): void {
-      this.form.submitCommonCode();
+  saveCommonCode(): void {
+    this.form.submitCommonCode();
   }
 
-  public deleteCommonCode(): void {
-      this.form.deleteCommonCode();
+  deleteCommonCode(): void {
+    this.form.deleteCommonCode();
   }
 
-  public selectedItem(item: any): void {
-      this.selectedCode = item.id;
-      this.form.getCommonCode(item.id);
+  selectedItem(item: any): void {
+    this.selectedCode = item.id;
+    this.form.getCommonCode(item.id);
   }
 
   getSystemTypeCode(): void {

@@ -1,11 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { WebResourceService } from './web-resource.service';
+import { ResponseList } from '../../core/model/response-list';
+import { AggridFunction } from '../../core/grid/aggrid-function';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
-import { ResponseList } from '../../core/model/response-list';
+import { WebResourceService } from './web-resource.service';
 import { WebResource } from './web-resource';
-import { AggridFunction } from '../../core/grid/aggrid-function';
 
 @Component({
   selector: 'app-web-resource-grid',
@@ -20,7 +20,7 @@ import { AggridFunction } from '../../core/grid/aggrid-function';
       [getRowId]="getRowId"
       [frameworkComponents]="frameworkComponents"
       (gridReady)="onGridReady($event)"
-      (selectionChanged)="selectionChanged($event)"
+      (rowClicked)="rowClickedEvent($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
   </ag-grid-angular>
   `
@@ -30,7 +30,7 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
   programList: WebResource[] = [];
 
   @Output()
-  rowSelected = new EventEmitter();
+  rowClicked = new EventEmitter();
 
   @Output()
   rowDoubleClicked = new EventEmitter();
@@ -64,8 +64,8 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
       { headerName: '리소스코드',   field: 'resourceCode',    width: 150 },
       { headerName: '리소스명',     field: 'resourceName',    width: 200 },
       { headerName: '리소스타입',   field: 'resourceType',    width: 200 },
-      { headerName: 'Url',          field: 'url',             width: 200 },
-      { headerName: '설명',         field: 'description',     width: 300 }
+      { headerName: 'Url',         field: 'url',             width: 200 },
+      { headerName: '설명',        field: 'description',     width: 300 }
     ];
 
     this.defaultColDef = {
@@ -92,19 +92,19 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
         .subscribe(
           (model: ResponseList<WebResource>) => {
               if (model.total > 0) {
-                  this.programList = model.data;
+                this.programList = model.data;
               } else {
-                  this.programList = [];
+                this.programList = [];
               }
               this.appAlarmService.changeMessage(model.message);
           }
         );
   }
 
-  selectionChanged(event: any) {
+  rowClickedEvent(event: any) {
     const selectedRows = this.gridApi.getSelectedRows();
 
-    this.rowSelected.emit(selectedRows[0]);
+    this.rowClicked.emit(selectedRows[0]);
   }
 
   rowDbClicked(event: any) {

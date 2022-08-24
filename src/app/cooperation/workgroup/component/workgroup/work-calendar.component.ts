@@ -87,6 +87,7 @@ export class WorkCalendarComponent implements AfterViewInit {
 
   onDateClick(args: any): void {
     console.log('onDateClick: start');
+    console.log(args);
     const eventArgs: NewDateSelectedArgs = {workGroupId: this.fkWorkGroup, start: args.start, end: args.end};
     this.newDateSelected.emit(eventArgs);
     console.log('onDateClick: end');

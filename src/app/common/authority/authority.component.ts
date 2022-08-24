@@ -1,10 +1,8 @@
 import { AfterViewInit, Component, ContentChild, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AuthorityGridComponent } from './authority-grid.component';
-import { AuthorityFormComponent } from './authority-form.component';
 import { AppBase } from '../../core/app/app-base';
 import { ResponseObject } from '../../core/model/response-object';
-import { WebResource } from '../webresource/web-resource';
 import { AuthorityService } from './authority.service';
 import { Authority } from './authority.model';
 

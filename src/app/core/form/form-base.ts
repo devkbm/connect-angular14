@@ -10,10 +10,6 @@ export enum FormType {
 })
 export abstract class FormBase {
 
-  appUrl: string = '';
-  formType: FormType = FormType.NEW;
-  fg: FormGroup = new FormGroup({});
-
   defaultControlSize = {
     /** width < 576 px */
     xs: 24,
@@ -44,6 +40,9 @@ export abstract class FormBase {
     xxl: 24
   }
 
+  formType: FormType = FormType.NEW;
+  fg: FormGroup = new FormGroup({});
+
   @Input() initLoadId: any;
   @Output() formSaved = new EventEmitter();
   @Output() formDeleted = new EventEmitter();
@@ -63,18 +62,12 @@ export abstract class FormBase {
           && formGroup.get(fieldName)?.hasError(errorName) ? true : false;
   }
 
-  validForm(fg: FormGroup): boolean {
-    for (const i in fg.controls) {
-      fg.controls[i].markAsDirty({onlySelf: true});
-      //fg.controls[i].updateValueAndValidity();
+  isValid(): boolean {
+    for (const i in this.fg.controls) {
+      this.fg.controls[i].markAsDirty();
+      this.fg.controls[i].updateValueAndValidity({onlySelf: true});
     }
-    return fg.valid;
+    return this.fg.valid;
   }
 
-  /**
-   * 세션정보를 입력한다.
-   */
-  setSessionInfo(): void {
-    this.fg.get('organizationCode')?.setValue(sessionStorage.getItem('organizationCode'));
-  }
 }

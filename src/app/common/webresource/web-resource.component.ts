@@ -22,6 +22,12 @@ export class WebResourceComponent extends AppBase  implements OnInit {
 
   queryKey = 'resourceCode';
   queryValue = '';
+  queryOptionList = [
+    {label: '리소스코드', value: 'resourceCode'},
+    {label: '리소스명', value: 'resourceName'},
+    {label: 'URL', value: 'url'},
+    {label: '설명', value: 'description'}
+  ];
 
   drawerVisible = false;
 

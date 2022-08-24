@@ -104,7 +104,7 @@ export class WorkgroupComponent implements OnInit {
       return;
     }
 
-    this.navigator.date = new DayPilot.Date(param.start,true);
+    this.navigator.date = new DayPilot.Date(param.start, true);
     this.newScheduleArgs = {workGroupId: this.selectedWorkGroupId, start: param.start, end: param.end};
     this.selectedScheduleId = -1;
 

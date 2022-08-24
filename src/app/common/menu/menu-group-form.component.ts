@@ -89,8 +89,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
   }
 
   submitMenuGroup() {
-    if (this.validForm(this.fg) === false)
-      return;
+    if (this.isValid() === false) return;
 
     this.menuService
         .registerMenuGroup(this.fg.getRawValue())

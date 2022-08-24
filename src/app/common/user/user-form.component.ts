@@ -1,23 +1,18 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 
-import { UserService } from './user.service';
-
+import { FormType, FormBase } from '../../core/form/form-base';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
-import { ResponseObject } from '../../core/model/response-object';
-import { User } from './user.model';
-
 import { ResponseList } from '../../core/model/response-list';
+import { ResponseObject } from '../../core/model/response-object';
+
+import { UserService } from './user.service';
+import { User } from './user.model';
 import { Authority } from '../authority/authority.model';
 import { MenuGroup } from '../menu/menu-group.model';
 import { existingUserValidator } from './user-duplication-validator.directive';
-import { FormType, FormBase } from '../../core/form/form-base';
+
 import { DeptHierarchy } from '../dept/dept-hierarchy.model';
 import { DeptService } from '../dept/dept.service';
 import { GlobalProperty } from 'src/app/global-property';
@@ -63,7 +58,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
               private appAlarmService: AppAlarmService) {
     super();
 
-
     this.fg = this.fb.group({
       userId: new FormControl<string | null>(null, {
         validators: Validators.required,
@@ -85,7 +79,11 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   ngOnInit(): void {
-    this.newForm();
+    if (this.initLoadId) {
+      this.getUser(this.initLoadId);
+    } else {
+      this.newForm();
+    }
 
     this.getAuthorityList();
     this.getMenuGroupList();
@@ -93,7 +91,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-
+    this.staffNoField?.focus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -106,21 +104,22 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     this.previewImage = '';
 
     this.fg.reset();
-    this.fg.get('enabled')?.setValue(true);
-    this.setSessionInfo();
 
+    this.fg.get('userId')?.setAsyncValidators(existingUserValidator(this.userService));
+    this.fg.get('organizationCode')?.setValue(sessionStorage.getItem('organizationCode'));
     this.fg.get('staffNo')?.valueChanges.subscribe(x => {
       if (x === null) return;
-      const organizationCode = this.fg.get('organizationCode')?.value;
-      this.fg.get('userId')?.markAsTouched();
+      const organizationCode = sessionStorage.getItem('organizationCode');
       this.fg.get('userId')?.setValue(organizationCode + x);
+      this.fg.get('userId')?.markAsTouched();
     });
-
-    this.staffNoField?.focus();
+    this.fg.get('enabled')?.setValue(true);
   }
 
   modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
+
+    this.fg.get('userId')?.setAsyncValidators(null);
 
     this.fg.patchValue(formData);
   }
@@ -138,9 +137,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
               }
 
               this.previewImage = '';
-
-              const token = sessionStorage.getItem('token') as string;
-
               this.imageUploadHeader =  {
                 "Content-Type": "multipart/form-data",
                 "Accept": "application/json",
@@ -167,21 +163,19 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   registerUser(): void {
-
-    if (this.validForm(this.fg) === false)
-      return;
+    if (this.fg.invalid) return;
 
     this.userService
         .registerUser(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<User>) => {
             this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.fg.value);
+            this.formSaved.emit(this.fg.getRawValue());
           }
         );
   }
 
-  public deleteUser(userId: string): void {
+  deleteUser(userId: string): void {
     this.userService
         .deleteUser(userId)
         .subscribe(
@@ -191,6 +185,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
           }
         );
   }
+
   protected checkUser(): void {
     const userId: string = this.fg.get('userId')?.value;
 
@@ -198,19 +193,19 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.get('userId')?.updateValueAndValidity();
 
     this.userService
-      .checkUser(this.fg.get('userId')?.value)
-      .subscribe(
-        (model: ResponseObject<boolean>) => {
-          this.appAlarmService.changeMessage(model.message);
-        }
-        /*
-        (err: AppError) => {
-          if (err instanceof UserNotFoundError) {
-            console.log('유저정보가 없음');
+        .checkUser(this.fg.get('userId')?.value)
+        .subscribe(
+          (model: ResponseObject<boolean>) => {
+            this.appAlarmService.changeMessage(model.message);
           }
-        }
-        */
-      );
+          /*
+          (err: AppError) => {
+            if (err instanceof UserNotFoundError) {
+              console.log('유저정보가 없음');
+            }
+          }
+          */
+        );
   }
 
   private validPassword(field: any) {
@@ -223,8 +218,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   }
 
-  private getAuthorityList(): void {
-
+  getAuthorityList(): void {
     this.userService
         .getAuthorityList()
         .subscribe(
@@ -236,8 +230,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  private getMenuGroupList(): void {
-
+  getMenuGroupList(): void {
     this.userService
         .getMenuGroupList()
         .subscribe(
@@ -249,8 +242,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  public getDeptHierarchy(): void {
-
+  getDeptHierarchy(): void {
     this.deptService
         .getDeptHierarchyList()
         .subscribe(
@@ -264,7 +256,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  public closeForm(): void {
+  closeForm(): void {
     this.formClosed.emit(this.fg.value);
   }
 
@@ -285,6 +277,5 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
       this.isUploadable = false;
     }
   }
-
 
 }

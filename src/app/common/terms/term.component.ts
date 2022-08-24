@@ -16,6 +16,10 @@ export class TermComponent extends AppBase implements OnInit {
 
   queryKey: string = 'term';
   queryValue: string = '';
+  queryOptionList = [
+    {label: '용어', value: 'term'},
+    {label: '업무영역', value: 'domain'}
+  ];
 
   @ViewChild('termGrid', {static: false})
   grid!: TermGridComponent;

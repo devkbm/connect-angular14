@@ -4,54 +4,70 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class CustomHttpInterceptor implements HttpInterceptor {
-    headerInfo?: HttpHeaders;
 
-    constructor(private tokenExtractor: HttpXsrfTokenExtractor) { }
+  headerInfo?: HttpHeaders;
+  exceptUrls: string[] = [
+    'http://localhost:8090/common/user/login',      // 로그인페이지 url
+    'http://localhost:8090/common/file/'            // 파일업로드 url
+  ];
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        const headerName = 'XSRF-TOKEN';
-        const token = this.tokenExtractor.getToken() as string;
+  constructor(private tokenExtractor: HttpXsrfTokenExtractor) { }
 
-        if (token !== null && !req.headers.has(headerName)) {
-            req = req.clone({ headers: req.headers.set(headerName, token) });
-        }
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const headerName = 'XSRF-TOKEN';
+    const token = this.tokenExtractor.getToken() as string;
 
-        if (req.url === 'http://localhost:8090/common/user/login') { // 로그인 제외
-          return next.handle(req);
-        } else if (req.url === 'http://localhost:8090/common/file/') { // 파일업로드 제외
-        return next.handle(req);
-        }
-
-        if (req.method.toLowerCase() === 'get') {
-          req = this.setParamsGET(req);
-        } else if (req.method.toLowerCase() === 'post') {
-          if (req.body instanceof FormData) {
-            req =  this.setFormDataBodyPOST(req);
-          } else {
-            req = this.setBodyPOST(req);
-          }
-        }
-
-        return next.handle(req);
+    if (token !== null && !req.headers.has(headerName)) {
+      req = req.clone({ headers: req.headers.set(headerName, token) });
     }
 
-    private setParamsGET(req: HttpRequest<any>): HttpRequest<any> {
-      return req.clone({
-        params: req.params.set('organizationCode', String(sessionStorage.getItem('organizationCode')))
-      });
+    if (this.isExceptUrl(req.url)) {
+      return next.handle(req);
+    } else {
+      req = this.setParameters(req);
     }
 
-    private setBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
-      return req.clone({
-        body: { ...req.body, organizationCode: String(sessionStorage.getItem('organizationCode')), appUrl: req.url }
-      });
+    return next.handle(req);
+  }
+
+  isExceptUrl(url: string): boolean {
+    for (const urlString of this.exceptUrls) {
+      if (urlString === url) return true;
+    }
+    return false;
+  }
+
+  setParameters(req: HttpRequest<any>): HttpRequest<any> {
+    if (req.method.toLowerCase() === 'get') {
+      req = this.setParamsGET(req);
+    } else if (req.method.toLowerCase() === 'post') {
+      if (req.body instanceof FormData) {
+        req =  this.setFormDataBodyPOST(req);
+      } else {
+        req = this.setBodyPOST(req);
+      }
     }
 
-    private setFormDataBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
-      return req.clone({
-        body: req.body.append('organizationCode', String(sessionStorage.getItem('organizationCode')))
-                      .append('appUrl',req.url)
-      });
-    }
+    return req;
+  }
+
+  private setParamsGET(req: HttpRequest<any>): HttpRequest<any> {
+    return req.clone({
+      params: req.params.set('organizationCode', String(sessionStorage.getItem('organizationCode')))
+    });
+  }
+
+  private setBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
+    return req.clone({
+      body: { ...req.body, organizationCode: String(sessionStorage.getItem('organizationCode')), clientAppUrl: window.location.href }
+    });
+  }
+
+  private setFormDataBodyPOST(req: HttpRequest<any>): HttpRequest<any> {
+    return req.clone({
+      body: req.body.append('organizationCode', String(sessionStorage.getItem('organizationCode')))
+                    .append('clientAppUrl', window.location.href)
+    });
+  }
 
 }

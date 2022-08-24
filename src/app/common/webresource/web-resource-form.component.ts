@@ -86,8 +86,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
   }
 
   saveForm(): void {
-    if (this.validForm(this.fg) === false)
-      return;
+    if (this.isValid() === false) return;
 
     this.service
         .save(this.fg.getRawValue())

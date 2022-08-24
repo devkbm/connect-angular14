@@ -20,7 +20,7 @@ import { Authority } from './authority.model';
       [frameworkComponents]="frameworkComponents"
       (gridSize)="test($event)"
       (gridReady)="onGridReady($event)"
-      (selectionChanged)="selectionChanged($event)"
+      (rowClicked)="rowClickedEvent($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
     </ag-grid-angular>
   `,
@@ -44,7 +44,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
 
   authorityList: Authority[] = [];
 
-  @Output() rowSelected = new EventEmitter();
+  @Output() rowClicked = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
@@ -130,14 +130,12 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  selectionChanged(event: any): void {
-    const selectedRows = this.gridApi.getSelectedRows();
-
-    this.rowSelected.emit(selectedRows[0]);
+  rowClickedEvent(args: any): void {
+    this.rowClicked.emit(args.data);
   }
 
-  rowDbClicked(event: any): void {
-    this.rowDoubleClicked.emit(event.data);
+  rowDbClicked(args: any): void {
+    this.rowDoubleClicked.emit(args.data);
   }
 
   public test(event: any): void {

@@ -26,25 +26,25 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
     this.fg = this.fb.group({
       id: new FormControl<string | null>(null, {
-        validators: Validators.required,
-        asyncValidators: [existingAuthorityValidator(this.service)],
-        updateOn: 'blur'
-      }),
+                                                validators: Validators.required,
+                                                  asyncValidators: [existingAuthorityValidator(this.service)],
+                                                  updateOn: 'blur'
+                                               }),
       authorityCode : new FormControl<string | null>('', { validators: [Validators.required] }),
       description   : new FormControl<string | null>(null)
     });
   }
 
   ngOnInit() {
-    this.newForm();
+    if (this.initLoadId) {
+      this.getAuthority(this.initLoadId);
+    } else {
+      this.newForm();
+    }
   }
 
   ngAfterViewInit(): void {
-    this.authorityCode.focus();
-
-    if (this.initLoadId) {
-      this.getAuthority(this.initLoadId);
-    }
+    // this.authorityCode.focus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -59,9 +59,15 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('id')?.enable();
+    this.fg.get('id')?.setAsyncValidators(existingAuthorityValidator(this.service));
+
+    this.fg.get('authorityCode')?.valueChanges.subscribe(x => {
+      if (x === null) return;
+      const organizationCode = sessionStorage.getItem('organizationCode');
+      this.fg.get('id')?.setValue(organizationCode + x);
+      this.fg.get('id')?.markAsTouched();
+    });
     this.fg.get('authorityCode')?.enable();
-    this.fg.get('appUrl')?.setValue(this.appUrl);
 
     this.authorityCode.focus();
   }
@@ -69,52 +75,48 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
   modifyForm(formData: Authority): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('id')?.disable();
+    this.fg.get('id')?.setAsyncValidators(null);
     this.fg.get('authorityCode')?.disable();
     this.fg.patchValue(formData);
-    this.fg.get('appUrl')?.setValue(this.appUrl);
   }
 
   getAuthority(id: string): void {
     this.service
-      .getAuthority(id)
-      .subscribe(
-        (model: ResponseObject<Authority>) => {
-          if (model.total > 0) {
-            this.modifyForm(model.data);
-          } else {
-            this.newForm();
+        .getAuthority(id)
+        .subscribe(
+          (model: ResponseObject<Authority>) => {
+            if (model.total > 0) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
+            this.appAlarmService.changeMessage(model.message);
           }
-          this.appAlarmService.changeMessage(model.message);
-        }
-      );
+        );
   }
 
   saveAuthority(): void {
-    console.log(this.fg.getRawValue());
+    if (this.fg.invalid) return;
+
     this.service
-      .registerAuthority(this.fg.getRawValue())
-      .subscribe(
-        (model: ResponseObject<Authority>) => {
-          this.appAlarmService.changeMessage(model.message);
-          this.formSaved.emit(this.fg.getRawValue());
-        }
-      );
+        .registerAuthority(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<Authority>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formSaved.emit(this.fg.getRawValue());
+          }
+        );
   }
 
   deleteAuthority(id: string): void {
     this.service
-      .deleteAuthority(id)
-      .subscribe(
-        (model: ResponseObject<Authority>) => {
-          this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.fg.getRawValue());
-        }
-      );
-  }
-
-  patchValues(values: any): void {
-    this.fg.patchValue(values);
+        .deleteAuthority(id)
+        .subscribe(
+          (model: ResponseObject<Authority>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formDeleted.emit(this.fg.getRawValue());
+          }
+        );
   }
 
   closeForm(): void {
