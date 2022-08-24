@@ -141,7 +141,7 @@ export class WorkgroupComponent implements OnInit {
   }
 
   navigatorSelectChanged(args: any) {
-    this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
+    // this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
   }
 
 }

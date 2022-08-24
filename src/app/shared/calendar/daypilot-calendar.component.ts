@@ -251,8 +251,8 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     },
     {
       id: 2,
-      start: "2022-08-01T10:00:00",
-      end: "2022-08-01T12:00:00",
+      start: "2022-08-24T02:00:00.000Z",
+      end: "2022-08-24T04:00:00.000Z",
       text: "Event 2"
     },
     {

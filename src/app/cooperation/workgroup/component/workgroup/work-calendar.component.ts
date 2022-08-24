@@ -68,11 +68,13 @@ export class WorkCalendarComponent implements AfterViewInit {
         .subscribe(
             (model: ResponseList<WorkGroupSchedule>) => {
               let data: any[] = [];
+
+              // daypilot calendar utc 시간 적용이 안되어 강제로 9시간 더해줌
               model.data.forEach(e => data.push({
                 id: e.id,
                 text: e.text,
-                start: e.start,
-                end: e.end,
+                start: new DayPilot.Date(e.start).addHours(9),
+                end: new DayPilot.Date(e.end).addHours(9),
                 barColor: e.color
               }));
               this.eventData = data;
