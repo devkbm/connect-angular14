@@ -10,23 +10,44 @@ import { WebResource } from './web-resource';
 @Component({
   selector: 'app-web-resource-grid',
   template: `
-    <ag-grid-angular
-      [ngStyle]="style"
-      class="ag-theme-balham-dark"
-      [rowSelection]="'single'"
-      [rowData]="programList"
-      [columnDefs]="columnDefs"
-      [defaultColDef]="defaultColDef"
-      [getRowId]="getRowId"
-      [frameworkComponents]="frameworkComponents"
-      (gridReady)="onGridReady($event)"
-      (rowClicked)="rowClickedEvent($event)"
-      (rowDoubleClicked)="rowDbClicked($event)">
-  </ag-grid-angular>
-  `
+    <nz-spin nzTip="Loading..." [nzSpinning]="isLoading">
+      <ag-grid-angular
+        [ngStyle]="style"
+        class="ag-theme-balham-dark"
+        [rowSelection]="'single'"
+        [rowData]="programList"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
+        [getRowId]="getRowId"
+        [frameworkComponents]="frameworkComponents"
+        (gridReady)="onGridReady($event)"
+        (rowClicked)="rowClickedEvent($event)"
+        (rowDoubleClicked)="rowDbClicked($event)">
+      </ag-grid-angular>
+    </nz-spin>
+  `,
+  styles: [`
+    nz-spin {
+      height:100%
+    }
+    /** nz-spin component 하위 엘리먼트 크기 조정 */
+    ::ng-deep .ant-spin-container.ng-star-inserted {
+      height: 100%;
+    }
+
+    ag-grid-angular {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+  `]
 })
 export class WebResourceGridComponent extends AggridFunction implements OnInit {
 
+  isLoading: boolean = false;
   programList: WebResource[] = [];
 
   @Output()
@@ -87,16 +108,18 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
   }
 
   public getList(params?: any): void {
+    this.isLoading = true;
     this.programService
         .getList(params)
         .subscribe(
           (model: ResponseList<WebResource>) => {
-              if (model.total > 0) {
-                this.programList = model.data;
-              } else {
-                this.programList = [];
-              }
-              this.appAlarmService.changeMessage(model.message);
+            if (model.total > 0) {
+              this.programList = model.data;
+            } else {
+              this.programList = [];
+            }
+            this.isLoading = false;
+            this.appAlarmService.changeMessage(model.message);
           }
         );
   }

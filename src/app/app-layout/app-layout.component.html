@@ -48,24 +48,25 @@
 
   <nz-layout>
     <nz-header class="header">
-      <i nz-icon class="collapse-icon"
-        [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-        (click)="isCollapsed=!isCollapsed">
-      </i>
+      <i nz-icon class="collapse-icon" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
 
       <nz-select
         class="sidemenugroup"
         nzShowSearch
         [(ngModel)]="selectedValue"
         (ngModelChange)="selectMenuGroup($event)">
-            <nz-option
-              *ngFor="let menuGroup of menuGroupList"
-              [nzValue]="menuGroup.value"
-              [nzLabel]="menuGroup.label">
-            </nz-option>
+          <nz-option
+            *ngFor="let menuGroup of menuGroupList"
+            [nzValue]="menuGroup.value"
+            [nzLabel]="menuGroup.label">
+          </nz-option>
       </nz-select>
 
-      <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='48' [nzSrc]="avartarImgSrc" (click)="imageClick($event)"></nz-avatar>
+      <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='48' [nzSrc]="avartarImgSrc" nz-dropdown [nzDropdownMenu]="menu" nzTrigger="click">
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          프로필 정보
+        </nz-dropdown-menu>
+      </nz-avatar>
     </nz-header>
 
     <nz-content class="main-content">

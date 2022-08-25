@@ -110,28 +110,13 @@ export class AppLayoutComponent implements OnInit  {
     this.router.navigate([url]);
   }
 
-  public setAvatar(): void {
+  setAvatar(): void {
     // this.userImageBase64 = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
     // const url = sessionStorage.getItem('imageUrl');
     // this.userImageBase64 = `http://localhost:8090/static/${url}`;
     this.avartarImgSrc = this.sessionService.getAvartarImageString();
   }
 
-  public imageClick(args: any): void {
-    const modal = this.modalService.create({
-      nzTitle: '',
-      nzContent: UserPopupComponent,
-      nzViewContainerRef: this.viewContainerRef,
-      nzFooter: null,
-      nzKeyboard: true,
-      nzWidth: 400,
-      nzOnOk: () => new Promise(resolve => setTimeout(resolve, 1000))
-    });
 
-    modal.afterOpen.subscribe(() => console.log('[afterOpen] emitted!'));
-
-    // Return a result when closed
-    modal.afterClose.subscribe(result => console.log('[afterClose] The result is:', result));
-  }
 
 }

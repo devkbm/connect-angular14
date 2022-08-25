@@ -13,7 +13,7 @@
 }
 
 .grid-wrapper {
-  height: calc(100% - var(--header-size))
+  height: calc(100% - var(--header-height))
 }
 
 [nz-button] {

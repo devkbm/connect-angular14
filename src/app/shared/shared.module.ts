@@ -14,7 +14,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-
+import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
@@ -52,7 +52,8 @@ const nzModules = [
   NzDatePickerModule,
   NzUploadModule,
   NzSwitchModule,
-  NzCheckboxModule
+  NzCheckboxModule,
+  NzDropDownModule
 ]
 
 @NgModule({

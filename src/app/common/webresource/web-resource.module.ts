@@ -25,6 +25,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -54,7 +55,8 @@ const nzModules = [
   NzTabsModule,
   NzInputNumberModule,
   NzTreeSelectModule,
-  NzDatePickerModule
+  NzDatePickerModule,
+  NzSpinModule
 ]
 
 @NgModule({
