@@ -86,11 +86,13 @@ export class AppLayoutComponent implements OnInit  {
         (model: ResponseList<MenuHierarchy>) => {
           if ( model.total > 0 ) {
             this.menuItems = model.data;
+            sessionStorage.setItem('menuList', JSON.stringify(model.data));
           } else {
             this.menuItems = [];
+            sessionStorage.setItem('menuList', '');
           }
+
           const seledtedMenu = sessionStorage.getItem('selectedMenu');
-          console.log(seledtedMenu);
           this.selectMenuItem(seledtedMenu as string);
         }
       );
