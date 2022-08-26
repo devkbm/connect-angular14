@@ -15,6 +15,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
@@ -29,6 +30,7 @@ import { NzInputSelectComponent } from './nz-input-select/nz-input-select.compon
 import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree-select.component';
 import { NzInputColorPickerComponent } from './nz-input-color-picker/nz-input-color-picker.component';
 import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.component';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { ColorPickerModule } from 'ngx-color-picker';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -38,8 +40,12 @@ import { DeptHierarchyService } from './nz-dept-tree-select/dept-hierarchy.servi
 import { NzInputSwitchComponent } from './nz-input-switch/nz-input-switch.component';
 import { NzInputCheckboxComponent } from './nz-input-checkbox/nz-input-checkbox.component';
 import { NzSearchAreaComponent } from './nz-search-area/nz-search-area.component';
+import { NzPageHeaderCustomComponent } from './nz-page-header-custom/nz-page-header-custom.component';
+import { NzButtonsComponent } from './nz-buttons/nz-buttons.component';
+
 
 const nzModules = [
+  NzPageHeaderModule,
   NzFormModule,
   NzInputModule,
   NzInputNumberModule,
@@ -53,7 +59,8 @@ const nzModules = [
   NzUploadModule,
   NzSwitchModule,
   NzCheckboxModule,
-  NzDropDownModule
+  NzDropDownModule,
+  NzBreadCrumbModule
 ]
 
 @NgModule({
@@ -66,6 +73,8 @@ const nzModules = [
     CKEditorModule
   ],
   declarations: [
+    NzPageHeaderCustomComponent,
+    NzSearchAreaComponent,
     NzInputTextComponent,
     NzInputTextareaComponent,
     NzInputNumberCustomComponent,
@@ -81,12 +90,14 @@ const nzModules = [
     NzDeptTreeSelectComponent,
     NzInputSwitchComponent,
     NzInputCheckboxComponent,
-    NzSearchAreaComponent
+    NzButtonsComponent
    ],
   providers: [
     DeptHierarchyService
   ],
   exports: [
+    NzSearchAreaComponent,
+    NzPageHeaderCustomComponent,
     NzInputTextComponent,
     NzInputTextareaComponent,
     NzInputNumberCustomComponent,
@@ -102,7 +113,7 @@ const nzModules = [
     NzDeptTreeSelectComponent,
     NzInputSwitchComponent,
     NzInputCheckboxComponent,
-    NzSearchAreaComponent
+    NzButtonsComponent
   ]
 })
 export class SharedModule { }

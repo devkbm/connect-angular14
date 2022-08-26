@@ -4,6 +4,7 @@ export interface MenuBreadCrumb {
   name: string;
   isLink: boolean;
   url?: string;
+  marked?: boolean
 }
 
 @Injectable()
@@ -42,35 +43,28 @@ export class SessionManager {
     }
     */
     const obj = JSON.parse(sessionStorage.getItem('menuList') as string);
-    const isFindChild: Boolean = false;
-
     let names: MenuBreadCrumb[] = new Array();
     // 현재 화면에 해당하는 메뉴 탐색
-    let find = (children: any[], isFindChild: Boolean): boolean => {
-      console.log(isFindChild);
+    let find = (children: any[]): boolean => {
       for (const child of children) {
-        names.push({name: child.title, isLink: child.menuType === 'ITEM' ? true : false, url: child.url});
-        //console.log(names);
+        names.push({name: child.title, isLink: child.menuType === 'ITEM' ? true : false, url: child.url, marked: false});
         if (child.leaf) {
           if (window.location.pathname === '/' + child.url) {
-            isFindChild = true;
+            names[names.length-1].marked = true;
             return true;
           } else {
             names.pop();  // Leaf 노드중 일치하지 않은 메뉴 제거
           }
         } else if (child.children) {
-          // 수정해야 함
-          let d:boolean = find(child.children, isFindChild);
-          console.log(child.children);
-          //console.log(isFindChild);
-          if (isFindChild === false && d === false) { // 하위메뉴중 일치하는 화면이 없으면 제거
-            console.log(names.pop());
+          find(child.children);
+          if (names[names.length-1].marked !== true) { // Leaf 노드 중 marked 되지 않은 노드 제거
+            names.pop();
           }
         }
       }
       return false;
     }
-    find(obj, isFindChild);
+    find(obj);
 
     return names;
   }

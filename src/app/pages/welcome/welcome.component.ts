@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
+import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-welcome',
@@ -40,6 +41,25 @@ export class WelcomeComponent implements OnInit {
       ]
     }
   ];
+
+  btns: ButtonTemplate[] = [{
+    text: 'test',
+    click: (e: MouseEvent) => {
+      console.log('test');
+    },
+    nzType: 'save'
+  },{
+    text: 'test2',
+    click: (e: MouseEvent) => {
+      console.log('test2');
+    },
+    nzType: 'delete'
+  },{
+    text: 'test3',
+    click: (e: MouseEvent) => {
+      console.log('test3');
+    }
+  }];
 
   constructor(private fb: FormBuilder) {
     this.fg = this.fb.group({
