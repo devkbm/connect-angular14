@@ -10,7 +10,7 @@ import { ResponseList } from '../../core/model/response-list';
 
 import { Dept } from './dept.model';
 import { DeptHierarchy } from './dept-hierarchy.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 
 @Injectable()
 export class DeptService extends DataService {

@@ -15,7 +15,7 @@ import { existingUserValidator } from './user-duplication-validator.directive';
 
 import { DeptHierarchy } from '../dept/dept-hierarchy.model';
 import { DeptService } from '../dept/dept.service';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({

@@ -22,8 +22,6 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from '../../core/grid/renderer/checkbox-renderer.component';
 
 /* Inner Component */
 import { AuthorityFormComponent } from './authority-form.component';

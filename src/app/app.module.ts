@@ -17,7 +17,7 @@ import { ko_KR } from 'ng-zorro-antd/i18n';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { GlobalProperty } from './global-property';
+import { GlobalProperty } from './core/global-property';
 import { AppLayoutModule } from './app-layout/app-layout.module';
 import { AppInjector } from './core/app/app-injector.service';
 import { CommonFuncModule } from './common/common-func.module';

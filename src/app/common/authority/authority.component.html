@@ -1,11 +1,6 @@
 <nz-page-header (nzBack)="goBack()" nzBackIcon nzTitle="권한 등록" nzSubtitle="This is a subtitle">
-  <!--breadcrumb-->
-  <nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">">
-    <nz-breadcrumb-item>First-level Menu</nz-breadcrumb-item>
-    <nz-breadcrumb-item>
-      <a>Second-level Menu</a>
-    </nz-breadcrumb-item>
-    <nz-breadcrumb-item>Third-level Menu</nz-breadcrumb-item>
+  <nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">" >
+    <nz-breadcrumb-item *ngFor="let menu of menuBreadCrumb">{{menu.name}}</nz-breadcrumb-item>
   </nz-breadcrumb>
 </nz-page-header>
 

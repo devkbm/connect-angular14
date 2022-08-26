@@ -9,7 +9,7 @@ import { DataService } from '../../core/service/data.service';
 import { ResponseList } from '../../core/model/response-list';
 import { ResponseObject } from '../../core/model/response-object';
 
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { Authority } from './authority.model';
 
 @Injectable()

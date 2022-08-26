@@ -19,11 +19,10 @@ import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from '../../core/grid/renderer/checkbox-renderer.component';
 
 /* Inner Component */
 import { CommonCodeService } from './common-code.service';
@@ -46,7 +45,8 @@ const nzModules = [
   NzTreeSelectModule,
   NzButtonModule,
   NzIconModule,
-  NzCheckboxModule
+  NzCheckboxModule,
+  NzBreadCrumbModule
 ]
 
 @NgModule({

@@ -13,7 +13,7 @@ import { EmployeeService } from '../../service/employee.service';
 import { EmployeeModel } from '../../model/employee-model';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { NewEmployee } from '../../model/new-employee';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
 

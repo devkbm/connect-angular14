@@ -10,7 +10,7 @@ import { ResponseList } from '../../../core/model/response-list';
 import { WorkGroup } from '../model/workgroup.model';
 import { WorkGroupMember } from '../model/workgroup-member.model';
 import { WorkGroupSchedule } from '../model/workgroup-schedule.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 
 
 

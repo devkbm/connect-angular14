@@ -8,6 +8,7 @@ import { CommonCodeFormComponent } from './common-code-form.component';
 import { CommonCodeTreeComponent } from './common-code-tree.component';
 import { CommonCodeService } from './common-code.service';
 import { SystemTypeEnum } from './system-type-enum.model';
+import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 
 @Component({
   selector: 'app-common-code',
@@ -15,6 +16,8 @@ import { SystemTypeEnum } from './system-type-enum.model';
   styleUrls: ['./common-code.component.css']
 })
 export class CommonCodeComponent extends AppBase implements OnInit {
+
+  menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
 
   @ViewChild(CommonCodeTreeComponent, {static: true})
   tree!: CommonCodeTreeComponent;

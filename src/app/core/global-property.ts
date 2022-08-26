@@ -4,6 +4,6 @@ import { Injectable } from '@angular/core';
 export class GlobalProperty {
     constructor() { }
 
-    public static serverUrl: string = "http://localhost:8090";
+    static serverUrl: string = "http://localhost:8090";
     //public static serverUrl: string = "http://kbm0417.gonetis.com:8090";
 }

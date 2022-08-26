@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { UserService } from './user.service';
 
 @Component({

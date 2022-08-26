@@ -5,6 +5,7 @@ import { AppBase } from '../../core/app/app-base';
 import { ResponseObject } from '../../core/model/response-object';
 import { AuthorityService } from './authority.service';
 import { Authority } from './authority.model';
+import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 
 @Component({
   selector: 'app-authority',
@@ -25,6 +26,8 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   ];
 
   selectedId: any;
+
+  menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
 
   constructor(private location: Location,
               private service: AuthorityService) {

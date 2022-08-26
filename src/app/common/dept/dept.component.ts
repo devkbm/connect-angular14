@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { DeptTreeComponent } from './dept-tree.component';
 import { DeptFormComponent } from './dept-form.component';
 import { AppBase } from '../../core/app/app-base';
+import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 
 @Component({
   selector: 'app-dept',
@@ -19,6 +20,8 @@ export class DeptComponent extends AppBase implements OnInit {
 
   @ViewChild('deptForm', {static: true})
   form!: DeptFormComponent;
+
+  menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
 
   constructor(location: Location) {
     super(location);

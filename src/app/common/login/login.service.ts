@@ -7,7 +7,7 @@ import { UserToken } from './user-token.model';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { ResponseList } from '../../core/model/response-list';
 import { ResponseObject } from '../../core/model/response-object';
 

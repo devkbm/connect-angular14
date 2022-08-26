@@ -6,7 +6,7 @@ import { catchError } from 'rxjs/operators';
 import { DataService } from './data.service';
 import { ResponseObject } from '../model/response-object';
 import { User } from '../../common/user/user.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 
 
 @Injectable()

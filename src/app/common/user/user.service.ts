@@ -13,7 +13,7 @@ import { UserNotFoundError } from '../../core/error/user-not-found-error';
 import { User } from './user.model';
 
 import { MenuGroup } from '../menu/menu-group.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { Authority } from '../authority/authority.model';
 
 @Injectable()

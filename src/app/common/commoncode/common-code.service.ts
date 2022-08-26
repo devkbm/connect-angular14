@@ -10,7 +10,7 @@ import { ResponseList } from '../../core/model/response-list';
 
 import { CommonCode } from './common-code.model';
 import { CommonCodeHierarchy } from './common-code-hierarchy.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { SystemTypeEnum } from './system-type-enum.model';
 
 

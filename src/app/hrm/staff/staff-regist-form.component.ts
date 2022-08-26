@@ -12,7 +12,7 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 
 import { StaffService } from './staff.service';
 import { Staff } from './staff.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
 import { NewStaff } from './new-staff.request';

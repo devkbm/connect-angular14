@@ -6,7 +6,7 @@ import { BoardService } from './board.service';
 import { ResponseObject } from '../../../core/model/response-object';
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { NzUploadChangeParam, NzUploadComponent, NzUploadFile } from 'ng-zorro-antd/upload';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 // import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { Article } from './article.model';
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';

@@ -25,6 +25,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -38,6 +39,7 @@ import { DeptFormComponent } from './dept-form.component';
 import { DeptTreeComponent } from './dept-tree.component';
 import { DeptSelectComponent } from './dept-select.component';
 import { CheckableDeptTreeComponent } from './checkable-dept-tree.component';
+
 
 
 const nzModules = [
@@ -56,7 +58,8 @@ const nzModules = [
   NzButtonModule,
   NzIconModule,
   NzDatePickerModule,
-  NzPopconfirmModule
+  NzPopconfirmModule,
+  NzBreadCrumbModule
 ]
 
 @NgModule({

@@ -11,7 +11,7 @@ import { ResponseList } from '../../../core/model/response-list';
 import { Board } from './board.model';
 import { Article } from './article.model';
 import { BoardHierarchy } from './board-hierarchy.model';
-import { GlobalProperty } from 'src/app/global-property';
+import { GlobalProperty } from 'src/app/core/global-property';
 
 @Injectable()
 export class BoardService extends DataService {

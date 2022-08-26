@@ -9,6 +9,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { AppLayoutRoutingModule } from './app-layout-routing.module';
 
@@ -27,7 +28,8 @@ const nzModules = [
   NzAvatarModule,
   NzIconModule,
   NzSelectModule,
-  NzDropDownModule
+  NzDropDownModule,
+  NzBreadCrumbModule
 ];
 
 @NgModule({
