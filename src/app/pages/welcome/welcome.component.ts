@@ -53,11 +53,22 @@ export class WelcomeComponent implements OnInit {
     click: (e: MouseEvent) => {
       console.log('test2');
     },
-    nzType: 'delete'
+    nzType: 'delete',
+    isDanger: true
   },{
     text: 'test3',
     click: (e: MouseEvent) => {
       console.log('test3');
+    },
+    isDanger: true,
+    popConfirm: {
+      title: 'confirm?',
+      confirmClick: () => {
+        console.log('confirm');
+      },
+      cancelClick: () => {
+        console.log('cancel');
+      }
     }
   }];
 
