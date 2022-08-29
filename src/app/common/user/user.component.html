@@ -15,7 +15,7 @@
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">
-    <app-nz-buttons [buttons]="buttons"></app-nz-buttons>
+    <!--<app-nz-buttons [buttons]="buttons"></app-nz-buttons>-->
 
     <button nz-button (click)="test()">
       <i nz-icon nzType="search"></i>구글 로그인
@@ -36,7 +36,7 @@
   </div>
 </app-nz-search-area>
 
-<h3 class="pgm-title">사용자 목록</h3>
+<h3 class="grid-title">사용자 목록</h3>
 <div class="grid-wrapper">
   <app-user-grid #userGrid
     (rowClicked)="selectGridRow($event)"

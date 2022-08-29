@@ -20,11 +20,6 @@ import { AgGridModule } from 'ag-grid-angular';
 
 import { AppRoutingModule } from '../app-routing.module';
 
-import { TermComponent } from './terms/term.component';
-import { TermGridComponent } from './terms/term-grid.component';
-import { TermFormComponent } from './terms/term-form.component';
-import { TermService } from './terms/term.service';
-
 import { UserDuplicationValidatorDirective } from './user/user-duplication-validator.directive';
 import { CustomHttpInterceptor } from '../core/interceptor/custom-http-interceptor';
 import { UserSessionService } from '../core/service/user-session.service';
@@ -63,7 +58,7 @@ const nzModules = [
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
     AppRoutingModule,
-    ...nzModules,
+    nzModules,
     SharedModule,
     CoreModule,
     AgGridModule,
