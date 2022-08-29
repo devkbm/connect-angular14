@@ -19,6 +19,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzSpinModule } from 'ng-zorro-antd/spin';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -50,14 +51,15 @@ const nzModules = [
   NzInputModule,
   NzDrawerModule,
   NzDividerModule,
-  NzBreadCrumbModule
+  NzBreadCrumbModule,
+  NzSpinModule
 ]
 
 @NgModule({
   imports: [
-    ...angularModules,
+    angularModules,
     AgGridModule,
-    ...nzModules,
+    nzModules,
     SharedModule,
     CalendarModule
   ],

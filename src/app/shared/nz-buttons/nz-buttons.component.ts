@@ -47,7 +47,7 @@ export interface ButtonTemplate {
 @Component({
   selector: 'app-nz-buttons',
   template: `
-    <nz-button-group *ngFor="let btn of buttons; let i = index">
+    <div *ngFor="let btn of buttons; let i = index" style="display:inline">
       <!-- nz-popconfirm을 사용하지 않을 경우 -->
       <button nz-button (click)="btn?.click($event)" [nzDanger]="btn.isDanger" *ngIf="btn.popConfirm === null">
         <i nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></i>{{btn.text}}
@@ -61,7 +61,7 @@ export interface ButtonTemplate {
       </button>
 
       <nz-divider nzType="vertical" *ngIf="buttons.length > 0 && i < buttons.length - 1"></nz-divider>
-    </nz-button-group>
+    </div>
   `,
   styles: []
 })

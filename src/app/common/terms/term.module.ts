@@ -9,6 +9,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
+import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
@@ -18,37 +20,52 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
+import { NzAvatarModule } from 'ng-zorro-antd/avatar';
+import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzCardModule } from 'ng-zorro-antd/card';
+import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzUploadModule } from 'ng-zorro-antd/upload';
+import { NzSpaceModule } from 'ng-zorro-antd/space';
+import { NzSwitchModule } from 'ng-zorro-antd/switch';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
 
 /* Inner Component */
-import { CommonCodeService } from './common-code.service';
-import { CommonCodeComponent } from './common-code.component';
-import { CommonCodeFormComponent } from './common-code-form.component';
-import { CommonCodeGridComponent } from './common-code-grid.component';
-import { CommonCodeTreeComponent } from './common-code-tree.component';
+import { TermComponent } from './term.component';
+import { TermService } from './term.service';
+import { TermGridComponent } from './term-grid.component';
+import { TermFormComponent } from './term-form.component';
 
 const nzModules = [
+  NzLayoutModule,
+  NzGridModule,
   NzFormModule,
   NzSelectModule,
   NzPageHeaderModule,
   NzInputModule,
-  NzInputNumberModule,
   NzDrawerModule,
   NzDividerModule,
   NzTreeModule,
+  NzInputNumberModule,
   NzTreeSelectModule,
+  NzDatePickerModule,
   NzButtonModule,
+  NzPopconfirmModule,
+  NzAvatarModule,
+  NzDescriptionsModule,
+  NzCardModule,
+  NzImageModule,
+  NzUploadModule,
+  NzSpaceModule,
+  NzSwitchModule,
   NzIconModule,
-  NzCheckboxModule,
-  NzBreadCrumbModule,
-  NzDatePickerModule
+  NzBreadCrumbModule
 ]
 
 @NgModule({
@@ -61,24 +78,22 @@ const nzModules = [
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
     AgGridModule,
-    ...nzModules,
+    nzModules,
     SharedModule
   ],
   declarations: [
-    CommonCodeFormComponent,
-    CommonCodeGridComponent,
-    CommonCodeTreeComponent,
-    CommonCodeComponent
+    TermGridComponent,
+    TermFormComponent,
+    TermComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     { provide: COMPOSITION_BUFFER_MODE, useValue: false},
-    CommonCodeService
+    TermService
   ],
   exports: [
-    CommonCodeComponent,
-    CommonCodeTreeComponent
+    TermComponent
   ]
 })
-export class CommonCodeModule { }
+export class TermModule { }

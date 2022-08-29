@@ -42,8 +42,7 @@ import { HolidayModule } from './holiday/holiday.module';
 import { DeptModule } from './dept/dept.module';
 import { CommonCodeModule } from './commoncode/common-code.module';
 import { CoreModule } from '../core/core.module';
-import { ButtonRendererComponent } from '../core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from '../core/grid/renderer/checkbox-renderer.component';
+import { TermModule } from './terms/term.module';
 
 const nzModules = [
   NzGridModule,
@@ -75,13 +74,11 @@ const nzModules = [
     MenuModule,
     HolidayModule,
     DeptModule,
-    CommonCodeModule
+    CommonCodeModule,
+    TermModule
   ],
   declarations: [
     UserDuplicationValidatorDirective,
-    TermGridComponent,
-    TermFormComponent,
-    TermComponent,
     BizTypeFormComponent,
     BizCodeComponent,
     BizDetailFormComponent,
@@ -92,11 +89,9 @@ const nzModules = [
     { provide: HTTP_INTERCEPTORS, useClass: CustomHttpInterceptor, multi: true },
     { provide: COMPOSITION_BUFFER_MODE, useValue: false},
     UserSessionService,
-    TermService,
     NzModalService
   ],
   exports: [
-    TermComponent,
     BizCodeComponent
   ]
 })

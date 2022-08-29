@@ -10,21 +10,31 @@ import { Authority } from './authority.model';
 @Component({
   selector: 'app-authority-grid',
   template: `
-    <ag-grid-angular
-      [ngStyle]="style"
-      class="ag-theme-balham-dark"
-      rowSelection="single"
-      [rowData]="authorityList"
-      [columnDefs]="columnDefs"
-      [getRowId]="getRowId"
-      [frameworkComponents]="frameworkComponents"
-      (gridSize)="test($event)"
-      (gridReady)="onGridReady($event)"
-      (rowClicked)="rowClickedEvent($event)"
-      (rowDoubleClicked)="rowDbClicked($event)">
-    </ag-grid-angular>
+    <nz-spin nzTip="Loading..." [nzSpinning]="isLoading">
+      <ag-grid-angular
+        [ngStyle]="style"
+        class="ag-theme-balham-dark"
+        rowSelection="single"
+        [rowData]="authorityList"
+        [columnDefs]="columnDefs"
+        [getRowId]="getRowId"
+        [frameworkComponents]="frameworkComponents"
+        (gridSize)="test($event)"
+        (gridReady)="onGridReady($event)"
+        (rowClicked)="rowClickedEvent($event)"
+        (rowDoubleClicked)="rowDbClicked($event)">
+      </ag-grid-angular>
+    </nz-spin>
   `,
   styles: [`
+    nz-spin {
+      height:100%
+    }
+    /** nz-spin component 하위 엘리먼트 크기 조정 */
+    ::ng-deep .ant-spin-container.ng-star-inserted {
+      height: 100%;
+    }
+
     ::ng-deep .header-center .ag-cell-label-container { flex-direction: row; justify-content: center; }
     ::ng-deep .header-center .ag-header-cell-label { flex-direction: row; justify-content: center; }
 
@@ -42,6 +52,7 @@ import { Authority } from './authority.model';
 })
 export class AuthorityGridComponent extends AggridFunction implements OnInit {
 
+  isLoading: boolean = false;
   authorityList: Authority[] = [];
 
   @Output() rowClicked = new EventEmitter();
@@ -114,7 +125,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
   }
 
   getList(params?: any): void {
-
+    this.isLoading = true;
     this.service
         .getAuthorityList(params)
         .subscribe(
@@ -125,6 +136,7 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
             } else {
               this.authorityList = [];
             }
+            this.isLoading = false;
             this.appAlarmService.changeMessage(model.message);
           }
         );

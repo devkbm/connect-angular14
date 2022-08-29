@@ -6,7 +6,7 @@
   justify-content: center;
   text-align: center;
   width: 200px;
-  height: 60px;
+  height: 64px;
 
   background-color: darkslategray;
   color: white;
@@ -20,7 +20,7 @@
 
 .sidebar {
   background: black;
-  height: calc(100vh - 60px);
+  height: calc(100vh - 64px);
   /* text 드래그 막기 */
   -webkit-touch-callout: none;  /* iOS Safari */
   -webkit-user-select: none;    /* Safari */
@@ -55,7 +55,7 @@
 
 .avatar {
   float: right;
-  margin-top: 6px;
+  margin-top: 8px;
   margin-right: 20px;
   vertical-align: top;
 }
@@ -75,9 +75,8 @@
 .footer {
   position: sticky;
   margin: 0px;
-  padding: 8px;
   height: var(--footer-height);
   text-align: center;
   vertical-align: middle;
-  background-color: green;
+  background-color: black;
 }

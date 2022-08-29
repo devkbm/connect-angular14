@@ -17,24 +17,23 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from '../../core/grid/renderer/checkbox-renderer.component';
 
 /* Inner Component */
 import { HolidayService } from './holiday.service';
 import { HolidayComponent } from './holiday.component';
 import { HolidayFormComponent } from './holiday-form.component';
 import { HolidayGridComponent } from './holiday-grid.component';
+
 
 const nzModules = [
   NzLayoutModule,
@@ -50,7 +49,8 @@ const nzModules = [
   NzInputNumberModule,
   NzTreeSelectModule,
   NzDatePickerModule,
-  NzButtonModule
+  NzButtonModule,
+  NzIconModule
 ]
 
 @NgModule({

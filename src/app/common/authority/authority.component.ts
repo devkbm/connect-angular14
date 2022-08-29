@@ -6,6 +6,7 @@ import { ResponseObject } from '../../core/model/response-object';
 import { AuthorityService } from './authority.service';
 import { Authority } from './authority.model';
 import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
+import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-authority',
@@ -28,6 +29,30 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   selectedId: any;
 
   menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
+
+  buttons: ButtonTemplate[] = [{
+    text: '조회',
+    nzType: 'search',
+    click: (e: MouseEvent) => {
+      this.getAuthorityList();
+    }
+  },{
+    text: '신규',
+    nzType: 'form',
+    click: (e: MouseEvent) => {
+      this.initForm();
+    }
+  },{
+    text: '삭제',
+    nzType: 'delete',
+    isDanger: true,
+    popConfirm: {
+      title: '삭제하시겠습니까?',
+      confirmClick: () => {
+        this.deleteAuthority();
+      }
+    }
+  }];
 
   constructor(private location: Location,
               private service: AuthorityService) {
