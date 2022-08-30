@@ -6,8 +6,8 @@ export class Dept {
     public deptAbbreviationKorean: string,
     public deptNameEnglish: string,
     public deptAbbreviationEnglish: string,
-    public fromDate: string,
-    public toDate: string,
+    public fromDate: Date,
+    public toDate: Date,
     public seq: number,
     public comment: string) {}
 }

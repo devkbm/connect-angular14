@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, Temp
 import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 
+import * as dateFns from "date-fns";
+
 @Component({
   selector: 'app-nz-input-date',
   template: `
@@ -49,7 +51,7 @@ export class NzInputDateComponent implements ControlValueAccessor {
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: string;
+  value!: Date;
 
   onChange!: (value: string) => void;
   onTouched!: () => void;
@@ -83,6 +85,7 @@ export class NzInputDateComponent implements ControlValueAccessor {
   valueChange(val: any) {
     const nativeValue = this.element?.pickerInput?.nativeElement.value;
     console.log('nativeValue: ' + nativeValue);
+    this.onChange(dateFns.format(this.value, "yyyy-MM-dd"));
   }
 
 }

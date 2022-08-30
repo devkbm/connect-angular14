@@ -1,4 +1,4 @@
-{{fg.value | json}}
+{{fg.getRawValue()| json}} - {{fg.valid}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
 
   <!-- ERROR TEMPLATE-->
@@ -13,6 +13,15 @@
 
   <!-- 1 row -->
   <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <!--부서ID 필드 -->
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="deptId" fieldName="deptId" itemId="deptId"
+        placeholder=""
+        [readonly]="true" [required]="true" [nzErrorTip]="errorTpl">부서ID
+      </app-nz-input-text>
+    </div>
+
     <div nz-col nzSpan="12">
       <!--상위부서코드 필드-->
       <nz-form-item class="form-item">
@@ -33,20 +42,20 @@
         </nz-form-control>
       </nz-form-item>
     </div>
+  </div>
 
-    <div nz-col nzSpan="12">
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
       <!--부서코드 필드 -->
-      <app-nz-input-text
+      <app-nz-input-text #deptCode
         [parentFormGroup]="fg" formControlName="deptCode" fieldName="deptCode" itemId="deptCode"
         placeholder="부서코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드
       </app-nz-input-text>
     </div>
-  </div>
 
-  <!-- 2 row -->
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <!--부서코드명(한글) 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="deptNameKorean" fieldName="deptNameKorean" itemId="deptNameKorean"
@@ -55,7 +64,7 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <!--부서코드명(한글) 약어 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="deptAbbreviationKorean" fieldName="deptAbbreviationKorean" itemId="deptAbbreviationKorean"
