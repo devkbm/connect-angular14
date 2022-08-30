@@ -1,20 +1,14 @@
 import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@angular/core';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { AppAlarmService } from '../core/service/app-alarm.service';
-import { MenuService } from '../common/menu/menu.service';
+import { MenuService } from '../system/menu/menu.service';
 
-import { MenuHierarchy } from '../common/menu/menu-hierarchy.model';
+import { MenuHierarchy } from '../system/menu/menu-hierarchy.model';
 import { ResponseList } from '../core/model/response-list';
 import { UserSessionService } from '../core/service/user-session.service';
-import { UserPopupComponent } from '../common/user/user-popup.component';
+import { UserPopupComponent } from '../system/user/user-popup.component';
 import { SelectControlModel } from '../core/model/select-control.model.ts';
 
 
@@ -30,7 +24,7 @@ export class AppLayoutComponent implements OnInit  {
   selectedValue: string = '';
   message: string = '';
   menuGroupCode: string = '';
-  avartarImgSrc = '';
+  profileAvatarSrc: string = '';
 
   menuGroupList: SelectControlModel[] = [];
   menuItems: MenuHierarchy[] = [];
@@ -40,7 +34,6 @@ export class AppLayoutComponent implements OnInit  {
   constructor(private appAlarmService: AppAlarmService,
               private sessionService: UserSessionService,
               private menuService: MenuService,
-              private modalService: NzModalService,
               private viewContainerRef: ViewContainerRef,
               private route: ActivatedRoute,
               private router: Router) { }
@@ -113,10 +106,12 @@ export class AppLayoutComponent implements OnInit  {
   }
 
   setAvatar(): void {
-    // this.userImageBase64 = 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png';
-    // const url = sessionStorage.getItem('imageUrl');
-    // this.userImageBase64 = `http://localhost:8090/static/${url}`;
-    this.avartarImgSrc = this.sessionService.getAvartarImageString();
+    // this.profileAvatarSrc = `http://localhost:8090/static/${url}`;
+
+    const profilePictureUrl: string | null = this.sessionService.getAvartarImageString();
+    if (profilePictureUrl !== null) {
+      this.profileAvatarSrc = profilePictureUrl as string;
+    }
   }
 
 

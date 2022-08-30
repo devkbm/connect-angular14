@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CommonFuncModule } from 'src/app/common/common-func.module';
+import { SystemManagementModule } from 'src/app/system/system-management.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
@@ -27,9 +27,6 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 
 import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from 'src/app/shared/shared.module';
-
-import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from 'src/app/core/grid/renderer/checkbox-renderer.component';
 
 import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffAppointmentRecordFormComponent } from './staff-appointment-record-form.component';
@@ -60,7 +57,7 @@ const nzModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonFuncModule,
+    SystemManagementModule,
     nzModules,
     AgGridModule,
     SharedModule

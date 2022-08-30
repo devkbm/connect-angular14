@@ -39,13 +39,13 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   previewImage: string | undefined = '';
   previewVisible = false;
-  imageUploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image/';
+  uploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image/';
   imageUploadHeader: any = {
     Authorization: sessionStorage.getItem('token')
     //'x-auth-token': sessionStorage.getItem('token')
     //'Content-Type': 'multipart/form-data'
   };
-  imageUploadParam: any;
+  uploadParam: any = {};
 
   imageBase64: any;
   isUploadable: any;
@@ -143,7 +143,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
                 "Authorization": sessionStorage.getItem('token')
               };
 
-              this.imageUploadParam = { userId: model.data.userId };
+              this.uploadParam = { userId: model.data.userId };
               if (model.data.imageBase64 != null) {
                 //this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
                 this.imageBase64 = model.data.imageBase64;

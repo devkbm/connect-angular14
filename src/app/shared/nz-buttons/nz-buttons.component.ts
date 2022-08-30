@@ -47,27 +47,36 @@ export interface ButtonTemplate {
 @Component({
   selector: 'app-nz-buttons',
   template: `
-    <div *ngFor="let btn of buttons; let i = index" style="display:inline">
+    <div *ngFor="let btn of buttons; let i = index" class="button-group">
       <!-- nz-popconfirm을 사용하지 않을 경우 -->
-      <button nz-button (click)="btn?.click($event)" [nzDanger]="btn.isDanger" *ngIf="btn.popConfirm === null">
+      <button nz-button *ngIf="btn.text !== '|' && btn.popConfirm === null" [nzDanger]="btn.isDanger" (click)="btn?.click === undefined ? true : btn?.click($event)">
         <i nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></i>{{btn.text}}
       </button>
 
       <!-- nz-popcofirm을 사용할 경우 -->
-      <button nz-button (click)="btn?.click($event)" [nzDanger]="btn.isDanger" *ngIf="btn.popConfirm !== null"
+      <button nz-button *ngIf="btn.text !== '|' && btn.popConfirm !== null" [nzDanger]="btn.isDanger" (click)="btn?.click === undefined ? true : btn?.click($event)"
         nz-popconfirm [nzPopconfirmTitle]="btn.popConfirm?.title" [nzOkType]="btn.isDanger === true ? 'danger' : 'primary'"
-        (nzOnConfirm)="btn.popConfirm?.confirmClick()" (nzOnCancel)="btn.popConfirm?.cancelClick()">
+        (nzOnConfirm)="btn.popConfirm?.confirmClick === undefined ? true : btn.popConfirm?.confirmClick()"
+        (nzOnCancel)="btn.popConfirm?.cancelClick === undefined ? true : btn.popConfirm?.cancelClick()">
         <i nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></i>{{btn.text}}
       </button>
 
-      <nz-divider nzType="vertical" *ngIf="buttons.length > 0 && i < buttons.length - 1"></nz-divider>
+      <nz-divider nzType="vertical" *ngIf="btn.text === '|'"></nz-divider>
+
+      <!-- isAutoDevider가 true일 경우 버튼마다 devider 생성 -->
+      <nz-divider nzType="vertical" *ngIf="this.isAutoDevider && buttons.length > 0 && i < buttons.length - 1"></nz-divider>
     </div>
   `,
-  styles: []
+  styles: [`
+    .button-group {
+      display: inline;
+    }
+  `]
 })
 export class NzButtonsComponent implements OnInit {
 
   @Input() buttons!: ButtonTemplate[];
+  @Input() isAutoDevider: boolean = true;
 
   constructor() { }
 

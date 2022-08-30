@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CommonFuncModule } from 'src/app/common/common-func.module';
+import { SystemManagementModule } from 'src/app/system/system-management.module';
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -37,7 +37,7 @@ import { StatusChangeHistoryGridComponent } from './component/basic-info/status-
 import { EmployeeGridComponent } from './component/basic-info/employee-grid.component';
 import { DeptEmployeeListComponent } from './component/dept-employee-list/dept-employee-list.component';
 import { EmployeeCardComponent } from './component/employee-card/employee-card.component';
-import { DeptModule } from 'src/app/common/dept/dept.module';
+import { DeptModule } from 'src/app/system/dept/dept.module';
 
 const nzModules = [
   NzLayoutModule,
@@ -64,7 +64,7 @@ const nzModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonFuncModule,
+    SystemManagementModule,
     nzModules,
     AgGridModule,
     DeptModule

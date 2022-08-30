@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { CheckableDeptTreeComponent } from 'src/app/common/dept/checkable-dept-tree.component';
+import { CheckableDeptTreeComponent } from 'src/app/system/dept/checkable-dept-tree.component';
 import { EmployeeGridComponent } from '../basic-info/employee-grid.component';
 import { SearchEmployee } from '../../model/search-employee';
 

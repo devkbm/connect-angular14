@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { CommonFuncModule } from '../../common/common-func.module';
+import { SystemManagementModule } from '../../system/system-management.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
@@ -22,7 +22,6 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
 
 import { SurveyService } from './service/survey.service';
 
@@ -51,7 +50,7 @@ const nzModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonFuncModule,
+    SystemManagementModule,
     nzModules,
     AgGridModule
   ],

@@ -2,7 +2,7 @@
   <nz-form-label [nzFor]="itemId" [nzRequired]="required">
     <ng-content></ng-content>
   </nz-form-label>
-  <nz-form-control [nzErrorTip]="nzErrorTip">
+  <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField">
     <nz-select
         [nzId]="itemId"
         [(ngModel)]="value"

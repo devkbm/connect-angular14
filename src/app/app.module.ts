@@ -20,7 +20,7 @@ import { AppComponent } from './app.component';
 import { GlobalProperty } from './core/global-property';
 import { AppLayoutModule } from './app-layout/app-layout.module';
 import { AppInjector } from './core/app/app-injector.service';
-import { CommonFuncModule } from './common/common-func.module';
+import { SystemManagementModule } from './system/system-management.module';
 
 import { BoardModule } from './cooperation/board/board.module';
 import { CommunicationModule } from './cooperation/communication/communication.module';
@@ -59,7 +59,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     NzMenuModule,
     AppRoutingModule,
     AppLayoutModule,
-    CommonFuncModule,
+    SystemManagementModule,
     BoardModule,
     CommunicationModule,
     SurveyModule,

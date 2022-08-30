@@ -6,6 +6,7 @@ import { AppBase } from '../../core/app/app-base';
 import { WebResourceService } from './web-resource.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { WebResource } from './web-resource';
+import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-web-resource',
@@ -28,6 +29,30 @@ export class WebResourceComponent extends AppBase  implements OnInit {
     {label: 'URL', value: 'url'},
     {label: '설명', value: 'description'}
   ];
+
+  buttons: ButtonTemplate[] = [{
+    text: '조회',
+    nzType: 'search',
+    click: (e: MouseEvent) => {
+      this.getList();
+    }
+  },{
+    text: '신규',
+    nzType: 'form',
+    click: (e: MouseEvent) => {
+      this.initForm();
+    }
+  },{
+    text: '삭제',
+    nzType: 'delete',
+    isDanger: true,
+    popConfirm: {
+      title: '삭제하시겠습니까?',
+      confirmClick: () => {
+        this.delete();
+      }
+    }
+  }];
 
   drawerVisible = false;
 

@@ -6,20 +6,40 @@ import { UserService } from './user.service';
 
 @Component({
   selector: 'app-user-image-upload',
-  templateUrl: './user-image-upload.component.html',
-  styleUrls: ['./user-image-upload.component.css']
+  template: `
+  <div style="text-align: center;">
+    <img nz-image [nzSrc]="imageSrc + imageBase64" width="100px" height="100px" />
+    <br/>
+    <nz-space [nzAlign]="'center'">
+      <nz-upload
+          nzAction="uploadUrl"
+          [nzShowButton]="isShowUploadButton"
+          [nzShowUploadList]="false"
+          [nzPreview]="handlePreview"
+          [nzRemove]="handleRemove"
+          [nzWithCredentials]="true"
+          [nzData]="uploadParam"
+          [nzHeaders]="uploadHeader"
+          [nzFileList]="fileList"
+          (nzChange)="fileUploadChange($event)">
+          <button nz-button><i nz-icon nzType="upload"></i></button>
+      </nz-upload>
+      <button nz-button (click)="downloadImage()">
+        <i nz-icon nzType="download"></i>
+      </button>
+    </nz-space>
+  </div>
+  `,
+  styles: [`
+  `]
 })
 export class UserImageUploadComponent implements OnInit {
 
   previewImage: string | undefined = '';
-  imageUploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image/';
-  imageSrc: string = GlobalProperty.serverUrl + '/static/';
-  isShowUploadButton: boolean = true;
-  @Input() imageWidth: string = '150px';
-  @Input() imageHeight: string = '200px';
-  @Input() imageUploadParam: any;
-  @Input() imageBase64: any;
-  @Input() userId: string = '';
+
+  uploadHeader: any = { Authorization: sessionStorage.getItem('token') };
+  @Input() uploadParam: any = { userId: '0011' };
+  uploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image';
 
   showUploadList = {
     showPreviewIcon: false,
@@ -27,18 +47,29 @@ export class UserImageUploadComponent implements OnInit {
     showRemoveIcon: false
   };
 
-  fileList: NzUploadFile[] = [
-    /*{
+  imageSrc: string = GlobalProperty.serverUrl + '/static/';
+  isShowUploadButton: boolean = true;
+  @Input() imageWidth: string = '150px';
+  @Input() imageHeight: string = '200px';
+  @Input() imageBase64: any;
+  @Input() userId: string = '';
+
+  /*{
       uid: -1,
       name: 'xxx.png',
       status: 'done',
       url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png'
     }*/
-  ];
+  fileList: NzUploadFile[] = [];
 
   constructor(private userService: UserService) { }
 
   ngOnInit(): void {
+    this.uploadHeader = {
+      "Content-Type": "multipart/form-data",
+      "Accept": "application/json",
+      "Authorization": sessionStorage.getItem('token')
+    }
   }
 
   // 미리보기 버튼 클릭시
@@ -53,15 +84,16 @@ export class UserImageUploadComponent implements OnInit {
   }
 
   fileUploadChange(param: NzUploadChangeParam): void {
+    console.log(this.uploadUrl);
+    console.log(param);
+    console.log(this.uploadParam);
     if (param.type === 'success') {
-      console.log(param);
       const serverFilePath = param.file.response.data;
       this.imageBase64 = this.findFileName(serverFilePath);
     }
   }
 
   downloadImage(): void {
-
     this.userService
         .downloadUserImage(this.userId)
         .subscribe(

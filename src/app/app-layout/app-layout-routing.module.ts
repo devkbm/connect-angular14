@@ -4,15 +4,15 @@ import { Routes, RouterModule } from '@angular/router';
 import { AppLayoutComponent } from './app-layout.component';
 import { AuthGuardService } from '../core/service/auth-guard.service';
 
-import { AuthorityComponent } from '../common/authority/authority.component';
-import { UserComponent } from '../common/user/user.component';
-import { WebResourceComponent } from '../common/webresource/web-resource.component';
-import { MenuComponent } from '../common/menu/menu.component';
-import { TermComponent } from '../common/terms/term.component';
-import { CommonCodeComponent } from '../common/commoncode/common-code.component';
-import { DeptComponent } from '../common/dept/dept.component';
-import { HolidayComponent } from '../common/holiday/holiday.component';
-import { BizCodeComponent } from '../common/bizcode/biz-code.component';
+import { AuthorityComponent } from '../system/authority/authority.component';
+import { UserComponent } from '../system/user/user.component';
+import { WebResourceComponent } from '../system/webresource/web-resource.component';
+import { MenuComponent } from '../system/menu/menu.component';
+import { TermComponent } from '../system/terms/term.component';
+import { CommonCodeComponent } from '../system/commoncode/common-code.component';
+import { DeptComponent } from '../system/dept/dept.component';
+import { HolidayComponent } from '../system/holiday/holiday.component';
+import { BizCodeComponent } from '../system/bizcode/biz-code.component';
 
 import { TeamComponent } from '../cooperation/communication/component/team.component';
 import { BoardComponent } from '../cooperation/board/component/board.component';

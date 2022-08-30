@@ -1,11 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-  AbstractControl,
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { CommonCodeService } from './common-code.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
@@ -35,19 +29,19 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.fb.group({
-      id                      : [ null ],
-      systemTypeCode          : [ null ],
-      parentId                : [ null ],
-      code                    : [ null, [ Validators.required ] ],
-      codeName                : [ null, [ Validators.required ] ],
-      codeNameAbbreviation    : [ null ],
-      fromDate                : [ null, [ Validators.required ] ],
-      toDate                  : [ null, [ Validators.required ] ],
-      seq                     : [ null ],
-      hierarchyLevel          : [ null ],
-      fixedLengthYn           : [ null ],
-      codeLength              : [ null ],
-      cmt                     : [ null ]
+      id                      : new FormControl<string | null>(null),
+      systemTypeCode          : new FormControl<string | null>(null),
+      parentId                : new FormControl<string | null>(null),
+      code                    : new FormControl<string | null>(null, { validators: [Validators.required] }),
+      codeName                : new FormControl<string | null>(null, { validators: [Validators.required] }),
+      codeNameAbbreviation    : new FormControl<string | null>(null),
+      fromDate                : new FormControl<Date | null>(null, { validators: [Validators.required] }),
+      toDate                  : new FormControl<Date | null>(null, { validators: [Validators.required] }),
+      seq                     : new FormControl<number | null>(null),
+      hierarchyLevel          : new FormControl<number | null>(null),
+      fixedLengthYn           : new FormControl<boolean | null>(null),
+      codeLength              : new FormControl<number | null>(null),
+      cmt                     : new FormControl<string | null>(null)
     });
 
     this.newForm(null);
@@ -83,14 +77,14 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     this.commonCodeService
         .getCommonCode(id)
         .subscribe(
-            (model: ResponseObject<CommonCode>) => {
-              if ( model.total > 0 ) {
-                this.modifyForm(model.data);
-              } else {
-                this.newForm('');
-              }
-              this.appAlarmService.changeMessage(model.message);
+          (model: ResponseObject<CommonCode>) => {
+            if ( model.total > 0 ) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm('');
             }
+            this.appAlarmService.changeMessage(model.message);
+          }
         );
   }
 
@@ -113,7 +107,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
   }
 
   submitCommonCode(): void {
-    if (this.isValid() === false) return;
+    if (this.fg.invalid) return;
 
     this.commonCodeService
         .registerCommonCode(this.fg.getRawValue())

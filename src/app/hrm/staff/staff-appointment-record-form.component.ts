@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { Dept } from 'src/app/common/dept/dept.model';
-import { DeptService } from 'src/app/common/dept/dept.service';
+import { Dept } from 'src/app/system/dept/dept.model';
+import { DeptService } from 'src/app/system/dept/dept.service';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';

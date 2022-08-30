@@ -5,7 +5,7 @@ import { catchError } from 'rxjs/operators';
 
 import { DataService } from './data.service';
 import { ResponseObject } from '../model/response-object';
-import { User } from '../../common/user/user.model';
+import { User } from '../../system/user/user.model';
 import { GlobalProperty } from 'src/app/core/global-property';
 
 
@@ -18,8 +18,13 @@ export class UserSessionService extends DataService {
     this.STATIC_URI = GlobalProperty.serverUrl + '/static/';
   }
 
-  getAvartarImageString(): string {
-    return this.STATIC_URI + sessionStorage.getItem('imageUrl');
+  getAvartarImageString(): string | null {
+    const imageUrl = sessionStorage.getItem('imageUrl');
+    if (imageUrl === null || imageUrl === 'null') {
+      return null;
+    } else {
+      return this.STATIC_URI + sessionStorage.getItem('imageUrl');
+    }
   }
 
   getSessionUserInfo(): Observable<ResponseObject<User>> {

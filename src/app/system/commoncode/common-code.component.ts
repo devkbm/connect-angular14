@@ -9,6 +9,7 @@ import { CommonCodeTreeComponent } from './common-code-tree.component';
 import { CommonCodeService } from './common-code.service';
 import { SystemTypeEnum } from './system-type-enum.model';
 import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
+import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
   selector: 'app-common-code',
@@ -30,6 +31,39 @@ export class CommonCodeComponent extends AppBase implements OnInit {
   systeTypeCode = 'COM';
   queryValue = '';
   selectedCode = '';
+
+  buttons: ButtonTemplate[] = [{
+    text: '조회',
+    nzType: 'search',
+    click: (e: MouseEvent) => {
+      this.getCommonCodeTree();
+    }
+  },{
+    text: '신규',
+    nzType: 'form',
+    click: (e: MouseEvent) => {
+      this.newForm();
+    }
+  },{
+    text: '저장',
+    nzType: 'save',
+    popConfirm: {
+      title: '저장하시겠습니까?',
+      confirmClick: () => {
+        this.saveCommonCode();
+      }
+    }
+  },{
+    text: '삭제',
+    nzType: 'delete',
+    isDanger: true,
+    popConfirm: {
+      title: '삭제하시겠습니까?',
+      confirmClick: () => {
+        this.deleteCommonCode();
+      }
+    }
+  }];
 
   constructor(location: Location,
               private commonCodeService: CommonCodeService) {

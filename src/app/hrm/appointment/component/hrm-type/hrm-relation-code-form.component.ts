@@ -9,7 +9,7 @@ import { HrmCodeService } from '../../service/hrm-code.service';
 import { AppointmentCodeService } from '../../service/appointment-code.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { HrmTypeDetailCode } from '../../model/hrm-type-detail-code';
-import { CommonCodeService } from 'src/app/common/commoncode/common-code.service';
+import { CommonCodeService } from 'src/app/system/commoncode/common-code.service';
 
 @Component({
   selector: 'app-hrm-relation-code-form',

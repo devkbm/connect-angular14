@@ -11,7 +11,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
         nzMultiple
         [nzListType]="'text'"
         [nzWithCredentials]="true"
-        [nzData]="imageUploadParam"
+        [nzData]="uploadParam"
         [nzHeaders]="fileUploadHeader"
         [nzFileList]="fileList"
         (nzChange)="fileUploadChange($event)">
@@ -32,7 +32,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
 })
 export class NzFileUploadComponent implements OnInit {
 
-  imageUploadParam = { pgmId: 'board', appUrl:'asd' };
+  uploadParam = { pgmId: 'board', appUrl:'asd' };
   uploadUrl: string = GlobalProperty.serverUrl + '/common/file/';
   fileUploadHeader: any;
 

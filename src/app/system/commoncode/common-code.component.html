@@ -16,6 +16,8 @@
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">
+    <app-nz-buttons [buttons]="buttons"></app-nz-buttons>
+    <!--
     <button nz-button nzType="primary" (click)="getCommonCodeTree()">
       <i nz-icon nzType="search"></i>조회
     </button>
@@ -35,6 +37,7 @@
       (nzOnConfirm)="deleteCommonCode()" (nzOnCancel)="false">
       <i nz-icon nzType="delete" nzTheme="outline"></i>삭제
     </button>
+    -->
   </div>
 </app-nz-search-area>
 
@@ -51,10 +54,3 @@
   </app-common-code-form>
 </div>
 
-<!--<app-common-code-grid
-    id="commonCodeGrid"
-    #commonCodeGrid
-    (rowSelected)="selectedItem($event)"
-    (editButtonClicked)="editDrawerOpen($event)"
-    (rowDoubleClicked)="editDrawerOpen($event)">
-</app-common-code-grid>-->

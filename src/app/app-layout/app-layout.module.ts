@@ -13,14 +13,16 @@ import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
 import { AppLayoutRoutingModule } from './app-layout-routing.module';
 
-import { MenuService } from '../common/menu/menu.service';
-import { WebResourceService } from '../common/webresource/web-resource.service';
 import { AppAlarmService } from '../core/service/app-alarm.service';
-import { TermService } from '../common/terms/term.service';
+import { AuthGuardService } from '../core/service/auth-guard.service';
+
+import { MenuService } from '../system/menu/menu.service';
+import { WebResourceService } from '../system/webresource/web-resource.service';
+import { TermService } from '../system/terms/term.service';
 
 import { AppLayoutComponent } from './app-layout.component';
-import { UserPopupComponent } from '../common/user/user-popup.component';
-import { AuthGuardService } from '../core/service/auth-guard.service';
+import { UserPopupComponent } from '../system/user/user-popup.component';
+
 
 const nzModules = [
   NzLayoutModule,

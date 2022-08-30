@@ -90,4 +90,4 @@ const nzModules = [
     BizCodeComponent
   ]
 })
-export class CommonFuncModule { }
+export class SystemManagementModule { }

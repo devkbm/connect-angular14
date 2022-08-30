@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { CommonFuncModule } from 'src/app/common/common-func.module';
+import { SystemManagementModule } from 'src/app/system/system-management.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
@@ -25,11 +25,7 @@ import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 
-
 import { AgGridModule } from 'ag-grid-angular';
-
-import { ButtonRendererComponent } from 'src/app/core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from 'src/app/core/grid/renderer/checkbox-renderer.component';
 
 import { PayItemFormComponent } from './component/pay-item/pay-item-form.component';
 import { PayitemComponent } from './component/pay-item/payitem.component';
@@ -60,7 +56,7 @@ const nzModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    CommonFuncModule,
+    SystemManagementModule,
     nzModules,
     AgGridModule
   ],
