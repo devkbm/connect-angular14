@@ -4,10 +4,13 @@
 
   <ng-template #errorTpl let-control>
     <ng-container *ngIf="control.hasError('required')">
-        필수 입력 값입니다.
+      필수 입력 값입니다.
     </ng-container>
     <ng-container *ngIf="control.hasError('exists')">
-        기존 아이디가 존재합니다.
+      기존 아이디가 존재합니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('email')">
+      이메일을 확인해주세요.
     </ng-container>
   </ng-template>
 

@@ -32,6 +32,11 @@
     [required]="true" [nzErrorTip]="errorTpl">label3
   </app-nz-input-date>
 
+  <app-nz-input-datetime
+    [parentFormGroup]="this.fg" formControlName="input_date" fieldName="input_date" itemId="data3"
+    [required]="true" [nzErrorTip]="errorTpl">label3
+  </app-nz-input-datetime>
+
   <app-nz-input-number-custom
     [parentFormGroup]="this.fg" formControlName="input_number" fieldName="input_number" itemId="data4"
     [required]="true" [nzErrorTip]="errorTpl">label4

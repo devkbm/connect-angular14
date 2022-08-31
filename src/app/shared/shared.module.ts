@@ -11,6 +11,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { NzTimePickerModule } from 'ng-zorro-antd/time-picker';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
@@ -42,6 +43,8 @@ import { NzInputCheckboxComponent } from './nz-input-checkbox/nz-input-checkbox.
 import { NzSearchAreaComponent } from './nz-search-area/nz-search-area.component';
 import { NzPageHeaderCustomComponent } from './nz-page-header-custom/nz-page-header-custom.component';
 import { NzButtonsComponent } from './nz-buttons/nz-buttons.component';
+import { NzInputDateTimeComponent } from './nz-input-datetime/nz-input-datetime.component';
+
 
 
 const nzModules = [
@@ -56,6 +59,7 @@ const nzModules = [
   NzIconModule,
   NzTreeSelectModule,
   NzDatePickerModule,
+  NzTimePickerModule,
   NzUploadModule,
   NzSwitchModule,
   NzCheckboxModule,
@@ -82,6 +86,7 @@ const nzModules = [
     NzCrudButtonGroupComponent,
     NzTreeSelectCustomComponent,
     NzInputDateComponent,
+    NzInputDateTimeComponent,
     NzInputSelectComponent,
     NzInputTreeSelectComponent,
     NzFileUploadComponent,
@@ -105,6 +110,7 @@ const nzModules = [
     NzCrudButtonGroupComponent,
     NzTreeSelectCustomComponent,
     NzInputDateComponent,
+    NzInputDateTimeComponent,
     NzInputSelectComponent,
     NzInputTreeSelectComponent,
     NzFileUploadComponent,

@@ -163,7 +163,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   registerUser(): void {
-    if (this.fg.invalid) return;
+    if (this.isValid() === false) return;
 
     this.userService
         .registerUser(this.fg.getRawValue())

@@ -1,15 +1,9 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { DeptService } from './dept.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 import { existingDeptValidator } from './dept-duplication-validator.directive';
-
 
 import { ResponseObject } from '../../core/model/response-object';
 import { FormBase, FormType } from '../../core/form/form-base';
@@ -68,6 +62,8 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
   newForm(): void {
     this.formType = FormType.NEW;
 
+    this.getDeptHierarchy();
+
     this.fg.reset();
     this.fg.get('deptId')?.setAsyncValidators(existingDeptValidator(this.deptService));
     this.fg.get('deptCode')?.enable();
@@ -81,8 +77,8 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
     //dateFns.formatISO9075(new Date()),
     //new Intl.DateTimeFormat('ko-KR', ).format(new Date())
     this.fg.patchValue({
-      fromDate: new Date(),
-      toDate: new Date(9999,11,31,0,0,0,0),
+      fromDate: dateFns.format(new Date(), "yyyy-MM-dd"),
+      toDate: dateFns.format(new Date(9999,11,31), "yyyy-MM-dd"),
       seq: 1
     });
 
@@ -92,6 +88,8 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
 
   modifyForm(formData: Dept): void {
     this.formType = FormType.MODIFY;
+
+    this.getDeptHierarchy();
 
     this.fg.get('deptId')?.setAsyncValidators(null);
     this.fg.get('deptCode')?.disable();
