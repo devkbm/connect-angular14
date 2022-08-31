@@ -1,10 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { ResponseObject } from '../../../../core/model/response-object';
 import { FormBase, FormType } from '../../../../core/form/form-base';
@@ -13,6 +8,10 @@ import { WorkGroup } from '../../model/workgroup.model';
 import { WorkGroupSchedule } from '../../model/workgroup-schedule.model';
 import { ResponseList } from '../../../../core/model/response-list';
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
+import { TimeFormat } from 'src/app/shared/nz-input-datetime/nz-input-datetime.component';
+import { DatePipe } from '@angular/common';
+
+import * as dateFns from "date-fns";
 
 export interface NewFormValue {
   workGroupId: number;
@@ -31,17 +30,20 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
   @Input() override initLoadId: number = -1;
   @Input() newFormValue?: NewFormValue;
 
+  timeFormat: TimeFormat = TimeFormat.HourMinute;
+
   workGroupList: WorkGroup[] = [];
 
   constructor(private fb: FormBuilder,
-              private workGroupService: WorkGroupService) {
+              private workGroupService: WorkGroupService,
+              private datePipe: DatePipe) {
     super();
 
     this.fg = this.fb.group({
       id              : new FormControl({value: null, disabled: true}),
       text            : [ null, [ Validators.required ] ],
-      start           : new FormControl<string | null>(null),
-      end             : new FormControl<string | null>(null),
+      start           : new FormControl<Date | null>(null),
+      end             : new FormControl<Date | null>(null),
       allDay          : [ null, [ Validators.required ] ],
       workGroupId     : [ -1, [ Validators.required ] ]
     });
@@ -73,8 +75,8 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
     args.end.setMilliseconds(0);
 
     this.fg.get('workGroupId')?.setValue(Number.parseInt(args.workGroupId.toString(),10));
-    this.fg.get('start')?.setValue(args.start);
-    this.fg.get('end')?.setValue(args.end);
+    this.fg.get('start')?.setValue(dateFns.format(args.start, "yyyy-MM-dd HH:mm:ss"));
+    this.fg.get('end')?.setValue(dateFns.format(args.end, "yyyy-MM-dd HH:mm:ss"));
   }
 
   modifyForm(formData: WorkGroupSchedule): void {

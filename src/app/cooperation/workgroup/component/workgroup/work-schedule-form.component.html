@@ -31,8 +31,8 @@
   </div>
 
   <div nz-row nzGutter="8">
+    <!--
     <div nz-col nzSpan="20">
-      <!--시작일 필드-->
       <nz-form-item class="form-item">
         <nz-form-label nzFor="start" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">기간</nz-form-label>
         <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
@@ -42,6 +42,19 @@
           <nz-time-picker formControlName="end" [nzMinuteStep]="30" [nzFormat]="'HH:mm'" style="width: 90px" [nzNowText]="' '"></nz-time-picker>
         </nz-form-control>
       </nz-form-item>
+    </div>
+    -->
+    <div nz-col nzSpan="10">
+      <app-nz-input-datetime
+        [parentFormGroup]="this.fg" formControlName="start" fieldName="start" itemId="start" [timeFormat]="timeFormat"
+        [required]="true" [nzErrorTip]="errorTpl">시작일
+      </app-nz-input-datetime>
+    </div>
+    <div nz-col nzSpan="10">
+      <app-nz-input-datetime
+        [parentFormGroup]="this.fg" formControlName="end" fieldName="end" itemId="end"
+        [required]="true" [nzErrorTip]="errorTpl">종료일
+      </app-nz-input-datetime>
     </div>
     <div nz-col nzSpan="4">
       <!--하루종일 필드-->
