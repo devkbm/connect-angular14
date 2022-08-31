@@ -57,37 +57,22 @@
       </app-nz-input-datetime>
     </div>
     <div nz-col nzSpan="4">
-      <!--하루종일 필드-->
-      <nz-form-item>
-        <nz-form-label nzFor="allDay" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-          종일
-        </nz-form-label>
+      <app-nz-input-checkbox
+        [parentFormGroup]="fg" formControlName="allDay" fieldName="allDay"
+        [required]="true">종일
+      </app-nz-input-checkbox>
+    </div>
 
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <label id="allDay" nz-checkbox formControlName="allDay"></label>
-        </nz-form-control>
-      </nz-form-item>
-  </div>
   </div>
 
   <!--제목 필드-->
   <!-- [nzAutoSize]="{ minRows: 10, maxRows: 20 }" -->
   <app-nz-input-textarea #text
-    [parentFormGroup]="fg" formControlName="text" [fieldName]="'text'"
-    [itemId]="'text'"
+    [parentFormGroup]="fg" formControlName="text" fieldName="text" itemId="text"
     placeholder="제목을 입력해주세요."
     [rows] = "20"
     [required]="true" [nzErrorTip]="errorTpl">제목
   </app-nz-input-textarea>
-
-  <!--
-  <nz-form-item>
-    <nz-form-label nzFor="title" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">제목</nz-form-label>
-    <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-      <textarea nz-input id="text" formControlName="text" placeholder="제목을 입력해주세요." [rows]="5"></textarea>
-    </nz-form-control>
-  </nz-form-item>
-  -->
 </form>
 
 <div class="footer">

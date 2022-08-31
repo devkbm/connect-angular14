@@ -4,13 +4,13 @@ import { Article } from './article.model';
 @Component({
   selector: 'app-article-view',
   template: `
-    <nz-page-header nzTitle="제목" [nzSubtitle]="article.title">
+    <nz-page-header nzTitle="제목" [nzSubtitle]="article?.title">
       <nz-page-header-content>
-          {{article.fromDate}}
+          {{article?.fromDate}}
       </nz-page-header-content>
     </nz-page-header>
 
-    <div [innerHTML]="article.contents">
+    <div [innerHTML]="article?.contents">
     </div>
   `,
   styles: [`
@@ -21,8 +21,7 @@ import { Article } from './article.model';
 })
 export class ArticleViewComponent implements OnInit {
 
-  @Input()
-  article!: Article;
+  @Input() article?: Article;
 
   constructor() { }
 

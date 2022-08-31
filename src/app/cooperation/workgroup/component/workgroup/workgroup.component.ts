@@ -129,11 +129,13 @@ export class WorkgroupComponent implements OnInit {
   }
 
   calendarVisibleRangeChanged(args: any) {
+    /*
     if (this.mode === 'Month') {
       this.navigator.date = new DayPilot.Date(args.date, true);
     } else {
       this.navigator.date = new DayPilot.Date(args.start, true);
     }
+    */
   }
 
   modeChanged(args: ModeChangedArgs): void {
@@ -141,7 +143,7 @@ export class WorkgroupComponent implements OnInit {
   }
 
   navigatorSelectChanged(args: any) {
-    // this.workCalendar.calendarSetDate(new DayPilot.Date(args.start,true));
+    this.workCalendar.calendarSetDate(new DayPilot.Date(args.start, true));
   }
 
 }

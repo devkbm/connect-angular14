@@ -69,7 +69,6 @@ export class WorkCalendarComponent implements AfterViewInit {
             (model: ResponseList<WorkGroupSchedule>) => {
               let data: any[] = [];
 
-              // daypilot calendar utc 시간 적용이 안되어 강제로 9시간 더해줌
               model.data.forEach(e => data.push({
                 id: e.id,
                 text: e.text,
@@ -88,11 +87,8 @@ export class WorkCalendarComponent implements AfterViewInit {
   }
 
   onDateClick(args: any): void {
-    console.log('onDateClick: start');
-    console.log(args);
     const eventArgs: NewDateSelectedArgs = {workGroupId: this.fkWorkGroup, start: args.start, end: args.end};
     this.newDateSelected.emit(eventArgs);
-    console.log('onDateClick: end');
   }
 
   calendarModeChanged(args: ModeChangedArgs): void {
@@ -101,6 +97,6 @@ export class WorkCalendarComponent implements AfterViewInit {
   }
 
   calendarSetDate(date: DayPilot.Date) {
-    this.calendar.setDate(date);
+    this.calendar.rangeChangedEvent(date);
   }
 }

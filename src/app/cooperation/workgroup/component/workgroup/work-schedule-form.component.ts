@@ -35,8 +35,7 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
   workGroupList: WorkGroup[] = [];
 
   constructor(private fb: FormBuilder,
-              private workGroupService: WorkGroupService,
-              private datePipe: DatePipe) {
+              private workGroupService: WorkGroupService) {
     super();
 
     this.fg = this.fb.group({
@@ -51,13 +50,15 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
 
   ngOnInit(): void {
     this.getMyWorkGroupList();
+
+    if (this.initLoadId > 0) {
+      this.getWorkGroupSchedule(this.initLoadId);
+    }
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.newFormValue) {
       this.newForm(this.newFormValue);
-    } else if (this.initLoadId > 0) {
-      this.getWorkGroupSchedule(this.initLoadId);
     }
   }
 
@@ -98,6 +99,8 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
   }
 
   saveWorkGroupSchedule(): void {
+    if (this.isValid() === false) return;
+
     this.workGroupService
         .saveWorkGroupSchedule(this.fg.getRawValue())
         .subscribe(
