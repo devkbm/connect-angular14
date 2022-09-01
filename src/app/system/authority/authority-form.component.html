@@ -14,21 +14,21 @@
   <div class="card-1">
     <!--권한ID 필드-->
     <app-nz-input-text
-      [parentFormGroup]="fg" formControlName="id" fieldName="id" itemId="id"
+      [parentFormGroup]="fg" formControlName="id" itemId="id"
       placeholder="권한ID를 입력해주세요."
       [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">권한ID
     </app-nz-input-text>
 
     <!--권한 필드-->
     <app-nz-input-text #authorityCode
-      [parentFormGroup]="fg" formControlName="authorityCode" fieldName="authorityCode" itemId="authorityCode"
+      [parentFormGroup]="fg" formControlName="authorityCode" itemId="authorityCode"
       placeholder="권한코드를 입력해주세요."
       [required]="true" [nzErrorTip]="errorTpl">권한코드
     </app-nz-input-text>
 
     <!--설명 필드-->
     <app-nz-input-textarea
-      [parentFormGroup]="fg" formControlName="description" fieldName="description" itemId="description"
+      [parentFormGroup]="fg" formControlName="description" itemId="description"
       placeholder="권한에 대한 설명을 입력해주세요."
       [rows]="20"
       [required]="false" [nzErrorTip]="errorTpl">설명

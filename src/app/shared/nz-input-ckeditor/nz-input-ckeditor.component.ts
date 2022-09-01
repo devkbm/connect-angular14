@@ -1,5 +1,6 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, forwardRef, HostBinding, Input, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit, HostBinding, AfterViewInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
 //import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
@@ -20,44 +21,21 @@ import { MyUploadAdapter } from './my-upload-adapter';
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
+      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" #control>
         <!-- tagName="textarea" -->
         <ckeditor #ckEditor
           [editor]="Editor"
           [config]="editorConfig"
           [disabled]="disabled"
 
-          [formControl]="formField"
           (change)="textChange($event)"
           (blur)="onTouched()"
           (ready)="onReady($event)"
           >
         </ckeditor>
-        <!--
-        <input #inputControl nz-input
-                [required]="required"
-                [disabled]="disabled"
-                [id]="itemId"
-                [placeholder]="placeholder"
-                [ngModel]="value"
-                [readonly]="readonly"
-                (ngModelChange)="onChange($event)"
-                (ngModelChange)="valueChange($event)"
-                (blur)="onTouched()"/>
-        -->
       </nz-form-control>
     </nz-form-item>
   `,
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputCkeditorComponent
-      ),
-      multi: true
-    }
-  ],
   styles: [`
     :host ::ng-deep .ck-editor__editable {
       color: black;
@@ -65,11 +43,14 @@ import { MyUploadAdapter } from './my-upload-adapter';
     }
   `]
 })
-export class NzInputCkeditorComponent implements ControlValueAccessor, AfterViewInit {
+export class NzInputCkeditorComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
-  @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
+  @ViewChild(NzFormControlComponent, {static: true})
+  control!: NzFormControlComponent;
+  @ViewChild('ckEditor', { static: true })
+  ckEditor!: CKEditorComponent;
+
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -88,7 +69,11 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
   Editor = Editor;
   editorConfig;
 
-  constructor() {
+  constructor(@Self()  @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+
     this.editorConfig = {
       language: 'ko',
       toolbar: [
@@ -124,6 +109,10 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
     };
   }
 
+  ngOnInit(): void {
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+  }
+
   ngAfterViewInit(): void {
 
     //console.log(this.element?.nativeElement.value);
@@ -139,10 +128,6 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, AfterView
     editor.plugins.get( 'FileRepository' ).createUploadAdapter = ( loader: any ) => {
       return new MyUploadAdapter( loader );
     }
-  }
-
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
   }
 
   logging(args: any) {

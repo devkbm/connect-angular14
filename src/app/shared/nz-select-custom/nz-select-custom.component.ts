@@ -20,7 +20,6 @@ import { NzSelectModeType } from 'ng-zorro-antd/select';
 export class NzSelectCustomComponent implements ControlValueAccessor {
 
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName: string = '';
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -38,10 +37,6 @@ export class NzSelectCustomComponent implements ControlValueAccessor {
   value!: string;
 
   constructor() { }
-
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
-  }
 
   writeValue(obj: any): void {
     this.value = obj;

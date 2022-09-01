@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import { NzTimePickerComponent } from 'ng-zorro-antd/time-picker';
 
@@ -18,7 +19,7 @@ export enum TimeFormat {
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
+      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
         <nz-date-picker #date
           [nzId]="itemId"
           [nzPlaceHolder]="placeholder"
@@ -48,24 +49,16 @@ export enum TimeFormat {
     nz-time-picker {
       width: 120px
     }
-  `],
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputDateTimeComponent
-      ),
-      multi: true
-    }
-  ]
+  `]
 })
-export class NzInputDateTimeComponent implements ControlValueAccessor {
+export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit {
 
+  @ViewChild(NzFormControlComponent, {static: true})
+  control!: NzFormControlComponent;
   @ViewChild('date') dateElement?: NzDatePickerComponent;
   @ViewChild('time') timeElement?: NzTimePickerComponent;
+
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -81,10 +74,14 @@ export class NzInputDateTimeComponent implements ControlValueAccessor {
   onChange!: (value: string | null) => void;
   onTouched!: () => void;
 
-  constructor() { }
+  constructor(@Self()  @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
+  ngOnInit(): void {
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
   }
 
   writeValue(obj: any): void {

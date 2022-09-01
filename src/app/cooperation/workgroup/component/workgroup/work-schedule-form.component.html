@@ -12,7 +12,7 @@
     <div nz-col nzSpan="12">
       <!--작업그룹ID 필드-->
       <app-nz-select-custom
-        [parentFormGroup]="fg" formControlName="workGroupId" [fieldName]="'workGroupId'"
+        [parentFormGroup]="fg" formControlName="workGroupId"
         [itemId]="'workGroupId'"
         [options]="workGroupList" [opt_value]="'id'" [opt_label]="'name'"
         [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">작업그룹 ID
@@ -22,7 +22,7 @@
     <div nz-col nzSpan="12">
       <!--일정ID 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="id" [fieldName]="'id'"
+        [parentFormGroup]="fg" formControlName="id"
         [itemId]="'id'"
         placeholder="일정ID를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">일정ID
@@ -46,19 +46,19 @@
     -->
     <div nz-col nzSpan="10">
       <app-nz-input-datetime
-        [parentFormGroup]="this.fg" formControlName="start" fieldName="start" itemId="start" [timeFormat]="timeFormat"
+        [parentFormGroup]="this.fg" formControlName="start" itemId="start" [timeFormat]="timeFormat"
         [required]="true" [nzErrorTip]="errorTpl">시작일
       </app-nz-input-datetime>
     </div>
     <div nz-col nzSpan="10">
       <app-nz-input-datetime
-        [parentFormGroup]="this.fg" formControlName="end" fieldName="end" itemId="end"
+        [parentFormGroup]="this.fg" formControlName="end" itemId="end"
         [required]="true" [nzErrorTip]="errorTpl">종료일
       </app-nz-input-datetime>
     </div>
     <div nz-col nzSpan="4">
       <app-nz-input-checkbox
-        [parentFormGroup]="fg" formControlName="allDay" fieldName="allDay"
+        [parentFormGroup]="fg" formControlName="allDay"
         [required]="true">종일
       </app-nz-input-checkbox>
     </div>
@@ -68,7 +68,7 @@
   <!--제목 필드-->
   <!-- [nzAutoSize]="{ minRows: 10, maxRows: 20 }" -->
   <app-nz-input-textarea #text
-    [parentFormGroup]="fg" formControlName="text" fieldName="text" itemId="text"
+    [parentFormGroup]="fg" formControlName="text" itemId="text"
     placeholder="제목을 입력해주세요."
     [rows] = "20"
     [required]="true" [nzErrorTip]="errorTpl">제목

@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 
 import * as dateFns from "date-fns";
@@ -7,12 +8,11 @@ import * as dateFns from "date-fns";
 @Component({
   selector: 'app-nz-input-date',
   template: `
-    <!--{{formField.errors | json}}-->
     <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
+      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
         <!-- (ngModelChange)="onChange($event)" -->
         <nz-date-picker #inputControl
               [nzId]="itemId"
@@ -31,23 +31,16 @@ import * as dateFns from "date-fns";
     nz-date-picker {
       width: 140px
     }
-  `],
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputDateComponent
-      ),
-      multi: true
-    }
-  ]
+  `]
 })
-export class NzInputDateComponent implements ControlValueAccessor {
+export class NzInputDateComponent implements ControlValueAccessor, OnInit {
 
-  @ViewChild('inputControl') element?: NzDatePickerComponent;
+  @ViewChild(NzFormControlComponent, {static: true})
+  control!: NzFormControlComponent;
+  @ViewChild('inputControl')
+  element?: NzDatePickerComponent;
+
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -56,17 +49,19 @@ export class NzInputDateComponent implements ControlValueAccessor {
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-
-
   value!: Date | null;
 
   onChange!: (value: string | null) => void;
   onTouched!: () => void;
 
-  constructor() { }
+  constructor(@Self()  @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
+  ngOnInit(): void {
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
   }
 
   writeValue(obj: any): void {

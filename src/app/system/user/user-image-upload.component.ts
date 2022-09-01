@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { inject } from '@angular/core/testing';
+import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
 import { GlobalProperty } from 'src/app/core/global-property';
@@ -8,50 +9,74 @@ import { UserService } from './user.service';
   selector: 'app-user-image-upload',
   template: `
   <div style="text-align: center;">
-    <img nz-image [nzSrc]="imageSrc + imageBase64" width="100px" height="100px" />
+    <img nz-image [nzSrc]="imageSrc + pictureFileId" width="100px" height="100px" />
     <br/>
     <nz-space [nzAlign]="'center'">
       <nz-upload
-          nzAction="uploadUrl"
-          [nzShowButton]="isShowUploadButton"
+          [nzAction]="uploadUrl"
           [nzShowUploadList]="false"
           [nzPreview]="handlePreview"
           [nzRemove]="handleRemove"
           [nzWithCredentials]="true"
-          [nzData]="uploadParam"
-          [nzHeaders]="uploadHeader"
+          [nzData]="data"
+          [nzHeaders]="headers"
           [nzFileList]="fileList"
           (nzChange)="fileUploadChange($event)">
-          <button nz-button><i nz-icon nzType="upload"></i></button>
+          <button nz-button class="upload-button">
+            <i nz-icon nzType="upload" class="button-icon"></i>
+          </button>
       </nz-upload>
-      <button nz-button (click)="downloadImage()">
-        <i nz-icon nzType="download"></i>
+      <button nz-button class="download-button" (click)="downloadImage()">
+        <i nz-icon nzType="download" class="button-icon"></i>
       </button>
     </nz-space>
   </div>
   `,
   styles: [`
+    .upload-button {
+      position: absolute;
+      left: 65px;
+      top: 76px;
+
+      width: 12px;
+      height: 24px;
+      background-color: darkslategray;
+
+      padding-top: -20px;
+    }
+
+    .download-button {
+      position: absolute;
+      left: 95px;
+      top: 76px;
+
+      width: 12px;
+      height: 24px;
+      background-color: darkslategray;
+
+      padding-top: -20px;
+    }
+
+    .button-icon {
+      position: absolute;
+      margin-left: -6px;
+      margin-top: -6px;
+    }
   `]
 })
-export class UserImageUploadComponent implements OnInit {
+export class UserImageUploadComponent implements OnInit, OnChanges {
+
+  uploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image';
+  headers: any = { Authorization: sessionStorage.getItem('token') };
+  data: any;
 
   previewImage: string | undefined = '';
 
-  uploadHeader: any = { Authorization: sessionStorage.getItem('token') };
-  @Input() uploadParam: any = { userId: '0011' };
-  uploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image';
-
-  showUploadList = {
-    showPreviewIcon: false,
-    showDownloadIcon: false,
-    showRemoveIcon: false
-  };
-
   imageSrc: string = GlobalProperty.serverUrl + '/static/';
-  isShowUploadButton: boolean = true;
+
   @Input() imageWidth: string = '150px';
   @Input() imageHeight: string = '200px';
-  @Input() imageBase64: any;
+  @Input() pictureFileId: any;
   @Input() userId: string = '';
 
   /*{
@@ -64,12 +89,18 @@ export class UserImageUploadComponent implements OnInit {
 
   constructor(private userService: UserService) { }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['userId']) {
+      this.data = {userId : changes['userId'].currentValue};
+    }
+  }
+
   ngOnInit(): void {
-    this.uploadHeader = {
-      "Content-Type": "multipart/form-data",
-      "Accept": "application/json",
+    /*
+    this.headers = {
       "Authorization": sessionStorage.getItem('token')
     }
+    */
   }
 
   // 미리보기 버튼 클릭시
@@ -84,12 +115,9 @@ export class UserImageUploadComponent implements OnInit {
   }
 
   fileUploadChange(param: NzUploadChangeParam): void {
-    console.log(this.uploadUrl);
-    console.log(param);
-    console.log(this.uploadParam);
     if (param.type === 'success') {
       const serverFilePath = param.file.response.data;
-      this.imageBase64 = this.findFileName(serverFilePath);
+      this.pictureFileId = this.findFileName(serverFilePath);
     }
   }
 
@@ -113,7 +141,7 @@ export class UserImageUploadComponent implements OnInit {
 
   onclick() {
     //location.href=this.imageSrc + this.imageBase64;
-    saveAs(this.imageSrc + this.imageBase64, 'image.jpg');
+    saveAs(this.imageSrc + this.pictureFileId, 'image.jpg');
   }
 
 }

@@ -79,7 +79,8 @@ export class WelcomeComponent implements OnInit {
       input_date: [new Date(), [ Validators.required ]],
       input_number: [1, [ Validators.required ]],
       input_select: [null, [ Validators.required ]],
-      input_treeselect: [null, [ Validators.required ]]
+      input_treeselect: [null, [ Validators.required ]],
+      input_deptselect: [null, [ Validators.required ]]
     });
   }
 

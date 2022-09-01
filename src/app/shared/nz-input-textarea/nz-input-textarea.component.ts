@@ -1,16 +1,16 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 @Component({
   selector: 'app-nz-input-textarea',
   template: `
-    <!--{{formField.errors | json}}-->
     <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
       <ng-content></ng-content>
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
-        <textarea #inputControl nz-input class="ime"
+      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
+        <textarea #inputControl nz-input
               [required]="required"
               [disabled]="disabled"
               [id]="itemId"
@@ -23,23 +23,16 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
         </textarea>
       </nz-form-control>
     </nz-form-item>
-  `,
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputTextareaComponent
-      ),
-      multi: true
-    }
-  ]
+  `
 })
-export class NzInputTextareaComponent implements ControlValueAccessor {
+export class NzInputTextareaComponent implements ControlValueAccessor, OnInit {
 
-  @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
+  @ViewChild(NzFormControlComponent, {static: true})
+  control!: NzFormControlComponent;
+  @ViewChild('inputControl')
+  element?: ElementRef<HTMLInputElement>;
+
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -54,11 +47,16 @@ export class NzInputTextareaComponent implements ControlValueAccessor {
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor() { }
-
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
+  constructor(@Self()  @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
   }
+
+  ngOnInit(): void {
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+  }
+
 
   focus(): void {
     this.element?.nativeElement.focus();

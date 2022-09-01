@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, ElementRef, forwardRef, Input, TemplateRef, ViewChild } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 @Component({
   selector: 'app-nz-input-switch',
@@ -8,7 +9,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
-      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip" [nzValidateStatus]="formField" #control>
+      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
         <nz-switch
           [nzId]="itemId"
           [nzDisabled]="disabled"
@@ -20,22 +21,14 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
       </nz-form-control>
     </nz-form-item>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputSwitchComponent
-      ),
-      multi: true
-    }
-  ]
+  styles: []
 })
-export class NzInputSwitchComponent implements ControlValueAccessor {
+export class NzInputSwitchComponent implements ControlValueAccessor, OnInit {
+
+  @ViewChild(NzFormControlComponent, {static: true})
+  control!: NzFormControlComponent;
 
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName!: string;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -49,10 +42,14 @@ export class NzInputSwitchComponent implements ControlValueAccessor {
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor() { }
+  constructor(@Self()  @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
 
-  get formField(): FormControl {
-    return this.parentFormGroup?.get(this.fieldName) as FormControl;
+  ngOnInit(): void {
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
   }
 
   writeValue(obj: any): void {

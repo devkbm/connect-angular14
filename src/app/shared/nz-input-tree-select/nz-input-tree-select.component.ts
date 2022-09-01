@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, forwardRef, Input, TemplateRef } from '@angular/core';
-import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
+import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 @Component({
   selector: 'app-nz-input-tree-select',
@@ -8,7 +9,7 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
-      <nz-form-control [nzErrorTip]="nzErrorTip">
+      <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
        <nz-tree-select
             [nzId]="itemId"
             [(ngModel)]="value"
@@ -21,22 +22,14 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
       </nz-form-control>
     </nz-form-item>
   `,
-  styles: [],
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputTreeSelectComponent
-      ),
-      multi: true
-    }
-  ]
+  styles: []
 })
-export class NzInputTreeSelectComponent implements ControlValueAccessor {
+export class NzInputTreeSelectComponent implements ControlValueAccessor, OnInit {
+
+  @ViewChild(NzFormControlComponent, {static: true})
+  control!: NzFormControlComponent;
 
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName: string = '';
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
@@ -50,7 +43,15 @@ export class NzInputTreeSelectComponent implements ControlValueAccessor {
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  constructor() { }
+  constructor(@Self()  @Optional() private ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  ngOnInit(): void {
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+  }
 
   writeValue(obj: any): void {
     this.value = obj;

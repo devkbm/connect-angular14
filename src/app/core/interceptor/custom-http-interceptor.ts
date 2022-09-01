@@ -8,7 +8,8 @@ export class CustomHttpInterceptor implements HttpInterceptor {
   headerInfo?: HttpHeaders;
   exceptUrls: string[] = [
     'http://localhost:8090/common/user/login',      // 로그인페이지 url
-    'http://localhost:8090/common/file/'            // 파일업로드 url
+    'http://localhost:8090/common/file/',           // 파일업로드 url
+    'http://localhost:8090/api/common/user/image'   // 프로필 이미지 url
   ];
 
   constructor(private tokenExtractor: HttpXsrfTokenExtractor) { }

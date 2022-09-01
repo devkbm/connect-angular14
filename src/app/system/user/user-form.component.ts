@@ -48,7 +48,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   uploadParam: any = {};
 
   imageBase64: any;
-  isUploadable: any;
 
   @ViewChild('staffNo') staffNoField?: NzInputTextComponent;
 
@@ -136,21 +135,11 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
                 this.modifyForm(model.data);
               }
 
-              this.previewImage = '';
-              this.imageUploadHeader =  {
-                "Content-Type": "multipart/form-data",
-                "Accept": "application/json",
-                "Authorization": sessionStorage.getItem('token')
-              };
-
-              this.uploadParam = { userId: model.data.userId };
               if (model.data.imageBase64 != null) {
                 //this.imageBase64 = 'data:image/jpg;base64,' + model.data.imageBase64;
                 this.imageBase64 = model.data.imageBase64;
-                this.isUploadable = false;
               } else {
                 this.imageBase64 = '';
-                this.isUploadable = true;
               }
 
             } else {
@@ -163,7 +152,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   registerUser(): void {
-    if (this.isValid() === false) return;
+    // if (this.isValid() === false) return;
 
     this.userService
         .registerUser(this.fg.getRawValue())
@@ -184,38 +173,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
-
-  protected checkUser(): void {
-    const userId: string = this.fg.get('userId')?.value;
-
-    this.fg.get('userId')?.markAsDirty();
-    this.fg.get('userId')?.updateValueAndValidity();
-
-    this.userService
-        .checkUser(this.fg.get('userId')?.value)
-        .subscribe(
-          (model: ResponseObject<boolean>) => {
-            this.appAlarmService.changeMessage(model.message);
-          }
-          /*
-          (err: AppError) => {
-            if (err instanceof UserNotFoundError) {
-              console.log('유저정보가 없음');
-            }
-          }
-          */
-        );
-  }
-
-  private validPassword(field: any) {
-
-    /*if ( this.user.password === this.passwordConfirm) {
-      // 폼 검증 수행해야 함
-    } else {
-      // 폼 검증 실패
-    }*/
-
   }
 
   getAuthorityList(): void {
@@ -258,24 +215,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   closeForm(): void {
     this.formClosed.emit(this.fg.value);
-  }
-
-  // 미리보기 버튼 클릭시
-  handlePreview = (file: NzUploadFile) => {
-    this.previewImage = file.url || file.thumbUrl;
-    this.previewVisible = true;
-  }
-
-  // 삭제버튼 클릭스
-  handleRemove = (file: NzUploadFile) => {
-    console.log(file);
-    return true;
-  }
-
-  fileUploadChange(param: NzUploadChangeParam): void {
-    if (param.type === 'success') {
-      this.isUploadable = false;
-    }
   }
 
 }

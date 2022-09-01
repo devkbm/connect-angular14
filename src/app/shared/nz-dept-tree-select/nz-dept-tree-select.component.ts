@@ -39,7 +39,6 @@ import { DeptHierarchyService } from './dept-hierarchy.service';
 export class NzDeptTreeSelectComponent implements ControlValueAccessor {
 
   @Input() parentFormGroup?: FormGroup;
-  @Input() fieldName: string = '';
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

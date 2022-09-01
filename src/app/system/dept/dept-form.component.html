@@ -16,7 +16,7 @@
     <div nz-col nzSpan="12">
       <!--부서ID 필드 -->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptId" fieldName="deptId" itemId="deptId"
+        [parentFormGroup]="fg" formControlName="deptId" itemId="deptId"
         placeholder=""
         [readonly]="true" [required]="true" [nzErrorTip]="errorTpl">부서ID
       </app-nz-input-text>
@@ -49,7 +49,7 @@
     <div nz-col nzSpan="8">
       <!--부서코드 필드 -->
       <app-nz-input-text #deptCode
-        [parentFormGroup]="fg" formControlName="deptCode" fieldName="deptCode" itemId="deptCode"
+        [parentFormGroup]="fg" formControlName="deptCode" itemId="deptCode"
         placeholder="부서코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드
       </app-nz-input-text>
@@ -58,7 +58,7 @@
     <div nz-col nzSpan="8">
       <!--부서코드명(한글) 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptNameKorean" fieldName="deptNameKorean" itemId="deptNameKorean"
+        [parentFormGroup]="fg" formControlName="deptNameKorean" itemId="deptNameKorean"
         placeholder="부서코드명(한글)을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드명(한글)
       </app-nz-input-text>
@@ -67,7 +67,7 @@
     <div nz-col nzSpan="8">
       <!--부서코드명(한글) 약어 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptAbbreviationKorean" fieldName="deptAbbreviationKorean" itemId="deptAbbreviationKorean"
+        [parentFormGroup]="fg" formControlName="deptAbbreviationKorean" itemId="deptAbbreviationKorean"
         placeholder="부서코드명(한글) 약어를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드명(한글) 약어
       </app-nz-input-text>
@@ -79,7 +79,7 @@
     <div nz-col nzSpan="12">
       <!--부서코드명(영문) 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptNameEnglish" fieldName="deptNameEnglish" itemId="deptNameEnglish"
+        [parentFormGroup]="fg" formControlName="deptNameEnglish" itemId="deptNameEnglish"
         placeholder="부서코드명(영문)을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드명(영문)
       </app-nz-input-text>
@@ -88,7 +88,7 @@
     <div nz-col nzSpan="12">
       <!--부서코드명(영문) 약어 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptAbbreviationEnglish" fieldName="deptAbbreviationEnglish" itemId="deptAbbreviationEnglish"
+        [parentFormGroup]="fg" formControlName="deptAbbreviationEnglish" itemId="deptAbbreviationEnglish"
         placeholder="부서코드명(영문) 약어를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드명(영문) 약어
       </app-nz-input-text>
@@ -100,7 +100,7 @@
     <div nz-col nzSpan="12">
       <!--시작일 필드-->
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="fromDate" fieldName="fromDate" itemId="fromDate"
+        [parentFormGroup]="this.fg" formControlName="fromDate" itemId="fromDate"
         [required]="true" [nzErrorTip]="errorTpl">시작일
       </app-nz-input-date>
     </div>
@@ -108,7 +108,7 @@
     <div nz-col nzSpan="12">
       <!--종료일 필드-->
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="toDate" fieldName="toDate" itemId="toDate"
+        [parentFormGroup]="this.fg" formControlName="toDate" itemId="toDate"
         [required]="true" [nzErrorTip]="errorTpl">시작일
       </app-nz-input-date>
     </div>
@@ -119,7 +119,7 @@
     <div nz-col nzSpan="12">
       <!--출력순번 필드-->
       <app-nz-input-number-custom
-        [parentFormGroup]="this.fg" formControlName="seq" fieldName="seq" itemId="seq"
+        [parentFormGroup]="this.fg" formControlName="seq" itemId="seq"
         [required]="true"
         [nzErrorTip]="errorTpl">출력 순번
       </app-nz-input-number-custom>
@@ -128,7 +128,7 @@
     <div nz-col nzSpan="12">
       <!--설명 필드-->
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="comment" fieldName="comment" itemId="comment"
+        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
         placeholder="설명을 입력해주세요."
         [rows]="5"
         [required]="false" [nzErrorTip]="errorTpl">설명

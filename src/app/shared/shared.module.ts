@@ -32,6 +32,7 @@ import { NzInputTreeSelectComponent } from './nz-input-tree-select/nz-input-tree
 import { NzInputColorPickerComponent } from './nz-input-color-picker/nz-input-color-picker.component';
 import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzMessageModule } from 'ng-zorro-antd/message';
 
 import { ColorPickerModule } from 'ngx-color-picker';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -44,7 +45,7 @@ import { NzSearchAreaComponent } from './nz-search-area/nz-search-area.component
 import { NzPageHeaderCustomComponent } from './nz-page-header-custom/nz-page-header-custom.component';
 import { NzButtonsComponent } from './nz-buttons/nz-buttons.component';
 import { NzInputDateTimeComponent } from './nz-input-datetime/nz-input-datetime.component';
-
+import { NzInputDeptSelectComponent } from './nz-input-dept-select/nz-input-dept-select.component';
 
 
 const nzModules = [
@@ -64,7 +65,8 @@ const nzModules = [
   NzSwitchModule,
   NzCheckboxModule,
   NzDropDownModule,
-  NzBreadCrumbModule
+  NzBreadCrumbModule,
+  NzMessageModule
 ]
 
 @NgModule({
@@ -95,7 +97,8 @@ const nzModules = [
     NzDeptTreeSelectComponent,
     NzInputSwitchComponent,
     NzInputCheckboxComponent,
-    NzButtonsComponent
+    NzButtonsComponent,
+    NzInputDeptSelectComponent
    ],
   providers: [
     DeptHierarchyService
@@ -119,7 +122,8 @@ const nzModules = [
     NzDeptTreeSelectComponent,
     NzInputSwitchComponent,
     NzInputCheckboxComponent,
-    NzButtonsComponent
+    NzButtonsComponent,
+    NzInputDeptSelectComponent
   ]
 })
 export class SharedModule { }
