@@ -28,11 +28,11 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
     super();
 
     this.fg = this.fb.group({
-      pkBoard         : [ null ],
-      ppkBoard        : [ null ],
-      boardName       : [ null, [ Validators.required ] ],
-      boardType       : [ null, [ Validators.required ] ],
-      boardDescription: [ null ]
+      boardId         : new FormControl<number | null>(null),
+      boardParentId   : new FormControl<number | null>(null),
+      boardName       : new FormControl<string | null>('', { validators: [Validators.required] }),
+      boardType       : new FormControl<string | null>('', { validators: [Validators.required] }),
+      boardDescription: new FormControl<number | null>(null)
     });
 
     this.getboardHierarchy();
@@ -51,7 +51,7 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('pkBoard')?.enable();
+    this.fg.get('boardId')?.enable();
 
     this.fg.get('boardType')?.setValue('BOARD');
   }
@@ -59,7 +59,7 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
   modifyForm(formData: Board): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('pkBoard')?.disable();
+    this.fg.get('boardId')?.disable();
 
     this.fg.patchValue(formData);
   }

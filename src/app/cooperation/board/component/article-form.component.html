@@ -10,9 +10,9 @@
     </ng-container>
   </ng-template>
 
-  <input type="hidden" formControlName="fkBoard">
-  <input type="hidden" formControlName="pkArticle">
-  <input type="hidden" formControlName="ppkArticle">
+  <input type="hidden" formControlName="boardId">
+  <input type="hidden" formControlName="articleId">
+  <input type="hidden" formControlName="articleParentId">
 
   <!--일정ID 필드-->
   <app-nz-input-text #title
@@ -60,6 +60,6 @@
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
     (saveClick)="saveArticle()"
-    (deleteClick)="deleteArticle(fg.get('pkArticle')?.value)">
+    (deleteClick)="deleteArticle(fg.get('articleId')?.value)">
   </app-nz-crud-button-group>
 </div>

@@ -50,7 +50,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
       {
           headerName: '번호',
           //valueGetter: 'node.rowIndex + 1',
-          field: 'pkArticle',
+          field: 'articleId',
           width: 70,
           cellStyle: {'text-align': 'center'},
           suppressSizeToFit: true
@@ -88,7 +88,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
 
     this.getRowId = function(args: any) {
-      return args.data.pkArticle;
+      return args.data.articleId;
     };
   }
 

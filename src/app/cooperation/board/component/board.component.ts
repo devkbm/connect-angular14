@@ -103,7 +103,7 @@ export class BoardComponent implements OnInit {
     this.openArticleDrawer();
 
     setTimeout(() => {
-      this.articleForm.getArticle(item.pkArticle);
+      this.articleForm.getArticle(item.articleId);
     },10);
   }
 

@@ -105,8 +105,8 @@ export class BoardService extends DataService {
       );
   }
 
-  getArticleList(fkBoard: string, title?: string, contents?: string): Observable<ResponseList<Article>> {
-    let url = `${this.API_URL}/board/article?fkBoard=${fkBoard}`;
+  getArticleList(boardId: string, title?: string, contents?: string): Observable<ResponseList<Article>> {
+    let url = `${this.API_URL}/board/article?boardId=${boardId}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
@@ -150,8 +150,8 @@ export class BoardService extends DataService {
 
     let formData = new FormData();
 
-    formData.append('pkArticle',    String(article.pkArticle));
-    formData.append('fkBoard',      String(article.fkBoard));
+    formData.append('articleId',    String(article.articleId));
+    formData.append('boardId',      String(article.boardId));
     // formData.append('ppkArticle',   article.ppkArticle.toString());
     formData.append('title',        article.title);
     formData.append('contents',     article.contents);

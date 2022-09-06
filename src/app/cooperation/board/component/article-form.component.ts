@@ -48,7 +48,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
   textData: any;
   article!: Article;
 
-  @Input() fkBoard!: number;
+  @Input() boardId!: number;
 
   @ViewChild('upload', { static: true }) upload!: NzUploadComponent;
   @ViewChild('ckEditor', { static: true }) ckEditor!: CKEditorComponent;
@@ -59,18 +59,18 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
     super();
 
     this.fg = this.fb.group({
-      fkBoard: [null, [Validators.required]], //new FormControl(fkBoard, {validators: Validators.required}),
-      pkArticle: [null, [Validators.required]],
-      ppkArticle: [null],
-      title: [null, [Validators.required]],
-      contents: new FormControl(null, {}),
-      attachFile: [null]
+      boardId         : new FormControl<number | null>(null, { validators: [Validators.required] }),
+      articleId       : new FormControl<number | null>(null, { validators: [Validators.required] }),
+      articleParentId : new FormControl<number | null>(null),
+      title           : new FormControl<string | null>(null, { validators: [Validators.required] }),
+      contents        : new FormControl<string | null>(null),
+      attachFile      : new FormControl<any>(null)
     });
   }
 
   ngOnInit(): void {
 
-    this.newForm(this.fkBoard);
+    this.newForm(this.boardId);
 
     this.fileUploadUrl = GlobalProperty.serverUrl + '/common/file/';
     this.fileUploadHeader = {
@@ -84,10 +84,10 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
     this.title.focus();
   }
 
-  newForm(fkBoard: any): void {
+  newForm(boardId: any): void {
     this.formType = FormType.NEW;
     this.fg.reset();
-    this.fg.get('fkBoard')?.setValue(fkBoard);
+    this.fg.get('boardId')?.setValue(boardId);
     this.fileList = [];
     this.textData = null;
     // console.log(this.ckEditor.editorInstance);

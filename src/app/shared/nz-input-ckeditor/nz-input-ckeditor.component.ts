@@ -27,11 +27,10 @@ import { MyUploadAdapter } from './my-upload-adapter';
           [editor]="Editor"
           [config]="editorConfig"
           [disabled]="disabled"
-
+          [ngModel]="value"
           (change)="textChange($event)"
           (blur)="onTouched()"
-          (ready)="onReady($event)"
-          >
+          (ready)="onReady($event)">
         </ckeditor>
       </nz-form-control>
     </nz-form-item>

@@ -2,9 +2,9 @@ import { ArticleCheck } from './article-check.model';
 
 export class Article {
   constructor(
-    public pkArticle: number,
-    public fkBoard: number,
-    public ppkArticle: number,
+    public articleId: number,
+    public boardId: number,
+    public articleParentId: number,
     public title: string,
     public contents: string,
     public pwd: string,
