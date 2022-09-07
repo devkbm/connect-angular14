@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { UserToken } from '../system/login/user-token.model';
 
 export interface MenuBreadCrumb {
   name: string;
@@ -12,8 +13,24 @@ export class SessionManager {
 
   constructor() { }
 
+  static saveSessionStorage(data: UserToken) {
+    sessionStorage.setItem('token', data.token);
+    sessionStorage.setItem('userId', data.userId);
+    sessionStorage.setItem('userName', data.userName);
+    sessionStorage.setItem('organizationCode', data.organizationCode);
+    sessionStorage.setItem('staffNo', data.staffNo);
+    sessionStorage.setItem('email', data.email);
+    sessionStorage.setItem('imageUrl', data.imageUrl);
+    sessionStorage.setItem('menuGroupList', JSON.stringify(data.menuGroupList));
+    sessionStorage.setItem('authorityList', JSON.stringify(data.authorities));
+  }
+
   static getOrganizationCode(): string | null {
     return sessionStorage.getItem('organizationCode');
+  }
+
+  static getUserId(): string | null {
+    return sessionStorage.getItem('userId');
   }
 
   static getMenuList(): any {

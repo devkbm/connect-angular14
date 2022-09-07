@@ -22,7 +22,7 @@
 <div class="tree">
   <h3 class="pgm-title">게시판 목록</h3>
   <nz-input-group nzSearch [nzSuffix]="suffixIconSearch">
-    <input type="text" style="ime-mode:normal;" [(ngModel)]="queryValue" nz-input placeholder="input search text">
+    <input type="text" class="ime" [(ngModel)]="queryValue" nz-input placeholder="input search text">
   </nz-input-group>
   <ng-template #suffixIconSearch>
     <i nz-icon nzType="search"></i>
@@ -48,7 +48,7 @@
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
-    [nzWidth]="'50%'"
+    [nzWidth]="'80%'"
     [nzVisible]="drawerVisible"
     nzTitle="게시판 등록"
     (nzOnClose)="closeDrawer()">
@@ -62,7 +62,7 @@
 <nz-drawer
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
-    [nzWidth]="'50%'"
+    [nzWidth]="'80%'"
     [nzVisible]="articleDrawerVisible"
     nzTitle="게시글 등록"
     (nzOnClose)="closeArticleDrawer()">

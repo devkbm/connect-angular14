@@ -1,3 +1,4 @@
+import { SessionManager } from 'src/app/core/session-manager';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -28,10 +29,10 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
     super();
 
     this.fg = this.fb.group({
-      workGroupId     : new FormControl({value: null, disabled: true}),
-      workGroupName   : [ null, [ Validators.required ] ],
-      color           : [ null, [ Validators.required ] ],
-      memberList      : [ null ]
+      workGroupId     : new FormControl<number | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+      workGroupName   : new FormControl<string | null>(null, { validators: [Validators.required] }),
+      color           : new FormControl<string | null>(null),
+      memberList      : new FormControl<any | null>(null),
   });
   }
 
@@ -46,7 +47,9 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
   }
 
   newForm(): void {
-      this.formType = FormType.NEW;
+    this.formType = FormType.NEW;
+
+    this.fg.get('memberList')?.setValue([SessionManager.getUserId()]);
   }
 
   modifyForm(formData: WorkGroup): void {

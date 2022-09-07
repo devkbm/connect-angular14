@@ -3,17 +3,17 @@ import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } 
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 import { ChangeEvent, CKEditorComponent } from '@ckeditor/ckeditor5-angular';
+
+import * as Editor from 'ckeditor5/build/ckeditor';
 //import '@ckeditor/ckeditor5-build-classic/build/translations/ko';
 //import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
-import * as Editor from 'ckeditor5/build/ckeditor';
 
 import { MyUploadAdapter } from './my-upload-adapter';
 
-
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/frameworks/angular.html
 // https://ckeditor.com/docs/ckeditor5/latest/installation/getting-started/installing-plugins.html
+// https://ckeditor.com/ckeditor-5/online-builder/
 
-// https://github.com/stevermeister/ngx-cookie-service
 @Component({
   selector: 'app-nz-input-ckeditor',
   template: `

@@ -24,3 +24,10 @@
   padding-left: 5px;
   border-left: 5px solid green;
 }
+
+.ime {
+  -webkit-ime-mode:active;
+  -moz-ime-mode:active;
+  -ms-ime-mode:active;
+  ime-mode:active;
+}

@@ -1,4 +1,4 @@
-{{fg.getRawValue() | json}}
+{{fg.getRawValue() | json}} - {{fg.valid}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
   <!-- ERROR TEMPLATE-->
   <ng-template #errorTpl let-control>
@@ -59,7 +59,7 @@
     <div nz-col nzSpan="4">
       <app-nz-input-checkbox
         [parentFormGroup]="fg" formControlName="allDay"
-        [required]="true">종일
+        [required]="false">종일
       </app-nz-input-checkbox>
     </div>
 

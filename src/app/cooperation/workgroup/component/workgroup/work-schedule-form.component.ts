@@ -39,12 +39,12 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
     super();
 
     this.fg = this.fb.group({
-      id              : new FormControl({value: null, disabled: true}),
-      text            : [ null, [ Validators.required ] ],
+      id              : new FormControl<number | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+      text            : new FormControl<string | null>(null, { validators: [Validators.required] }),
       start           : new FormControl<Date | null>(null),
       end             : new FormControl<Date | null>(null),
-      allDay          : [ null, [ Validators.required ] ],
-      workGroupId     : [ -1, [ Validators.required ] ]
+      allDay          : new FormControl<boolean | null>(null),
+      workGroupId     : new FormControl<number | null>(null, { validators: [Validators.required] })
     });
   }
 

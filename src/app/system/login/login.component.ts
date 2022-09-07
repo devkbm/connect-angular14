@@ -8,6 +8,7 @@ import {
 import { LoginService } from './login.service';
 import { UserToken } from './user-token.model';
 import { ResponseObject } from '../../core/model/response-object';
+import { SessionManager } from 'src/app/core/session-manager';
 
 @Component({
   selector: 'app-login',
@@ -68,11 +69,7 @@ export class LoginComponent implements OnInit {
   }
 
   private setItemSessionStorage(data: UserToken) {
-    sessionStorage.setItem('organizationCode', data.organizationCode);
-    sessionStorage.setItem('token', data.token);
-    sessionStorage.setItem('imageUrl', data.imageUrl);
-    sessionStorage.setItem('menuGroupList', JSON.stringify(data.menuGroupList));
-    sessionStorage.setItem('authorityList', JSON.stringify(data.authorities));
+    SessionManager.saveSessionStorage(data);
   }
 
   socialLogin(): void {

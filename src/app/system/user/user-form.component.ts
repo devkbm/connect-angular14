@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-import { NzUploadChangeParam, NzUploadFile } from 'ng-zorro-antd/upload';
 
 import { FormType, FormBase } from '../../core/form/form-base';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
