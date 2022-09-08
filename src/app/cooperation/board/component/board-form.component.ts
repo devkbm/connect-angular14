@@ -40,7 +40,11 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
   }
 
   ngOnInit() {
-    this.newForm();
+    if (this.initLoadId) {
+      this.getBoard(this.initLoadId);
+    } else {
+      this.newForm();
+    }
   }
 
   ngAfterViewInit(): void {

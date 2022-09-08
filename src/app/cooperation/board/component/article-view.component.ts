@@ -12,6 +12,10 @@ import { Article } from './article.model';
 
     <div [innerHTML]="article?.contents">
     </div>
+
+    <app-nz-file-upload
+    [fileList]="fileList">
+  </app-nz-file-upload>
   `,
   styles: [`
     nz-page-header {
@@ -23,9 +27,12 @@ export class ArticleViewComponent implements OnInit {
 
   @Input() article?: Article;
 
+  fileList: any = [];
+
   constructor() { }
 
   ngOnInit() {
+    this.fileList = this.article?.fileList ?? [];
   }
 
 }

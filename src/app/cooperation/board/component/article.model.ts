@@ -1,4 +1,4 @@
-import { ArticleCheck } from './article-check.model';
+import { ArticleRead } from './article-read.model';
 
 export class Article {
   constructor(
@@ -13,7 +13,7 @@ export class Article {
     public toDate: string,
     public seq: number,
     public depth: number,
-    public articleChecks: ArticleCheck[],
+    public articleChecks: ArticleRead[],
     public fileList: string[],
     public file: File,
     public editable: boolean) {}

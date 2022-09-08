@@ -70,7 +70,11 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
 
   ngOnInit(): void {
 
-    this.newForm(this.boardId);
+    if (this.initLoadId) {
+      this.getArticle(this.initLoadId);
+    } else {
+      this.newForm(this.boardId);
+    }
 
     this.fileUploadUrl = GlobalProperty.serverUrl + '/common/file/';
     this.fileUploadHeader = {

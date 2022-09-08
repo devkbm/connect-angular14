@@ -4,7 +4,7 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { BoardService } from './board.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 
-import { FirstDataRenderedEvent, GridSizeChangedEvent, RowDoubleClickedEvent, SelectionChangedEvent } from 'ag-grid-community';
+import { FirstDataRenderedEvent, GridSizeChangedEvent, RowClickedEvent, RowDoubleClickedEvent, SelectionChangedEvent } from 'ag-grid-community';
 
 import { Article } from './article.model';
 
@@ -24,7 +24,7 @@ import { Article } from './article.model';
       (gridReady)="onGridReady($event)"
       (firstDataRendered)="onFirstDataRendered($event)"
       (gridSizeChanged)="onGridSizeChanged($event)"
-      (selectionChanged)="selectionChanged($event)"
+      (rowClicked)="rowClickedEvent($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
   </ag-grid-angular>
   `
@@ -34,7 +34,7 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
   articleList: Article[] = [];
 
   @Output()
-  rowSelected = new EventEmitter();
+  rowClicked = new EventEmitter();
 
   @Output()
   rowDoubleClicked = new EventEmitter();
@@ -112,9 +112,9 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  selectionChanged(args: SelectionChangedEvent) {
+  rowClickedEvent(args: RowClickedEvent) {
     const selectedRows = args.api.getSelectedRows();
-    this.rowSelected.emit(selectedRows[0]);
+    this.rowClicked.emit(selectedRows[0]);
   }
 
   rowDbClicked(args: RowDoubleClickedEvent) {

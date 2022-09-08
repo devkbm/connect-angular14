@@ -1,9 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ArticleGridComponent } from './article-grid.component';
 import { BoardFormComponent } from './board-form.component';
 import { BoardTreeComponent } from './board-tree.component';
 import { ArticleFormComponent } from './article-form.component';
 import { Article } from './article.model';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { FormBuilder } from '@angular/forms';
+import { BoardService } from './board.service';
 
 @Component({
   selector: 'app-board',
@@ -11,38 +14,31 @@ import { Article } from './article.model';
   styleUrls: ['./board.component.css']
 })
 export class BoardComponent implements OnInit {
-  /**
-   * 게시판 Drawer 여부
-   */
-  drawerVisible = false;
-
-  /**
-   * 게시글 Drawer 여부
-   */
-  articleDrawerVisible = false;
-
-  articleViewDrawerVisible = false;
-
-  /**
-   * 선택된 게시판 키
-   */
-  selectedBoard: any;
-
-  selectedArticle!: Article;
-
-  /**
-   * 게시판 트리 조회 Filter 조건
-   */
-  queryValue: any;
-
-  tabTitle: any;
 
   @ViewChild('boardTree', {static: true}) boardTree!: BoardTreeComponent;
   @ViewChild('boardForm', {static: false}) boardForm!: BoardFormComponent;
   @ViewChild('articleGrid', {static: true}) articleGrid!: ArticleGridComponent;
   @ViewChild('articleForm', {static: false}) articleForm!: ArticleFormComponent;
 
-  constructor() { }
+  boardDrawerVisible = false;
+  articleDrawerVisible = false;
+  articleViewDrawerVisible = false;
+
+  selectedBoardId: any;
+  selectedArticleId: any;
+  selectedArticle!: Article;
+
+  tabIndex: number = 0;
+  tabs: any[] = [];
+
+  /**
+   * 게시판 트리 조회 Filter 조건
+   */
+  queryValue: any;
+  tabTitle: any;
+
+  constructor(private message: NzMessageService,
+              public viewContainerRef: ViewContainerRef) { }
 
   ngOnInit() {
     this.getBoardTree();
@@ -50,81 +46,77 @@ export class BoardComponent implements OnInit {
 
   setBoardSelect(item: any): void {
     this.tabTitle = item.title;
-    this.selectedBoard = item.key;
+    this.selectedBoardId = item.key;
     this.getArticleGridData();
   }
 
   getArticleGridData(): void {
     this.closeArticleDrawer();
-    this.articleGrid.getArticleList(this.selectedBoard);
+    this.articleGrid.getArticleList(this.selectedBoardId);
   }
 
   newBoard(): void {
-    this.openDrawer();
-
-    setTimeout(() => {
-      this.boardForm.newForm();
-    },10);
+    this.selectedBoardId = null;
+    this.openBoardDrawer();
   }
 
   modifyBoard(item: any): void {
-    this.openDrawer();
-
-    setTimeout(() => {
-      this.boardForm.getBoard(item.key);
-    },10);
+    this.openBoardDrawer();
   }
 
   getBoardTree(): void {
-    this.closeDrawer();
+    this.closeBoardDrawer();
     this.boardTree.getboardHierarchy();
   }
 
   newArticle(): void {
-    this.openArticleDrawer();
+    if (this.selectedBoardId === null || this.selectedBoardId === undefined)  {
+      this.message.create('error', '게시판을 선택해주세요.');
+      return;
+    }
 
     /*
-    setTimeout(() => {
-      this.articleForm.newForm(this.selectedBoard);
-    },10);
+    const componentRef = this.viewContainerRef.createComponent(ArticleFormComponent);
+    this.tabs.push(componentRef);
     */
-  }
 
-  validEditable(item: any) {
-    if (item.editable === true) {
-      this.editArticle(item);
-    } else {
-      this.showArticleView(item);
-    }
-    console.log(item);
-  }
-
-  editArticle(item: any): void {
+    this.selectedArticleId = null;
     this.openArticleDrawer();
-
-    setTimeout(() => {
-      this.articleForm.getArticle(item.articleId);
-    },10);
   }
 
-  showArticleView(item: any): void {
-    this.openArticleViewDrawer();
+  selectArticle(item: any) {
+    this.selectedArticle = item;
+    this.selectedArticleId = item.articleId;
+  }
 
-    setTimeout(() => {
-      this.selectedArticle = item;
-    },10);
+  editArticle(): void {
+    this.selectedArticleId = this.articleGrid.getSelectedRows()[0]?.articleId;
+    if (this.selectedArticleId === null || this.selectedArticleId === undefined) {
+      this.message.create('error', '게시글을 선택해주세요.');
+      return;
+    }
+
+    this.openArticleDrawer();
+  }
+
+  showArticleView(): void {
+    this.openArticleViewDrawer();
+  }
+
+  closeTab({ index }: { index: number }): void {
+    this.tabs.splice(index, 1);
   }
 
   print(item: any): void {
     console.log(item);
   }
 
-  openDrawer(): void {
-    this.drawerVisible = true;
+  openBoardDrawer(): void {
+    this.boardDrawerVisible = true;
   }
 
-  closeDrawer(): void {
-    this.drawerVisible = false;
+  closeBoardDrawer(): void {
+    this.boardDrawerVisible = false;
   }
 
   openArticleDrawer(): void {
