@@ -49,8 +49,8 @@
     </div>
   </nz-tab>
   <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i > 1">
-    <ng-template nz-tab>
-    </ng-template>
+    <app-article-view [article]="selectedArticle">
+    </app-article-view>
   </nz-tab>
 </nz-tabset>
 
