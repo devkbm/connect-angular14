@@ -5,8 +5,12 @@ import { BoardTreeComponent } from './board-tree.component';
 import { ArticleFormComponent } from './article-form.component';
 import { Article } from './article.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { FormBuilder } from '@angular/forms';
-import { BoardService } from './board.service';
+
+export interface TabArticle {
+  tabName: string;
+  articleId: number;
+  article: Article;
+}
 
 @Component({
   selector: 'app-board',
@@ -29,7 +33,7 @@ export class BoardComponent implements OnInit {
   selectedArticle!: Article;
 
   tabIndex: number = 0;
-  tabs: any[] = [];
+  tabs: TabArticle[] = [];
 
   /**
    * 게시판 트리 조회 Filter 조건
@@ -103,8 +107,32 @@ export class BoardComponent implements OnInit {
     this.openArticleViewDrawer();
   }
 
+  addTabArticleView(): void {
+
+    const newTab: TabArticle = {
+      tabName: this.selectedArticle.articleId.toString(),
+      articleId: this.selectedArticle.articleId,
+      article: this.selectedArticle
+    };
+
+    let tabIndex = null;
+    for (const index in this.tabs) {
+      if (this.tabs[index].articleId === this.selectedArticle.articleId) {
+        tabIndex = index;
+      }
+    }
+
+    if (tabIndex === null) {
+      this.tabs.push(newTab);
+      this.tabIndex = this.tabs.length;
+    } else {
+      this.tabIndex = parseInt(tabIndex,10) + 1;
+    }
+
+  }
+
   closeTab({ index }: { index: number }): void {
-    this.tabs.splice(index, 1);
+    this.tabs.splice(index+1, 1);
   }
 
   print(item: any): void {

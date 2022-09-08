@@ -44,12 +44,12 @@
     <div id="grid-wrapper" class="grid">
       <app-article-grid id="articleGrid" #articleGrid
         (rowClicked)="selectArticle($event)"
-        (rowDoubleClicked)="showArticleView()">
+        (rowDoubleClicked)="addTabArticleView()">
       </app-article-grid>
     </div>
   </nz-tab>
-  <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i > 1">
-    <app-article-view [article]="selectedArticle">
+  <nz-tab *ngFor="let tab of tabs; let i = index" [nzClosable]="i >= 0" [nzTitle]="tab.tabName">
+    <app-article-view [article]="tab.article">
     </app-article-view>
   </nz-tab>
 </nz-tabset>
