@@ -43,6 +43,7 @@ import { UserGridComponent } from './user-grid.component';
 import { UserPopupComponent } from './user-popup.component';
 import { UserImageUploadComponent } from './user-image-upload.component';
 import { UserService } from './user.service';
+import { UserProfileComponent } from './user-profile.component';
 
 const nzModules = [
   NzLayoutModule,
@@ -88,7 +89,8 @@ const nzModules = [
     UserFormComponent,
     UserGridComponent,
     UserPopupComponent,
-    UserComponent
+    UserComponent,
+    UserProfileComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
@@ -97,7 +99,8 @@ const nzModules = [
     UserService
   ],
   exports: [
-    UserComponent
+    UserComponent,
+    UserProfileComponent
   ]
 })
 export class UserModule { }

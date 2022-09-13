@@ -28,7 +28,7 @@ export class UserPopupComponent implements OnInit {
 
     getMyInfo(): void {
       this.sessionService
-          .getSessionUserInfo()
+          .getMyProfile()
           .subscribe(
               (model: ResponseObject<User>) => {
                   if ( model.total > 0 ) {

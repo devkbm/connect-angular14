@@ -14,7 +14,7 @@ export class UserSessionService extends DataService {
   private STATIC_URI = '/static/';
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/common/user', http, tokenExtractor);
+    super('/api/common/user', http, tokenExtractor);
     this.STATIC_URI = GlobalProperty.serverUrl + '/static/';
   }
 
@@ -27,8 +27,8 @@ export class UserSessionService extends DataService {
     }
   }
 
-  getSessionUserInfo(): Observable<ResponseObject<User>> {
-    const url = `${this.API_URL}/myinfo`;
+  getMyProfile(): Observable<ResponseObject<User>> {
+    const url = `${this.API_URL}/my-profile`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true

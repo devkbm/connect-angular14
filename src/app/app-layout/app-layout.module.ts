@@ -22,7 +22,8 @@ import { TermService } from '../system/terms/term.service';
 
 import { AppLayoutComponent } from './app-layout.component';
 import { UserPopupComponent } from '../system/user/user-popup.component';
-
+import { UserProfileComponent } from './../system/user/user-profile.component';
+import { UserModule } from '../system/user/user.module';
 
 const nzModules = [
   NzLayoutModule,
@@ -39,13 +40,15 @@ const nzModules = [
     CommonModule,
     FormsModule,
     AppLayoutRoutingModule,
+    UserModule,
     nzModules
   ],
   declarations: [
     AppLayoutComponent
   ],
   entryComponents: [
-    UserPopupComponent
+    UserPopupComponent,
+    UserProfileComponent
   ],
   providers: [
     AppAlarmService,
