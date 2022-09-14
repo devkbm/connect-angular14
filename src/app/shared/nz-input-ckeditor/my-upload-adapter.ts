@@ -12,12 +12,14 @@ export class MyUploadAdapter {
 
   // Starts the upload process.
   upload() {
-    return this.loader.file
-                      .then( (file: any) => new Promise( ( resolve, reject ) => {
-                          this._initRequest();
-                          this._initListeners( resolve, reject, file );
-                          this._sendRequest( file );
-                      } ) );
+    return this.loader
+               .file
+                .then( (file: any) => new Promise( ( resolve, reject ) => {
+                      this._initRequest();
+                      this._initListeners( resolve, reject, file );
+                      this._sendRequest( file );
+                    } )
+                    );
   }
 
   // Aborts the upload process.

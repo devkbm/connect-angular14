@@ -108,9 +108,15 @@ export class BoardComponent implements OnInit {
   }
 
   addTabArticleView(): void {
+    let title: string = '';
+    if (this.selectedArticle.title.length > 8) {
+      title = this.selectedArticle.title.substring(0, 8) + '...';
+    } else {
+      title = this.selectedArticle.title;
+    }
 
     const newTab: TabArticle = {
-      tabName: this.selectedArticle.articleId.toString(),
+      tabName: title,
       articleId: this.selectedArticle.articleId,
       article: this.selectedArticle
     };
@@ -132,7 +138,7 @@ export class BoardComponent implements OnInit {
   }
 
   closeTab({ index }: { index: number }): void {
-    this.tabs.splice(index+1, 1);
+    this.tabs.splice(index-1, 1);
   }
 
   print(item: any): void {
