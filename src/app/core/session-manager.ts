@@ -21,6 +21,7 @@ export class SessionManager {
     sessionStorage.setItem('staffNo', data.staffNo);
     sessionStorage.setItem('email', data.email);
     sessionStorage.setItem('imageUrl', data.imageUrl);
+    sessionStorage.setItem('ipAddress', data.ipAddress);
     sessionStorage.setItem('menuGroupList', JSON.stringify(data.menuGroupList));
     sessionStorage.setItem('authorityList', JSON.stringify(data.authorities));
   }

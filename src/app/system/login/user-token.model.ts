@@ -9,6 +9,7 @@ export interface UserToken {
   staffNo: string;
   email: string;
   imageUrl: string;
+  ipAddress: string;
   authorities: Authority[];
   menuGroupList: MenuGroup[];
 }
