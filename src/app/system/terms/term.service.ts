@@ -8,7 +8,7 @@ import { DataService } from '../../core/service/data.service';
 import { ResponseObject } from '../../core/model/response-object';
 import { ResponseList } from '../../core/model/response-list';
 
-import { Term } from './term';
+import { Term } from './term.model';
 
 @Injectable()
 export class TermService extends DataService {

@@ -5,7 +5,7 @@ import { AggridFunction } from '../../core/grid/aggrid-function';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { TermService } from './term.service';
-import { Term } from './term';
+import { Term } from './term.model';
 
 
 @Component({

@@ -10,7 +10,7 @@ import { TermService } from './term.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseObject } from '../../core/model/response-object';
-import { Term } from './term';
+import { Term } from './term.model';
 import { FormBase } from 'src/app/core/form/form-base';
 
 @Component({
