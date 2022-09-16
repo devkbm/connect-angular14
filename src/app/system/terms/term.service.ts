@@ -14,7 +14,7 @@ import { Term } from './term.model';
 export class TermService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/terms', http, tokenExtractor);
+    super('/api/system/terms', http, tokenExtractor);
   }
 
   getTermList(params?: any): Observable<ResponseList<Term>> {
@@ -43,7 +43,7 @@ export class TermService extends DataService {
   }
 
   registerTerm(term: Term): Observable<ResponseObject<Term>> {
-    const url = `http://localhost:8090/api/common/terms`;
+    const url = `http://localhost:8090/api/system/terms`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
@@ -55,7 +55,7 @@ export class TermService extends DataService {
   }
 
   deleteTerm(id: string): Observable<ResponseObject<Term>> {
-    const url = `http://localhost:8090/api/common/terms/${id}`;
+    const url = `http://localhost:8090/api/system/terms/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true

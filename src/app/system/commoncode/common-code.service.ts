@@ -18,7 +18,7 @@ import { SystemTypeEnum } from './system-type-enum.model';
 export class CommonCodeService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/code', http, tokenExtractor);
+    super('/api/system/code', http, tokenExtractor);
   }
 
   getSystemTypeList(): Observable<ResponseList<SystemTypeEnum>> {
@@ -59,7 +59,7 @@ export class CommonCodeService extends DataService {
   }
 
   getCommonCodeHierarchy(params?: any): Observable<ResponseList<CommonCodeHierarchy>> {
-    const url = GlobalProperty.serverUrl + `/api/common/codetree`;
+    const url = GlobalProperty.serverUrl + `/api/system/codetree`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
         withCredentials: true,

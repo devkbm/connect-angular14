@@ -19,12 +19,12 @@ import { Authority } from '../authority/authority.model';
 @Injectable()
 export class UserService extends DataService {
 
-  private AUTHORITY_API_URI = '/api/common/authority';
+  private AUTHORITY_API_URI = '/api/system/authority';
 
-  private MENU_GROUP_API_URI = '/api/common/menugroup';
+  private MENU_GROUP_API_URI = '/api/system/menugroup';
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/user', http, tokenExtractor);
+    super('/api/system/user', http, tokenExtractor);
   }
 
   checkUser(id: string): Observable<ResponseObject<boolean>> {

@@ -66,7 +66,7 @@ import { UserService } from './user.service';
 })
 export class UserImageUploadComponent implements OnInit, OnChanges {
 
-  uploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image';
+  uploadUrl: string = GlobalProperty.serverUrl + '/api/system/user/image';
   headers: any = { Authorization: sessionStorage.getItem('token') };
   data: any;
 

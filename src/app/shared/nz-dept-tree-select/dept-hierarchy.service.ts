@@ -15,11 +15,11 @@ import { GlobalProperty } from 'src/app/core/global-property';
 export class DeptHierarchyService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/dept', http, tokenExtractor);
+    super('/api/system/dept', http, tokenExtractor);
   }
 
   getDeptHierarchyList(params?: any): Observable<ResponseList<DeptHierarchy>> {
-    const url = GlobalProperty.serverUrl + '/api/common/depttree';
+    const url = GlobalProperty.serverUrl + '/api/system/depttree';
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
         withCredentials: true,

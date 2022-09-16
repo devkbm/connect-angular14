@@ -15,7 +15,7 @@ import { ResponseObject } from '../../core/model/response-object';
 export class LoginService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/common/user/login', http, tokenExtractor);
+    super('/api/system/user/login', http, tokenExtractor);
   }
 
   /**
@@ -71,7 +71,7 @@ export class LoginService extends DataService {
   }
 
   getAuthToken(): Observable<UserToken> {
-    const url = 'http://localhost:8090/api/user/auth';
+    const url = 'http://localhost:8090/api/system/user/auth';
 
     const options = {
       headers: this.getAuthorizedHttpHeaders(),

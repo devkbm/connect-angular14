@@ -15,7 +15,7 @@ import { ResponseList } from '../../core/model/response-list';
 export class HolidayService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common', http, tokenExtractor);
+    super('/api/system', http, tokenExtractor);
   }
 
   getHolidayList(fromDate: any, toDate: any): Observable<ResponseList<Holiday>> {

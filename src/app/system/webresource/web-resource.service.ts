@@ -15,7 +15,7 @@ import { ResouceTypeEnum } from './resource-type-enum';
 export class WebResourceService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/webresource', http, tokenExtractor);
+    super('/api/system/webresource', http, tokenExtractor);
   }
 
   getWebResourceTypeList(): Observable<ResponseList<ResouceTypeEnum>> {

@@ -28,7 +28,7 @@ export interface Dept {
 export class DeptSelectService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/dept', http, tokenExtractor);
+    super('/api/system/dept', http, tokenExtractor);
   }
 
   getDeptList(params?: any): Observable<ResponseList<Dept>> {

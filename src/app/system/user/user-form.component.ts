@@ -38,7 +38,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   previewImage: string | undefined = '';
   previewVisible = false;
-  uploadUrl: string = GlobalProperty.serverUrl + '/api/common/user/image/';
+  uploadUrl: string = GlobalProperty.serverUrl + '/api/system/user/image/';
   imageUploadHeader: any = {
     Authorization: sessionStorage.getItem('token')
     //'x-auth-token': sessionStorage.getItem('token')

@@ -16,7 +16,7 @@ import { Authority } from './authority.model';
 export class AuthorityService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/authority', http, tokenExtractor);
+    super('/api/system/authority', http, tokenExtractor);
   }
 
   getAuthorityList(params?: any): Observable<ResponseList<Authority>> {

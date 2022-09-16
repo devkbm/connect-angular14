@@ -14,7 +14,7 @@ export class UserSessionService extends DataService {
   private STATIC_URI = '/static/';
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common/user', http, tokenExtractor);
+    super('/api/system/user', http, tokenExtractor);
     this.STATIC_URI = GlobalProperty.serverUrl + '/static/';
   }
 

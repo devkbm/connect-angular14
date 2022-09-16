@@ -16,7 +16,7 @@ import { MenuHierarchy } from './menu-hierarchy.model';
 export class MenuService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/common', http, tokenExtractor);
+    super('/api/system', http, tokenExtractor);
   }
 
   getMenuGroupList(params?: any): Observable<ResponseList<MenuGroup>> {

@@ -114,7 +114,7 @@ export class WorkGroupService extends DataService {
   }
 
   public getMemberList(params?: any): Observable<ResponseList<WorkGroupMember>> {
-    const url = GlobalProperty.serverUrl + `/api/common/user`;
+    const url = GlobalProperty.serverUrl + `/api/system/user`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true,
