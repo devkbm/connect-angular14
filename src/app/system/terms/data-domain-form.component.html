@@ -1,0 +1,69 @@
+{{fg.getRawValue() | json}}
+{{fg.valid}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text #menuId
+        [parentFormGroup]="fg" formControlName="domainId" itemId="domainId"
+        placeholder="도메인Id를 입력해주세요."
+        [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">도메인ID
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="domainName" itemId="domainName"
+        placeholder="도메인명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">도메인명
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="database" itemId="database"
+        placeholder="database을 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">database
+      </app-nz-input-text>
+    </div>
+  </div>
+
+  <!-- 2 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="dataType" itemId="dataType"
+        placeholder="dataType을 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">dataType
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="columnSize" itemId="columnSize"
+        placeholder="columnSize을 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">columnSize
+      </app-nz-input-text>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <app-nz-crud-button-group
+    [isSavePopupConfirm]="false"
+    (closeClick)="closeForm()"
+    (saveClick)="submit()"
+    (deleteClick)="delete()">
+  </app-nz-crud-button-group>
+</div>

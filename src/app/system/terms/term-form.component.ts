@@ -21,42 +21,41 @@ import { FormBase } from 'src/app/core/form/form-base';
 export class TermFormComponent extends FormBase implements OnInit {
 
   constructor(private fb: FormBuilder,
-              private termService: TermService,
+              private service: TermService,
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit(): void {
 
     this.fg = this.fb.group({
-      pkTerm            : new FormControl<string | null>(null),
-      domain            : new FormControl<string | null>(null, { validators: Validators.required }),
-      term              : new FormControl<string | null>(null, { validators: Validators.required }),
-      nameKor           : new FormControl<string | null>(null, { validators: Validators.required }),
-      abbreviationKor   : new FormControl<string | null>(null, { validators: Validators.required }),
-      nameEng           : new FormControl<string | null>(null, { validators: Validators.required }),
-      abbreviationEng   : new FormControl<string | null>(null, { validators: Validators.required }),
-      description       : new FormControl<string | null>(null),
-      comment           : new FormControl<string | null>(null)
+      termId       : new FormControl<string | null>(null),
+      system       : new FormControl<string | null>(null, { validators: Validators.required }),
+      term         : new FormControl<string | null>(null, { validators: Validators.required }),
+      termEng      : new FormControl<string | null>(null, { validators: Validators.required }),
+      columnName   : new FormControl<string | null>(null),
+      description  : new FormControl<string | null>(null),
+      comment      : new FormControl<string | null>(null)
+
     });
   }
 
-  getTerm(): void {
-    this.termService
-      .getTerm(this.fg.get('pkTerm')?.value)
-      .subscribe(
-        (model: ResponseObject<Term>) => {
-          if ( model.total > 0 ) {
-            this.fg.patchValue(model.data);
-          } else {
-            this.fg.reset();
+  get(): void {
+    this.service
+        .get(this.fg.get('termId')?.value)
+        .subscribe(
+          (model: ResponseObject<Term>) => {
+            if ( model.total > 0 ) {
+              this.fg.patchValue(model.data);
+            } else {
+              this.fg.reset();
+            }
+            this.appAlarmService.changeMessage(model.message);
           }
-          this.appAlarmService.changeMessage(model.message);
-        }
-      );
+        );
   }
 
-  submitTerm(): void {
-    this.termService
-        .registerTerm(this.fg.getRawValue())
+  submit(): void {
+    this.service
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Term>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -65,15 +64,15 @@ export class TermFormComponent extends FormBase implements OnInit {
         );
   }
 
-  deleteTerm(): void {
-    this.termService
-      .deleteTerm(this.fg.get('pkTerm')?.value)
-      .subscribe(
-        (model: ResponseObject<Term>) => {
-          this.appAlarmService.changeMessage(model.message);
-          this.formDeleted.emit(this.fg.getRawValue());
-        }
-      );
+  delete(): void {
+    this.service
+        .delete(this.fg.get('termId')?.value)
+        .subscribe(
+          (model: ResponseObject<Term>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formDeleted.emit(this.fg.getRawValue());
+          }
+        );
   }
 
   closeForm(): void {

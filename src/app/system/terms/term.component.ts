@@ -3,7 +3,6 @@ import { Location } from '@angular/common';
 import { TermGridComponent } from './term-grid.component';
 import { TermFormComponent } from './term-form.component';
 import { AppBase } from '../../core/app/app-base';
-import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-term',
@@ -59,11 +58,11 @@ export class TermComponent extends AppBase implements OnInit {
   }
 
   saveTerm(): void {
-    this.form?.submitTerm();
+    this.form?.submit();
   }
 
   deleteTerm(): void {
-    this.form?.deleteTerm();
+    this.form?.delete();
   }
 
   selectedItem(item: any): void {

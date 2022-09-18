@@ -41,6 +41,8 @@ import { TermComponent } from './term.component';
 import { TermService } from './term.service';
 import { TermGridComponent } from './term-grid.component';
 import { TermFormComponent } from './term-form.component';
+import { DataDomainFormComponent } from './data-domain-form.component';
+import { WordFormComponent } from './word-form.component';
 
 const nzModules = [
   NzLayoutModule,
@@ -84,7 +86,9 @@ const nzModules = [
   declarations: [
     TermGridComponent,
     TermFormComponent,
-    TermComponent
+    TermComponent,
+    DataDomainFormComponent,
+    WordFormComponent
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },

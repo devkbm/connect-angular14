@@ -1,0 +1,53 @@
+{{fg.getRawValue() | json}}
+{{fg.valid}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text #logicalName
+        [parentFormGroup]="fg" formControlName="logicalName" itemId="logicalName"
+        placeholder="logicalName을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">logicalName
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="logicalNameEng" itemId="logicalNameEng"
+        placeholder="logicalNameEng 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">logicalNameEng
+      </app-nz-input-text>
+    </div>
+  </div>
+
+  <!-- 2 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="physicalName" itemId="physicalName"
+        placeholder="physicalName 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">physicalName
+      </app-nz-input-text>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <app-nz-crud-button-group
+    [isSavePopupConfirm]="false"
+    (closeClick)="closeForm()"
+    (saveClick)="submit()"
+    (deleteClick)="delete()">
+  </app-nz-crud-button-group>
+</div>

@@ -30,7 +30,7 @@ export class TermService extends DataService {
     );
   }
 
-  getTerm(id: string): Observable<ResponseObject<Term>> {
+  get(id: string): Observable<ResponseObject<Term>> {
     const url = `${this.API_URL}/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -42,7 +42,7 @@ export class TermService extends DataService {
     );
   }
 
-  registerTerm(term: Term): Observable<ResponseObject<Term>> {
+  save(term: Term): Observable<ResponseObject<Term>> {
     const url = `http://localhost:8090/api/system/terms`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -54,7 +54,7 @@ export class TermService extends DataService {
     );
   }
 
-  deleteTerm(id: string): Observable<ResponseObject<Term>> {
+  delete(id: string): Observable<ResponseObject<Term>> {
     const url = `http://localhost:8090/api/system/terms/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
