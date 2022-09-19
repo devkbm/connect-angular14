@@ -9,6 +9,7 @@ import { LoginService } from './login.service';
 import { UserToken } from './user-token.model';
 import { ResponseObject } from '../../core/model/response-object';
 import { SessionManager } from 'src/app/core/session-manager';
+import { WindowRef } from 'src/app/core/window-ref';
 
 @Component({
   selector: 'app-login',
@@ -22,8 +23,12 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private loginService: LoginService,
     private route: ActivatedRoute,
-    private router: Router
-    ) { }
+    private router: Router,
+    private winRef: WindowRef
+    ) {
+      console.log(winRef);
+
+    }
 
   ngOnInit(): void {
     this.loginForm = this.fb.group({
@@ -126,6 +131,11 @@ export class LoginComponent implements OnInit {
   }
 
   test() {
-    window.open('/home','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,status=no,top=500,left=500,width=400,height=400');
+    //window.open('/home','_blank', 'toolbar=yes,scrollbars=yes,resizable=yes,status=no,top=500,left=500,width=400,height=400');
+    const popOption = 'scrollbars=yes, menubar=no, resizable=no, top=500, left=500, width=400, height=400';
+    var windowObjectReference = this.winRef.nativeWindow.open('/home/board', "", popOption);
+    windowObjectReference.focus();
+
+    console.log(windowObjectReference);
   }
 }
