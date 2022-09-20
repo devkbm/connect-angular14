@@ -64,12 +64,11 @@ export class TermGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '업무영역',    field: 'domain',            width: 100 },
+      {headerName: '용어ID',      field: 'termId',            width: 100 },
+      {headerName: '시스템',      field: 'system',            width: 100 },
       {headerName: '용어',        field: 'term',              width: 100 },
-      {headerName: '한글명',      field: 'nameKor',           width: 100 },
-      {headerName: '약어',        field: 'abbreviationKor',   width: 100 },
-      {headerName: '영어명',      field: 'nameEng',           width: 150 },
-      {headerName: '약어',        field: 'abbreviationEng',   width: 150 },
+      {headerName: '용어(영문)',  field: 'termEng',           width: 100 },
+      {headerName: '컬럼명',      field: 'columnName',        width: 100 },
       {headerName: '설명',        field: 'description',       width: 400 , tooltipField: 'description'},
       {headerName: '비고',        field: 'comment',           width: 400 }
     ];

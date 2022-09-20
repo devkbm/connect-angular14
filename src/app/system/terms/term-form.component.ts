@@ -1,10 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { TermService } from './term.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
@@ -39,8 +34,9 @@ export class TermFormComponent extends FormBase implements OnInit {
   }
 
   get(): void {
+    const id: string = this.fg.get('termId')?.value;
     this.service
-        .get(this.fg.get('termId')?.value)
+        .get(id)
         .subscribe(
           (model: ResponseObject<Term>) => {
             if ( model.total > 0 ) {
@@ -65,8 +61,9 @@ export class TermFormComponent extends FormBase implements OnInit {
   }
 
   delete(): void {
+    const id: string = this.fg.get('termId')?.value;
     this.service
-        .delete(this.fg.get('termId')?.value)
+        .delete(id)
         .subscribe(
           (model: ResponseObject<Term>) => {
             this.appAlarmService.changeMessage(model.message);

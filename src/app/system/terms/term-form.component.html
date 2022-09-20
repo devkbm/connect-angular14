@@ -11,67 +11,50 @@
   <!-- 1 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <!--업무영역 필드-->
       <app-nz-input-text #title
-        [parentFormGroup]="fg" formControlName="domain" itemId="domain"
-        placeholder="업무영역을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">업무영역
+        [parentFormGroup]="fg" formControlName="termId" itemId="termId"
+        placeholder="용어ID을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">용어ID
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="12">
-      <!--용어 필드-->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="term" itemId="term"
-        placeholder="용어를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">용어
+        [parentFormGroup]="fg" formControlName="system" itemId="system"
+        placeholder="시스템를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">시스템
       </app-nz-input-text>
     </div>
   </div>
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
-      <!--한글명 필드-->
+    <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="nameKor" itemId="nameKor"
-        placeholder="한글명을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">한글명
+        [parentFormGroup]="fg" formControlName="term" itemId="term"
+        placeholder="용어를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">용어
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="12">
-      <!--한글약어 필드-->
+    <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="abbreviationKor" itemId="abbreviationKor"
-        placeholder="한글 약어를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">한글약어
+        [parentFormGroup]="fg" formControlName="termEng" itemId="termEng"
+        placeholder="용어(영문)를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">용어(영문)
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="columnName" itemId="columnName"
+        placeholder="컬럼명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">컬럼명
       </app-nz-input-text>
     </div>
   </div>
 
   <!-- 3 row -->
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
-      <!--영어명 필드-->
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="nameEng" itemId="nameEng"
-        placeholder="영어명을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">영어명
-      </app-nz-input-text>
-    </div>
-
-    <div nz-col nzSpan="12">
-      <!--영어명 필드-->
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="abbreviationEng" itemId="abbreviationEng"
-        placeholder="영어 약어를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">영어 약어
-      </app-nz-input-text>
-    </div>
-  </div>
-
-  <!-- 4 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--설명 필드-->
