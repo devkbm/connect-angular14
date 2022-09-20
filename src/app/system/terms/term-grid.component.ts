@@ -30,14 +30,9 @@ export class TermGridComponent extends AggridFunction implements OnInit {
 
   termList: Term[] = [];
 
-  @Output()
-  rowClicked = new EventEmitter();
-
-  @Output()
-  rowDoubleClicked = new EventEmitter();
-
-  @Output()
-  editButtonClicked = new EventEmitter();
+  @Output() rowClicked = new EventEmitter();
+  @Output() rowDoubleClicked = new EventEmitter();
+  @Output() editButtonClicked = new EventEmitter();
 
   constructor(private termService: TermService,
               private appAlarmService: AppAlarmService) {
@@ -73,8 +68,8 @@ export class TermGridComponent extends AggridFunction implements OnInit {
       {headerName: '비고',        field: 'comment',           width: 400 }
     ];
 
-    this.getRowId = function(data: any) {
-        return data.pkTerm;
+    this.getRowId = function(args: any) {
+        return args.data.pkTerm;
     };
   }
 
