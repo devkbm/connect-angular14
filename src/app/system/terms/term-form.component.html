@@ -19,22 +19,40 @@
     </div>
 
     <div nz-col nzSpan="12">
+      <!--
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="system" itemId="system"
         placeholder="시스템를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">시스템
       </app-nz-input-text>
+      -->
+
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="system" itemId="system"
+        [options]="systemTypeList" [opt_value]="'value'" [opt_label]="'label'"
+        placeholder="Please select"
+        [required]="true" [nzErrorTip]="errorTpl">시스템
+      </app-nz-input-select>
     </div>
   </div>
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
+      <!--
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="term" itemId="term"
         placeholder="용어를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">용어
       </app-nz-input-text>
+      -->
+
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="term" itemId="term"
+        [options]="wordList" [opt_value]="'logicalName'" [opt_label]="'logicalName'" [mode]="'multiple'"
+        placeholder="Please select"
+        [required]="true" [nzErrorTip]="errorTpl">용어
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="8">

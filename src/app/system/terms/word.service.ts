@@ -18,6 +18,18 @@ export class WordService extends DataService {
     super('/api/system/word', http, tokenExtractor);
   }
 
+  getList(): Observable<ResponseList<Word>> {
+    const url = `${this.API_URL}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+   };
+
+    return this.http.get<ResponseList<Word>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<Word>>('getList', undefined))
+    );
+  }
+
   get(id: string): Observable<ResponseObject<Word>> {
     const url = `${this.API_URL}/${id}`;
     const options = {

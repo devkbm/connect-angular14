@@ -7,6 +7,9 @@ import { AppAlarmService } from '../../core/service/app-alarm.service';
 import { ResponseObject } from '../../core/model/response-object';
 import { Term } from './term.model';
 import { FormBase } from 'src/app/core/form/form-base';
+import { ResponseList } from 'src/app/core/model/response-list';
+import { WordService } from './word.service';
+import { Word } from './word.model';
 
 @Component({
   selector: 'app-term-form',
@@ -14,12 +17,14 @@ import { FormBase } from 'src/app/core/form/form-base';
   styleUrls: ['./term-form.component.css']
 })
 export class TermFormComponent extends FormBase implements OnInit {
+  systemTypeList: any;
+  wordList: Word[] = [];
 
   constructor(private fb: FormBuilder,
               private service: TermService,
-              private appAlarmService: AppAlarmService) { super(); }
-
-  ngOnInit(): void {
+              private wordService: WordService,
+              private appAlarmService: AppAlarmService) {
+    super();
 
     this.fg = this.fb.group({
       termId       : new FormControl<string | null>(null),
@@ -29,8 +34,13 @@ export class TermFormComponent extends FormBase implements OnInit {
       columnName   : new FormControl<string | null>(null),
       description  : new FormControl<string | null>(null),
       comment      : new FormControl<string | null>(null)
-
     });
+
+  }
+
+  ngOnInit(): void {
+    this.getSystemTypeList();
+    this.getWordList();
   }
 
   get(): void {
@@ -74,6 +84,26 @@ export class TermFormComponent extends FormBase implements OnInit {
 
   closeForm(): void {
     this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  getSystemTypeList(): void {
+    this.service
+        .getSystemTypeList()
+        .subscribe(
+          (model: ResponseList<any>) => {
+            this.systemTypeList = model.data;
+          }
+        );
+  }
+
+  getWordList(): void {
+    this.wordService
+        .getList()
+        .subscribe(
+          (model: ResponseList<Word>) => {
+            this.wordList = model.data;
+          }
+        )
   }
 
 }

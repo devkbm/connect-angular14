@@ -43,7 +43,7 @@ export class TermService extends DataService {
   }
 
   save(term: Term): Observable<ResponseObject<Term>> {
-    const url = `http://localhost:8090/api/system/terms`;
+    const url = `${this.API_URL}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
@@ -55,7 +55,7 @@ export class TermService extends DataService {
   }
 
   delete(id: string): Observable<ResponseObject<Term>> {
-    const url = `http://localhost:8090/api/system/terms/${id}`;
+    const url = `${this.API_URL}/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
@@ -68,4 +68,15 @@ export class TermService extends DataService {
               );
   }
 
+  getSystemTypeList(): Observable<ResponseObject<any>> {
+    const url = `${this.API_URL}/systemType`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+   };
+
+    return this.http.get<ResponseObject<any>>(url, options).pipe(
+      catchError(this.handleError<ResponseObject<any>>('getSystemTypeList', undefined))
+    );
+  }
 }
