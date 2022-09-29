@@ -12,7 +12,7 @@
     <ul nz-menu [nzTheme]="'dark'" [nzMode]="'inline'" [nzInlineIndent]="12" style="height: 100%">
       <ul *ngFor="let level1 of menuItems">
         <li nz-menu-item *ngIf="level1.menuType == 'ITEM'" (click)="selectMenuItem(level1.url)">
-          <i nz-icon nzType="file" nzTheme="outline" style="margin-right: 10px"></i> {{level1.title}}
+          <span nz-icon nzType="file" nzTheme="outline" style="margin-right: 10px"></span> {{level1.title}}
         </li>
 
         <li nz-submenu *ngIf="level1.menuType == 'SUBMENU'">
@@ -20,14 +20,14 @@
 
           <ul *ngFor="let level2 of level1.children">
             <li nz-menu-item *ngIf="level2.menuType == 'ITEM'" (click)="selectMenuItem(level2.url)">
-              <i nz-icon nzType="file" nzTheme="outline"></i> <span title>{{level2.title}}</span>
+              <span nz-icon nzType="file" nzTheme="outline"></span> <span title>{{level2.title}}</span>
             </li>
             <li nz-submenu *ngIf="level2.menuType == 'SUBMENU'">
-              <i nz-icon nzType="file" nzTheme="outline"></i> <span title>{{level2.title}}</span>
+              <span nz-icon nzType="file" nzTheme="outline"></span> <span title>{{level2.title}}</span>
 
               <ul *ngFor="let level3 of level2.children">
                 <li nz-menu-item *ngIf="level3.menuType == 'ITEM'" (click)="selectMenuItem(level3.url)">
-                  <i nz-icon nzType="file" nzTheme="outline"></i> {{level3.title}}
+                  <span nz-icon nzType="file" nzTheme="outline"></span> {{level3.title}}
                 </li>
               </ul>
             </li>
@@ -48,7 +48,7 @@
 
   <nz-layout>
     <nz-header class="header">
-      <i nz-icon class="collapse-icon" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed=!isCollapsed"></i>
+      <span nz-icon class="collapse-icon" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" (click)="isCollapsed=!isCollapsed"></span>
 
       <nz-select
         class="sidemenugroup"

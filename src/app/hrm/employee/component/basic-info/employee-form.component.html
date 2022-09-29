@@ -16,9 +16,9 @@
                 (nzChange)="handleChange($event)"
                 [nzShowUploadList]="false"
                 [nzData]="imageUploadParam">
-            <button nz-button nzType="default" nzShape="round"><i nz-icon nzType="upload"></i></button>
+            <button nz-button nzType="default" nzShape="round"><span nz-icon nzType="upload"></span></button>
         </nz-upload>
-        <button nz-button nzType="default" nzShape="round" (click)="downloadImage($event)"><i nz-icon nzType="download"></i></button>
+        <button nz-button nzType="default" nzShape="round" (click)="downloadImage($event)"><span nz-icon nzType="download"></span></button>
     </div>
   </div>
 
@@ -136,33 +136,33 @@
 
 <div class="footer">
   <button nz-button (click)="getForm(fg.get('id')?.value)">
-    <i nz-icon nzType="search" nzTheme="outline"></i>
+    <span nz-icon nzType="search" nzTheme="outline"></span>
     조회
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button (click)="closeForm()">
-    <i nz-icon nzType="close" nzTheme="outline"></i>
+    <span nz-icon nzType="close" nzTheme="outline"></span>
     닫기
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button nzType="primary"
     nz-popconfirm nzPopconfirmTitle="신규 직원을 등록하시겠습니까?"
     (nzOnConfirm)="newEmployee()" (nzOnCancel)="false">
-    <i nz-icon nzType="save" nzTheme="outline"></i>
+    <span nz-icon nzType="save" nzTheme="outline"></span>
     신규직원등록
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button nzType="primary"
     nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
     (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
-    <i nz-icon nzType="save" nzTheme="outline"></i>
+    <span nz-icon nzType="save" nzTheme="outline"></span>
     저장
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button nzDanger
     nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
     (nzOnConfirm)="deleteForm(this.fg.get('id')?.value)" (nzOnCancel)="false">
-    <i nz-icon nzType="delete" nzTheme="outline"></i>
+    <span nz-icon nzType="delete" nzTheme="outline"></span>
     삭제
   </button>
 </div>

@@ -4,19 +4,19 @@
   </div>
   <div nz-col style="text-align: right" [nzXs]="12" [nzSm]="12">
     <button nz-button (click)="getBoardTree()">
-      <i nz-icon nzType="search" nzTheme="outline"></i>
+      <span nz-icon nzType="search" nzTheme="outline"></span>
       조회
     </button>
     <button nz-button (click)="newBoard()">
-      <i nz-icon nzType="form" nzTheme="outline"></i>
+      <span nz-icon nzType="form" nzTheme="outline"></span>
       게시판 등록
     </button>
     <button nz-button (click)="newArticle()">
-      <i nz-icon nzType="form" nzTheme="outline"></i>
+      <span nz-icon nzType="form" nzTheme="outline"></span>
       게시글 등록
     </button>
     <button nz-button (click)="editArticle()">
-      <i nz-icon nzType="form" nzTheme="outline"></i>
+      <span nz-icon nzType="form" nzTheme="outline"></span>
       게시글 수정
     </button>
   </div>
@@ -29,7 +29,7 @@
     <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text">
   </nz-input-group>
   <ng-template #suffixIconSearch>
-    <i nz-icon nzType="search"></i>
+    <span nz-icon nzType="search"></span>
   </ng-template>
   <app-board-tree id="boardTree" #boardTree
     [searchValue]="queryValue"

@@ -16,7 +16,7 @@ import { GlobalProperty } from 'src/app/core/global-property';
         [nzFileList]="fileList"
         (nzChange)="fileUploadChange($event)">
         <button nz-button>
-          <i nz-icon nzType="upload"></i>
+          <span nz-icon nzType="upload"></span>
           <span>첨부파일</span>
         </button>
       </nz-upload>

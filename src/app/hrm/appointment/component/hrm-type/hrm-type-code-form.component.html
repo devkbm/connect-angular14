@@ -100,26 +100,26 @@
 
 <div class="footer">
   <button nz-button (click)="getHrmTypeDetailCode(this.fg.get('codeType')?.value, this.fg.get('code')?.value)">
-    <i nz-icon nzType="search" nzTheme="outline"></i>
+    <span nz-icon nzType="search" nzTheme="outline"></span>
     조회
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button (click)="closeForm()">
-    <i nz-icon nzType="form" nzTheme="outline"></i>
+    <span nz-icon nzType="form" nzTheme="outline"></span>
     닫기
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button nzType="primary"
     nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
     (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
-    <i nz-icon nzType="save" nzTheme="outline"></i>
+    <span nz-icon nzType="save" nzTheme="outline"></span>
     저장
   </button>
   <nz-divider nzType="vertical"></nz-divider>
   <button nz-button nzDanger
     nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
     (nzOnConfirm)="deleteHrmTypeDetailCode()" (nzOnCancel)="false">
-    <i nz-icon nzType="delete" nzTheme="outline"></i>
+    <span nz-icon nzType="delete" nzTheme="outline"></span>
     삭제
   </button>
 

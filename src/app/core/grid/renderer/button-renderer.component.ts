@@ -6,8 +6,8 @@ import { ICellRendererParams } from 'ag-grid-community';
   selector: 'app-button-renderer',
   template: `
     <button nz-button nzSize="small" nzBlock="true" (click)="onClick($event)" style="height: 24px">
-      <!--<i nz-icon style="font-size: 16px; color: #08c;"></i>-->
-      <i nz-icon [nzType]="iconType" style="font-size: 16px; color: #08c;"></i>
+      <!--<span nz-icon style="font-size: 16px; color: #08c;"></span>-->
+      <span nz-icon [nzType]="iconType" style="font-size: 16px; color: #08c;"></span>
       {{label}}
     </button>
   `,

@@ -11,27 +11,27 @@
       </nz-select>
     </ng-template>
     <ng-template #suffixIconSearch>
-        <i nz-icon nzType="search"></i>
+        <span nz-icon nzType="search"></span>
     </ng-template>
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">
     <!--<app-nz-buttons [buttons]="buttons"></app-nz-buttons>-->
 
     <button nz-button (click)="test()">
-      <i nz-icon nzType="search"></i>구글 로그인
+      <span nz-icon nzType="search"></span>구글 로그인
     </button>
     <button nz-button (click)="getUserList()">
-      <i nz-icon nzType="search"></i>조회
+      <span nz-icon nzType="search"></span>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button (click)="newForm()">
-      <i nz-icon nzType="form" nzTheme="outline"></i>신규
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzDanger="true"
       nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
       (nzOnConfirm)="deleteUser()" (nzOnCancel)="false">
-        <i nz-icon nzType="delete" nzTheme="outline"></i>삭제
+        <span nz-icon nzType="delete" nzTheme="outline"></span>삭제
     </button>
   </div>
 </app-nz-search-area>

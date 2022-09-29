@@ -50,7 +50,7 @@ export interface ButtonTemplate {
     <div *ngFor="let btn of buttons; let i = index" class="button-group">
       <!-- nz-popconfirm을 사용하지 않을 경우 -->
       <button nz-button *ngIf="btn.text !== '|' && btn.popConfirm === null" [nzDanger]="btn.isDanger" (click)="btn?.click === undefined ? true : btn?.click($event)">
-        <i nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></i>{{btn.text}}
+        <span nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></span>{{btn.text}}
       </button>
 
       <!-- nz-popcofirm을 사용할 경우 -->
@@ -58,7 +58,7 @@ export interface ButtonTemplate {
         nz-popconfirm [nzPopconfirmTitle]="btn.popConfirm?.title" [nzOkType]="btn.isDanger === true ? 'danger' : 'primary'"
         (nzOnConfirm)="btn.popConfirm?.confirmClick === undefined ? true : btn.popConfirm?.confirmClick()"
         (nzOnCancel)="btn.popConfirm?.cancelClick === undefined ? true : btn.popConfirm?.cancelClick()">
-        <i nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></i>{{btn.text}}
+        <span nz-icon [nzType]="btn.nzType" nzTheme="outline" *ngIf="btn.nzType"></span>{{btn.text}}
       </button>
 
       <nz-divider nzType="vertical" *ngIf="btn.text === '|'"></nz-divider>

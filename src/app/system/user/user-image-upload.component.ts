@@ -23,11 +23,11 @@ import { UserService } from './user.service';
           [nzFileList]="fileList"
           (nzChange)="fileUploadChange($event)">
           <button nz-button class="upload-button">
-            <i nz-icon nzType="upload" class="button-icon"></i>
+            <span nz-icon nzType="upload" class="button-icon"></span>
           </button>
       </nz-upload>
       <button nz-button class="download-button" (click)="downloadImage()">
-        <i nz-icon nzType="download" class="button-icon"></i>
+        <span nz-icon nzType="download" class="button-icon"></span>
       </button>
     </nz-space>
   </div>

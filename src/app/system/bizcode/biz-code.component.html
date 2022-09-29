@@ -12,25 +12,25 @@
           </nz-select>
           </ng-template>
       <ng-template #suffixIconSearch>
-          <i nz-icon nzType="search"></i>
+          <span nz-icon nzType="search"></span>
       </ng-template>
   </div>
 
   <div nz-col [nzSpan]="12" style="text-align: right;">
       <button nz-button (click)="true">
-          <i nz-icon nzType="search" nzTheme="outline"></i>
+          <span nz-icon nzType="search" nzTheme="outline"></span>
           조회
       </button>
       <nz-divider nzType="vertical"></nz-divider>
       <button nz-button (click)="openDrawer()">
-          <i nz-icon nzType="form" nzTheme="outline"></i>
+          <span nz-icon nzType="form" nzTheme="outline"></span>
           신규
       </button>
       <nz-divider nzType="vertical"></nz-divider>
       <button nz-button nzDanger
           nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
           (nzOnConfirm)="true" (nzOnCancel)="false">
-          <i nz-icon nzType="delete" nzTheme="outline"></i>
+          <span nz-icon nzType="delete" nzTheme="outline"></span>
           삭제
       </button>
   </div>

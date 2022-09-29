@@ -10,7 +10,7 @@
             </nz-select>
             </ng-template>
         <ng-template #suffixIconSearch>
-            <i nz-icon type="search"></i>
+            <span nz-icon type="search"></span>
         </ng-template>
     </div>
 
@@ -18,14 +18,14 @@
         <button
             nz-button
             (click)="getTeamList()">
-            <i nz-icon type="search" nzTheme="outline"></i>
+            <span nz-icon type="search" nzTheme="outline"></span>
             조회
         </button>
         <nz-divider nzType="vertical"></nz-divider>
         <button
             nz-button
             (click)="initForm()">
-            <i nz-icon type="form" nzTheme="outline"></i>
+            <span nz-icon type="form" nzTheme="outline"></span>
             신규
         </button>
         <nz-divider nzType="vertical"></nz-divider>
@@ -36,7 +36,7 @@
             nzTitle="삭제하시겠습니까?"
             (nzOnConfirm)="deleteTeam()"
             (nzOnCancel)="false">
-            <i nz-icon type="delete" nzTheme="outline"></i>
+            <span nz-icon type="delete" nzTheme="outline"></span>
             삭제
         </button>
     </div>
