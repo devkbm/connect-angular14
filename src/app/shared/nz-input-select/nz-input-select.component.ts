@@ -21,9 +21,9 @@ import { NzSelectModeType } from 'ng-zorro-antd/select';
           nzShowSearch
           (blur)="onTouched()"
           (ngModelChange)="onChange($event)">
-        <nz-option *ngFor="let option of options"
-          [nzLabel]="option[opt_label]"
-          [nzValue]="option[opt_value]">
+        <nz-option *ngFor="let option of options; let i=index;"
+          [nzLabel]="custom_label ? custom_label(option, i) : option[opt_label]"
+          [nzValue]="option[opt_value]">asf
           </nz-option>
         </nz-select>
       </nz-form-control>
@@ -41,10 +41,11 @@ export class NzInputSelectComponent implements ControlValueAccessor, OnInit {
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
+  @Input() mode: NzSelectModeType = 'default';
   @Input() options!: any[];
   @Input() opt_label: string = 'label';
   @Input() opt_value: string = 'value';
-  @Input() mode: NzSelectModeType = 'default';
+  @Input() custom_label?: (option: any, index: number) => {};
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -61,6 +62,7 @@ export class NzInputSelectComponent implements ControlValueAccessor, OnInit {
 
   ngOnInit(): void {
     this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+    console.log(this.custom_label);
   }
 
   writeValue(obj: any): void {

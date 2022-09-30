@@ -87,4 +87,8 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
   }
 
+  custom_label(option: any, i: number): any {    
+    return option.label + ' ' + i;    
+  }
+
 }

@@ -27,3 +27,12 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
 
 # Open Source List
+
+NG-ZORRO(https://ng.ant.design/docs/introduce/en)
+AG-GRID(https://www.ag-grid.com/)
+CKEDITOR5(https://ckeditor.com/ckeditor-5/)
+DATE_FNS(https://date-fns.org/)
+DAYPILOT(https://www.daypilot.org/)
+NGX-COLOR-PICKER(https://www.npmjs.com/package/ngx-color-picker)
+FILE-SAVER(https://www.npmjs.com/package/file-saver)
+

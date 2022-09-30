@@ -1,5 +1,5 @@
 
-{{this.fg.value | json }}
+{{this.fg.getRawValue() | json }}
 <!--
 {{this.fg.errors| json }}
 -->
@@ -42,6 +42,8 @@
     [required]="true" [nzErrorTip]="errorTpl">label4
   </app-nz-input-number-custom>
 
+  <!-- [opt_label]="'label'" -->
+  <!-- [custom_label]="custom_label" -->
   <app-nz-input-select
     [parentFormGroup]="fg" formControlName="input_select" itemId="data5"
     [options]="selectList" [opt_value]="'value'" [opt_label]="'label'"
