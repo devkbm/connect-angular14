@@ -9,7 +9,7 @@
 :root {
   --header-height: 64px;
   --footer-height: 24px;
-  --content-margin-height: 12px;
+  --content-margin-height: 0px;
 
   --color: black;
   --ck-color-base-foreground: black;

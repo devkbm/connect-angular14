@@ -9,7 +9,8 @@
 
 /* 페이지 헤더 98px, 조회조건 46px, 그리드 제목 26px, 푸터 24px 제외 */
 .grid-wrapper {
-  height: calc(100% - 194px)
+  /*height: calc(100% - 194px)*/
+  height: calc(100% - 214px)
 }
 
 [nz-button] {
