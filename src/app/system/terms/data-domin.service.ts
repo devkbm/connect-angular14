@@ -18,6 +18,18 @@ export class DataDominService extends DataService {
     super('/api/system/datadomin', http, tokenExtractor);
   }
 
+  getList(): Observable<ResponseList<DataDomain>> {
+    const url = `${this.API_URL}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+   };
+
+    return this.http.get<ResponseList<DataDomain>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<DataDomain>>('getList', undefined))
+    );
+  }
+
   get(id: string): Observable<ResponseObject<DataDomain>> {
     const url = `${this.API_URL}/${id}`;
     const options = {
