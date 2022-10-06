@@ -8,14 +8,27 @@ import { DataService } from '../../core/service/data.service';
 import { ResponseObject } from '../../core/model/response-object';
 import { ResponseList } from '../../core/model/response-list';
 import { DataDomain } from './data-domain.model';
+import { HtmlSelectOption } from 'src/app/shared/nz-input-select/html-select-option';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DataDominService extends DataService {
+export class DataDomainService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
     super('/api/system/datadomin', http, tokenExtractor);
+  }
+
+  getDatabaseList(): Observable<ResponseList<HtmlSelectOption>> {
+    const url = `${this.API_URL}/database`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+   };
+
+    return this.http.get<ResponseList<HtmlSelectOption>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<HtmlSelectOption>>('getDatabaseList', undefined))
+    );
   }
 
   getList(): Observable<ResponseList<DataDomain>> {

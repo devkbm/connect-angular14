@@ -6,8 +6,9 @@ import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseList } from '../../core/model/response-list';
 import { ResponseObject } from '../../core/model/response-object';
-import { DataDominService } from './data-domin.service';
+import { DataDomainService } from './data-domain.service';
 import { DataDomain } from './data-domain.model';
+import { HtmlSelectOption } from 'src/app/shared/nz-input-select/html-select-option';
 
 
 
@@ -18,8 +19,10 @@ import { DataDomain } from './data-domain.model';
 })
 export class DataDomainFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
+  databaseList: HtmlSelectOption[] = [];
+
   constructor(private fb: FormBuilder,
-              private service: DataDominService,
+              private service: DataDomainService,
               private appAlarmService: AppAlarmService) {
     super();
 
@@ -33,6 +36,7 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
   }
 
   ngOnInit() {
+    this.getDatabaseList();
   }
   ngAfterViewInit(): void {
   }
@@ -86,4 +90,13 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
     this.formClosed.emit(this.fg.getRawValue());
   }
 
+  getDatabaseList(): void {
+    this.service
+        .getDatabaseList()
+        .subscribe(
+          (model: ResponseList<HtmlSelectOption>) => {
+            this.databaseList = model.data;
+          }
+        );
+  }
 }

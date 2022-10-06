@@ -30,11 +30,20 @@
     </div>
 
     <div nz-col nzSpan="12">
+      <!--
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="database" itemId="database"
         placeholder="database을 입력해주세요."
         [nzErrorTip]="errorTpl" [required]="true">database
       </app-nz-input-text>
+      -->
+
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="database" itemId="database"
+        [options]="databaseList" [opt_value]="'value'" [opt_label]="'label'"
+        placeholder="database을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">database
+      </app-nz-input-select>
     </div>
   </div>
 

@@ -38,7 +38,7 @@
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="6">
       <!--
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="term" itemId="term"
@@ -55,7 +55,15 @@
       </app-nz-input-select>
     </div>
 
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="6">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="columnName" itemId="columnName"
+        placeholder="컬럼명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">컬럼명
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="6">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="termEng" itemId="termEng"
         placeholder="용어(영문)를 입력해주세요."
@@ -63,12 +71,13 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="8">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="columnName" itemId="columnName"
-        placeholder="컬럼명을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">컬럼명
-      </app-nz-input-text>
+    <div nz-col nzSpan="6">
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="dataDomain" itemId="dataDomain"
+        [options]="dataDomainList" [opt_value]="'domainId'" [opt_label]="'domainName'"
+        placeholder="Please select"
+        [required]="true" [nzErrorTip]="errorTpl">도메인
+      </app-nz-input-select>
     </div>
   </div>
 

@@ -1,3 +1,4 @@
+import { DataDomain } from './data-domain.model';
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -10,6 +11,7 @@ import { FormBase } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { WordService } from './word.service';
 import { Word } from './word.model';
+import { DataDomainService } from './data-domain.service';
 
 @Component({
   selector: 'app-term-form',
@@ -19,10 +21,12 @@ import { Word } from './word.model';
 export class TermFormComponent extends FormBase implements OnInit {
   systemTypeList: any;
   wordList: Word[] = [];
+  dataDomainList: DataDomain[] = [];
 
   constructor(private fb: FormBuilder,
               private service: TermService,
               private wordService: WordService,
+              private dataDomainService: DataDomainService,
               private appAlarmService: AppAlarmService) {
     super();
 
@@ -32,6 +36,7 @@ export class TermFormComponent extends FormBase implements OnInit {
       term         : new FormControl<string | null>(null, { validators: Validators.required }),
       termEng      : new FormControl<string | null>(null, { validators: Validators.required }),
       columnName   : new FormControl<string | null>(null),
+      dataDomain   : new FormControl<string | null>(null),
       description  : new FormControl<string | null>(null),
       comment      : new FormControl<string | null>(null)
     });
@@ -41,6 +46,7 @@ export class TermFormComponent extends FormBase implements OnInit {
   ngOnInit(): void {
     this.getSystemTypeList();
     this.getWordList();
+    this.getDataDoaminList();
   }
 
   get(): void {
@@ -103,7 +109,17 @@ export class TermFormComponent extends FormBase implements OnInit {
           (model: ResponseList<Word>) => {
             this.wordList = model.data;
           }
-        )
+        );
+  }
+
+  getDataDoaminList(): void {
+    this.dataDomainService
+        .getList()
+        .subscribe(
+          (model: ResponseList<DataDomain>) => {
+            this.dataDomainList = model.data;
+          }
+        );
   }
 
 }
