@@ -11,7 +11,9 @@ import { AppBase } from '../../core/app/app-base';
 })
 export class TermComponent extends AppBase implements OnInit {
 
-  drawerVisible = false;
+  drawerVisible: boolean = false;
+  wordDrawerVisible: boolean = false;
+  domainDrawerVisible: boolean = false;
 
   queryKey: string = 'term';
   queryValue: string = '';
@@ -33,15 +35,7 @@ export class TermComponent extends AppBase implements OnInit {
   ngOnInit(): void {
   }
 
-  openDrawer(): void {
-    this.drawerVisible = true;
-  }
-
-  closeDrawer(): void {
-    this.drawerVisible = false;
-  }
-
-  getTermList(): void {
+  getTermList() {
     let params: any = new Object();
     if ( this.queryValue !== '') {
       params[this.queryKey] = this.queryValue;
@@ -52,20 +46,20 @@ export class TermComponent extends AppBase implements OnInit {
     this.grid.getTermList(params);
   }
 
-  initForm(): void {
+  initForm() {
     this.form?.fg.reset();
     this.openDrawer();
   }
 
-  saveTerm(): void {
+  saveTerm() {
     this.form?.submit();
   }
 
-  deleteTerm(): void {
+  deleteTerm() {
     this.form?.delete();
   }
 
-  selectedItem(item: any): void {
+  selectedItem(item: any) {
 
     //if (this.form) {
     //  this.form.fg.patchValue(item);
@@ -74,7 +68,15 @@ export class TermComponent extends AppBase implements OnInit {
     //console.log(this.form);
   }
 
-  editDrawerOpen(item: any): void {
+  openDrawer() {
+    this.drawerVisible = true;
+  }
+
+  closeDrawer() {
+    this.drawerVisible = false;
+  }
+
+  editDrawerOpen(item: any) {
 
     this.openDrawer();
 
@@ -83,4 +85,19 @@ export class TermComponent extends AppBase implements OnInit {
     },10);
   }
 
+  openWordDrawerVisible() {
+    this.wordDrawerVisible = true;
+  }
+
+  closeWordDrawerVisible() {
+    this.wordDrawerVisible = false;
+  }
+
+  openDomainDrawerVisible() {
+    this.domainDrawerVisible = true;
+  }
+
+  closeDomainDrawerVisible() {
+    this.domainDrawerVisible = false;
+  }
 }

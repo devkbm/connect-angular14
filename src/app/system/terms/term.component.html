@@ -19,8 +19,16 @@
       <span nz-icon nzType="search"></span>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="openWordDrawerVisible()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규 단어
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="openDomainDrawerVisible()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규 도메인
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
     <button nz-button (click)="initForm()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>신규
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규 용어
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzDanger="true"
@@ -41,14 +49,6 @@
   </app-term-grid>
 </div>
 
-<app-word-form>
-
-</app-word-form>
-
-<app-data-domain-form>
-
-</app-data-domain-form>
-
 <nz-drawer #draw
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
@@ -64,4 +64,30 @@
     </app-term-form>
 </nz-drawer>
 
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="50%"
+  [nzVisible]="wordDrawerVisible"
+  nzTitle="단어 등록"
+  (nzOnClose)="closeWordDrawerVisible()">
+    <app-word-form *nzDrawerContent #wordForm
+      (formSaved)="closeWordDrawerVisible()"
+      (formDeleted)="closeWordDrawerVisible()"
+      (formClosed)="closeWordDrawerVisible()">
+    </app-word-form>
+</nz-drawer>
 
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="50%"
+  [nzVisible]="domainDrawerVisible"
+  nzTitle="도메인 등록"
+  (nzOnClose)="closeDomainDrawerVisible()">
+    <app-data-domain-form *nzDrawerContent #doaminForm
+      (formSaved)="closeDomainDrawerVisible()"
+      (formDeleted)="closeDomainDrawerVisible()"
+      (formClosed)="closeDomainDrawerVisible()">
+    </app-data-domain-form>
+</nz-drawer>
