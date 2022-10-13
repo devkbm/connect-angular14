@@ -11,7 +11,6 @@ import { DataDomain } from './data-domain.model';
 import { HtmlSelectOption } from 'src/app/shared/nz-input-select/html-select-option';
 
 
-
 @Component({
   selector: 'app-data-domain-form',
   templateUrl: './data-domain-form.component.html',
@@ -30,13 +29,13 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
       domainId          : new FormControl<string | null>(null, { validators: Validators.required }),
       domainName        : new FormControl<string | null>(null, { validators: Validators.required }),
       database          : new FormControl<string | null>(null, { validators: Validators.required }),
-      dataType          : new FormControl<string | null>(null),
-      columnSize        : new FormControl<string | null>(null)
+      dataType          : new FormControl<string | null>(null)
     });
   }
 
   ngOnInit() {
     this.getDatabaseList();
+    this.newForm();
   }
   ngAfterViewInit(): void {
   }
@@ -44,6 +43,7 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
   }
 
   newForm(): void {
+    this.fg.get('database')?.setValue('MYSQL');
   }
 
   modifyForm(formData: DataDomain): void {

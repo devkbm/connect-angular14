@@ -19,16 +19,11 @@
         placeholder="도메인Id를 입력해주세요."
         [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">도메인ID
       </app-nz-input-text>
-    </div>
+    </div>    
+  </div>
 
-    <div nz-col nzSpan="12">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="domainName" itemId="domainName"
-        placeholder="도메인명을 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">도메인명
-      </app-nz-input-text>
-    </div>
-
+  <!-- 2 Row -->
+  <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--
       <app-nz-input-text
@@ -45,9 +40,17 @@
         [required]="true" [nzErrorTip]="errorTpl">database
       </app-nz-input-select>
     </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="domainName" itemId="domainName"
+        placeholder="도메인명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">도메인명
+      </app-nz-input-text>
+    </div>        
   </div>
 
-  <!-- 2 Row -->
+  <!-- 3 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
@@ -55,15 +58,7 @@
         placeholder="dataType을 입력해주세요."
         [nzErrorTip]="errorTpl" [required]="true">dataType
       </app-nz-input-text>
-    </div>
-
-    <div nz-col nzSpan="12">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="columnSize" itemId="columnSize"
-        placeholder="columnSize을 입력해주세요."
-        [nzErrorTip]="errorTpl" [required]="true">columnSize
-      </app-nz-input-text>
-    </div>
+    </div>    
   </div>
 
 </form>

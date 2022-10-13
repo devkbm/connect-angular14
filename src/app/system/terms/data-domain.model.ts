@@ -3,5 +3,4 @@ export interface DataDomain {
   database: string;
   domainName: string;
   dataType: string;
-  columnSize: string;
 }
