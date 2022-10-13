@@ -48,11 +48,11 @@ export class DaypilotCalendarNavigatorComponent implements AfterViewInit {
     cellHeight: 25,
     selectMode: this.mode,
     locale: 'ko-kr',
-    onVisibleRangeChanged: (args: {start: DayPilot.Date , end: DayPilot.Date}) => {
-      this.rangeChanged.emit({start: args.start, end: args.end, date: this.date });
+    onVisibleRangeChanged: (params: {start: DayPilot.Date , end: DayPilot.Date}) => {
+      this.rangeChanged.emit({start: params.start, end: params.end, date: this.date });
     },
-    onTimeRangeSelected: (args: NavigatorTimeRangeSelectedArgs) => {
-      this.selectChanged.emit(args);
+    onTimeRangeSelected: (params: NavigatorTimeRangeSelectedArgs) => {
+      this.selectChanged.emit(params);
     }
   };
 

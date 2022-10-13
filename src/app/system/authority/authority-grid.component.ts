@@ -114,9 +114,9 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         }
     ];
 
-    this.getRowId = function(args: any) {
-//      console.log(args);
-      return args.data.authority;
+    this.getRowId = function(params: any) {
+//      console.log(params);
+      return params.data.authority;
     };
   }
 
@@ -142,12 +142,12 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  rowClickedEvent(args: any): void {
-    this.rowClicked.emit(args.data);
+  rowClickedEvent(params: any): void {
+    this.rowClicked.emit(params.data);
   }
 
-  rowDbClicked(args: any): void {
-    this.rowDoubleClicked.emit(args.data);
+  rowDbClicked(params: any): void {
+    this.rowDoubleClicked.emit(params.data);
   }
 
   public test(event: any): void {

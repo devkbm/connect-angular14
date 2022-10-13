@@ -34,9 +34,9 @@ export class TermFormComponent extends FormBase implements OnInit {
       termId       : new FormControl<string | null>(null),
       system       : new FormControl<string | null>(null, { validators: Validators.required }),
       term         : new FormControl<string | null>(null, { validators: Validators.required }),
-      termEng      : new FormControl<string | null>(null, { validators: Validators.required }),
+      termEng      : new FormControl<string | null>(null),
       columnName   : new FormControl<string | null>(null),
-      dataDomain   : new FormControl<string | null>(null),
+      dataDomainId : new FormControl<string | null>(null),
       description  : new FormControl<string | null>(null),
       comment      : new FormControl<string | null>(null)
     });

@@ -3,4 +3,5 @@ export interface DataDomain {
   database: string;
   domainName: string;
   dataType: string;
+  comment: string;
 }

@@ -14,7 +14,7 @@
   <!-- 1 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-nz-input-text #menuId
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="domainId" itemId="domainId"
         placeholder="도메인Id를 입력해주세요."
         [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">도메인ID
@@ -24,7 +24,7 @@
 
   <!-- 2 Row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <!--
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="database" itemId="database"
@@ -41,24 +41,33 @@
       </app-nz-input-select>
     </div>
 
-    <div nz-col nzSpan="12">
-      <app-nz-input-text
+    <div nz-col nzSpan="8">
+      <app-nz-input-text #domainName
         [parentFormGroup]="fg" formControlName="domainName" itemId="domainName"
         placeholder="도메인명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">도메인명
       </app-nz-input-text>
     </div>        
-  </div>
 
-  <!-- 3 Row -->
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="dataType" itemId="dataType"
         placeholder="dataType을 입력해주세요."
         [nzErrorTip]="errorTpl" [required]="true">dataType
       </app-nz-input-text>
-    </div>    
+    </div>
+  </div>
+
+  <!-- 3 Row -->  
+  <div nz-row nzGutter="8">    
+    <div nz-col nzSpan="24">      
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+        placeholder="비고를 입력해주세요."
+        [rows] = "23"
+        [required]="false" [nzErrorTip]="errorTpl">비고
+      </app-nz-input-textarea>
+    </div>
   </div>
 
 </form>

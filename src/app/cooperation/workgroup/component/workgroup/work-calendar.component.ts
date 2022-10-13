@@ -86,13 +86,13 @@ export class WorkCalendarComponent implements AfterViewInit {
     this.itemSelected.emit(param.id);
   }
 
-  onDateClick(args: any): void {
-    const eventArgs: NewDateSelectedArgs = {workGroupId: this.fkWorkGroup, start: args.start, end: args.end};
+  onDateClick(params: any): void {
+    const eventArgs: NewDateSelectedArgs = {workGroupId: this.fkWorkGroup, start: params.start, end: params.end};
     this.newDateSelected.emit(eventArgs);
   }
 
-  calendarModeChanged(args: ModeChangedArgs): void {
-    this.mode = args;
+  calendarModeChanged(params: ModeChangedArgs): void {
+    this.mode = params;
     this.modeChanged.emit(this.mode);
   }
 

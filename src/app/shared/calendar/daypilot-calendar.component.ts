@@ -96,12 +96,12 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     locale: 'ko-kr',
     heightSpec: 'BusinessHours',
     cellHeight: 40,
-    onTimeRangeSelected: (args: DayPilot.CalendarTimeRangeSelectedArgs) => {
-      this.setDate(args.start);
-      this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
+    onTimeRangeSelected: (params: DayPilot.CalendarTimeRangeSelectedArgs) => {
+      this.setDate(params.start);
+      this.datesSelected.emit({start: params.start.toDateLocal(), end: params.end.toDateLocal()});
     },
-    onEventClicked: (args: DayPilot.CalendarEventClickedArgs) => {
-      this.eventClicked.emit(args.e.data);
+    onEventClicked: (params: DayPilot.CalendarEventClickedArgs) => {
+      this.eventClicked.emit(params.e.data);
     }
   };
 
@@ -111,12 +111,12 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     locale: 'ko-kr',
     heightSpec: 'BusinessHours',
     cellHeight: 40,
-    onTimeRangeSelected: (args: DayPilot.CalendarTimeRangeSelectedArgs) => {
-      this.setDate(args.start);
-      this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
+    onTimeRangeSelected: (params: DayPilot.CalendarTimeRangeSelectedArgs) => {
+      this.setDate(params.start);
+      this.datesSelected.emit({start: params.start.toDateLocal(), end: params.end.toDateLocal()});
     },
-    onEventClicked: (args: DayPilot.CalendarEventClickedArgs) => {
-      this.eventClicked.emit(args.e.data);
+    onEventClicked: (params: DayPilot.CalendarEventClickedArgs) => {
+      this.eventClicked.emit(params.e.data);
     }
   };
 
@@ -124,12 +124,12 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     startDate: DayPilot.Date.today(),
     locale: 'ko-kr',
     cellHeight: 141.6,
-    onTimeRangeSelected: (args: DayPilot.MonthTimeRangeSelectedArgs) => {
-      this.setDate(args.start);
-      this.datesSelected.emit({start: args.start.toDateLocal(), end: args.end.toDateLocal()});
+    onTimeRangeSelected: (params: DayPilot.MonthTimeRangeSelectedArgs) => {
+      this.setDate(params.start);
+      this.datesSelected.emit({start: params.start.toDateLocal(), end: params.end.toDateLocal()});
     },
-    onEventClicked: (args: DayPilot.MonthEventClickedArgs) => {
-      this.eventClicked.emit(args.e.data);
+    onEventClicked: (params: DayPilot.MonthEventClickedArgs) => {
+      this.eventClicked.emit(params.e.data);
     }
   };
 
@@ -255,14 +255,14 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     }];
   }
 
-  async newEventModal(args: DayPilot.CalendarTimeRangeSelectedArgs | DayPilot.MonthTimeRangeSelectedArgs) {
+  async newEventModal(params: DayPilot.CalendarTimeRangeSelectedArgs | DayPilot.MonthTimeRangeSelectedArgs) {
     const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
-    const dp = args.control;
+    const dp = params.control;
     dp.clearSelection();
     if (!modal.result) { return; }
     dp.events.add(new DayPilot.Event({
-      start: args.start,
-      end: args.end,
+      start: params.start,
+      end: params.end,
       id: DayPilot.guid(),
       text: modal.result
     }));

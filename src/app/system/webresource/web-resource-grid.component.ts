@@ -94,8 +94,8 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
       resizable: true
     };
 
-    this.getRowId = function(args: any) {
-        return args.data.resourceCode;
+    this.getRowId = function(params: any) {
+        return params.data.resourceCode;
     };
   }
 

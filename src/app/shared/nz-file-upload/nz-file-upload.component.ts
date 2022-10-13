@@ -62,10 +62,10 @@ export class NzFileUploadComponent implements OnInit {
     }
   }
 
-  fileUploadChange(args: NzUploadChangeParam): void {
-    if (args.type === 'success') {
+  fileUploadChange(params: NzUploadChangeParam): void {
+    if (params.type === 'success') {
       // this.fileList = param.file.response;
-      this.fileList.push(args.file.response[0]);
+      this.fileList.push(params.file.response[0]);
       this.uploadCompleted.emit(this.fileList);
     }
   }

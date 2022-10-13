@@ -87,8 +87,8 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
     };
 
 
-    this.getRowId = function(args: any) {
-      return args.data.articleId;
+    this.getRowId = function(params: any) {
+      return params.data.articleId;
     };
   }
 
@@ -112,16 +112,16 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  rowClickedEvent(args: RowClickedEvent) {
-    const selectedRows = args.api.getSelectedRows();
+  rowClickedEvent(params: RowClickedEvent) {
+    const selectedRows = params.api.getSelectedRows();
     this.rowClicked.emit(selectedRows[0]);
   }
 
-  rowDbClicked(args: RowDoubleClickedEvent) {
-    this.rowDoubleClicked.emit(args.data);
+  rowDbClicked(params: RowDoubleClickedEvent) {
+    this.rowDoubleClicked.emit(params.data);
   }
 
-  onGridSizeChanged(args: GridSizeChangedEvent) {
+  onGridSizeChanged(params: GridSizeChangedEvent) {
     /*
     var gridWidth = document.getElementById("grid-wrapper").offsetWidth;
     var columnsToShow = [];
@@ -147,11 +147,11 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
     //this.gridColumnApi.setColumnsVisible(columnsToShow, true);
     //this.gridColumnApi.setColumnsVisible(columnsToHide, false);
-    args.api.sizeColumnsToFit();
+    params.api.sizeColumnsToFit();
   }
 
-  onFirstDataRendered(args: FirstDataRenderedEvent) {
-    args.api.sizeColumnsToFit();
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    params.api.sizeColumnsToFit();
   }
 
 }

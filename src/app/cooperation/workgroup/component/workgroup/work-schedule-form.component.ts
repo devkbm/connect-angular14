@@ -66,18 +66,18 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
     this.text?.focus();
   }
 
-  newForm(args: NewFormValue): void {
+  newForm(params: NewFormValue): void {
     this.formType = FormType.NEW;
 
     // 30분 단위로 입력받기 위해 초,밀리초 초기화
-    args.start.setSeconds(0);
-    args.start.setMilliseconds(0);
-    args.end.setSeconds(0);
-    args.end.setMilliseconds(0);
+    params.start.setSeconds(0);
+    params.start.setMilliseconds(0);
+    params.end.setSeconds(0);
+    params.end.setMilliseconds(0);
 
-    this.fg.get('workGroupId')?.setValue(Number.parseInt(args.workGroupId.toString(),10));
-    this.fg.get('start')?.setValue(dateFns.format(args.start, "yyyy-MM-dd HH:mm:ss"));
-    this.fg.get('end')?.setValue(dateFns.format(args.end, "yyyy-MM-dd HH:mm:ss"));
+    this.fg.get('workGroupId')?.setValue(Number.parseInt(params.workGroupId.toString(),10));
+    this.fg.get('start')?.setValue(dateFns.format(params.start, "yyyy-MM-dd HH:mm:ss"));
+    this.fg.get('end')?.setValue(dateFns.format(params.end, "yyyy-MM-dd HH:mm:ss"));
   }
 
   modifyForm(formData: WorkGroupSchedule): void {

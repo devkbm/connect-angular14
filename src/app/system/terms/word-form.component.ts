@@ -8,6 +8,7 @@ import { ResponseList } from '../../core/model/response-list';
 import { ResponseObject } from '../../core/model/response-object';
 import { WordService } from './word.service';
 import { Word } from './word.model';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-word-form',
@@ -16,26 +17,31 @@ import { Word } from './word.model';
 })
 export class WordFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
+  @ViewChild('logicalName') logicalName?: NzInputTextComponent;
+
   constructor(private fb: FormBuilder,
               private service: WordService,
               private appAlarmService: AppAlarmService) {
     super();
 
     this.fg = this.fb.group({
-      logicalName       : new FormControl<string | null>(null, { validators: Validators.required }),
-      logicalNameEng    : new FormControl<string | null>(null, { validators: Validators.required }),
-      physicalName      : new FormControl<string | null>(null, { validators: Validators.required })
+      logicalName     : new FormControl<string | null>(null, { validators: Validators.required }),
+      logicalNameEng  : new FormControl<string | null>(null),
+      physicalName    : new FormControl<string | null>(null, { validators: Validators.required }),
+      comment         : new FormControl<string | null>(null)
     });
   }
 
   ngOnInit() {
   }
   ngAfterViewInit(): void {
+    this.newForm();
   }
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   newForm(): void {
+    this.logicalName?.focus();
   }
 
   modifyForm(formData: Word): void {

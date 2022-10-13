@@ -67,8 +67,8 @@ export class DaypilotCalendarBasicComponent implements AfterViewInit {
     cellWidth: 25,
     cellHeight: 25,
     locale: 'ko-kr',
-    onVisibleRangeChanged: (args: {start:DayPilot.Date , end:DayPilot.Date}) => {
-      console.log(args);
+    onVisibleRangeChanged: (params: {start:DayPilot.Date , end:DayPilot.Date}) => {
+      console.log(params);
       this.loadEvents();
     }
   };
@@ -95,15 +95,15 @@ export class DaypilotCalendarBasicComponent implements AfterViewInit {
     startDate: DayPilot.Date.today(),
     viewType: "Week",
     locale: 'ko-kr',
-    onTimeRangeSelected: async (args) => {
-      console.log(args);
+    onTimeRangeSelected: async (params) => {
+      console.log(params);
       const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
-      const dp = args.control;
+      const dp = params.control;
       dp.clearSelection();
       if (!modal.result) { return; }
       dp.events.add(new DayPilot.Event({
-        start: args.start,
-        end: args.end,
+        start: params.start,
+        end: params.end,
         id: DayPilot.guid(),
         text: modal.result
       }));
@@ -113,21 +113,21 @@ export class DaypilotCalendarBasicComponent implements AfterViewInit {
   configMonth: DayPilot.MonthConfig = {
     startDate: DayPilot.Date.today(),
     locale: 'ko-kr',
-    onTimeRangeSelected: async (args: DayPilot.MonthTimeRangeSelectedArgs) => {
-      console.log(args);
+    onTimeRangeSelected: async (params: DayPilot.MonthTimeRangeSelectedArgs) => {
+      console.log(params);
       const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
-      const dp = args.control;
+      const dp = params.control;
       dp.clearSelection();
       if (!modal.result) { return; }
       dp.events.add(new DayPilot.Event({
-        start: args.start,
-        end: args.end,
+        start: params.start,
+        end: params.end,
         id: DayPilot.guid(),
         text: modal.result
       }));
     },
-    onEventClick:async (args: DayPilot.MonthEventClickArgs) => {
-      //console.log(args);
+    onEventClick:async (params: DayPilot.MonthEventClickArgs) => {
+      //console.log(params);
     }
   };
 

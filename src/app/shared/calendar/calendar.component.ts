@@ -16,7 +16,7 @@ export class CalendarComponent implements AfterViewInit {
   config: DayPilot.CalendarConfig = {
     viewType: "Resources",
     startDate: new DayPilot.Date("2022-09-01"),
-    onTimeRangeSelected: async args => {
+    onTimeRangeSelected: async params => {
       const modal = await DayPilot.Modal.prompt("Create a new event:", "Event 1");
 
       const dp = this.calendar.control;
@@ -26,11 +26,11 @@ export class CalendarComponent implements AfterViewInit {
       }
 
       dp.events.add({
-        start: args.start,
-        end: args.end,
+        start: params.start,
+        end: params.end,
         id: DayPilot.guid(),
         text: modal.result,
-        resource: args.resource
+        resource: params.resource
       });
 
     }

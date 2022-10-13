@@ -103,9 +103,9 @@ export class UserComponent extends AppBase implements OnInit {
         );
   }
 
-  selectGridRow(args: any) {
-    console.log(args.userId);
-    this.selectedUserId = args.userId;
+  selectGridRow(params: any) {
+    console.log(params.userId);
+    this.selectedUserId = params.userId;
   }
 
   test() {

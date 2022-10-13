@@ -129,8 +129,8 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, OnInit, A
     }
   }
 
-  logging(args: any) {
-    console.log(args);
+  logging(params: any) {
+    console.log(params);
   }
 
   writeValue(obj: any): void {

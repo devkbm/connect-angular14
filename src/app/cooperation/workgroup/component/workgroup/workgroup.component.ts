@@ -128,22 +128,22 @@ export class WorkgroupComponent implements OnInit {
     this.eventData = event;
   }
 
-  calendarVisibleRangeChanged(args: any) {
+  calendarVisibleRangeChanged(params: any) {
     /*
     if (this.mode === 'Month') {
-      this.navigator.date = new DayPilot.Date(args.date, true);
+      this.navigator.date = new DayPilot.Date(params.date, true);
     } else {
-      this.navigator.date = new DayPilot.Date(args.start, true);
+      this.navigator.date = new DayPilot.Date(params.start, true);
     }
     */
   }
 
-  modeChanged(args: ModeChangedArgs): void {
-    this.mode = args.mode;
+  modeChanged(params: ModeChangedArgs): void {
+    this.mode = params.mode;
   }
 
-  navigatorSelectChanged(args: any) {
-    this.workCalendar.calendarSetDate(new DayPilot.Date(args.start, true));
+  navigatorSelectChanged(params: any) {
+    this.workCalendar.calendarSetDate(new DayPilot.Date(params.start, true));
   }
 
 }

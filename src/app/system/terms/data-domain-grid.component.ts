@@ -4,18 +4,17 @@ import { ResponseList } from '../../core/model/response-list';
 import { AggridFunction } from '../../core/grid/aggrid-function';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
-import { TermService } from './term.service';
-import { Term } from './term.model';
-
+import { DataDomainService } from './data-domain.service';
+import { DataDomain } from './data-domain.model';
 
 @Component({
-  selector: 'app-term-grid',
+  selector: 'app-data-domain-grid',
   template: `
-    <ag-grid-angular
+   <ag-grid-angular
       [ngStyle]="style"
       class="ag-theme-balham-dark"
       [rowSelection]="'single'"
-      [rowData]="termList"
+      [rowData]="list"
       [columnDefs]="columnDefs"
       [getRowId]="getRowId"
       [defaultColDef]="defaultColDef"
@@ -24,17 +23,18 @@ import { Term } from './term.model';
       (rowClicked)="rowClickedEvent($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
   </ag-grid-angular>
-  `
+  `,
+  styles: []
 })
-export class TermGridComponent extends AggridFunction implements OnInit {
+export class DataDomainGridComponent extends AggridFunction implements OnInit {
 
-  termList: Term[] = [];
+  list: DataDomain[] = [];
 
   @Output() rowClicked = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
-  constructor(private termService: TermService,
+  constructor(private service: DataDomainService,
               private appAlarmService: AppAlarmService) {
 
     super();
@@ -59,18 +59,16 @@ export class TermGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '용어ID',      field: 'termId',            width: 100 },
-      {headerName: '시스템',      field: 'system',            width: 100 },
-      {headerName: '용어',        field: 'term',              width: 100 },
-      {headerName: '용어(영문)',  field: 'termEng',           width: 100 },
-      {headerName: '컬럼명',      field: 'columnName',        width: 100 },
-      {headerName: '도메인명',    field: 'dataDomainName',    width: 100 },
-      {headerName: '설명',        field: 'description',       width: 400 , tooltipField: 'description'},
-      {headerName: '비고',        field: 'comment',           width: 400 }
+      {headerName: '도메인ID',      field: 'domainId',      width: 100 },
+      {headerName: '데이터베이스',  field: 'database',      width: 100 },
+      {headerName: '도메인',        field: 'domainName',    width: 100 },
+      {headerName: '용어(영문)',    field: 'termEng',       width: 100 },
+      {headerName: '데이터타입',    field: 'dataType',      width: 100 },      
+      {headerName: '비고',          field: 'comment',       width: 400 }
     ];
 
     this.getRowId = function(params: any) {
-        return params.data.termId;
+      return params.data.termId;
     };
   }
 
@@ -83,14 +81,14 @@ export class TermGridComponent extends AggridFunction implements OnInit {
   }
 
   getTermList(params?: any): void {
-    this.termService
-        .getTermList(params)
+    this.service
+        .getList()        
         .subscribe(
-          (model: ResponseList<Term>) => {
+          (model: ResponseList<DataDomain>) => {
             if (model.total > 0) {
-              this.termList = model.data;
+              this.list = model.data;
             } else {
-              this.termList = [];
+              this.list = [];
             }
             this.appAlarmService.changeMessage(model.message);
           }

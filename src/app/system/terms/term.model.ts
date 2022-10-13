@@ -4,6 +4,8 @@ export interface Term {
   term: string;
   termEng: string;
   columnName: string;
+  domainId: string | null;
+  domainName: string;
   description: string;
   comment: string;
 }

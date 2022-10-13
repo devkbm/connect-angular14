@@ -13,7 +13,7 @@
 
   <!-- 1 Row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-text #logicalName
         [parentFormGroup]="fg" formControlName="logicalName" itemId="logicalName"
         placeholder="logicalName을 입력해주세요."
@@ -21,11 +21,19 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="physicalName" itemId="physicalName"
+        placeholder="physicalName 입력해주세요."
+        [nzErrorTip]="errorTpl" [required]="true">physicalName
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="logicalNameEng" itemId="logicalNameEng"
         placeholder="logicalNameEng 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">logicalNameEng
+        [required]="false" [nzErrorTip]="errorTpl">logicalNameEng
       </app-nz-input-text>
     </div>
   </div>
@@ -33,11 +41,12 @@
   <!-- 2 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="physicalName" itemId="physicalName"
-        placeholder="physicalName 입력해주세요."
-        [nzErrorTip]="errorTpl" [required]="true">physicalName
-      </app-nz-input-text>
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+        placeholder="비고를 입력해주세요."
+        [rows] = "25"
+        [required]="false" [nzErrorTip]="errorTpl">비고
+      </app-nz-input-textarea>
     </div>
   </div>
 
