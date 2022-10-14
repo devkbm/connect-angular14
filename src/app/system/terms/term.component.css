@@ -13,5 +13,7 @@
 }
 
 .grid-wrapper {
-  height: calc(100% - 180px)
+  height: calc(100vh - 300px);
+  margin: 0;
+  padding: 0;
 }

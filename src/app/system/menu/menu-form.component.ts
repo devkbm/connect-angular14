@@ -20,7 +20,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 })
 export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild('menuId', {static: true}) menuId!: NzInputTextComponent;
+  @ViewChild('menuId') menuId!: NzInputTextComponent;
 
   programList: any;
   menuGroupList: any;
@@ -65,11 +65,12 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.getMenuGroupList();
   }
 
-  ngOnInit() {
-    this.newForm();
-
+  ngOnInit() {    
     if (this.initLoadId) {
+      console.log(this.initLoadId);
       this.getMenu(this.initLoadId);
+    } else {
+      this.newForm();
     }
   }
 

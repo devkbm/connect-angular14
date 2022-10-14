@@ -17,6 +17,7 @@ import { Authority } from './authority.model';
         rowSelection="single"
         [rowData]="authorityList"
         [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef"
         [getRowId]="getRowId"
         [frameworkComponents]="frameworkComponents"
         (gridSize)="test($event)"
@@ -63,60 +64,52 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
               private appAlarmService: AppAlarmService) {
     super();
 
+    this.defaultColDef = { resizable: true, sortable: true };
+
     this.columnDefs = [
         {
-            headerName: '',
-            sortable: true,
-            resizable: true,
-            width: 34,
-            suppressSizeToFit: true,
-            cellStyle: {'text-align': 'center', padding: '0px'},
-            cellRenderer: 'buttonRenderer',
-            cellRendererParams: {
-              onClick: this.onEditButtonClick.bind(this),
-              label: '',
-              iconType: 'form'
-            }
+          headerName: '',
+          sortable: true,
+          resizable: true,
+          width: 34,
+          suppressSizeToFit: true,
+          cellStyle: {'text-align': 'center', padding: '0px'},
+          cellRenderer: 'buttonRenderer',
+          cellRendererParams: {
+            onClick: this.onEditButtonClick.bind(this),
+            label: '',
+            iconType: 'form'
+          }
         },
         {
-            headerName: 'No',
-            headerClass: 'header-center',
-            valueGetter: 'node.rowIndex + 1',
-            sortable: true,
-            resizable: true,
-            suppressSizeToFit: true,
-            width: 70,
-            cellStyle: {'text-align': 'center'}
+          headerName: 'No',
+          headerClass: 'header-center',
+          valueGetter: 'node.rowIndex + 1',          
+          suppressSizeToFit: true,
+          width: 70,
+          cellStyle: {'text-align': 'center'}
         },
         {
-            headerName: '권한ID',
-            headerClass: 'header-center',
-            field: 'id',
-            sortable: true,
-            resizable: true,
-            suppressSizeToFit: true,
-            width: 150
-
+          headerName: '권한ID',
+          headerClass: 'header-center',
+          field: 'id',          
+          suppressSizeToFit: true,
+          width: 150
         },
         {
           headerName: '권한코드',
-          field: 'authorityCode',
-          sortable: true,
-          resizable: true,
+          field: 'authorityCode',          
           suppressSizeToFit: true,
           width: 100
       },
         {
-            headerName: '설명',
-            field: 'description',
-            sortable: true,
-            resizable: true
+          headerName: '설명',
+          field: 'description'          
         }
     ];
 
     this.getRowId = function(params: any) {
-//      console.log(params);
-      return params.data.authority;
+      return params.data.id;
     };
   }
 
@@ -150,12 +143,12 @@ export class AuthorityGridComponent extends AggridFunction implements OnInit {
     this.rowDoubleClicked.emit(params.data);
   }
 
-  public test(event: any): void {
-    console.log(event);
-  }
-
   private onEditButtonClick(e: any) {
     this.editButtonClicked.emit(e.rowData);
+  }
+
+  public test(event: any): void {
+    console.log(event);
   }
 
 }

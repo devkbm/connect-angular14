@@ -1,5 +1,5 @@
 import { DataDomain } from './data-domain.model';
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { TermService } from './term.service';
@@ -7,7 +7,7 @@ import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseObject } from '../../core/model/response-object';
 import { Term } from './term.model';
-import { FormBase } from 'src/app/core/form/form-base';
+import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { WordService } from './word.service';
 import { Word } from './word.model';
@@ -18,7 +18,7 @@ import { DataDomainService } from './data-domain.service';
   templateUrl: './term-form.component.html',
   styleUrls: ['./term-form.component.css']
 })
-export class TermFormComponent extends FormBase implements OnInit {
+export class TermFormComponent extends FormBase implements OnInit, AfterViewInit {
   systemTypeList: any;
   wordList: Word[] = [];
   dataDomainList: DataDomain[] = [];
@@ -41,31 +41,60 @@ export class TermFormComponent extends FormBase implements OnInit {
       comment      : new FormControl<string | null>(null)
     });
 
-  }
+  }  
 
   ngOnInit(): void {
     this.getSystemTypeList();
     this.getWordList();
-    this.getDataDoaminList();
+    this.getDataDoaminList();    
+
+    if (this.initLoadId) {     
+      this.get(this.initLoadId);
+    } else {
+      this.newForm();
+    }
   }
 
-  get(): void {
-    const id: string = this.fg.get('termId')?.value;
+  ngAfterViewInit(): void {
+    
+  }
+
+  newForm() {
+    this.formType = FormType.NEW;
+
+    this.fg.get('termId')?.disable();
+    this.fg.get('columnName')?.disable();    
+    this.fg.get('system')?.enable();
+    this.fg.get('term')?.enable();
+  }
+
+  modifyForm(formData: Term) {
+    this.formType = FormType.MODIFY;
+    
+    this.fg.get('termId')?.disable();
+    this.fg.get('columnName')?.disable();
+    this.fg.get('system')?.disable();
+    this.fg.get('term')?.disable();
+        
+    this.fg.patchValue(formData);
+  }
+
+  get(id: string) {    
     this.service
         .get(id)
         .subscribe(
           (model: ResponseObject<Term>) => {
             if ( model.total > 0 ) {
-              this.fg.patchValue(model.data);
+              this.modifyForm(model.data);              
             } else {
-              this.fg.reset();
+              this.newForm();
             }
             this.appAlarmService.changeMessage(model.message);
           }
         );
   }
 
-  submit(): void {
+  submit() {
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
@@ -76,7 +105,7 @@ export class TermFormComponent extends FormBase implements OnInit {
         );
   }
 
-  delete(): void {
+  delete() {
     const id: string = this.fg.get('termId')?.value;
     this.service
         .delete(id)
@@ -88,11 +117,11 @@ export class TermFormComponent extends FormBase implements OnInit {
         );
   }
 
-  closeForm(): void {
+  closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  getSystemTypeList(): void {
+  getSystemTypeList() {
     this.service
         .getSystemTypeList()
         .subscribe(
@@ -102,7 +131,7 @@ export class TermFormComponent extends FormBase implements OnInit {
         );
   }
 
-  getWordList(): void {
+  getWordList() {
     this.wordService
         .getList()
         .subscribe(
@@ -112,7 +141,7 @@ export class TermFormComponent extends FormBase implements OnInit {
         );
   }
 
-  getDataDoaminList(): void {
+  getDataDoaminList() {
     this.dataDomainService
         .getList()
         .subscribe(

@@ -21,41 +21,37 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 })
 export class CommonCodeTreeComponent implements OnInit {
 
-  @ViewChild('treeComponent', {static: false}) treeComponent: any;
+  @ViewChild('treeComponent', {static: false}) treeComponent: any;  
+
+  @Input() searchValue = '';
+  @Output() itemSelected = new EventEmitter();
 
   nodeItems: CommonCodeHierarchy[] = [];
 
-  @Input()
-  searchValue = '';
+  constructor(private service: CommonCodeService) { }
 
-  @Output()
-  itemSelected = new EventEmitter();
-
-  constructor(private commonCodeService: CommonCodeService) { }
-
-  ngOnInit(): void {
-    console.log('CommonCodeTreeComponent init');
+  ngOnInit(): void {    
   }
 
-  getCommonCodeHierarchy(systemTypeCode: string): void {
+  getCommonCodeHierarchy(systemTypeCode: string) {
     const params = {
       systemTypeCode: systemTypeCode
     };
 
-    this.commonCodeService
+    this.service
         .getCommonCodeHierarchy(params)
         .subscribe(
           (model: ResponseList<CommonCodeHierarchy>) => {
             if ( model.total > 0 ) {
-                this.nodeItems = model.data;
+              this.nodeItems = model.data;
             } else {
-                this.nodeItems = [];
+              this.nodeItems = [];
             }
           }
         );
   }
 
-  nzClick(event: NzFormatEmitEvent): void {
+  nzClick(event: NzFormatEmitEvent) {
     const node = event.node?.origin;
     this.itemSelected.emit(node);
   }

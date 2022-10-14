@@ -13,7 +13,7 @@
     <div nz-col nzSpan="12">
       <app-nz-input-text #title
         [parentFormGroup]="fg" formControlName="termId" itemId="termId"
-        placeholder="용어ID을 입력해주세요."
+        placeholder=""
         [required]="true" [nzErrorTip]="errorTpl">용어ID
       </app-nz-input-text>
     </div>
@@ -59,17 +59,9 @@
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="columnName" itemId="columnName"
         placeholder="" 
-        [required]="false" [disabled]="true" [nzErrorTip]="errorTpl">컬럼명
+        [required]="false" [nzErrorTip]="errorTpl">컬럼명
       </app-nz-input-text>
-    </div>
-
-    <div nz-col nzSpan="6">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="termEng" itemId="termEng"
-        placeholder="용어(영문)를 입력해주세요."
-        [required]="false" [nzErrorTip]="errorTpl">용어(영문)
-      </app-nz-input-text>
-    </div>
+    </div>    
 
     <div nz-col nzSpan="6">
       <app-nz-input-select
@@ -78,6 +70,14 @@
         placeholder="Please select"
         [required]="true" [nzErrorTip]="errorTpl">도메인
       </app-nz-input-select>
+    </div>
+
+    <div nz-col nzSpan="6">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="termEng" itemId="termEng"
+        placeholder="용어(영문)를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">용어(영문)
+      </app-nz-input-text>
     </div>
   </div>
 

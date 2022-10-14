@@ -20,8 +20,8 @@ import { DataDomain } from './data-domain.model';
       [defaultColDef]="defaultColDef"
       [frameworkComponents]="frameworkComponents"
       (gridReady)="onGridReady($event)"
-      (rowClicked)="rowClickedEvent($event)"
-      (rowDoubleClicked)="rowDbClicked($event)">
+      (rowClicked)="rowClickedFunc($event)"
+      (rowDoubleClicked)="rowDbClickedFunc($event)">
   </ag-grid-angular>
   `,
   styles: []
@@ -30,9 +30,9 @@ export class DataDomainGridComponent extends AggridFunction implements OnInit {
 
   list: DataDomain[] = [];
 
-  @Output() rowClicked = new EventEmitter();
-  @Output() rowDoubleClicked = new EventEmitter();
-  @Output() editButtonClicked = new EventEmitter();
+  @Output() rowClickedEvent = new EventEmitter();
+  @Output() rowDoubleClickedEvent = new EventEmitter();
+  @Output() editButtonClickedEvent = new EventEmitter();
 
   constructor(private service: DataDomainService,
               private appAlarmService: AppAlarmService) {
@@ -59,28 +59,23 @@ export class DataDomainGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '도메인ID',      field: 'domainId',      width: 100 },
+      /*{headerName: '도메인ID',      field: 'domainId',      width: 100 },*/
       {headerName: '데이터베이스',  field: 'database',      width: 100 },
-      {headerName: '도메인',        field: 'domainName',    width: 100 },
-      {headerName: '용어(영문)',    field: 'termEng',       width: 100 },
-      {headerName: '데이터타입',    field: 'dataType',      width: 100 },      
+      {headerName: '도메인',        field: 'domainName',    width: 100 },      
+      {headerName: '데이터타입',    field: 'dataType',      width: 150 },      
       {headerName: '비고',          field: 'comment',       width: 400 }
     ];
 
     this.getRowId = function(params: any) {
-      return params.data.termId;
+      return params.data.domainId;
     };
   }
 
   ngOnInit() {
-    this.getTermList();
-  }
+    this.getList();
+  }  
 
-  private onEditButtonClick(e: any) {
-    this.editButtonClicked.emit(e.rowData);
-  }
-
-  getTermList(params?: any): void {
+  getList(params?: any) {
     this.service
         .getList()        
         .subscribe(
@@ -95,14 +90,18 @@ export class DataDomainGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  rowClickedEvent(event: any) {
-    const selectedRows = this.gridApi.getSelectedRows();
-
-    this.rowClicked.emit(selectedRows[0]);
+  onEditButtonClick(e: any) {
+    this.editButtonClickedEvent.emit(e.rowData);
   }
 
-  rowDbClicked(event: any) {
-    this.rowDoubleClicked.emit(event.data);
+  rowClickedFunc(event: any) {
+    const selectedRows = this.gridApi.getSelectedRows();
+
+    this.rowClickedEvent.emit(selectedRows[0]);
+  }
+
+  rowDbClickedFunc(event: any) {
+    this.rowDoubleClickedEvent.emit(event.data);
   }
 
 }

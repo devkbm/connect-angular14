@@ -1,9 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { MenuGroupFormComponent } from './menu-group-form.component';
 import { MenuGroupGridComponent } from './menu-group-grid.component';
 import { MenuGridComponent } from './menu-grid.component';
-import { MenuFormComponent } from './menu-form.component';
 import { AppBase } from '../../core/app/app-base';
 
 @Component({
@@ -13,37 +11,36 @@ import { AppBase } from '../../core/app/app-base';
 })
 export class MenuComponent extends AppBase implements OnInit {
 
-  @ViewChild(MenuGroupGridComponent, {static: true})
-  menuGroupGrid!: MenuGroupGridComponent;
+  @ViewChild(MenuGroupGridComponent) menuGroupGrid!: MenuGroupGridComponent;  
+  @ViewChild(MenuGridComponent) menuGrid!: MenuGridComponent;
 
-  @ViewChild(MenuGroupFormComponent, {static: false})
-  menuGroupForm!: MenuGroupFormComponent;
+  queryMenuGroup: { key: string, value: string, list: {label: string, value: string}[] } = {
+    key: 'menuGroupId',
+    value: '',
+    list: [
+      {label: '메뉴그룹ID', value: 'menuGroupId'},
+      {label: '메뉴그룹명', value: 'menuGroupName'}
+    ]
+  }
 
-  @ViewChild(MenuGridComponent, {static: true})
-  menuGrid!: MenuGridComponent;
+  queryMenu: { key: string, value: string, list: {label: string, value: string}[] } = {
+    key: 'menuId',
+    value: '',
+    list: [
+      {label: '메뉴ID', value: 'menuId'},
+      {label: '메뉴명', value: 'menuName'}
+    ]
+  }
 
-  @ViewChild(MenuFormComponent, {static: false})
-  menuForm!: MenuFormComponent;
+  menuGroup: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
-  queryOptionList1 = [
-    {label: '메뉴그룹ID', value: 'menuGroupId'},
-    {label: '메뉴그룹명', value: 'menuGroupName'}
-  ];
-  queryKey1: string = 'menuGroupId';
-  queryValue1: string = '';
-
-  queryOptionList2 = [
-    {label: '메뉴ID', value: 'menuId'},
-    {label: '메뉴명', value: 'menuName'}
-  ];
-  queryKey2: string = 'menuId';
-  queryValue2: string = '';
-
-
-  menuGroupFormVisible = false;
-  menuFormVisible = false;
-  selectedMenuGroupId: any;
-  selectedMenuId: any;
+  menu: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
   constructor(location: Location) {
     super(location);
@@ -52,63 +49,61 @@ export class MenuComponent extends AppBase implements OnInit {
   ngOnInit() {
   }
 
-  newMenuGroupForm(): void {
-    this.selectedMenuGroupId = null;
-
-    this.menuGroupFormVisible = true;
-  }
-
-  menuGroupFormOpen(item: any): void {
-    this.menuGroupFormVisible = true;
-  }
-
-  menuGroupFormClose(): void {
-    this.menuGroupFormVisible = false;
-  }
-
-  newMenu(): void {
-    this.selectedMenuId = null;
-    this.menuFormVisible = true;
-  }
-
-  menuFormOpen(item: any): void {
-    this.menuFormVisible = true;
-  }
-
-  menuFormClose(): void {
-    this.menuFormVisible = false;
-  }
-
+  //#region 메뉴그룹
   getMenuGroupList(): void {
     let params: any = new Object();
-    if ( this.queryValue1 !== '') {
-      params[this.queryKey1] = this.queryValue1;
+    if ( this.queryMenuGroup.value !== '') {
+      params[this.queryMenuGroup.key] = this.queryMenuGroup.value;
     }
 
-    this.menuGroupFormClose();
+    this.menuGroup.drawerVisible = false;
     this.menuGrid.clearData();
     this.menuGroupGrid.getMenuGroupList(params);
   }
 
-  getMenuList(): void {
-    let params: any = new Object();
-    params['menuGroupId'] = this.selectedMenuGroupId;
+  newMenuGroup(): void {
+    this.menuGroup.selectedRowId = null;
+    this.menuGroup.drawerVisible = true;
+  }  
 
-    if ( this.queryValue2 !== '') {
-      params[this.queryKey2] = this.queryValue2;
-    }
-
-    this.menuFormClose();
-    this.menuGrid.getMenuList(params);
+  editMenuGroup(item: any) {
+    this.menuGroup.selectedRowId = item.menuGroupId;
+    this.menuGroup.drawerVisible = true;
   }
 
-  selectMenuGroup(row: any): void {
-    this.selectedMenuGroupId = row.menuGroupId;
+  menuGroupGridRowClicked(row: any): void {
+    this.menuGroup.selectedRowId = row.menuGroupId;
     this.getMenuList();
   }
 
-  selectMenu(row: any): void {
-    this.selectedMenuId = row.menuId;
+  //#endregion 메뉴그룹
+  
+  //#region 메뉴
+  getMenuList(): void {
+    let params: any = new Object();
+    params['menuGroupId'] = this.menuGroup.selectedRowId;
+
+    if ( this.queryMenu.value !== '') {
+      params[this.queryMenu.key] = this.queryMenu.value;
+    }
+
+    this.menu.drawerVisible = false;
+    this.menuGrid.getMenuList(params);
   }
+
+  newMenu(): void {
+    this.menu.selectedRowId = null;
+    this.menu.drawerVisible = true;
+  }
+  
+  editMenu(item: any) {
+    this.menu.selectedRowId = item.menuId;
+    this.menu.drawerVisible = true;
+  }  
+
+  menuGridRowClicked(row: any): void {    
+    this.menu.selectedRowId = row.menuId;
+  }
+  //#endregion 메뉴
 
 }

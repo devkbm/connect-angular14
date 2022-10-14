@@ -39,7 +39,7 @@ export class CustomHttpInterceptor implements HttpInterceptor {
   }
 
   setParameters(req: HttpRequest<any>): HttpRequest<any> {
-    if (req.method.toLowerCase() === 'get') {
+    if (req.method.toLowerCase() === 'get' || req.method.toLowerCase() === 'delete') {
       req = this.setParamsGET(req);
     } else if (req.method.toLowerCase() === 'post') {
       if (req.body instanceof FormData) {

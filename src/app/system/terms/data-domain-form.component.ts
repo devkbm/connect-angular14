@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { FormBase } from 'src/app/core/form/form-base';
+import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseList } from '../../core/model/response-list';
@@ -36,23 +36,44 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
       comment       : new FormControl<string | null>(null)
     });
   }
-
-  ngOnInit() {
-    this.getDatabaseList();    
-  }
-  ngAfterViewInit(): void {
-    this.newForm();
-  }
   
   ngOnChanges(changes: SimpleChanges): void {
   }
 
-  newForm(): void {
-    this.fg.get('database')?.setValue('MYSQL');
+  ngOnInit() {
+    this.getDatabaseList();    
+
+    if (this.initLoadId) {
+      this.get(this.initLoadId);
+    } else {
+      this.newForm();
+    }
+  }
+
+  ngAfterViewInit(): void {    
+    this.focus();
+  }  
+
+  focus() {
     this.domainName?.focus();
   }
 
-  modifyForm(formData: DataDomain): void {
+  newForm() {
+    this.formType = FormType.NEW;
+    
+    this.fg.get('database')?.enable();
+    this.fg.get('domainName')?.enable();
+
+    this.fg.get('database')?.setValue('MYSQL');    
+  }
+
+  modifyForm(formData: DataDomain) {
+    this.formType = FormType.MODIFY;
+    
+    this.fg.get('database')?.disable();
+    this.fg.get('domainName')?.disable();
+    
+    this.fg.patchValue(formData);
   }
 
   get(id: string) {
@@ -81,9 +102,9 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
         );
   }
 
-  delete(): void {
+  delete(id: string) {
     this.service
-        .delete(this.fg.getRawValue())
+        .delete(id)
         .subscribe(
           (model: ResponseObject<DataDomain>) => {
             this.formDeleted.emit(this.fg.getRawValue());
@@ -96,7 +117,7 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  getDatabaseList(): void {
+  getDatabaseList() {
     this.service
         .getDatabaseList()
         .subscribe(

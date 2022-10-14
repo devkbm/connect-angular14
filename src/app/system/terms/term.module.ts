@@ -32,6 +32,7 @@ import { NzSpaceModule } from 'ng-zorro-antd/space';
 import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
+import { NzTabsModule } from 'ng-zorro-antd/tabs';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -69,7 +70,8 @@ const nzModules = [
   NzSpaceModule,
   NzSwitchModule,
   NzIconModule,
-  NzBreadCrumbModule
+  NzBreadCrumbModule,
+  NzTabsModule
 ]
 
 @NgModule({

@@ -3,11 +3,11 @@
 <app-nz-search-area>
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getList()">
+      <input type="text" [(ngModel)]="query.value" nz-input placeholder="input search text" (keyup.enter)="getList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
-      <nz-select [(ngModel)]="queryKey">
-        <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      <nz-select [(ngModel)]="query.key">
+        <nz-option *ngFor="let option of query.list" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
       </nz-select>
     </ng-template>
     <ng-template #suffixIconSearch>
@@ -38,23 +38,23 @@
 
 <div class="grid-wrapper">
   <app-web-resource-grid #grid
-    (rowClicked)="selectedItem($event)"
-    (editButtonClicked)="editDrawerOpen($event)"
-    (rowDoubleClicked)="editDrawerOpen($event)">
+    (rowClicked)="resourceGridRowClicked($event)"
+    (editButtonClicked)="editResource($event)"
+    (rowDoubleClicked)="editResource($event)">
   </app-web-resource-grid>
 </div>
 
 <nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
-  [nzWidth]="720"
-  [nzVisible]="drawerVisible"
+  nzWidth="80%"
+  [nzVisible]="resource.drawerVisible"
   nzTitle="리소스 등록"
-  (nzOnClose)="closeDrawer()">
+  (nzOnClose)="resource.drawerVisible = false">
     <app-web-resource-form #form *nzDrawerContent
-      [initLoadId]="selectedId"
+      [initLoadId]="resource.selectedRowId"
       (formSaved)="getList()"
       (formDeleted)="getList()"
-      (formClosed)="closeDrawer()">
+      (formClosed)="resource.drawerVisible = false">
     </app-web-resource-form>
 </nz-drawer>

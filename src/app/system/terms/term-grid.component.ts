@@ -21,8 +21,8 @@ import { Term } from './term.model';
       [defaultColDef]="defaultColDef"
       [frameworkComponents]="frameworkComponents"
       (gridReady)="onGridReady($event)"
-      (rowClicked)="rowClickedEvent($event)"
-      (rowDoubleClicked)="rowDbClicked($event)">
+      (rowClicked)="rowClickedFunc($event)"
+      (rowDoubleClicked)="rowDbClickedFunc($event)">
   </ag-grid-angular>
   `
 })
@@ -30,9 +30,9 @@ export class TermGridComponent extends AggridFunction implements OnInit {
 
   termList: Term[] = [];
 
-  @Output() rowClicked = new EventEmitter();
-  @Output() rowDoubleClicked = new EventEmitter();
-  @Output() editButtonClicked = new EventEmitter();
+  @Output() rowClickedEvent = new EventEmitter();
+  @Output() rowDoubleClickedEvent = new EventEmitter();
+  @Output() editButtonClickedEvent = new EventEmitter();
 
   constructor(private termService: TermService,
               private appAlarmService: AppAlarmService) {
@@ -59,13 +59,13 @@ export class TermGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '용어ID',      field: 'termId',            width: 100 },
+      {headerName: '용어ID',      field: 'termId',            width: 200 },
       {headerName: '시스템',      field: 'system',            width: 100 },
-      {headerName: '용어',        field: 'term',              width: 100 },
-      {headerName: '용어(영문)',  field: 'termEng',           width: 100 },
-      {headerName: '컬럼명',      field: 'columnName',        width: 100 },
+      {headerName: '용어',        field: 'term',              width: 200 , tooltipField: 'term'},
+      {headerName: '용어(영문)',  field: 'termEng',           width: 150 },
+      {headerName: '컬럼명',      field: 'columnName',        width: 200 },
       {headerName: '도메인명',    field: 'dataDomainName',    width: 100 },
-      {headerName: '설명',        field: 'description',       width: 400 , tooltipField: 'description'},
+      {headerName: '설명',        field: 'description',       width: 400 },
       {headerName: '비고',        field: 'comment',           width: 400 }
     ];
 
@@ -75,14 +75,10 @@ export class TermGridComponent extends AggridFunction implements OnInit {
   }
 
   ngOnInit() {
-    this.getTermList();
-  }
+    this.getList();
+  }  
 
-  private onEditButtonClick(e: any) {
-    this.editButtonClicked.emit(e.rowData);
-  }
-
-  getTermList(params?: any): void {
+  getList(params?: any): void {
     this.termService
         .getTermList(params)
         .subscribe(
@@ -97,14 +93,17 @@ export class TermGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  rowClickedEvent(event: any) {
+  rowClickedFunc(event: any) {
     const selectedRows = this.gridApi.getSelectedRows();
-
-    this.rowClicked.emit(selectedRows[0]);
+    this.rowClickedEvent.emit(selectedRows[0]);
   }
 
-  rowDbClicked(event: any) {
-    this.rowDoubleClicked.emit(event.data);
+  onEditButtonClick(event: any) {        
+    this.editButtonClickedEvent.emit(event.rowData);
+  }
+
+  rowDbClickedFunc(event: any) {
+    this.rowDoubleClickedEvent.emit(event.data);
   }
 
 }

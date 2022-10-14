@@ -48,7 +48,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   imageBase64: any;
 
-  @ViewChild('staffNo') staffNoField?: NzInputTextComponent;
+  @ViewChild('staffNo') staffNoField!: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private userService: UserService,
@@ -89,7 +89,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   ngAfterViewInit(): void {
-    this.staffNoField?.focus();
+    this.staffNoField.focus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

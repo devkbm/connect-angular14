@@ -12,16 +12,16 @@ import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 })
 export class DeptComponent extends AppBase implements OnInit {
 
-  queryKey = 'programCode';
-  queryValue = '';
-
   @ViewChild('deptTree', {static: true})
   tree!: DeptTreeComponent;
 
   @ViewChild('deptForm', {static: true})
   form!: DeptFormComponent;
 
-  menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
+  queryKey = 'programCode';
+  queryValue = '';  
+
+  //menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
 
   constructor(location: Location) {
     super(location);
@@ -39,9 +39,8 @@ export class DeptComponent extends AppBase implements OnInit {
     this.form.newForm();
   }
 
-  saveDept(): void {
-  console.log(this.form);
-  this.form.submitDept();
+  saveDept(): void {  
+    this.form.submitDept();
   }
 
   deleteDept(): void {

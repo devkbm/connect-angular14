@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {
   FormBuilder,
@@ -18,32 +18,39 @@ import { Holiday } from './holiday.model';
   templateUrl: './holiday-form.component.html',
   styleUrls: ['./holiday-form.component.css']
 })
-export class HolidayFormComponent extends FormBase implements OnInit {
-
-   ;
+export class HolidayFormComponent extends FormBase implements OnInit, AfterViewInit {   
 
   constructor(private fb: FormBuilder,
-              private holidayService: HolidayService,
+              private service: HolidayService,
               private appAlarmService: AppAlarmService,
-              private datePipe: DatePipe) { super(); }
-
-  ngOnInit(): void {
+              private datePipe: DatePipe) { 
+    super(); 
+    
     this.fg = this.fb.group({
-      date          : [ null ],
-      holidayName   : [ null ],
-      comment       : [ null ]
+      date          : new FormControl<Date | null>(null, { validators: Validators.required }),
+      holidayName   : new FormControl<string | null>(null, { validators: Validators.required }),
+      comment       : new FormControl<string | null>(null)
     });
+  }
+  
+  ngOnInit(): void {    
+    if (this.initLoadId) {
+      this.get(this.initLoadId);
+    } else {
+      this.newForm(new Date());
+    }    
+  }
 
-    this.newForm(new Date());
-
-    this.defaultControlSize.xs = 23;
-    this.defaultLabelSize.xs = 1;
+  ngAfterViewInit(): void {    
   }
 
   newForm(date: Date): void {
     this.formType = FormType.NEW;
     this.fg.reset();
-    this.fg.get('date')?.setValue(date);
+
+    const id = this.datePipe.transform(date, 'yyyy-MM-dd') as string;
+
+    this.fg.get('date')?.setValue(id);
   }
 
   modifyForm(formData: Holiday): void {
@@ -52,10 +59,10 @@ export class HolidayFormComponent extends FormBase implements OnInit {
     this.fg.patchValue(formData);
   }
 
-  getEntity(date: Date): void {
+  get(date: Date): void {
     const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
 
-    this.holidayService
+    this.service
         .getHoliday(id)
         .subscribe(
             (model: ResponseObject<Holiday>) => {
@@ -69,10 +76,10 @@ export class HolidayFormComponent extends FormBase implements OnInit {
         );
   }
 
-  submitEntity(): void {
-    if (this.isValid() === false) return;
+  submit(): void {
+    if (this.fg.valid === false) return;
 
-    this.holidayService
+    this.service
         .saveHoliday(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Holiday>) => {
@@ -82,11 +89,11 @@ export class HolidayFormComponent extends FormBase implements OnInit {
         );
   }
 
-  deleteEntity(date: Date): void {
+  delete(date: Date): void {
     const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
     if (id === null) return;
 
-    this.holidayService
+    this.service
         .deleteHoliday(id)
         .subscribe(
             (model: ResponseObject<Holiday>) => {

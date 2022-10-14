@@ -19,7 +19,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 })
 export class WebResourceFormComponent extends FormBase implements OnInit, AfterViewInit {
 
-  @ViewChild('resourceCode', {static: true}) resourceCode!: NzInputTextComponent;
+  @ViewChild('resourceCode') resourceCode!: NzInputTextComponent;
 
   resourceTypeList: ResouceTypeEnum[] = [];
 
@@ -38,20 +38,24 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
       resourceType  : new FormControl<string | null>('', {validators: [Validators.required]}),
       url           : new FormControl<string | null>('', {validators: [Validators.required]}),
       description   : new FormControl<string | null>(null)
-    });
-
-    this.getCommonCodeList();
+    });    
   }
 
-  ngOnInit(): void {
-    this.newForm();
+  ngOnInit(): void {    
+    this.getCommonCodeList();
 
     if (this.initLoadId) {
-      this.getForm(this.initLoadId);
+      this.get(this.initLoadId);
+    } else {
+      this.newForm();
     }
   }
 
   ngAfterViewInit(): void {
+    this.focus();
+  }
+
+  focus() {
     this.resourceCode.focus();
   }
 
@@ -70,7 +74,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     this.fg.patchValue(formData);
   }
 
-  getForm(id: string): void {
+  get(id: string): void {
     this.service
         .get(id)
         .subscribe(
@@ -85,7 +89,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  saveForm(): void {
+  save(): void {
     if (this.isValid() === false) return;
 
     this.service
@@ -98,7 +102,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  deleteForm(id: string): void {
+  delete(id: string) {
     this.service
         .delete(id)
         .subscribe(
@@ -109,11 +113,11 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  closeForm(): void {
+  close() {
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  private getCommonCodeList(): void {
+  getCommonCodeList() {
     this.service
         .getWebResourceTypeList()
         .subscribe(

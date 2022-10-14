@@ -20,8 +20,8 @@ import { Word } from './word.model';
       [defaultColDef]="defaultColDef"
       [frameworkComponents]="frameworkComponents"
       (gridReady)="onGridReady($event)"
-      (rowClicked)="rowClickedEvent($event)"
-      (rowDoubleClicked)="rowDbClicked($event)">
+      (rowClicked)="rowClickedFunc($event)"
+      (rowDoubleClicked)="rowDbClickedFunc($event)">
   </ag-grid-angular>
   `,
   styles: []
@@ -30,9 +30,9 @@ export class WordGridComponent extends AggridFunction implements OnInit {
 
   list: Word[] = [];
 
-  @Output() rowClicked = new EventEmitter();
-  @Output() rowDoubleClicked = new EventEmitter();
-  @Output() editButtonClicked = new EventEmitter();
+  @Output() rowClickedEvent = new EventEmitter();
+  @Output() rowDoubleClickedEvent = new EventEmitter();
+  @Output() editButtonClickedEvent = new EventEmitter();
 
   constructor(private service: WordService,
               private appAlarmService: AppAlarmService) {
@@ -59,26 +59,26 @@ export class WordGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '논리명',        field: 'logicalName',     width: 100 },
-      {headerName: '논리명(영문)',  field: 'logicalNameEng',  width: 100 },
-      {headerName: '물리명',        field: 'physicalName',    width: 100 },      
+      {headerName: '논리명',        field: 'logicalName',     width: 100 },      
+      {headerName: '물리명',        field: 'physicalName',    width: 100 },
+      {headerName: '논리명(영문)',  field: 'logicalNameEng',  width: 100 },      
       {headerName: '비고',          field: 'comment',         width: 400 }
     ];
 
     this.getRowId = function(params: any) {
-      return params.data.termId;
+      return params.data.logicalName;
     };
   }
 
   ngOnInit() {
-    this.getTermList();
+    this.getList();
   }
 
   private onEditButtonClick(e: any) {
-    this.editButtonClicked.emit(e.rowData);
+    this.editButtonClickedEvent.emit(e.rowData);
   }
 
-  getTermList(params?: any): void {
+  getList(params?: any): void {
     this.service
         .getList()        
         .subscribe(
@@ -93,14 +93,14 @@ export class WordGridComponent extends AggridFunction implements OnInit {
         );
   }
 
-  rowClickedEvent(event: any) {
+  rowClickedFunc(event: any) {
     const selectedRows = this.gridApi.getSelectedRows();
 
-    this.rowClicked.emit(selectedRows[0]);
+    this.rowClickedEvent.emit(selectedRows[0]);
   }
 
-  rowDbClicked(event: any) {
-    this.rowDoubleClicked.emit(event.data);
+  rowDbClickedFunc(event: any) {
+    this.rowDoubleClickedEvent.emit(event.data);
   }
 
 }

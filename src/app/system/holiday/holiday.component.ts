@@ -15,21 +15,21 @@ export class HolidayComponent extends AppBase implements OnInit {
   grid!: HolidayGridComponent;
 
   @ViewChild('holidayForm', {static: false})
-  form!: HolidayFormComponent;
+  form!: HolidayFormComponent;  
+    
+  query: { key: string, value: string, list: {label: string, value: string}[] } = {
+    key: 'resourceCode',
+    value: '',
+    list: [
+      {label: '휴일명', value: 'resourceCode'},
+      {label: '비고', value: 'description'}
+    ]
+  }  
 
-  @ViewChild('deleteForm', {static: true})
-  deleteform!: HolidayFormComponent;
-
-  drawerVisible = false;
-
-  queryKey = 'resourceCode';
-  queryValue = '';
-  queryOptionList = [
-    {label: '휴일명', value: 'resourceCode'},
-    {label: '비고', value: 'description'}
-  ];
-
-  selectedRow: any;
+  holiday: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
   constructor(location: Location) {
     super(location);
@@ -39,17 +39,17 @@ export class HolidayComponent extends AppBase implements OnInit {
   }
 
   openDrawer(): void {
-    this.drawerVisible = true;
+    this.holiday.drawerVisible = true;
   }
 
   closeDrawer(): void {
-    this.drawerVisible = false;
+    this.holiday.drawerVisible = false;
   }
 
   getHolidayList(): void {
     let params: any = new Object();
-    if ( this.queryValue !== '') {
-      params[this.queryKey] = this.queryValue;
+    if ( this.query.value !== '') {
+      params[this.query.key] = this.query.value;
     }
 
     this.closeDrawer();
@@ -60,21 +60,21 @@ export class HolidayComponent extends AppBase implements OnInit {
     this.openDrawer();
 
     setTimeout(() => {
-      this.form.newForm(this.selectedRow.date);
+      this.form.newForm(this.holiday.selectedRowId);
     },10);
   }
 
   saveProgram(): void {
-    this.form.submitEntity();
+    this.form.submit();
   }
 
   deleteEntity(): void {
     //console.log(this.grid.getSelectedRows()[0].date);
-    this.deleteform.deleteEntity(this.grid.getSelectedRows()[0].date);
+    //this.deleteform.deleteEntity(this.grid.getSelectedRows()[0].date);
   }
 
-  selectedItem(item: any): void {
-    this.selectedRow = item;
+  holidayGridRowClicked(item: any): void {
+    this.holiday.selectedRowId = item.date;
   }
 
   editDrawerOpen(item: any): void {
@@ -82,7 +82,7 @@ export class HolidayComponent extends AppBase implements OnInit {
     const date: Date = item.date;
 
     setTimeout(() => {
-      this.form.getEntity(date);
+      this.form.get(date);
     },10);
   }
 }

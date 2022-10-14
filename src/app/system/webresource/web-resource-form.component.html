@@ -65,8 +65,8 @@
 <div class="footer">
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
-    (closeClick)="closeForm()"
-    (saveClick)="saveForm()"
-    (deleteClick)="deleteForm(this.fg.get('resourceCode')?.value)">
+    (closeClick)="close()"
+    (saveClick)="save()"
+    (deleteClick)="delete(this.fg.get('resourceCode')?.value)">
   </app-nz-crud-button-group>
 </div>

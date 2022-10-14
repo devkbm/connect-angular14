@@ -3,11 +3,11 @@
 <div nz-row class="btn-group">
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getHolidayList()">
+      <input type="text" [(ngModel)]="query.value" nz-input placeholder="input search text" (keyup.enter)="getHolidayList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
-        <nz-select [(ngModel)]="queryKey">
-          <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+        <nz-select [(ngModel)]="query.key">
+          <nz-option *ngFor="let option of query.list" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
         </nz-select>
       </ng-template>
     <ng-template #suffixIconSearch>
@@ -34,12 +34,12 @@
   </div>
 </div>
 
-<h3 class="pgm-title">공휴일 목록</h3>
+<h3 class="pgm-title">공휴일 목록 {{holiday|json}}</h3>
 
 <div class="grid-wrapper">
     <app-holiday-grid
         #holidayGrid
-        (rowSelected)="selectedItem($event)"
+        (rowSelected)="holidayGridRowClicked($event)"
         (editButtonClicked)="editDrawerOpen($event)"
         (rowDoubleClicked)="editDrawerOpen($event)">
     </app-holiday-grid>
@@ -49,20 +49,13 @@
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
     [nzWidth]="720"
-    [nzVisible]="drawerVisible"
+    [nzVisible]="holiday.drawerVisible"
     nzTitle="휴일 등록"
     (nzOnClose)="closeDrawer()">
-    <app-holiday-form *nzDrawerContent
-      id="holidayForm" #holidayForm
+    <app-holiday-form #holidayForm *nzDrawerContent 
+      [initLoadId]="holiday.selectedRowId"
       (formSaved)="getHolidayList()"
       (formDeleted)="getHolidayList()"
       (formClosed)="closeDrawer()">
     </app-holiday-form>
 </nz-drawer>
-
-<!-- 삭제용도 Form 사용 -->
-<app-holiday-form
-  style="display:none"
-  #deleteForm
-  (formDeleted)="getHolidayList()">
-</app-holiday-form>

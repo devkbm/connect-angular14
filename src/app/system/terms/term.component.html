@@ -3,11 +3,11 @@
 <app-nz-search-area>
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getTermList()">
+      <input type="text" [(ngModel)]="query.value" nz-input placeholder="input search text" (keyup.enter)="getTermList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
-      <nz-select [(ngModel)]="queryKey">
-        <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      <nz-select [(ngModel)]="query.key">
+        <nz-option *ngFor="let option of query.list" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
       </nz-select>
     </ng-template>
     <ng-template #suffixIconSearch>
@@ -19,75 +19,95 @@
       <span nz-icon nzType="search"></span>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button (click)="openWordDrawerVisible()">
+    <button nz-button (click)="newTerm()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규 용어
+    </button>    
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="newWord()">
       <span nz-icon nzType="form" nzTheme="outline"></span>신규 단어
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button (click)="openDomainDrawerVisible()">
+    <button nz-button (click)="newDomain()">
       <span nz-icon nzType="form" nzTheme="outline"></span>신규 도메인
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button (click)="initForm()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>신규 용어
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzDanger="true"
-      nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
-      (nzOnConfirm)="deleteTerm()" (nzOnCancel)="false">
-      <span nz-icon nzType="delete" nzTheme="outline"></span>삭제
-    </button>
+    </button>    
   </div>
 </app-nz-search-area>
 
+<nz-tabset [nzSelectedIndex]="tabIndex">
+  <nz-tab nzTitle="용어사전">
+    <!--<h3>용어사전 목록</h3>-->
+    <div class="grid-wrapper">
+      <app-term-grid #termGrid
+        (rowClickedEvent)="termGridSelected($event)"
+        (editButtonClickedEvent)="editTerm($event)"
+        (rowDoubleClickedEvent)="editTerm($event)">
+      </app-term-grid>
+    </div>
+  </nz-tab>
 
-<h3>용어사전 목록</h3>
-<div class="grid-wrapper">
-  <app-term-grid #termGrid
-    (rowSelected)="selectedItem($event)"
-    (editButtonClicked)="editDrawerOpen($event)"
-    (rowDoubleClicked)="editDrawerOpen($event)">
-  </app-term-grid>
-</div>
+  <nz-tab nzTitle="단어사전">
+    <div class="grid-wrapper">
+      <app-word-grid #wordGrid
+      (rowClickedEvent)="wordGridSelected($event)"
+      (editButtonClickedEvent)="editWord($event)"
+      (rowDoubleClickedEvent)="editWord($event)">
+      </app-word-grid>
+    </div>
+  </nz-tab>
 
-<nz-drawer #draw
+  <nz-tab nzTitle="도메인">
+    <div class="grid-wrapper">
+      <app-data-domain-grid #domainGrid
+        (rowClickedEvent)="domainGridSelected($event)"
+        (editButtonClickedEvent)="this.domain.drawerVisible = true"
+        (rowDoubleClickedEvent)="this.domain.drawerVisible = true">
+      </app-data-domain-grid>
+    </div>
+  </nz-tab>
+</nz-tabset>
+
+<nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
-  nzWidth="50%"
-  [nzVisible]="drawerVisible"
+  nzWidth="80%"
+  [nzVisible]="term.drawerVisible"
   nzTitle="용어 등록"
-  (nzOnClose)="closeDrawer()">
+  (nzOnClose)="this.term.drawerVisible = false">
     <app-term-form *nzDrawerContent
       #termForm
+      [initLoadId]="term.selectedRowId"
       (formSaved)="getTermList()"
       (formDeleted)="getTermList()"
-      (formClosed)="closeDrawer()">
+      (formClosed)="this.term.drawerVisible = false">
     </app-term-form>
 </nz-drawer>
 
 <nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
-  nzWidth="50%"
-  [nzVisible]="wordDrawerVisible"
+  nzWidth="80%"
+  [nzVisible]="word.drawerVisible"
   nzTitle="단어 등록"
-  (nzOnClose)="closeWordDrawerVisible()">
+  (nzOnClose)="this.word.drawerVisible = false">
     <app-word-form *nzDrawerContent #wordForm
-      (formSaved)="closeWordDrawerVisible()"
-      (formDeleted)="closeWordDrawerVisible()"
-      (formClosed)="closeWordDrawerVisible()">
+      [initLoadId]="word.selectedRowId"
+      (formSaved)="getWordList()"
+      (formDeleted)="getWordList()"
+      (formClosed)="word.drawerVisible = false">
     </app-word-form>
 </nz-drawer>
 
 <nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
-  nzWidth="50%"
-  [nzVisible]="domainDrawerVisible"
+  nzWidth="80%"
+  [nzVisible]="domain.drawerVisible"
   nzTitle="도메인 등록"
-  (nzOnClose)="closeDomainDrawerVisible()">
+  (nzOnClose)="domain.drawerVisible = false">
     <app-data-domain-form *nzDrawerContent #doaminForm
-      (formSaved)="closeDomainDrawerVisible()"
-      (formDeleted)="closeDomainDrawerVisible()"
-      (formClosed)="closeDomainDrawerVisible()">
+      [initLoadId]="domain.selectedRowId"
+      (formSaved)="getDomainList()"
+      (formDeleted)="getDomainList()"
+      (formClosed)="domain.drawerVisible = false">
     </app-data-domain-form>
 </nz-drawer>

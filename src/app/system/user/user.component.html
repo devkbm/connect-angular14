@@ -3,11 +3,11 @@
 <app-nz-search-area>
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-        <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text" (keyup.enter)="getUserList()">
+        <input type="text" [(ngModel)]="query.value" nz-input placeholder="input search text" (keyup.enter)="getUserList()">
     </nz-input-group>
     <ng-template #addOnBeforeTemplate>
-      <nz-select [(ngModel)]="queryKey">
-        <nz-option *ngFor="let option of queryOptionList" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
+      <nz-select [(ngModel)]="query.key">
+        <nz-option *ngFor="let option of query.list" [nzValue]="option.value" [nzLabel]="option.label"></nz-option>
       </nz-select>
     </ng-template>
     <ng-template #suffixIconSearch>
@@ -39,7 +39,7 @@
 <h3 class="grid-title">사용자 목록</h3>
 <div class="grid-wrapper">
   <app-user-grid #userGrid
-    (rowClicked)="selectGridRow($event)"
+    (rowClicked)="userGridSelected($event)"
     (editButtonClicked)="editForm($event)"
     (rowDoubleClicked)="editForm($event)">
   </app-user-grid>
@@ -49,13 +49,13 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="50%"
-  [nzVisible]="drawerVisible"
+  [nzVisible]="user.drawerVisible"
   nzTitle="사용자 등록"
-  (nzOnClose)="closeDrawer()">
+  (nzOnClose)="user.drawerVisible = false">
     <app-user-form #userForm *nzDrawerContent
-      [initLoadId]="this.selectedUserId"
+      [initLoadId]="user.selectedRowId"
       (formSaved)="getUserList()"
       (formDeleted)="getUserList()"
-      (formClosed)="closeDrawer()">
+      (formClosed)="user.drawerVisible = false">
     </app-user-form>
 </nz-drawer>

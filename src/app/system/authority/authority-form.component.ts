@@ -17,7 +17,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 })
 export class AuthorityFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild('authorityCode', {static: true}) authorityCode!: NzInputTextComponent;
+  @ViewChild('authorityCode') authorityCode!: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private service: AuthorityService,
@@ -44,7 +44,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
   }
 
   ngAfterViewInit(): void {
-    // this.authorityCode.focus();
+    this.focus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -53,6 +53,10 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
       this.getAuthority(changes['initLoadId'].currentValue);
     }
     */
+  }
+
+  focus() {
+    this.authorityCode.focus();
   }
 
   newForm(): void {
@@ -67,9 +71,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
       this.fg.get('id')?.setValue(organizationCode + x);
       this.fg.get('id')?.markAsTouched();
     });
-    this.fg.get('authorityCode')?.enable();
-
-    this.authorityCode.focus();
+    this.fg.get('authorityCode')?.enable();    
   }
 
   modifyForm(formData: Authority): void {

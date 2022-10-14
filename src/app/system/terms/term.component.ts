@@ -3,6 +3,8 @@ import { Location } from '@angular/common';
 import { TermGridComponent } from './term-grid.component';
 import { TermFormComponent } from './term-form.component';
 import { AppBase } from '../../core/app/app-base';
+import { DataDomainGridComponent } from './data-domain-grid.component';
+import { WordGridComponent } from './word-grid.component';
 
 @Component({
   selector: 'app-term',
@@ -10,23 +12,36 @@ import { AppBase } from '../../core/app/app-base';
   styleUrls: ['./term.component.css']
 })
 export class TermComponent extends AppBase implements OnInit {
+  
+  @ViewChild('termGrid') termGrid!: TermGridComponent;
+  @ViewChild('wordGrid') wordGrid!: WordGridComponent;
+  @ViewChild('domainGrid') domainGrid!: DataDomainGridComponent;  
 
-  drawerVisible: boolean = false;
-  wordDrawerVisible: boolean = false;
-  domainDrawerVisible: boolean = false;
+  query: { key: string, value: string, list: {label: string, value: string}[] } = {
+    key: 'term',
+    value: '',
+    list: [
+      {label: '용어', value: 'term'},
+      {label: '업무영역', value: 'domain'}  
+    ]
+  }
 
-  queryKey: string = 'term';
-  queryValue: string = '';
-  queryOptionList = [
-    {label: '용어', value: 'term'},
-    {label: '업무영역', value: 'domain'}
-  ];
+  tabIndex: number = 0;  
 
-  @ViewChild('termGrid', {static: false})
-  grid!: TermGridComponent;
+  term: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
-  @ViewChild('termForm', {static: false})
-  form?: TermFormComponent;
+  word: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
+
+  domain: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
   constructor(location: Location) {
     super(location);
@@ -35,69 +50,77 @@ export class TermComponent extends AppBase implements OnInit {
   ngOnInit(): void {
   }
 
+  getList() {    
+    if (this.tabIndex === 0) {
+      this.getTermList();
+    } else if (this.tabIndex === 1) {
+      this.getWordList();
+    } else if (this.tabIndex === 2) {
+      this.getDomainList();
+    }
+  }
+
+  //#region 용어사전
   getTermList() {
     let params: any = new Object();
-    if ( this.queryValue !== '') {
-      params[this.queryKey] = this.queryValue;
+    if ( this.query.value !== '') {
+      params[this.query.key] = this.query.value;
     }
-
-    console.log(this.form);
-    this.closeDrawer();
-    this.grid.getTermList(params);
+    
+    this.term.drawerVisible = false;
+    this.termGrid.getList(params);
   }
 
-  initForm() {
-    this.form?.fg.reset();
-    this.openDrawer();
+  newTerm() {    
+    this.term.selectedRowId = null;
+    this.term.drawerVisible = true;
+  }
+  
+  editTerm(item: any) {    
+    this.term.selectedRowId = item.termId;
+    this.term.drawerVisible = true;
   }
 
-  saveTerm() {
-    this.form?.submit();
+  termGridSelected(item: any) {        
+    this.term.selectedRowId = item.termId;
+  }
+  //#endregion 용어사전
+
+  //#region 단어사전
+  getWordList() {
+    this.word.drawerVisible = false;
+    this.wordGrid.getList();
   }
 
-  deleteTerm() {
-    this.form?.delete();
+  newWord() {
+    this.word.selectedRowId = null;
+    this.word.drawerVisible = true;
   }
 
-  selectedItem(item: any) {
-
-    //if (this.form) {
-    //  this.form.fg.patchValue(item);
-      //this.form.getTerm(item.term);
-    //}
-    //console.log(this.form);
+  editWord(item: any) {    
+    this.word.selectedRowId = item.logicalName;
+    this.word.drawerVisible = true;
   }
 
-  openDrawer() {
-    this.drawerVisible = true;
+  wordGridSelected(item: any) {
+    this.word.selectedRowId = item.logicalName;
+  }
+  //#endregion 단어사전
+
+  //#region 도메인
+  getDomainList() {
+    this.domain.drawerVisible = false;
+    this.domainGrid.getList();
   }
 
-  closeDrawer() {
-    this.drawerVisible = false;
+  newDomain() {
+    this.domain.selectedRowId = null;
+    this.domain.drawerVisible = true;
+  }  
+      
+  domainGridSelected(item: any) {    
+    this.domain.selectedRowId = item.domainId;
   }
+  //#endregion 도메인
 
-  editDrawerOpen(item: any) {
-
-    this.openDrawer();
-
-    setTimeout(() => {
-      this.form?.fg.patchValue(item);
-    },10);
-  }
-
-  openWordDrawerVisible() {
-    this.wordDrawerVisible = true;
-  }
-
-  closeWordDrawerVisible() {
-    this.wordDrawerVisible = false;
-  }
-
-  openDomainDrawerVisible() {
-    this.domainDrawerVisible = true;
-  }
-
-  closeDomainDrawerVisible() {
-    this.domainDrawerVisible = false;
-  }
 }

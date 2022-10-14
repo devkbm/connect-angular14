@@ -1,5 +1,4 @@
-{{fg.getRawValue() | json}}
-{{fg.valid}}
+{{initLoadId | json}} - {{fg.getRawValue() | json}} - {{fg.valid}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
   <!-- 폼 오류 메시지 템플릿 -->
   <ng-template #errorTpl let-control>
@@ -57,6 +56,6 @@
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
     (saveClick)="submit()"
-    (deleteClick)="delete()">
+    (deleteClick)="delete(fg.get('logicalName')?.value)">
   </app-nz-crud-button-group>
 </div>

@@ -45,50 +45,47 @@ export class UserComponent extends AppBase implements OnInit {
         this.deleteUser();
       }
     }
-  }];
+  }];  
 
-  drawerVisible = false;
+  query: { key: string, value: string, list: {label: string, value: string}[] } = {
+    key: 'userId',
+    value: '',
+    list: [
+      {label: '아이디', value: 'userId'},
+      {label: '성명', value: 'name'}
+    ]
+  }  
 
-  queryKey = 'userId';
-  queryValue = '';
-  queryOptionList = [
-    {label: '아이디', value: 'userId'},
-    {label: '성명', value: 'name'}
-  ];
-
-  selectedUserId: string = '';
+  user: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }  
 
   constructor(location: Location,private userService: UserService) {
     super(location);
   }
 
   ngOnInit() {
-  }
-
-  openDrawer() {
-    this.drawerVisible = true;
-  }
-
-  closeDrawer() {
-    this.drawerVisible = false;
-  }
+  }  
 
   newForm() {
-    this.selectedUserId = '';
-    this.openDrawer();
+    this.user.selectedRowId = null;
+    this.user.drawerVisible = true;
+    
   }
 
   editForm(item: any) {
-    this.openDrawer();
+    this.user.selectedRowId = item.userId;    
+    this.user.drawerVisible = true;    
   }
 
   getUserList() {
     let params: any = new Object();
-    if ( this.queryValue !== '') {
-      params[this.queryKey] = this.queryValue;
+    if ( this.query.value !== '') {
+      params[this.query.key] = this.query.value;
     }
 
-    this.closeDrawer();
+    this.user.drawerVisible = false;
     this.grid.getUserList(params);
   }
 
@@ -103,9 +100,8 @@ export class UserComponent extends AppBase implements OnInit {
         );
   }
 
-  selectGridRow(params: any) {
-    console.log(params.userId);
-    this.selectedUserId = params.userId;
+  userGridSelected(params: any) {    
+    this.user.selectedRowId = params.userId;
   }
 
   test() {

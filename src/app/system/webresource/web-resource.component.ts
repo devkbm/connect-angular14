@@ -15,20 +15,18 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 })
 export class WebResourceComponent extends AppBase  implements OnInit {
 
-  @ViewChild(WebResourceGridComponent, {static: false})
-  grid!: WebResourceGridComponent;
+  @ViewChild(WebResourceGridComponent) grid!: WebResourceGridComponent;
 
-  @ViewChild(WebResourceFormComponent, {static: false})
-  form!: WebResourceFormComponent;
-
-  queryKey = 'resourceCode';
-  queryValue = '';
-  queryOptionList = [
-    {label: '리소스코드', value: 'resourceCode'},
-    {label: '리소스명', value: 'resourceName'},
-    {label: 'URL', value: 'url'},
-    {label: '설명', value: 'description'}
-  ];
+  query: { key: string, value: string, list: {label: string, value: string}[] } = {
+    key: 'resourceCode',
+    value: '',
+    list: [
+      {label: '리소스코드', value: 'resourceCode'},
+      {label: '리소스명', value: 'resourceName'},
+      {label: 'URL', value: 'url'},
+      {label: '설명', value: 'description'}
+    ]
+  }  
 
   buttons: ButtonTemplate[] = [{
     text: '조회',
@@ -40,7 +38,7 @@ export class WebResourceComponent extends AppBase  implements OnInit {
     text: '신규',
     nzType: 'form',
     click: (e: MouseEvent) => {
-      this.initForm();
+      this.newResource();
     }
   },{
     text: '삭제',
@@ -54,54 +52,43 @@ export class WebResourceComponent extends AppBase  implements OnInit {
     }
   }];
 
-  drawerVisible = false;
-
-  selectedId: any;
+  resource: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }  
 
   constructor(location: Location,
-              private programService: WebResourceService) {
+              private service: WebResourceService) {
     super(location);
   }
 
   ngOnInit(): void {
-  }
-
-  openDrawer(): void {
-    this.drawerVisible = true;
-  }
-
-  closeDrawer(): void {
-    this.drawerVisible = false;
-  }
-
-  editDrawerOpen(item: any): void {
-    this.openDrawer();
-  }
+  }  
 
   getList(): void {
     let params: any = new Object();
-    if ( this.queryValue !== '') {
-      params[this.queryKey] = this.queryValue;
+    if ( this.query.value !== '') {
+      params[this.query.key] = this.query.value;
     }
 
-    this.closeDrawer();
+    this.resource.drawerVisible = false;
     this.grid.getList(params);
   }
 
-  initForm(): void {
-    this.selectedId = null;
-
-    this.openDrawer();
+  newResource(): void {
+    this.resource.selectedRowId = null;
+    this.resource.drawerVisible = true;
   }
 
-  save(): void {
-    this.form.saveForm();
-  }
+  editResource(item: any): void {
+    this.resource.selectedRowId = item.resourceCode;
+    this.resource.drawerVisible = true;
+  }  
 
   delete(): void {
     const id = this.grid.getSelectedRows()[0].resourceCode;
 
-    this.programService
+    this.service
         .delete(id)
         .subscribe(
           (model: ResponseObject<WebResource>) => {
@@ -110,9 +97,8 @@ export class WebResourceComponent extends AppBase  implements OnInit {
         );
   }
 
-  selectedItem(item: any): void {
-    // console.log(item);
-    this.selectedId = item.resourceCode;
+  resourceGridRowClicked(item: any): void {    
+    this.resource.selectedRowId = item.resourceCode;
   }
 
 }
