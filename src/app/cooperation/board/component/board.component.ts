@@ -1,8 +1,6 @@
-import { Component, ComponentFactoryResolver, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { ArticleGridComponent } from './article-grid.component';
-import { BoardFormComponent } from './board-form.component';
 import { BoardTreeComponent } from './board-tree.component';
-import { ArticleFormComponent } from './article-form.component';
 import { Article } from './article.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
@@ -19,27 +17,32 @@ export interface TabArticle {
 })
 export class BoardComponent implements OnInit {
 
-  @ViewChild('boardTree', {static: true}) boardTree!: BoardTreeComponent;
-  @ViewChild('boardForm', {static: false}) boardForm!: BoardFormComponent;
-  @ViewChild('articleGrid', {static: true}) articleGrid!: ArticleGridComponent;
-  @ViewChild('articleForm', {static: false}) articleForm!: ArticleFormComponent;
+  @ViewChild('boardTree') boardTree!: BoardTreeComponent;
+  @ViewChild('articleGrid') articleGrid!: ArticleGridComponent;
 
-  boardDrawerVisible = false;
-  articleDrawerVisible = false;
-  articleViewDrawerVisible = false;
+  board: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
-  selectedBoardId: any;
-  selectedArticleId: any;
-  selectedArticle!: Article;
+  article: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
+
+  articleView: { drawerVisible: boolean, selectedRow: any} = {
+    drawerVisible: false,
+    selectedRow: null
+  }
 
   tabIndex: number = 0;
   tabs: TabArticle[] = [];
+  tabTitle: any;
 
   /**
    * 게시판 트리 조회 Filter 조건
    */
   queryValue: any;
-  tabTitle: any;
 
   constructor(private message: NzMessageService,
               public viewContainerRef: ViewContainerRef) { }
@@ -50,31 +53,34 @@ export class BoardComponent implements OnInit {
 
   setBoardSelect(item: any): void {
     this.tabTitle = item.title;
-    this.selectedBoardId = item.key;
+    this.board.selectedRowId = item.key;
+
     this.getArticleGridData();
   }
 
   getArticleGridData(): void {
-    this.closeArticleDrawer();
-    this.articleGrid.getArticleList(this.selectedBoardId);
+    this.article.drawerVisible = false;
+    this.articleView.drawerVisible = false;
+
+    this.articleGrid.getArticleList(this.board.selectedRowId);
   }
 
   newBoard(): void {
-    this.selectedBoardId = null;
-    this.openBoardDrawer();
+    this.board.selectedRowId = null;
+    this.board.drawerVisible = true;
   }
 
   modifyBoard(item: any): void {
-    this.openBoardDrawer();
+    this.board.drawerVisible = true;
   }
 
   getBoardTree(): void {
-    this.closeBoardDrawer();
+    this.board.drawerVisible = false;
     this.boardTree.getboardHierarchy();
   }
 
   newArticle(): void {
-    if (this.selectedBoardId === null || this.selectedBoardId === undefined)  {
+    if (this.board.selectedRowId === null || this.board.selectedRowId === undefined)  {
       this.message.create('error', '게시판을 선택해주세요.');
       return;
     }
@@ -84,46 +90,45 @@ export class BoardComponent implements OnInit {
     this.tabs.push(componentRef);
     */
 
-    this.selectedArticleId = null;
-    this.openArticleDrawer();
+    this.article.selectedRowId = null;
+    this.article.drawerVisible = true;
   }
 
   selectArticle(item: any) {
-    this.selectedArticle = item;
-    this.selectedArticleId = item.articleId;
+    this.articleView.selectedRow = item;
+    this.article.selectedRowId = item.articleId;
   }
 
   editArticle(): void {
-    this.selectedArticleId = this.articleGrid.getSelectedRows()[0]?.articleId;
-    if (this.selectedArticleId === null || this.selectedArticleId === undefined) {
+    this.article.selectedRowId = this.articleGrid.getSelectedRows()[0]?.articleId;
+    if (this.article.selectedRowId === null || this.article.selectedRowId === undefined) {
       this.message.create('error', '게시글을 선택해주세요.');
       return;
     }
 
-    this.openArticleDrawer();
-  }
-
-  showArticleView(): void {
-    this.openArticleViewDrawer();
+    this.article.drawerVisible = true;
   }
 
   addTabArticleView(): void {
-    let title: string = '';
-    if (this.selectedArticle.title.length > 8) {
-      title = this.selectedArticle.title.substring(0, 8) + '...';
+    let title: string | null = '';
+    const title_lentgh = this.articleView.selectedRow?.title.length as number;
+    if (title_lentgh > 8) {
+      title = this.articleView.selectedRow?.title.substring(0, 8) + '...';
     } else {
-      title = this.selectedArticle.title;
+      title = this.articleView.selectedRow?.title as string;
     }
 
+    const articleId = this.articleView.selectedRow?.articleId as number;
+    const article = this.articleView.selectedRow as Article;
     const newTab: TabArticle = {
       tabName: title,
-      articleId: this.selectedArticle.articleId,
-      article: this.selectedArticle
-    };
+      articleId: articleId,
+      article: article
+    }
 
     let tabIndex = null;
     for (const index in this.tabs) {
-      if (this.tabs[index].articleId === this.selectedArticle.articleId) {
+      if (this.tabs[index].articleId === this.articleView.selectedRow?.articleId) {
         tabIndex = index;
       }
     }
@@ -145,27 +150,4 @@ export class BoardComponent implements OnInit {
     console.log(item);
   }
 
-  openBoardDrawer(): void {
-    this.boardDrawerVisible = true;
-  }
-
-  closeBoardDrawer(): void {
-    this.boardDrawerVisible = false;
-  }
-
-  openArticleDrawer(): void {
-    this.articleDrawerVisible = true;
-  }
-
-  closeArticleDrawer(): void {
-    this.articleDrawerVisible = false;
-  }
-
-  openArticleViewDrawer(): void {
-    this.articleViewDrawerVisible = true;
-  }
-
-  closeArticleViewDrawer(): void {
-    this.articleViewDrawerVisible = false;
-  }
 }

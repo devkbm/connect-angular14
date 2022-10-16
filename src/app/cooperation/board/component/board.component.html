@@ -22,7 +22,7 @@
   </div>
 </div>
 
-
+{{board | json}}
 <div class="tree">
   <h3 class="pgm-title">게시판 목록</h3>
   <nz-input-group nzSearch [nzSuffix]="suffixIconSearch">
@@ -59,14 +59,14 @@
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
     [nzWidth]="'80%'"
-    [nzVisible]="boardDrawerVisible"
+    [nzVisible]="board.drawerVisible"
     nzTitle="게시판 등록"
-    (nzOnClose)="closeBoardDrawer()">
+    (nzOnClose)="board.drawerVisible = false">
     <app-board-form id="boardForm" #boardForm *nzDrawerContent
-      [initLoadId]="this.selectedBoardId"
+      [initLoadId]="this.board.selectedRowId"
       (formSaved)="getBoardTree()"
       (formDeleted)="getBoardTree()"
-      (formClosed)="closeBoardDrawer()">
+      (formClosed)="board.drawerVisible = false">
     </app-board-form>
 </nz-drawer>
 
@@ -74,15 +74,15 @@
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
     [nzWidth]="'80%'"
-    [nzVisible]="articleDrawerVisible"
+    [nzVisible]="article.drawerVisible"
     nzTitle="게시글 등록"
-    (nzOnClose)="closeArticleDrawer()">
+    (nzOnClose)="article.drawerVisible = false">
     <app-article-form id="articleForm" #articleForm *nzDrawerContent
-      [boardId]="this.selectedBoardId"
-      [initLoadId]="this.selectedArticleId"
+      [boardId]="this.board.selectedRowId"
+      [initLoadId]="this.article.selectedRowId"
       (formSaved)="getArticleGridData()"
       (formDeleted)="getArticleGridData()"
-      (formClosed)="closeArticleDrawer()">
+      (formClosed)="article.drawerVisible = false">
     </app-article-form>
 </nz-drawer>
 
@@ -90,10 +90,10 @@
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
     [nzWidth]="800"
-    [nzVisible]="articleViewDrawerVisible"
+    [nzVisible]="articleView.drawerVisible"
     nzTitle="게시글 조회"
-    (nzOnClose)="closeArticleViewDrawer()">
-    <app-article-view [article]="selectedArticle" *nzDrawerContent>
+    (nzOnClose)="articleView.drawerVisible = false">
+    <app-article-view [article]="articleView.selectedRow" *nzDrawerContent>
 
     </app-article-view>
 </nz-drawer>
