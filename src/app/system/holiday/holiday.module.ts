@@ -23,6 +23,7 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzPopconfirmModule } from 'ng-zorro-antd/popconfirm';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 
 /* AG-GRID */
@@ -33,6 +34,7 @@ import { HolidayService } from './holiday.service';
 import { HolidayComponent } from './holiday.component';
 import { HolidayFormComponent } from './holiday-form.component';
 import { HolidayGridComponent } from './holiday-grid.component';
+
 
 
 const nzModules = [
@@ -50,7 +52,8 @@ const nzModules = [
   NzTreeSelectModule,
   NzDatePickerModule,
   NzButtonModule,
-  NzIconModule
+  NzIconModule,
+  NzPopconfirmModule
 ]
 
 @NgModule({

@@ -9,7 +9,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { Staff } from './staff.model';
-import { NewStaff } from './new-staff.request';
+import { NewStaff } from './new-staff-form/new-staff.model';
 import { SearchStaff } from './search-staff.request';
 
 @Injectable({
@@ -18,7 +18,7 @@ import { SearchStaff } from './search-staff.request';
 export class StaffService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/hrm', http, tokenExtractor);
+    super('/api/hrm', http, tokenExtractor);
   }
 
   getAppointmentCodeList(params?: any): Observable<ResponseList<Staff>> {
@@ -71,14 +71,14 @@ export class StaffService extends DataService {
     );
   }
 
-  createEmployee(obj: NewStaff): Observable<ResponseObject<Staff>> {
+  newStaff(obj: NewStaff): Observable<ResponseObject<NewStaff>> {
     const url = `${this.API_URL}/staff/create`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
-    return this.http.post<ResponseObject<Staff>>(url, obj, options).pipe(
-      catchError(this.handleError<ResponseObject<Staff>>('createEmployee', undefined))
+    return this.http.post<ResponseObject<NewStaff>>(url, obj, options).pipe(
+      catchError(this.handleError<ResponseObject<NewStaff>>('newStaff', undefined))
     );
   }
 

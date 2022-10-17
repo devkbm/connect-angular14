@@ -25,16 +25,11 @@ import { HolidayService } from './holiday.service';
 })
 export class HolidayGridComponent extends AggridFunction implements OnInit {
 
+  @Output() rowSelected = new EventEmitter();
+  @Output() rowDoubleClicked = new EventEmitter();
+  @Output() editButtonClicked = new EventEmitter();
+
   gridList: Holiday[] = [];
-
-  @Output()
-  rowSelected = new EventEmitter();
-
-  @Output()
-  rowDoubleClicked = new EventEmitter();
-
-  @Output()
-  editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
               private holidayService: HolidayService) {
@@ -59,9 +54,9 @@ export class HolidayGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      { headerName: '일자',     field: 'date',        width: 150, cellStyle: {'text-align': 'center'} },
-      { headerName: '요일',     field: 'dayOfWeek',   width: 50, cellStyle: {'text-align': 'center'} },
-      { headerName: '휴일명',   field: 'holiday.holidayName', width: 80 },
+      { headerName: '일자',     field: 'date',                width: 110,   cellStyle: {'text-align': 'center'} },
+      { headerName: '요일',     field: 'dayOfWeek',           width: 50,    cellStyle: {'text-align': 'center'} },
+      { headerName: '휴일명',   field: 'holiday.holidayName', width: 150 },
       { headerName: '비고',     field: 'holiday.comment',     width: 200 }
     ];
 
@@ -70,33 +65,33 @@ export class HolidayGridComponent extends AggridFunction implements OnInit {
       resizable: true
     };
 
-    this.getRowId = (data: any) => {
-        return data.data.date;
+    this.getRowId = (params: any) => {
+      return params.data.date;
     };
   }
 
   ngOnInit(): void {
-    this.getGridList();
+    //this.getGridList();
   }
 
-  private onEditButtonClick(e: any): void {
-    this.editButtonClicked.emit(e.rowData);
-  }
-
-  public getGridList(): void {
+  getGridList(fromDate: string, toDate: string): void {
 
     this.holidayService
-        .getHolidayList('20200101', '20201231')
+        .getHolidayList(fromDate, toDate)
         .subscribe(
           (model: ResponseList<Holiday>) => {
-              if (model.total > 0) {
-                  this.gridList = model.data;
-              } else {
-                  this.gridList = [];
-              }
-              this.appAlarmService.changeMessage(model.message);
+            if (model.total > 0) {
+              this.gridList = model.data;
+            } else {
+              this.gridList = [];
+            }
+            this.appAlarmService.changeMessage(model.message);
           }
         );
+  }
+
+  onEditButtonClick(e: any): void {
+    this.editButtonClicked.emit(e.rowData);
   }
 
   selectionChanged(event: any): void {

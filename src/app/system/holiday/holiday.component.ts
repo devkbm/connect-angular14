@@ -2,7 +2,10 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
 import { AppBase } from '../../core/app/app-base';
 import { HolidayGridComponent } from './holiday-grid.component';
-import { HolidayFormComponent } from './holiday-form.component';
+import { HolidayService } from './holiday.service';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { Holiday } from './holiday.model';
+import { ResponseObject } from 'src/app/core/model/response-object';
 
 @Component({
   selector: 'app-holiday',
@@ -11,19 +14,16 @@ import { HolidayFormComponent } from './holiday-form.component';
 })
 export class HolidayComponent extends AppBase implements OnInit {
 
-  @ViewChild('holidayGrid', {static: false})
-  grid!: HolidayGridComponent;
-
-  @ViewChild('holidayForm', {static: false})
-  form!: HolidayFormComponent;  
+  @ViewChild('holidayGrid') grid!: HolidayGridComponent;  
     
-  query: { key: string, value: string, list: {label: string, value: string}[] } = {
+  query: { key: string, value: string, list: {label: string, value: string}[], year: Date } = {
     key: 'resourceCode',
     value: '',
     list: [
       {label: '휴일명', value: 'resourceCode'},
-      {label: '비고', value: 'description'}
-    ]
+      {label: '비고', value: 'description'}      
+    ],
+    year: new Date()
   }  
 
   holiday: { drawerVisible: boolean, selectedRowId: any } = {
@@ -31,7 +31,10 @@ export class HolidayComponent extends AppBase implements OnInit {
     selectedRowId: null
   }
 
-  constructor(location: Location) {
+  constructor(location: Location,
+              private service: HolidayService,
+              private appAlarmService: AppAlarmService,
+              private datePipe: DatePipe) {
     super(location);
   }
 
@@ -52,37 +55,42 @@ export class HolidayComponent extends AppBase implements OnInit {
       params[this.query.key] = this.query.value;
     }
 
+    const date: Date = this.query.year;    
+
     this.closeDrawer();
-    this.grid.getGridList();
+    this.grid.getGridList(date.getFullYear()+'0101', date.getFullYear()+'1231');
   }
 
-  initForm(): void {
-    this.openDrawer();
-
-    setTimeout(() => {
-      this.form.newForm(this.holiday.selectedRowId);
-    },10);
+  newHoliday(): void {
+    this.holiday.selectedRowId = null;
+    this.openDrawer();    
+  }
+  
+  deleteHoliday(): void {    
+    const date = this.grid.getSelectedRows()[0].date;    
+    this.delete(date);
   }
 
-  saveProgram(): void {
-    this.form.submit();
-  }
+  delete(date: Date): void {
+    const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
+    if (id === null) return;
 
-  deleteEntity(): void {
-    //console.log(this.grid.getSelectedRows()[0].date);
-    //this.deleteform.deleteEntity(this.grid.getSelectedRows()[0].date);
+    this.service
+        .deleteHoliday(id)
+        .subscribe(
+          (model: ResponseObject<Holiday>) => {
+            this.appAlarmService.changeMessage(model.message);            
+            this.getHolidayList();
+          }
+        );
   }
 
   holidayGridRowClicked(item: any): void {
     this.holiday.selectedRowId = item.date;
   }
 
-  editDrawerOpen(item: any): void {
-    this.openDrawer();
-    const date: Date = item.date;
-
-    setTimeout(() => {
-      this.form.get(date);
-    },10);
+  edit(item: any): void {
+    this.holiday.selectedRowId = item.date;
+    this.openDrawer();        
   }
 }

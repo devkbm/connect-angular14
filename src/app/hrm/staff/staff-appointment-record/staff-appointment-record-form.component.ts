@@ -7,8 +7,8 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
-import { HrmTypeDetailCode } from '../appointment/model/hrm-type-detail-code';
-import { HrmCodeService } from '../appointment/service/hrm-code.service';
+import { HrmTypeDetailCode } from '../../appointment/model/hrm-type-detail-code';
+import { HrmCodeService } from '../../appointment/service/hrm-code.service';
 import { StaffAppointmentRecord } from './staff-appointment-record.model';
 import { StaffAppointmentRecordService } from './staff-appointment-record.service';
 
@@ -120,11 +120,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
               this.newForm();
             }
             this.appAlarmService.changeMessage(model.message);
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
       );
   }
 
@@ -135,11 +131,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
           (model: ResponseObject<StaffAppointmentRecord>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.fg.getRawValue());
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
         );
   }
 
@@ -178,11 +170,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
               //list = [];
             }
             this.appAlarmService.changeMessage(model.message);
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
       );
 
   }

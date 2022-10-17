@@ -15,7 +15,7 @@ import { Staff } from './staff.model';
 import { GlobalProperty } from 'src/app/core/global-property';
 import { NzUploadFile } from 'ng-zorro-antd/upload';
 import { saveAs } from 'file-saver';
-import { NewStaff } from './new-staff.request';
+import { NewStaff } from './new-staff-form/new-staff.model';
 
 @Component({
   selector: 'app-staff-regist-form',
@@ -23,11 +23,15 @@ import { NewStaff } from './new-staff.request';
   styleUrls: ['./staff-regist-form.component.css']
 })
 export class StaffRegistFormComponent extends FormBase implements OnInit {
-
-   ;
+   
   formModel?: Staff;
   imageUrl: any;
   imageUploadParam: any;
+
+  newStaff: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null
+  }
 
   constructor(private fb: FormBuilder,
               private staffServie: StaffService,
@@ -79,11 +83,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
               this.newForm();
             }
             this.appAlarmService.changeMessage(model.message);
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
       );
   }
 
@@ -91,35 +91,32 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     this.staffServie
         .saveEmployee(this.fg.getRawValue())
         .subscribe(
-          (model: ResponseObject<NewStaff>) => {
+          (model: ResponseObject<Staff>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.fg.getRawValue());
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
         );
   }
 
   public newEmployee(): void {
+
+    this.newStaff.drawerVisible = true;
+    console.log('af');
+    /*
     const staffId =this.fg.get('staffId')?.value;
     const name =this.fg.get('name')?.value;
     const residentRegistrationNumber = this.fg.get('residentRegistrationNumber')?.value;
-    const obj = new NewStaff(staffId, name, '', '', residentRegistrationNumber);
-
+    const obj = null; //new NewStaff(staffId, name, '', '', residentRegistrationNumber);
+    
     this.staffServie
         .createEmployee(obj)
         .subscribe(
           (model: ResponseObject<NewStaff>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.fg.getRawValue());
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
         );
+    */
   }
 
   public deleteForm(id: any): void {
@@ -174,11 +171,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
             const blob = new Blob([model], { type: 'application/octet-stream' });
             saveAs(blob, this.fg.get('id')?.value+".jpg");
 
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
         );
   }
 

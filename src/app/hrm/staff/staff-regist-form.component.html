@@ -145,9 +145,7 @@
       닫기
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary"
-      nz-popconfirm nzPopconfirmTitle="신규 직원을 등록하시겠습니까?"
-      (nzOnConfirm)="newEmployee()" (nzOnCancel)="false">
+    <button nz-button nzType="primary" (click)="newEmployee()">
       <span nz-icon nzType="save" nzTheme="outline"></span>
       신규직원등록
     </button>
@@ -167,5 +165,22 @@
     </button>
   </div>
 
+  <!--
   <app-staff-appointment-record-form>
   </app-staff-appointment-record-form>
+-->
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="80%"
+  [nzVisible]="newStaff.drawerVisible"
+  nzTitle="용어 등록"
+  (nzOnClose)="this.newStaff.drawerVisible = false">
+  <!-- (formSaved)="getTermList()"
+      (formDeleted)="getTermList()" -->
+    <app-new-staff-form *nzDrawerContent      
+      [initLoadId]="newStaff.selectedRowId"      
+      (formClosed)="this.newStaff.drawerVisible = false">
+    </app-new-staff-form>
+</nz-drawer>

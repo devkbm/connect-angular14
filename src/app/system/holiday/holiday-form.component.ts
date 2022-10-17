@@ -96,10 +96,10 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
     this.service
         .deleteHoliday(id)
         .subscribe(
-            (model: ResponseObject<Holiday>) => {
-            this.appAlarmService.changeMessage(model.message);
-            this.formDeleted.emit(this.fg.getRawValue());
-            }
+          (model: ResponseObject<Holiday>) => {
+          this.appAlarmService.changeMessage(model.message);
+          this.formDeleted.emit(this.fg.getRawValue());
+          }
         );
   }
 

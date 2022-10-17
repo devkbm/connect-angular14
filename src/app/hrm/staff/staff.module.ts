@@ -29,8 +29,9 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { StaffRegistFormComponent } from './staff-regist-form.component';
-import { StaffAppointmentRecordFormComponent } from './staff-appointment-record-form.component';
-import { StaffAppointmentRecordGridComponent } from './staff-appointment-record-grid.component';
+import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
+import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
+import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
 
 const nzModules = [
   NzLayoutModule,
@@ -65,7 +66,8 @@ const nzModules = [
   declarations: [
     StaffRegistFormComponent,
     StaffAppointmentRecordFormComponent,
-    StaffAppointmentRecordGridComponent
+    StaffAppointmentRecordGridComponent,
+    NewStaffFormComponent
   ],
   exports: [
     StaffRegistFormComponent,
