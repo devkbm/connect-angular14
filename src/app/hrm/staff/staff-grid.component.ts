@@ -3,19 +3,17 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
-
-import { TermService } from './term.service';
-import { Term } from './term.model';
-
+import { StaffService } from './staff.service';
+import { Staff } from './staff.model';
 
 @Component({
-  selector: 'app-term-grid',
+  selector: 'app-staff-grid',
   template: `
-    <ag-grid-angular
+   <ag-grid-angular
       [ngStyle]="style"
       class="ag-theme-balham-dark"
       [rowSelection]="'single'"
-      [rowData]="termList"
+      [rowData]="list"
       [columnDefs]="columnDefs"
       [getRowId]="getRowId"
       [defaultColDef]="defaultColDef"
@@ -24,17 +22,18 @@ import { Term } from './term.model';
       (rowClicked)="rowClickedFunc($event)"
       (rowDoubleClicked)="rowDbClickedFunc($event)">
   </ag-grid-angular>
-  `
+  `,
+  styles: []
 })
-export class TermGridComponent extends AggridFunction implements OnInit {
+export class StaffGridComponent extends AggridFunction implements OnInit {
 
-  termList: Term[] = [];
+  list: Staff[] = [];
 
   @Output() rowClickedEvent = new EventEmitter();
   @Output() rowDoubleClickedEvent = new EventEmitter();
   @Output() editButtonClickedEvent = new EventEmitter();
 
-  constructor(private termService: TermService,
+  constructor(private service: StaffService,
               private appAlarmService: AppAlarmService) {
 
     super();
@@ -59,34 +58,34 @@ export class TermGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '용어ID',      field: 'termId',            width: 200 },
-      {headerName: '시스템',      field: 'system',            width: 100 },
-      {headerName: '용어',        field: 'term',              width: 200 , tooltipField: 'term'},
-      {headerName: '용어(영문)',  field: 'termEng',           width: 150 },
-      {headerName: '컬럼명',      field: 'columnName',        width: 200 },
-      {headerName: '도메인명',    field: 'dataDomainName',    width: 100 },
-      {headerName: '설명',        field: 'description',       width: 400 },
-      {headerName: '비고',        field: 'comment',           width: 400 }
+      {headerName: '직원ID',        field: 'staffId',         width: 100 },      
+      {headerName: '직원번호',      field: 'staffNo',         width: 100 },
+      {headerName: '직원명',        field: 'name',            width: 100 },      
+      {headerName: '생년월일',      field: 'birthday',        width: 200 }
     ];
 
     this.getRowId = function(params: any) {
-        return params.data.termId;
+      return params.data.staffId;
     };
   }
 
   ngOnInit() {
     this.getList();
-  }  
+  }
+
+  private onEditButtonClick(e: any) {
+    this.editButtonClickedEvent.emit(e.rowData);
+  }
 
   getList(params?: any): void {
-    this.termService
-        .getTermList(params)
+    this.service
+        .getStaffList(params)        
         .subscribe(
-          (model: ResponseList<Term>) => {
+          (model: ResponseList<Staff>) => {
             if (model.total > 0) {
-              this.termList = model.data;
+              this.list = model.data;
             } else {
-              this.termList = [];
+              this.list = [];
             }
             this.appAlarmService.changeMessage(model.message);
           }
@@ -95,11 +94,8 @@ export class TermGridComponent extends AggridFunction implements OnInit {
 
   rowClickedFunc(event: any) {
     const selectedRows = this.gridApi.getSelectedRows();
-    this.rowClickedEvent.emit(selectedRows[0]);
-  }
 
-  onEditButtonClick(event: any) {        
-    this.editButtonClickedEvent.emit(event.rowData);
+    this.rowClickedEvent.emit(selectedRows[0]);
   }
 
   rowDbClickedFunc(event: any) {

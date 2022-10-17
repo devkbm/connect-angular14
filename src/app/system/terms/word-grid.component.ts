@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { ResponseList } from '../../core/model/response-list';
-import { AggridFunction } from '../../core/grid/aggrid-function';
-import { AppAlarmService } from '../../core/service/app-alarm.service';
+import { ResponseList } from 'src/app/core/model/response-list';
+import { AggridFunction } from 'src/app/core/grid/aggrid-function';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 
 import { WordService } from './word.service';
 import { Word } from './word.model';

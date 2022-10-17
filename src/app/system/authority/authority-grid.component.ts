@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
-import { AuthorityService } from './authority.service';
-import { AppAlarmService } from '../../core/service/app-alarm.service';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { AggridFunction } from 'src/app/core/grid/aggrid-function';
+import { ResponseList } from 'src/app/core/model/response-list';
 
-import { ResponseList } from '../../core/model/response-list';
-import { AggridFunction } from '../../core/grid/aggrid-function';
+import { AuthorityService } from './authority.service';
 import { Authority } from './authority.model';
 
 @Component({

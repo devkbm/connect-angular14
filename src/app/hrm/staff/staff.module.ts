@@ -32,6 +32,7 @@ import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
 import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
 import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
+import { StaffGridComponent } from './staff-grid.component';
 
 const nzModules = [
   NzLayoutModule,
@@ -67,7 +68,8 @@ const nzModules = [
     StaffRegistFormComponent,
     StaffAppointmentRecordFormComponent,
     StaffAppointmentRecordGridComponent,
-    NewStaffFormComponent
+    NewStaffFormComponent,
+    StaffGridComponent
   ],
   exports: [
     StaffRegistFormComponent,

@@ -118,19 +118,21 @@
   </form>
 
   <nz-tabset style="height: 500px;">
-      <nz-tab nzTitle="부서변경이력" style="height: 500px;">
-          <!--<app-dept-change-history-grid [gridList]="formModel?.deptHistory"></app-dept-change-history-grid>-->
-      </nz-tab>
-      <nz-tab nzTitle="인사변경이력" style="height: 500px;">
-          <ng-template nz-tab>
-          <!--<app-job-change-history-grid [gridList]="formModel?.jobHistory"></app-job-change-history-grid>-->
-          </ng-template>
-      </nz-tab>
-      <nz-tab nzTitle="근무상태변경이력" style="height: 500px;">
-          <ng-template nz-tab>
-          <!--<app-status-change-history-grid [gridList]="formModel?.statusHistory"></app-status-change-history-grid>-->
-          </ng-template>
-      </nz-tab>
+    <nz-tab nzTitle="직원명단" style="height: 500px;">
+      <div class="grid-wrapper">
+        <app-staff-grid>
+        </app-staff-grid>
+      </div>
+    </nz-tab>
+    <nz-tab nzTitle="부서변경이력" style="height: 500px;">
+      <!--<app-dept-change-history-grid [gridList]="formModel?.deptHistory"></app-dept-change-history-grid>-->
+    </nz-tab>
+    <nz-tab nzTitle="인사변경이력" style="height: 500px;">        
+      <!--<app-job-change-history-grid [gridList]="formModel?.jobHistory"></app-job-change-history-grid>-->        
+    </nz-tab>
+    <nz-tab nzTitle="근무상태변경이력" style="height: 500px;">        
+      <!--<app-status-change-history-grid [gridList]="formModel?.statusHistory"></app-status-change-history-grid>-->        
+    </nz-tab>      
   </nz-tabset>
   </div>
 
@@ -169,13 +171,15 @@
   <app-staff-appointment-record-form>
   </app-staff-appointment-record-form>
 -->
+<!--
 
+-->
 <nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
   [nzVisible]="newStaff.drawerVisible"
-  nzTitle="용어 등록"
+  nzTitle="직원 등록"
   (nzOnClose)="this.newStaff.drawerVisible = false">
   <!-- (formSaved)="getTermList()"
       (formDeleted)="getTermList()" -->

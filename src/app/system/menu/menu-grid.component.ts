@@ -1,11 +1,10 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
-
-import { AggridFunction } from '../../core/grid/aggrid-function';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { AggridFunction } from 'src/app/core/grid/aggrid-function';
+import { ResponseList } from 'src/app/core/model/response-list';
 
 import { MenuService } from './menu.service';
-import { AppAlarmService } from '../../core/service/app-alarm.service';
-import { ResponseList } from '../../core/model/response-list';
 import { Menu } from './menu.model';
 
 @Component({

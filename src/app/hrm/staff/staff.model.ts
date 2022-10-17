@@ -1,3 +1,22 @@
+export interface Staff {
+  staffId: string;
+  staffNo: string;
+  name: string;
+  nameEng: string;
+  nameChi: string;
+  residentRegistrationNumber: string;
+  gender: string;
+  birthday: Date;
+  workCondition: string;
+  imagePath: string;
+  deptHistory?: any;
+  jobHistory?: any;
+  deptChangeHistory?: any;
+  jobChangeHistory?: any;
+  statusChangeHistory?: any;
+}
+
+/*
 export class Staff {
   constructor(
     public staffId: string,
@@ -17,3 +36,4 @@ export class Staff {
     public statusChangeHistory?: any //StatusChangeHistory[];
   ) {}
 }
+*/

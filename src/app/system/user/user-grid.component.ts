@@ -1,12 +1,11 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AggridFunction } from '../../core/grid/aggrid-function';
+
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { AggridFunction } from 'src/app/core/grid/aggrid-function';
+import { ResponseList } from 'src/app/core/model/response-list';
 
 import { UserService } from './user.service';
-import { AppAlarmService } from '../../core/service/app-alarm.service';
-
 import { User } from './user.model';
-import { ResponseList } from '../../core/model/response-list';
-
 
 @Component({
   selector: 'app-user-grid',

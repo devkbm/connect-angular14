@@ -1,11 +1,12 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AggridFunction } from 'src/app/core/grid/aggrid-function';
+
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
-import { BoardService } from './board.service';
+import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { ResponseList } from 'src/app/core/model/response-list';
 
 import { FirstDataRenderedEvent, GridSizeChangedEvent, RowClickedEvent, RowDoubleClickedEvent, SelectionChangedEvent } from 'ag-grid-community';
 
+import { BoardService } from './board.service';
 import { Article } from './article.model';
 
 

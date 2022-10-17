@@ -34,7 +34,7 @@ export class StaffService extends DataService {
     );
   }
 
-  getEmployeeList(params: SearchStaff): Observable<ResponseList<Staff>> {
+  getStaffList(params: SearchStaff): Observable<ResponseList<Staff>> {
     const url = `${this.API_URL}/staff`;
     const obj:any = params;
     const options = {
@@ -44,7 +44,7 @@ export class StaffService extends DataService {
     };
 
     return this.http.get<ResponseList<Staff>>(url, options).pipe(
-      catchError(this.handleError<ResponseList<Staff>>('getEmployeeList', undefined))
+      catchError(this.handleError<ResponseList<Staff>>('getStaffList', undefined))
     );
   }
 

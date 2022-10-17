@@ -39,3 +39,9 @@
   left: 0px;
   /*background: #fff;*/
 }
+
+.grid-wrapper {
+  height: calc(100vh - 300px);
+  margin: 0;
+  padding: 0;
+}
