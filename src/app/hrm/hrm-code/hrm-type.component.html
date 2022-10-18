@@ -2,37 +2,7 @@
 
 <div nz-row class="btn-group">
 
-  <div nz-col [nzSpan]="8">
-    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate" [nzSuffix]="suffixIconSearch">
-      <input type="text" [(ngModel)]="ledgerQueryValue" nz-input placeholder="input search text" (keyup.enter)="refreshGridHrmType()">
-    </nz-input-group>
-    <ng-template #addOnBeforeTemplate>
-        <nz-select [(ngModel)]="ledgerQueryKey">
-          <nz-option [nzLabel]="'발령번호'" [nzValue]="'ledgerId'"></nz-option>
-          <nz-option [nzLabel]="'메뉴그룹명'" [nzValue]="'menuGroupName'"></nz-option>
-        </nz-select>
-      </ng-template>
-    <ng-template #suffixIconSearch>
-      <span nz-icon nzType="search"></span>
-    </ng-template>
-  </div>
-
-  <div nz-col [nzSpan]="8">
-    <nz-input-group nzSearch [nzAddOnBefore]="addOnBeforeTemplate2" [nzSuffix]="suffixIconSearch2">
-      <input type="text" [(ngModel)]="ledgerListQueryValue" nz-input placeholder="input search text" (keyup.enter)="refreshGridHrmTypeCode()">
-    </nz-input-group>
-    <ng-template #addOnBeforeTemplate2>
-        <nz-select [(ngModel)]="ledgerListQueryKey">
-          <nz-option [nzLabel]="'직원번호'" [nzValue]="'empId'"></nz-option>
-          <nz-option [nzLabel]="'메뉴명'" [nzValue]="'menuName'"></nz-option>
-        </nz-select>
-      </ng-template>
-    <ng-template #suffixIconSearch2>
-      <span nz-icon nzType="search"></span>
-    </ng-template>
-  </div>
-
-  <div nz-col [nzSpan]="8" style="text-align: right;">
+  <div nz-col [nzSpan]="24" style="text-align: right;">
     <button nz-button (click)="newHrmTypeForm()">
       <span nz-icon nzType="search"></span>
       구분코드등록

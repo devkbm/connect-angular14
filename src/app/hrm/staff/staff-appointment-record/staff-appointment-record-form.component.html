@@ -1,76 +1,67 @@
 {{fg.value | json}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
+
+  <!-- ERROR TEMPLATE-->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+  </ng-template>
+
   <!-- 1 row -->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="staffId" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직원번호
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
-        <input nz-input id="staffId" formControlName="staffId" placeholder="직원번호를 입력해주세요.">
-        <ng-template #errorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">
-            필수 입력 값입니다.
-          </ng-container>
-        </ng-template>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-input-text #staffId
+        [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
+        placeholder="직원ID를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원ID
+      </app-nz-input-text>
+    </div>
 
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="id" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        식별자
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <input nz-input id="id" formControlName="id">
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="staffNo" itemId="staffNo"
+        placeholder="직원번호를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원번호
+      </app-nz-input-text>
+    </div>
   </div>
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="appointmentDate" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        발령일
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
-        <nz-date-picker id="appointmentDate" formControlName="appointmentDate" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
-        <ng-template #errorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">
-              필수 입력 값입니다.
-          </ng-container>
-        </ng-template>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-input-date
+        [parentFormGroup]="this.fg" formControlName="appointmentDate" itemId="appointmentDate"
+        [required]="true" [nzErrorTip]="errorTpl">발령일
+      </app-nz-input-date>
+    </div>
 
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="appointmentEndDate" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        발령일
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-date-picker id="appointmentEndDate" formControlName="appointmentEndDate" nzFormat="yyyy-MM-dd" style="width: 130px"></nz-date-picker>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-input-date
+        [parentFormGroup]="this.fg" formControlName="appointmentEndDate" itemId="appointmentEndDate"
+        [required]="false" [nzErrorTip]="errorTpl">발령종료일
+      </app-nz-input-date>
+    </div>
   </div>
 
   <!-- 3 row -->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="recordName" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        발령내용
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <input nz-input id="recordName" formControlName="recordName">
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="recordName" itemId="recordName"
+        placeholder="발령내용을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">발령내용
+      </app-nz-input-text>
+    </div>
 
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="comment" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        비고
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <input nz-input id="comment" formControlName="comment">
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+        placeholder="비고내용을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">비고
+      </app-nz-input-text>
+    </div>
+
   </div>
 
   <!-- 4 row -->
@@ -100,44 +91,23 @@
 
   <!-- 5 row -->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="jobGroupCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직군
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <!--[style.width]="widt"-->
-        <nz-select
-            nzShowSearch
-            formControlName="jobGroupCode"
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="jobGroupCode" itemId="jobGroupCode"
+        [options]="groupJobCodeList" [opt_value]="'codeName'" [opt_label]="'code'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">권한
+      </app-nz-select-custom>
+    </div>
 
-            nzPlaceHolder="Please select">
-            <nz-option
-                *ngFor="let option of groupJobCodeList"
-                [nzLabel]="option.codeName + '[' + option.code + ']'"
-                [nzValue]="option.code">
-            </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="jobPositionCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직위
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-select
-          nzShowSearch
-          formControlName="jobPositionCode"
-
-          nzPlaceHolder="Please select">
-          <nz-option
-              *ngFor="let option of jobPositionCodeList"
-              [nzLabel]="option.codeName + '[' + option.code + ']'"
-              [nzValue]="option.code">
-          </nz-option>
-      </nz-select>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="jobPositionCode" itemId="jobPositionCode"
+        [options]="jobPositionCodeList" [opt_value]="'codeName'" [opt_label]="'code'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">권한
+      </app-nz-select-custom>
+    </div>
   </div>
 
   <!-- 6 row-->

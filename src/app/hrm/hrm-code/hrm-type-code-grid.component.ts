@@ -22,7 +22,7 @@ import { HrmTypeDetailCode } from './hrm-type-detail-code';
         (gridReady)="onGridReady($event)"
         (selectionChanged)="selectionChanged($event)"
         (rowDoubleClicked)="rowDbClicked($event)">
-    </ag-grid-angular>  
+    </ag-grid-angular>
   `
 })
 export class HrmTypeCodeGridComponent extends AggridFunction implements OnInit {
@@ -64,11 +64,11 @@ export class HrmTypeCodeGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      { headerName: '코드',         field: 'code',        width: 150 },
-      { headerName: '코드명',       field: 'codeName',    width: 200 },
-      { headerName: '설명',         field: 'comment',     width: 200 },
+      { headerName: '코드',         field: 'code',        width: 150, filter: 'agTextColumnFilter' },
+      { headerName: '코드명',       field: 'codeName',    width: 200, filter: 'agTextColumnFilter' },
+      { headerName: '설명',         field: 'comment',     width: 200, filter: 'agTextColumnFilter' },
       { headerName: '사용여부',     field: 'useYn',       width: 80 },
-      { headerName: '순번',         field: 'sequence',    width: 80 }
+      { headerName: '순번',         field: 'sequence',    width: 80,  filter: 'agNumberColumnFilter' }
     ];
 
     this.defaultColDef = {
