@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SystemManagementModule } from 'src/app/system/system-management.module';
-
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -26,16 +24,20 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 
-
+/* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 
-import { StaffRegistFormComponent } from './staff-regist-form.component';
-import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
-import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
-import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
-import { StaffGridComponent } from './staff-grid.component';
-import { StaffManagementComponent } from './staff-management.component';
+import { HrmRelationCodeGridComponent } from './hrm-relation-code-grid.component';
+import { HrmTypeCodeGridComponent } from './hrm-type-code-grid.component';
+import { HrmTypeGridComponent } from './hrm-type-grid.component';
+import { HrmTypeFormComponent } from './hrm-type-form.component';
+import { HrmTypeCodeFormComponent } from './hrm-type-code-form.component';
+import { HrmRelationCodeFormComponent } from './hrm-relation-code-form.component';
+import { HrmTypeComponent } from './hrm-type.component';
+import { HrmRelationCodeComponent } from './hrm-relation-code.component';
+import { HrmCodeService } from './hrm-code.service';
 
 const nzModules = [
   NzLayoutModule,
@@ -63,23 +65,25 @@ const nzModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SystemManagementModule,
     nzModules,
     AgGridModule,
     SharedModule
   ],
-  declarations: [
-    StaffRegistFormComponent,
-    StaffAppointmentRecordFormComponent,
-    StaffAppointmentRecordGridComponent,
-    NewStaffFormComponent,
-    StaffGridComponent,
-    StaffManagementComponent
+  declarations: [    
+    HrmRelationCodeComponent,
+    HrmRelationCodeGridComponent,
+    HrmRelationCodeFormComponent,
+    HrmTypeCodeGridComponent,
+    HrmTypeCodeFormComponent,
+    HrmTypeGridComponent,
+    HrmTypeFormComponent,
+    HrmTypeComponent    
+  ],
+  providers: [
+    HrmCodeService
   ],
   exports: [
-    StaffRegistFormComponent,
-    StaffAppointmentRecordFormComponent,
-    StaffManagementComponent
+    HrmTypeComponent
   ]
 })
-export class StaffModule { }
+export class HrmCodeModule { }

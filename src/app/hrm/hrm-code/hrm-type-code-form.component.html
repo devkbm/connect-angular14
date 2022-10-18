@@ -1,0 +1,82 @@
+{{fg.getRawValue() | json}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+
+  <!-- ERROR TEMPLATE-->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="typeId" itemId="typeId"
+        placeholder=""
+        [required]="true" [nzErrorTip]="errorTpl">구분ID
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="code" itemId="code"
+        placeholder="코드를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">코드
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="codeName" itemId="codeName"
+        placeholder="코드명를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">코드명
+      </app-nz-input-text>
+    </div>
+  </div>    
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-checkbox
+        [parentFormGroup]="fg" formControlName="useYn"
+        checkboxText=""
+        [required]="true">사용여부
+      </app-nz-input-checkbox>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-number-custom
+        [parentFormGroup]="this.fg" formControlName="sequence" itemId="sequence"
+        [required]="true" [nzErrorTip]="errorTpl">출력 순번
+      </app-nz-input-number-custom>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+        placeholder="설명을 입력해주세요."
+        [rows] = "20"
+        [required]="false" [nzErrorTip]="errorTpl">설명
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <app-nz-crud-button-group    
+    [isSavePopupConfirm]="false"
+    (searchClick)="get(this.fg.get('typeId')?.value, this.fg.get('code')?.value)"
+    (closeClick)="closeForm()"
+    (saveClick)="submit()"
+    (deleteClick)="deleteEntity()">
+  </app-nz-crud-button-group>  
+</div>
+

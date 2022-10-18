@@ -41,7 +41,7 @@ export class StaffGridComponent extends AggridFunction implements OnInit {
     this.defaultColDef = { resizable: true, sortable: true };
 
     this.columnDefs = [
-      {
+      /*{
         headerName: '',
         width: 34,
         cellStyle: {'text-align': 'center', padding: '0px'},
@@ -51,7 +51,7 @@ export class StaffGridComponent extends AggridFunction implements OnInit {
           label: '',
           iconType: 'form'
         }
-      },
+      },*/
       {
         headerName: 'No',
         valueGetter: 'node.rowIndex + 1',

@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+import { AppBase } from 'src/app/core/app/app-base';
+
 import { DeptTreeComponent } from './dept-tree.component';
 import { DeptFormComponent } from './dept-form.component';
-import { AppBase } from '../../core/app/app-base';
 import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 
 @Component({

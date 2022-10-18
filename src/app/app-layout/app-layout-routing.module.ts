@@ -22,7 +22,7 @@ import { TodosComponent } from '../cooperation/todo/todos.component';
 
 import { AppointmentCodeComponent } from '../hrm/appointment/component/appointment-code/appointment-code.component';
 import { HrmRelationCodeComponent } from '../hrm/appointment/component/hrm-type/hrm-relation-code.component';
-import { HrmTypeComponent } from '../hrm/appointment/component/hrm-type/hrm-type.component';
+
 import { LedgerComponent } from '../hrm/appointment/component/ledger/ledger.component';
 import { DutyApplicationComponent } from '../hrm/duty/component/duty-application/duty-application.component';
 import { DutyCodeComponent } from '../hrm/duty/component/duty-code/duty-code.component';
@@ -30,7 +30,8 @@ import { EmployeeMasterComponent } from '../hrm/employee/component/basic-info/em
 import { DeptEmployeeListComponent } from '../hrm/employee/component/dept-employee-list/dept-employee-list.component';
 import { PayitemComponent } from './../hrm/payitem/component/pay-item/payitem.component';
 import { PayTableComponent } from '../hrm/payitem/component/paytable/pay-table.component';
-import { StaffRegistFormComponent } from '../hrm/staff/staff-regist-form.component';
+import { StaffManagementComponent } from '../hrm/staff/staff-management.component';
+import { HrmTypeComponent } from '../hrm/hrm-code/hrm-type.component';
 
 const layoutroutes: Routes = [
   {
@@ -65,7 +66,7 @@ const layoutroutes: Routes = [
       {path: 'dutyapplication',   component: DutyApplicationComponent},
       {path: 'payitem',           component: PayitemComponent},
       {path: 'paytable',          component: PayTableComponent},
-      {path: 'staff',             component: StaffRegistFormComponent}
+      {path: 'staff',             component: StaffManagementComponent}
     ]
   }
 ];
