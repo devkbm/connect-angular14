@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Dept } from 'src/app/system/dept/dept.model';
 import { DeptService } from 'src/app/system/dept/dept.service';
@@ -18,8 +18,9 @@ import { StaffAppointmentRecordService } from './staff-appointment-record.servic
   styleUrls: ['./staff-appointment-record-form.component.css']
 })
 export class StaffAppointmentRecordFormComponent extends FormBase implements OnInit {
+  
+  @Input() staff?: {staffId: string, staffNo: string, staffName: string};
 
-   ;
   bizTypeList = [{code:'code', name:'name'},{code:'code2', name:'name2'}];
 
   /**
@@ -60,7 +61,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   //deptList: Dept[];
 
   constructor(private fb: FormBuilder,
-              private staffAppointmentRecordService: StaffAppointmentRecordService,
+              private service: StaffAppointmentRecordService,
               private hrmCodeService: HrmCodeService,
               private deptService: DeptService,
               private appAlarmService: AppAlarmService) { super(); }
@@ -75,21 +76,24 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
     this.getHrmTypeDetailCodeList('HR0007', "dutyResponsibilityCodeList");
 
     this.fg = this.fb.group({
-      staffId             : [ null, [ Validators.required ] ],
-      id                  : [ null ],
-      appointmentDate     : [ null ],
-      appointmentEndDate  : [ null ],
-      recordName          : [ null ],
-      processWatingYn     : [ null ],
-      blngDeptCode        : [ null ],
-      workDeptCode        : [ null ],
-      jobGroupCode        : [ null ],
-      jobPositionCode     : [ null ],
-      occupationCode      : [ null ],
-      jobGradeCode        : [ null ],
-      payStepCode         : [ null ],
-      jobCode                 : [ null ],
-      dutyResponsibilityCode  : [ null ]
+      staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
+      staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
+      staffName               : new FormControl<string | null>(null),
+      id                      : new FormControl<string | null>(null),
+      appointmentDate         : new FormControl<Date | null>(null),
+      appointmentEndDate      : new FormControl<Date | null>(null),
+      recordName              : new FormControl<string | null>(null),
+      comment                 : new FormControl<string | null>(null),
+      processWatingYn         : new FormControl<string | null>(null),
+      blngDeptCode            : new FormControl<string | null>(null),
+      workDeptCode            : new FormControl<string | null>(null),
+      jobGroupCode            : new FormControl<string | null>(null),
+      jobPositionCode         : new FormControl<string | null>(null),
+      occupationCode          : new FormControl<string | null>(null),
+      jobGradeCode            : new FormControl<string | null>(null),
+      payStepCode             : new FormControl<string | null>(null),
+      jobCode                 : new FormControl<string | null>(null),
+      dutyResponsibilityCode  : new FormControl<string | null>(null)
     });
 
     this.newForm();
@@ -98,19 +102,23 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   newForm(): void {
     this.formType = FormType.NEW;
 
-    this.fg.reset();
+    if (this.staff) {
+      this.fg.get('staffId')?.setValue(this.staff?.staffId);
+      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
+      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+    }
+    
   }
 
   modifyForm(formData: StaffAppointmentRecord): void {
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
-
   }
 
   getForm(staffId: string, id: string): void {
 
-    this.staffAppointmentRecordService
+    this.service
         .getStaffAppointmentRecord(staffId, id)
         .subscribe(
           (model: ResponseObject<StaffAppointmentRecord>) => {
@@ -125,7 +133,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   }
 
   submitForm(): void {
-    this.staffAppointmentRecordService
+    this.service
         .saveStaffAppointmentRecord(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<StaffAppointmentRecord>) => {
@@ -154,8 +162,9 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
     grid.getGridList(this.fg.get('staffId')?.value);
     //this.formClosed.emit(this.fg.getRawValue());
   }
+
   // [key: string]: any
-  private getHrmTypeDetailCodeList(typeId: string, propertyName: string): void {
+  getHrmTypeDetailCodeList(typeId: string, propertyName: string): void {
     const params = {
       typeId : typeId
     };

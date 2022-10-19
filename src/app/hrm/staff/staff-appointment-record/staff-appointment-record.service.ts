@@ -15,7 +15,7 @@ import { StaffAppointmentRecord } from './staff-appointment-record.model';
 export class StaffAppointmentRecordService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/hrm/staff', http, tokenExtractor);
+    super('/api/hrm/staff', http, tokenExtractor);
   }
 
   getStaffAppointmentRecordList(staffId: string): Observable<ResponseList<StaffAppointmentRecord>> {

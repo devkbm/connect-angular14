@@ -10,7 +10,7 @@
 
   <!-- 1 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-text #staffId
         [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
         placeholder="직원ID를 입력해주세요."
@@ -18,25 +18,42 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="staffNo" itemId="staffNo"
         placeholder="직원번호를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">직원번호
       </app-nz-input-text>
     </div>
-  </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="staffName" itemId="staffName"
+        placeholder="직원명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원명
+      </app-nz-input-text>
+    </div>
+  </div>    
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="id" itemId="id"
+        placeholder=""
+        [required]="false" [nzErrorTip]="errorTpl">발령ID
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
       <app-nz-input-date
         [parentFormGroup]="this.fg" formControlName="appointmentDate" itemId="appointmentDate"
         [required]="true" [nzErrorTip]="errorTpl">발령일
       </app-nz-input-date>
     </div>
 
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-date
         [parentFormGroup]="this.fg" formControlName="appointmentEndDate" itemId="appointmentEndDate"
         [required]="false" [nzErrorTip]="errorTpl">발령종료일
@@ -66,25 +83,19 @@
 
   <!-- 4 row -->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="blngDeptCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        소속부서
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <app-dept-select formControlName="blngDeptCode">
-        </app-dept-select>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-dept-tree-select
+        [parentFormGroup]="fg" formControlName="blngDeptCode"
+        placeholder="부서 없음">소속부서
+      </app-nz-dept-tree-select>
+    </div>    
 
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="workDeptCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        근무부서
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <app-dept-select formControlName="workDeptCode">
-        </app-dept-select>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-dept-tree-select
+        [parentFormGroup]="fg" formControlName="workDeptCode"
+        placeholder="부서 없음">근무부서
+      </app-nz-dept-tree-select>
+    </div>    
 
   </div>
 
@@ -94,126 +105,74 @@
     <div nz-col nzSpan="12">
       <app-nz-select-custom
         [parentFormGroup]="fg" formControlName="jobGroupCode" itemId="jobGroupCode"
-        [options]="groupJobCodeList" [opt_value]="'codeName'" [opt_label]="'code'"
+        [options]="groupJobCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
-        [nzErrorTip]="errorTpl" [required]="true">권한
+        [nzErrorTip]="errorTpl" [required]="true">직군
       </app-nz-select-custom>
     </div>
 
     <div nz-col nzSpan="12">
       <app-nz-select-custom
         [parentFormGroup]="fg" formControlName="jobPositionCode" itemId="jobPositionCode"
-        [options]="jobPositionCodeList" [opt_value]="'codeName'" [opt_label]="'code'"
+        [options]="jobPositionCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
-        [nzErrorTip]="errorTpl" [required]="true">권한
+        [nzErrorTip]="errorTpl" [required]="true">직위
       </app-nz-select-custom>
     </div>
   </div>
 
   <!-- 6 row-->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="occupationCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직종
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-select
-          nzShowSearch
-          formControlName="occupationCode"
-
-          nzPlaceHolder="Please select">
-          <nz-option
-              *ngFor="let option of occupationCodeList"
-              [nzLabel]="option.codeName + '[' + option.code + ']'"
-              [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="jobGradeCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직급
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-select
-          nzShowSearch
-          formControlName="jobGradeCode"
-
-          nzPlaceHolder="Please select">
-          <nz-option
-              *ngFor="let option of jobGradeCodeList"
-              [nzLabel]="option.codeName + '[' + option.code + ']'"
-              [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="occupationCode" itemId="occupationCode"
+        [options]="occupationCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">직종
+      </app-nz-select-custom>
+    </div>
+    
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="jobGradeCode" itemId="jobGradeCode"
+        [options]="jobGradeCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">직급
+      </app-nz-select-custom>
+    </div>    
   </div>
 
   <!-- 7 row-->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="payStepCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        호봉
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-select
-          nzShowSearch
-          formControlName="payStepCode"
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="payStepCode" itemId="payStepCode"
+        [options]="payStepCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">호봉
+      </app-nz-select-custom>
+    </div>
 
-          nzPlaceHolder="Please select">
-          <nz-option
-              *ngFor="let option of payStepCodeList"
-              [nzLabel]="option.codeName + '[' + option.code + ']'"
-              [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
-
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="jobCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직무
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-select
-          nzShowSearch
-          formControlName="jobCode"
-
-          nzPlaceHolder="Please select">
-          <nz-option
-              *ngFor="let option of jobCodeList"
-              [nzLabel]="option.codeName + '[' + option.code + ']'"
-              [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="jobCode" itemId="jobCode"
+        [options]="jobCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">직무
+      </app-nz-select-custom>
+    </div>
   </div>
 
   <!-- 8 row-->
   <div nz-row nzGutter="8">
-    <nz-form-item class="form-item">
-      <nz-form-label nzFor="dutyResponsibilityCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">
-        직책
-      </nz-form-label>
-      <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <nz-select
-          nzShowSearch
-          formControlName="dutyResponsibilityCode"
-
-          nzPlaceHolder="Please select">
-          <nz-option
-              *ngFor="let option of dutyResponsibilityCodeList"
-              [nzLabel]="option.codeName + '[' + option.code + ']'"
-              [nzValue]="option.code">
-          </nz-option>
-        </nz-select>
-      </nz-form-control>
-    </nz-form-item>
-
-
+    <div nz-col nzSpan="12">
+      <app-nz-select-custom
+        [parentFormGroup]="fg" formControlName="dutyResponsibilityCode" itemId="dutyResponsibilityCode"
+        [options]="dutyResponsibilityCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">직책
+      </app-nz-select-custom>
+    </div>
   </div>
 
 

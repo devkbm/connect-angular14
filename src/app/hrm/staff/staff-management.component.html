@@ -1,11 +1,13 @@
-
+{{staff | json}}
 <div class="app-grid">
   
   <app-staff-grid (rowClickedEvent)="staffGridRowClicked($event)">
 
   </app-staff-grid>
   
-  <app-staff-regist-form>
+  <app-staff-regist-form [staffId]="staffId">
 
   </app-staff-regist-form>
+
+  
 </div>

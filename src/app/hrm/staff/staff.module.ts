@@ -71,7 +71,7 @@ const nzModules = [
   declarations: [
     StaffRegistFormComponent,
     StaffAppointmentRecordFormComponent,
-    StaffAppointmentRecordGridComponent,
+    StaffAppointmentRecordGridComponent,    
     NewStaffFormComponent,
     StaffGridComponent,
     StaffManagementComponent

@@ -17,7 +17,7 @@ import { HrmRelationCode } from '../model/hrm-relation-code';
 export class HrmCodeService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/hrm', http, tokenExtractor);
+    super('/api/hrm', http, tokenExtractor);
   }
 
   getHrmTypeList(params: any): Observable<ResponseList<HrmType>> {

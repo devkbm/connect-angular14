@@ -1,10 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseObject } from 'src/app/core/model/response-object';
@@ -24,7 +19,8 @@ import { NewStaff } from './new-staff-form/new-staff.model';
 })
 export class StaffRegistFormComponent extends FormBase implements OnInit {
    
-  formModel?: Staff;
+  @Input() staffId?: string;
+
   imageUrl: any;
   imageUploadParam: any;
 
@@ -33,12 +29,22 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     selectedRowId: null
   }
 
+  newAppointment: { drawerVisible: boolean, selectedRowId: any } = {
+    drawerVisible: false,
+    selectedRowId: null    
+  }
+
+  staffAppointment?: {staffId: any, staffNo: any, staffName: any} ={
+    staffId: null,
+    staffNo: null,
+    staffName: null
+  }
+
   constructor(private fb: FormBuilder,
               private staffServie: StaffService,
-              private appAlarmService: AppAlarmService) { super(); }
-
-
-  ngOnInit(): void {
+              private appAlarmService: AppAlarmService) { 
+    super(); 
+  
     this.fg = this.fb.group({
       staffId                     : [ null, [ Validators.required ] ],
       name                        : [ null, [ Validators.required ] ],
@@ -47,20 +53,20 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
       residentRegistrationNumber  : [ null ],
       gender                      : [ null ],
       birthday                    : [ null ],
-      workCondition               : [ null ],
-      imagePath                   : [ null ]
+      workCondition               : [ null ],      imagePath                   : [ null ]
     });
 
+  }
+
+  ngOnInit(): void {    
     this.newForm();
   }
 
-  newForm(): void {
-    this.formModel;
-    this.formType = FormType.NEW;
+  newForm(): void {    
+    this.formType = FormType.NEW;    
   }
 
-  public modifyForm(formData: Staff): void {
-    this.formModel = formData;
+  public modifyForm(formData: Staff): void {    
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
@@ -79,6 +85,12 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
               this.modifyForm(model.data);
 
               this.imageUploadParam = {employeeId: model.data.staffId};
+
+              this.staffAppointment = {
+                staffId: model.data.staffId,
+                staffNo: model.data.staffNo,
+                staffName: model.data.name
+              }
             } else {
               this.newForm();
             }

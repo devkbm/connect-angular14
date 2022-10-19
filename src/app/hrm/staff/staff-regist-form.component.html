@@ -130,6 +130,11 @@
       <span nz-icon nzType="save" nzTheme="outline"></span>
       신규직원등록
     </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="newAppointment.drawerVisible = true">
+      <span nz-icon nzType="save" nzTheme="outline"></span>
+      발령등록
+    </button>
     <!--
     <button nz-button (click)="getForm(fg.get('staffId')?.value)">
       <span nz-icon nzType="search" nzTheme="outline"></span>
@@ -175,11 +180,28 @@
   nzWidth="80%"
   [nzVisible]="newStaff.drawerVisible"
   nzTitle="직원 등록"
-  (nzOnClose)="this.newStaff.drawerVisible = false">
+  (nzOnClose)="newStaff.drawerVisible = false">
   <!-- (formSaved)="getTermList()"
       (formDeleted)="getTermList()" -->
     <app-new-staff-form *nzDrawerContent      
       [initLoadId]="newStaff.selectedRowId"      
-      (formClosed)="this.newStaff.drawerVisible = false">
+      (formClosed)="newStaff.drawerVisible = false">
     </app-new-staff-form>
+</nz-drawer>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="80%"
+  [nzVisible]="newAppointment.drawerVisible"
+  nzTitle="발령 등록"
+  (nzOnClose)="newAppointment.drawerVisible = false">
+  <!-- (formSaved)="getTermList()"
+      (formDeleted)="getTermList()" -->
+    <app-staff-appointment-record-form *nzDrawerContent      
+      [staff]="staffAppointment"
+      [initLoadId]="newAppointment.selectedRowId"      
+      (formClosed)="newAppointment.drawerVisible = false">
+    </app-staff-appointment-record-form>
 </nz-drawer>

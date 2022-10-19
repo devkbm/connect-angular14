@@ -10,8 +10,13 @@ import { StaffRegistFormComponent } from './staff-regist-form.component';
 })
 export class StaffManagementComponent extends AppBase implements OnInit {
 
-  @ViewChild(StaffRegistFormComponent) staff!: StaffRegistFormComponent;
+  @ViewChild(StaffRegistFormComponent) staffForm!: StaffRegistFormComponent;
   
+
+  staff?: {staffId: string, staffNo: string, staffName: string};
+
+  staffId?: string;
+
   constructor(location: Location) {
     super(location);
   }
@@ -20,7 +25,8 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   staffGridRowClicked(params: any) {
-    console.log(params);
-    this.staff.getForm(params.staffId);
+    this.staff = {staffId: params.staffId, staffNo: params.staffNo, staffName: params.name};
+    this.staffId = params.staffId;
+    this.staffForm.getForm(params.staffId);
   }
 }
