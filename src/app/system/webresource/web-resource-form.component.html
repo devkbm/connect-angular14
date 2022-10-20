@@ -32,11 +32,11 @@
   <!-- 2 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="resourceType" itemId="resourceType"
         [options]="resourceTypeList"
         [placeholder]="'리소스타입을 선택해주세요'" [nzErrorTip]="errorTpl" [required]="true">리소스타입
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="12">

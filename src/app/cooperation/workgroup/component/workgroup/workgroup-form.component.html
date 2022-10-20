@@ -60,14 +60,14 @@
 
     <div nz-col nzSpan="12">
       <!--작업그룹 Id 필드-->
-      <app-nz-select-custom
+      <app-nz-input-select
         [mode]="'multiple'"
         [parentFormGroup]="fg" formControlName="memberList"
         [itemId]="'memberList'"
         [options]="memberList" [opt_value]="'userId'" [opt_label]="'name'" [mode]="'tags'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">팀원
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
   </div>

@@ -1,0 +1,64 @@
+<app-nz-page-header-custom title="업무코드 등록" subtitle="This is a subtitle"></app-nz-page-header-custom>
+
+<div nz-row class="btn-group"> 
+  <div nz-col [nzSpan]="24" style="text-align: right;">
+    <button nz-button (click)="selectBizCodeTypeList()">
+      <span nz-icon nzType="search" nzTheme="outline"></span>조회
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="newCodeType()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규 분류
+    </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button (click)="newCode()">
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규 코드
+    </button>
+  </div>
+</div>
+
+<div class="content">
+  <h3 class="pgm-title">업무코드분류 {{codeType | json}}</h3>
+  <app-biz-type-grid
+    (rowClickedEvent)="codeTypeGridRowClicked($event)"
+    (editButtonClickedEvent)="editCodeType($event)"
+    (rowDoubleClickedEvent)="editCodeType($event)">
+  </app-biz-type-grid>
+
+  <h3 class="pgm-title">업무코드 {{code | json}}</h3>
+  <app-biz-code-grid
+    (rowClickedEvent)="codeGridRowClicked($event)"
+    (editButtonClickedEvent)="editCode($event)"
+    (rowDoubleClickedEvent)="editCode($event)">
+    >
+  </app-biz-code-grid>
+</div>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    nzWidth="80%"
+    [nzVisible]="codeType.drawerVisible"
+    nzTitle="업무코드분류 등록"
+    (nzOnClose)="codeType.drawerVisible = false">
+    <app-biz-code-type-form *nzDrawerContent
+        [initLoadId]="codeType.selectedRowId"        
+        (formSaved)="selectBizCodeTypeList()"
+        (formDeleted)="selectBizCodeTypeList()"
+        (formClosed)="codeType.drawerVisible = false">
+    </app-biz-code-type-form>
+</nz-drawer>
+
+<nz-drawer
+    [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+    [nzMaskClosable]="true"
+    nzWidth="80%"
+    [nzVisible]="code.drawerVisible"
+    nzTitle="업무코드 등록"
+    (nzOnClose)="code.drawerVisible = false">
+    <app-biz-code-form *nzDrawerContent
+        [initLoadId]="code.selectedRowId"        
+        (formSaved)="selectBizCodeList()"
+        (formDeleted)="selectBizCodeList()"
+        (formClosed)="code.drawerVisible = false">
+    </app-biz-code-form>
+</nz-drawer>

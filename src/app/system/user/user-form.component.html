@@ -97,22 +97,22 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <!--권한 필드-->
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="authorityList" itemId="formauth"
         [options]="authList" [opt_value]="'authority'" [opt_label]="'description'" [mode]="'tags'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">권한
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="12">
       <!--메뉴그룹 필드-->
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="menuGroupList" itemId="menuGroupList"
         [options]="menuGroupList" [opt_value]="'menuGroupId'" [opt_label]="'menuGroupName'" [mode]="'multiple'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">메뉴그룹
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
   </div>

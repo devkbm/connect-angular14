@@ -23,11 +23,7 @@ import { AppRoutingModule } from '../app-routing.module';
 import { UserDuplicationValidatorDirective } from './user/user-duplication-validator.directive';
 import { CustomHttpInterceptor } from '../core/interceptor/custom-http-interceptor';
 import { UserSessionService } from '../core/service/user-session.service';
-import { BizTypeFormComponent } from './bizcode/biz-type-form.component';
-import { BizCodeComponent } from './bizcode/biz-code.component';
-import { BizDetailFormComponent } from './bizcode/biz-detail-form.component';
 import { SharedModule } from '../shared/shared.module';
-import { BizTypeGridComponent } from './bizcode/biz-type-grid.component';
 import { UserModule } from './user/user.module';
 import { AutorityModule } from './authority/autority.module';
 import { WebResourceModule } from './webresource/web-resource.module';
@@ -38,6 +34,7 @@ import { DeptModule } from './dept/dept.module';
 import { CommonCodeModule } from './commoncode/common-code.module';
 import { CoreModule } from '../core/core.module';
 import { TermModule } from './terms/term.module';
+import { BizCodeModule } from './biz-code/biz-code.module';
 
 const nzModules = [
   NzGridModule,
@@ -70,14 +67,11 @@ const nzModules = [
     HolidayModule,
     DeptModule,
     CommonCodeModule,
-    TermModule
+    TermModule,
+    BizCodeModule
   ],
   declarations: [
-    UserDuplicationValidatorDirective,
-    BizTypeFormComponent,
-    BizCodeComponent,
-    BizDetailFormComponent,
-    BizTypeGridComponent
+    UserDuplicationValidatorDirective    
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
@@ -86,8 +80,7 @@ const nzModules = [
     UserSessionService,
     NzModalService
   ],
-  exports: [
-    BizCodeComponent
+  exports: [    
   ]
 })
 export class SystemManagementModule { }

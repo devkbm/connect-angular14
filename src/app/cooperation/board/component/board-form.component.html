@@ -21,11 +21,11 @@
 
     <div nz-col nzSpan="12">
       <!--게시판타입 필드-->
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="boardType"
         [options]="boardTypeList" [opt_value]="'value'" [opt_label]="'label'"
         [placeholder]="'게시판타입을 선택해주세요.'" [nzErrorTip]="errorTpl" [required]="true">게시판타입
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
   </div>

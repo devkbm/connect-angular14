@@ -12,7 +12,7 @@ import { TermComponent } from '../system/terms/term.component';
 import { CommonCodeComponent } from '../system/commoncode/common-code.component';
 import { DeptComponent } from '../system/dept/dept.component';
 import { HolidayComponent } from '../system/holiday/holiday.component';
-import { BizCodeComponent } from '../system/bizcode/biz-code.component';
+import { BizCodeComponent } from '../system/biz-code/biz-code.component';
 
 import { TeamComponent } from '../cooperation/communication/component/team.component';
 import { BoardComponent } from '../cooperation/board/component/board.component';

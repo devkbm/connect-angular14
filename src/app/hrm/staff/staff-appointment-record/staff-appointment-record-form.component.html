@@ -103,75 +103,75 @@
   <!-- 5 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="jobGroupCode" itemId="jobGroupCode"
         [options]="groupJobCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직군
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="jobPositionCode" itemId="jobPositionCode"
         [options]="jobPositionCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직위
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
   </div>
 
   <!-- 6 row-->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="occupationCode" itemId="occupationCode"
         [options]="occupationCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직종
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
     
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="jobGradeCode" itemId="jobGradeCode"
         [options]="jobGradeCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직급
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>    
   </div>
 
   <!-- 7 row-->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="payStepCode" itemId="payStepCode"
         [options]="payStepCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">호봉
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="jobCode" itemId="jobCode"
         [options]="jobCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직무
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
   </div>
 
   <!-- 8 row-->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-nz-select-custom
+      <app-nz-input-select
         [parentFormGroup]="fg" formControlName="dutyResponsibilityCode" itemId="dutyResponsibilityCode"
         [options]="dutyResponsibilityCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직책
-      </app-nz-select-custom>
+      </app-nz-input-select>
     </div>
   </div>
 

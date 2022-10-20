@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ICellRendererAngularComp } from 'ag-grid-angular';
 import { ICellRendererParams } from 'ag-grid-community';
 
 @Component({
   selector: 'app-button-renderer',
-  template: `
-    <button nz-button nzSize="small" nzBlock="true" (click)="onClick($event)" style="height: 24px">
-      <!--<span nz-icon style="font-size: 16px; color: #08c;"></span>-->
-      <span nz-icon [nzType]="iconType" style="font-size: 16px; color: #08c;"></span>
+  template: `  
+    <button nz-button nzSize="small" nzBlock="true" (click)="onClick($event)" class="button">      
+      <span nz-icon [nzType]="iconType" class="icon"></span>
       {{label}}
     </button>
   `,
-  styles: []
+  styles: [`
+    .button {
+      height: 24px;
+    }
+    .icon {
+      font-size: 16px; color: #08c;
+    }
+  `]
 })
 export class ButtonRendererComponent implements ICellRendererAngularComp {
 
