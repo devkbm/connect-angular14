@@ -1,207 +1,121 @@
 <!--{{fg.getRawValue() | json}}-->
 <!--{{formModel | json}}-->
 <!--{{fileList | json}}-->
-<div class='container'>
-  <form nz-form [formGroup]="fg">
-    <!-- 폼 오류 메시지 템플릿 -->
-    <ng-template #errorTpl let-control>
-      <ng-container *ngIf="control.hasError('required')">
-        필수 입력 값입니다.
-      </ng-container>
-      <ng-container *ngIf="control.hasError('exists')">
-        기존 코드가 존재합니다.
-      </ng-container>
-    </ng-template>
 
-    <div nz-row nzGutter="8">
-      <div nz-col nzSpan="6">
-        <div class="img">
-          <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='96' [nzSrc]="imageUrl"></nz-avatar>
-        </div>
-      </div>
-      <div nz-col>
-          <nz-upload
-                  nzAction="http://localhost:8090/hrm/staff/changeimage"
-                  nzWithCredentials="true"
-                  (nzChange)="handleChange($event)"
-                  [nzShowUploadList]="false"
-                  [nzData]="imageUploadParam">
-              <button nz-button nzType="default" nzShape="round"><span nz-icon nzType="upload"></span></button>
-          </nz-upload>
-          <button nz-button nzType="default" nzShape="round" (click)="downloadImage($event)"><span nz-icon nzType="download"></span></button>
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="6">
+      <div class="img">
+        <nz-avatar class="avatar" [nzShape]="'square'" [nzSize]='96' [nzSrc]="imageUrl"></nz-avatar>
       </div>
     </div>
-
-    <div nz-row nzGutter="8">
-      <div nz-col nzSpan="12">        
-        <app-nz-input-text 
-          [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
-          placeholder="아이디를 입력해주세요."
-          [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">아이디
-        </app-nz-input-text>
-      </div>
-
-      <div nz-col nzSpan="12">        
-        <app-nz-input-text 
-          [parentFormGroup]="fg" formControlName="name" itemId="name"
-          placeholder="직원명을 입력해주세요."
-          [required]="true" [nzErrorTip]="errorTpl">직원명
-        </app-nz-input-text>
-      </div>
+    <div nz-col>
+        <nz-upload
+                nzAction="http://localhost:8090/hrm/staff/changeimage"
+                nzWithCredentials="true"
+                (nzChange)="handleChange($event)"
+                [nzShowUploadList]="false"
+                [nzData]="imageUploadParam">
+            <button nz-button nzType="default" nzShape="round"><span nz-icon nzType="upload"></span></button>
+        </nz-upload>
+        <button nz-button nzType="default" nzShape="round" (click)="downloadImage($event)"><span nz-icon nzType="download"></span></button>
     </div>
-
-    <div nz-row nzGutter="8">
-      <div nz-col nzSpan="12">
-        <app-nz-input-text 
-          [parentFormGroup]="fg" formControlName="nameEng" itemId="nameEng"
-          placeholder="직원명(영문)을 입력해주세요."
-          [required]="false" [nzErrorTip]="errorTpl">직원명(영문)
-        </app-nz-input-text>
-      </div>
-
-      <div nz-col nzSpan="12">
-        <app-nz-input-text 
-          [parentFormGroup]="fg" formControlName="nameChi" itemId="nameChi"
-          placeholder="직원명(한문)을 입력해주세요."
-          [required]="false" [nzErrorTip]="errorTpl">직원명(영문)
-        </app-nz-input-text>        
-      </div>
-    </div>
-
-    <div nz-row nzGutter="8">
-      <div nz-col nzSpan="24">
-        <!--성별 필드-->
-        <nz-form-item>
-          <nz-form-label nzFor="gender" [nzXs]="4" [nzSm]="4">
-            성별
-          </nz-form-label>
-          <nz-radio-group id="gender" formControlName="gender">
-            <label nz-radio nzValue="M">Male</label>
-            <label nz-radio nzValue="F">Female</label>
-          </nz-radio-group>
-        </nz-form-item>
-      </div>
-    </div>
-
-    <div nz-row nzGutter="8">
-      <div nz-col nzSpan="12" >
-        <app-nz-input-text
-          [parentFormGroup]="fg" formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
-          placeholder="주민등록번호를 입력해주세요."
-          [required]="false" [nzErrorTip]="errorTpl">주민등록번호
-        </app-nz-input-text>
-      </div>
-
-      <div nz-col nzSpan="12">
-        <app-nz-input-date
-          [parentFormGroup]="fg" formControlName="birthday" itemId="birthday"
-          [required]="true" [nzErrorTip]="errorTpl">생년월일
-        </app-nz-input-date>        
-      </div>
-    </div>
-
-  </form>
-
-  <nz-tabset style="height: 500px;">    
-    <!--
-    <nz-tab nzTitle="부서변경이력" style="height: 500px;">
-      <app-dept-change-history-grid [gridList]="formModel?.deptHistory"></app-dept-change-history-grid>
-    </nz-tab>
-    <nz-tab nzTitle="인사변경이력" style="height: 500px;">        
-      <app-job-change-history-grid [gridList]="formModel?.jobHistory"></app-job-change-history-grid>
-    </nz-tab>
-    <nz-tab nzTitle="근무상태변경이력" style="height: 500px;">        
-      <app-status-change-history-grid [gridList]="formModel?.statusHistory"></app-status-change-history-grid>      
-    </nz-tab>      
-    -->
-  </nz-tabset>
   </div>
 
-  <div class="footer">
-    <app-nz-crud-button-group
-      [isSavePopupConfirm]="false"
-      (searchClick)="getForm(fg.get('staffId')?.value)"
-      (closeClick)="closeForm()"
-      (saveClick)="submitForm()"
-      (deleteClick)="deleteForm(this.fg.get('id')?.value)">
-    </app-nz-crud-button-group>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newEmployee()">
-      <span nz-icon nzType="save" nzTheme="outline"></span>
-      신규직원등록
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newAppointment.drawerVisible = true">
-      <span nz-icon nzType="save" nzTheme="outline"></span>
-      발령등록
-    </button>
-    <!--
-    <button nz-button (click)="getForm(fg.get('staffId')?.value)">
-      <span nz-icon nzType="search" nzTheme="outline"></span>
-      조회
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button (click)="closeForm()">
-      <span nz-icon nzType="close" nzTheme="outline"></span>
-      닫기
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newEmployee()">
-      <span nz-icon nzType="save" nzTheme="outline"></span>
-      신규직원등록
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary"
-      nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
-      (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
-      <span nz-icon nzType="save" nzTheme="outline"></span>
-      저장
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzDanger
-      nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
-      (nzOnConfirm)="deleteForm(this.fg.get('id')?.value)" (nzOnCancel)="false">
-      <span nz-icon nzType="delete" nzTheme="outline"></span>
-      삭제
-    </button>
-    -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">        
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
+        placeholder="아이디를 입력해주세요."
+        [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">아이디
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">        
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="staffNo" itemId="staffNo"
+        placeholder="직원번호를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원번호
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">        
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="name" itemId="name"
+        placeholder="직원명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원명
+      </app-nz-input-text>
+    </div>
   </div>
 
-  <!--
-  <app-staff-appointment-record-form>
-  </app-staff-appointment-record-form>
--->
-<!--
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="nameEng" itemId="nameEng"
+        placeholder="직원명(영문)을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">직원명(영문)
+      </app-nz-input-text>
+    </div>
 
--->
-<nz-drawer
-  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-  [nzMaskClosable]="true"
-  nzWidth="80%"
-  [nzVisible]="newStaff.drawerVisible"
-  nzTitle="직원 등록"
-  (nzOnClose)="newStaff.drawerVisible = false">
-  <!-- (formSaved)="getTermList()"
-      (formDeleted)="getTermList()" -->
-    <app-new-staff-form *nzDrawerContent      
-      [initLoadId]="newStaff.selectedRowId"      
-      (formClosed)="newStaff.drawerVisible = false">
-    </app-new-staff-form>
-</nz-drawer>
+    <div nz-col nzSpan="12">
+      <app-nz-input-text 
+        [parentFormGroup]="fg" formControlName="nameChi" itemId="nameChi"
+        placeholder="직원명(한문)을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">직원명(한문)
+      </app-nz-input-text>        
+    </div>
+  </div>
 
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <!--성별 필드-->
+      <nz-form-item>
+        <nz-form-label nzFor="gender" [nzXs]="4" [nzSm]="4">
+          성별
+        </nz-form-label>
+        <nz-radio-group id="gender" formControlName="gender">
+          <label nz-radio nzValue="M">Male</label>
+          <label nz-radio nzValue="F">Female</label>
+        </nz-radio-group>
+      </nz-form-item>
+    </div>
+  </div>
 
-<nz-drawer
-  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
-  [nzMaskClosable]="true"
-  nzWidth="80%"
-  [nzVisible]="newAppointment.drawerVisible"
-  nzTitle="발령 등록"
-  (nzOnClose)="newAppointment.drawerVisible = false">
-  <!-- (formSaved)="getTermList()"
-      (formDeleted)="getTermList()" -->
-    <app-staff-appointment-record-form *nzDrawerContent      
-      [staff]="staffAppointment"
-      [initLoadId]="newAppointment.selectedRowId"      
-      (formClosed)="newAppointment.drawerVisible = false">
-    </app-staff-appointment-record-form>
-</nz-drawer>
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12" >
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
+        placeholder="주민등록번호를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">주민등록번호
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-date
+        [parentFormGroup]="fg" formControlName="birthday" itemId="birthday"
+        [required]="true" [nzErrorTip]="errorTpl">생년월일
+      </app-nz-input-date>        
+    </div>
+  </div>
+</form>  
+
+<div>
+  <app-nz-crud-button-group
+    [isSavePopupConfirm]="false"
+    (searchClick)="get(fg.get('staffId')?.value)"
+    (closeClick)="closeForm()"
+    (saveClick)="save()"
+    (deleteClick)="remove(this.fg.get('id')?.value)">
+  </app-nz-crud-button-group>            
+</div>
+  

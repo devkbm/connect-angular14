@@ -1,22 +1,21 @@
-export class BoardHierarchy {
-  constructor(
-    public createdDt: Date,
-    public createdBy: string,
-    public modifiedDt: Date,
-    public modifiedBy: string,
-    public boardId: string,
-    public boardParentId: string,
-    public boardName: string,
-    public boardDescription: string,
-    public fromDate: Date,
-    public toDate: Date,
-    public articleCount: number,
-    public sequence: number,
-    public selected: boolean,
-    public expanded: boolean,
-    public isLeaf: boolean,
-    public active: boolean,
-    public children: BoardHierarchy[],
-    public title: string,
-    public key: string) {}
+export interface BoardHierarchy {
+  createdDt: Date;
+  createdBy: string;
+  modifiedDt: Date;
+  modifiedBy: string;
+  boardId: string;
+  boardParentId: string;
+  boardName: string;
+  boardDescription: string;
+  fromDate: Date;
+  toDate: Date;
+  articleCount: number;
+  sequence: number;
+  selected: boolean;
+  expanded: boolean;
+  isLeaf: boolean;
+  active: boolean;
+  children: BoardHierarchy[];
+  title: string;
+  key: string;
 }

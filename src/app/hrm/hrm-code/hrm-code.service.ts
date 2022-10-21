@@ -9,7 +9,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { HrmType } from './hrm-type.model';
-import { HrmTypeDetailCode } from './hrm-type-detail-code';
+import { HrmCode } from './hrm-code.model';
 import { HrmRelationCode } from './hrm-relation-code';
 
 
@@ -84,7 +84,7 @@ export class HrmCodeService extends DataService {
               );
   }
 
-  getHrmTypeDetailCodeList(params: any): Observable<ResponseList<HrmTypeDetailCode>> {
+  getHrmTypeDetailCodeList(params: any): Observable<ResponseList<HrmCode>> {
     const url = `${this.API_URL}/hrmtype/code`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -92,8 +92,8 @@ export class HrmCodeService extends DataService {
       params: params
     };
 
-    return this.http.get<ResponseList<HrmTypeDetailCode>>(url, options).pipe(
-      catchError(this.handleError<ResponseList<HrmTypeDetailCode>>('getHrmTypeDetailCodeList', undefined))
+    return this.http.get<ResponseList<HrmCode>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<HrmCode>>('getHrmTypeDetailCodeList', undefined))
     );
   }
 
@@ -109,40 +109,40 @@ export class HrmCodeService extends DataService {
     );
   }
 
-  getHrmTypeDetailCode(codeType: string, code: string): Observable<ResponseObject<HrmTypeDetailCode>> {
+  getHrmTypeDetailCode(codeType: string, code: string): Observable<ResponseObject<HrmCode>> {
     const url = `${this.API_URL}/hrmtype/${codeType}/code/${code}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
 
-    return this.http.get<ResponseObject<HrmTypeDetailCode>>(url, options).pipe(
-      catchError(this.handleError<ResponseObject<HrmTypeDetailCode>>('getHrmTypeDetailCode', undefined))
+    return this.http.get<ResponseObject<HrmCode>>(url, options).pipe(
+      catchError(this.handleError<ResponseObject<HrmCode>>('getHrmTypeDetailCode', undefined))
     );
   }
 
 
-  saveHrmTypeDetailCode(dept: HrmType): Observable<ResponseObject<HrmTypeDetailCode>> {
+  saveHrmTypeDetailCode(dept: HrmType): Observable<ResponseObject<HrmCode>> {
     const url = `${this.API_URL}/hrmtype/type/code`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
-    return this.http.post<ResponseObject<HrmTypeDetailCode>>(url, dept, options).pipe(
-      catchError(this.handleError<ResponseObject<HrmTypeDetailCode>>('saveHrmTypeDetailCode', undefined))
+    return this.http.post<ResponseObject<HrmCode>>(url, dept, options).pipe(
+      catchError(this.handleError<ResponseObject<HrmCode>>('saveHrmTypeDetailCode', undefined))
     );
   }
 
-  deleteHrmTypeDetailCode(codeType: string, code: string): Observable<ResponseObject<HrmTypeDetailCode>> {
+  deleteHrmTypeDetailCode(codeType: string, code: string): Observable<ResponseObject<HrmCode>> {
     const url = `${this.API_URL}/hrmtype/${codeType}/code/${code}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
     return this.http
-              .delete<ResponseObject<HrmTypeDetailCode>>(url, options)
+              .delete<ResponseObject<HrmCode>>(url, options)
               .pipe(
-                catchError(this.handleError<ResponseObject<HrmTypeDetailCode>>('deleteHrmTypeDetailCode', undefined))
+                catchError(this.handleError<ResponseObject<HrmCode>>('deleteHrmTypeDetailCode', undefined))
               );
   }
 

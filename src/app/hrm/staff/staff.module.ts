@@ -6,6 +6,7 @@ import { SystemManagementModule } from 'src/app/system/system-management.module'
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -26,17 +27,6 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 
-
-import { AgGridModule } from 'ag-grid-angular';
-import { SharedModule } from 'src/app/shared/shared.module';
-
-import { StaffRegistFormComponent } from './staff-regist-form.component';
-import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
-import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
-import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
-import { StaffGridComponent } from './staff-grid.component';
-import { StaffManagementComponent } from './staff-management.component';
-
 const nzModules = [
   NzLayoutModule,
   NzGridModule,
@@ -55,8 +45,23 @@ const nzModules = [
   NzAvatarModule,
   NzCardModule,
   NzUploadModule,
-  NzRadioModule
+  NzRadioModule,
+  NzIconModule
 ]
+
+/* AG-GRID */
+import { AgGridModule } from 'ag-grid-angular';
+/* SHARE MODULE */
+import { SharedModule } from 'src/app/shared/shared.module';
+
+import { StaffRegistFormComponent } from './staff-regist-form.component';
+import { StaffAppointmentRecordFormComponent } from './staff-appointment-record/staff-appointment-record-form.component';
+import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
+import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component';
+import { StaffGridComponent } from './staff-grid.component';
+import { StaffManagementComponent } from './staff-management.component';
+
+
 
 @NgModule({
   imports: [

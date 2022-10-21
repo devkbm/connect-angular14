@@ -1,14 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 
-import { AppBase } from '../../core/app/app-base';
-import { ResponseList } from '../../core/model/response-list';
+import { AppBase } from 'src/app/core/app/app-base';
+import { ResponseList } from 'src/app/core/model/response-list';
 
 import { CommonCodeFormComponent } from './common-code-form.component';
 import { CommonCodeTreeComponent } from './common-code-tree.component';
 import { CommonCodeService } from './common-code.service';
 import { SystemTypeEnum } from './system-type-enum.model';
-import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
@@ -16,15 +15,10 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
   templateUrl: './common-code.component.html',
   styleUrls: ['./common-code.component.css']
 })
-export class CommonCodeComponent extends AppBase implements OnInit {
+export class CommonCodeComponent extends AppBase implements OnInit {  
 
-  menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
-
-  @ViewChild(CommonCodeTreeComponent, {static: true})
-  tree!: CommonCodeTreeComponent;
-
-  @ViewChild(CommonCodeFormComponent, {static: true})
-  form!: CommonCodeFormComponent;
+  @ViewChild(CommonCodeTreeComponent) tree!: CommonCodeTreeComponent;
+  @ViewChild(CommonCodeFormComponent) form!: CommonCodeFormComponent;
 
   systemTypeCodeList: SystemTypeEnum[] = [];
 
@@ -85,16 +79,16 @@ export class CommonCodeComponent extends AppBase implements OnInit {
   }
 
   saveCommonCode(): void {
-    this.form.submitCommonCode();
+    this.form.save();
   }
 
   deleteCommonCode(): void {
-    this.form.deleteCommonCode();
+    this.form.remove();
   }
 
   selectedItem(item: any): void {
     this.selectedCode = item.id;
-    this.form.getCommonCode(item.id);
+    this.form.get(item.id);
   }
 
   getSystemTypeCode(): void {

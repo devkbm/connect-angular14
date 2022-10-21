@@ -26,16 +26,18 @@ import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 import { ColorPickerModule } from 'ngx-color-picker';
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
 
-import { WorkGroupService } from './service/workgroup.service';
-import { WorkgroupComponent } from './component/workgroup/workgroup.component';
-import { WorkGroupFormComponent } from './component/workgroup/workgroup-form.component';
-import { WorkScheduleFormComponent } from './component/workgroup/work-schedule-form.component';
-import { WorkCalendarComponent } from './component/workgroup/work-calendar.component';
-import { MyWorkGroupGridComponent } from './component/workgroup/myworkgroup-grid.component';
+import { WorkGroupService } from './work-group/workgroup.service';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
+
+import { WorkCalendarComponent } from './calendar/work-calendar.component';
+import { WorkgroupComponent } from './workgroup.component';
+import { WorkGroupFormComponent } from './work-group/workgroup-form.component';
+import { WorkScheduleFormComponent } from './schedule/work-schedule-form.component';
+import { MyWorkGroupGridComponent } from './work-group/myworkgroup-grid.component';
+import { WorkScheduleService } from './schedule/work-schedule.service';
 
 
 const nzModules = [
@@ -79,7 +81,8 @@ const nzModules = [
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
     DatePipe,
-    WorkGroupService
+    WorkGroupService,
+    WorkScheduleService
   ],
   exports: [
     WorkgroupComponent

@@ -36,7 +36,7 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
 
   ngAfterViewInit(): void {  
     if (this.initLoadId.typeId && this.initLoadId.code) {
-      this.loadForm(this.initLoadId.typeId, this.initLoadId.code);
+      this.get(this.initLoadId.typeId, this.initLoadId.code);
     } else {
       this.newForm(this.initLoadId.typeId);
     }
@@ -57,8 +57,12 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
     this.fg.get('code')?.disable();
     this.fg.patchValue(formData);
   }
+  
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
 
-  loadForm(typeId: string, code: string): void {
+  get(typeId: string, code: string): void {
     this.service
         .get(typeId, code)
         .subscribe(
@@ -73,8 +77,11 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  saveForm(): void {
-    if (this.fg.invalid) return;
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm();
+      return;
+    }
 
     this.service
         .save(this.fg.getRawValue())
@@ -86,7 +93,7 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
         )
   }
 
-  deleteForm(typeCode: string, detailCode: string): void {
+  remove(typeCode: string, detailCode: string): void {
     this.service
         .delete(typeCode, detailCode)
         .subscribe(
@@ -95,10 +102,6 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
 }

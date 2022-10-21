@@ -1,18 +1,17 @@
-export class DeptHierarchy {
-  constructor(
-    public parentDeptCode: string,
-    public deptCode: string,
-    public deptNameKorean: string,
-    public deptAbbreviationKorean: string,
-    public deptNameEnglish: string,
-    public deptAbbreviationEnglish: string,
-    public fromDate: string,
-    public toDate: string,
-    public seq: number,
-    public comment: string,
+export interface DeptHierarchy {
+  parentDeptCode: string;
+  deptCode: string;
+  deptNameKorean: string;
+  deptAbbreviationKorean: string;
+  deptNameEnglish: string;
+  deptAbbreviationEnglish: string;
+  fromDate: string;
+  toDate: string;
+  seq: number;
+  comment: string;
 
-    public title: string,
-    public key: string,
-    public isLeaf: boolean,
-    public children: DeptHierarchy[]) {}
+  title: string;
+  key: string;
+  isLeaf: boolean;
+  children: DeptHierarchy[];
 }

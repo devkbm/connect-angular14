@@ -8,7 +8,7 @@ import { DataService } from '../../core/service/data.service';
 import { ResponseObject } from '../../core/model/response-object';
 import { ResponseList } from '../../core/model/response-list';
 
-import { WebResource } from './web-resource';
+import { WebResource } from './web-resource.model';
 import { ResouceTypeEnum } from './resource-type-enum';
 
 @Injectable()

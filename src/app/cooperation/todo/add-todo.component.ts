@@ -49,7 +49,7 @@ export class AddTodoComponent implements OnInit {
   }
 
   addTodo(newText: string) {
-    const obj: TodoModel = new TodoModel(this.pkTodoGroup, '', false, newText);
+    const obj: TodoModel = {pkTodoGroup: this.pkTodoGroup, pkTodo: '', isCompleted: false, todo: newText};
     this.onTodoAdded.emit(obj);
     this.newText= '';
   }

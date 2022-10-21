@@ -1,4 +1,4 @@
-export interface HrmTypeDetailCode {
+export interface HrmCode {
   typeId: string;
   code: string;
   codeName: string;

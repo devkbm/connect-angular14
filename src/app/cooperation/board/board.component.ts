@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
-import { ArticleGridComponent } from './article-grid.component';
-import { BoardTreeComponent } from './board-tree.component';
-import { Article } from './article.model';
+import { ArticleGridComponent } from './component/article-grid.component';
+import { BoardTreeComponent } from './component/board-tree.component';
+import { Article } from './component/article.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 export interface TabArticle {
@@ -17,22 +17,22 @@ export interface TabArticle {
 })
 export class BoardComponent implements OnInit {
 
-  @ViewChild('boardTree') boardTree!: BoardTreeComponent;
-  @ViewChild('articleGrid') articleGrid!: ArticleGridComponent;
+  @ViewChild(BoardTreeComponent) boardTree!: BoardTreeComponent;
+  @ViewChild(ArticleGridComponent) articleGrid!: ArticleGridComponent;
 
-  board: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerBoard: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
-  article: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerArticle: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
-  articleView: { drawerVisible: boolean, selectedRow: any} = {
-    drawerVisible: false,
-    selectedRow: null
+  drawerArticleView: { visible: boolean, article: any} = {
+    visible: false,
+    article: null
   }
 
   tabIndex: number = 0;
@@ -53,34 +53,34 @@ export class BoardComponent implements OnInit {
 
   setBoardSelect(item: any): void {
     this.tabTitle = item.title;
-    this.board.selectedRowId = item.key;
+    this.drawerBoard.initLoadId = item.key;
 
     this.getArticleGridData();
   }
 
   getArticleGridData(): void {
-    this.article.drawerVisible = false;
-    this.articleView.drawerVisible = false;
+    this.drawerArticle.visible = false;
+    this.drawerArticleView.visible = false;
 
-    this.articleGrid.getArticleList(this.board.selectedRowId);
+    this.articleGrid.getArticleList(this.drawerBoard.initLoadId);
   }
 
   newBoard(): void {
-    this.board.selectedRowId = null;
-    this.board.drawerVisible = true;
+    this.drawerBoard.initLoadId = null;
+    this.drawerBoard.visible = true;
   }
 
   modifyBoard(item: any): void {
-    this.board.drawerVisible = true;
+    this.drawerBoard.visible = true;
   }
 
   getBoardTree(): void {
-    this.board.drawerVisible = false;
+    this.drawerBoard.visible = false;
     this.boardTree.getboardHierarchy();
   }
 
   newArticle(): void {
-    if (this.board.selectedRowId === null || this.board.selectedRowId === undefined)  {
+    if (this.drawerBoard.initLoadId === null || this.drawerBoard.initLoadId === undefined)  {
       this.message.create('error', '게시판을 선택해주세요.');
       return;
     }
@@ -90,36 +90,36 @@ export class BoardComponent implements OnInit {
     this.tabs.push(componentRef);
     */
 
-    this.article.selectedRowId = null;
-    this.article.drawerVisible = true;
+    this.drawerArticle.initLoadId = null;
+    this.drawerArticle.visible = true;
   }
 
   selectArticle(item: any) {
-    this.articleView.selectedRow = item;
-    this.article.selectedRowId = item.articleId;
+    this.drawerArticleView.article = item;
+    this.drawerArticle.initLoadId = item.articleId;
   }
 
   editArticle(): void {
-    this.article.selectedRowId = this.articleGrid.getSelectedRows()[0]?.articleId;
-    if (this.article.selectedRowId === null || this.article.selectedRowId === undefined) {
+    this.drawerArticle.initLoadId = this.articleGrid.getSelectedRows()[0]?.articleId;
+    if (this.drawerArticle.initLoadId === null || this.drawerArticle.initLoadId === undefined) {
       this.message.create('error', '게시글을 선택해주세요.');
       return;
     }
 
-    this.article.drawerVisible = true;
+    this.drawerArticle.visible = true;
   }
 
   addTabArticleView(): void {
     let title: string | null = '';
-    const title_lentgh = this.articleView.selectedRow?.title.length as number;
+    const title_lentgh = this.drawerArticleView.article?.title.length as number;
     if (title_lentgh > 8) {
-      title = this.articleView.selectedRow?.title.substring(0, 8) + '...';
+      title = this.drawerArticleView.article?.title.substring(0, 8) + '...';
     } else {
-      title = this.articleView.selectedRow?.title as string;
+      title = this.drawerArticleView.article?.title as string;
     }
 
-    const articleId = this.articleView.selectedRow?.articleId as number;
-    const article = this.articleView.selectedRow as Article;
+    const articleId = this.drawerArticleView.article?.articleId as number;
+    const article = this.drawerArticleView.article as Article;
     const newTab: TabArticle = {
       tabName: title,
       articleId: articleId,
@@ -128,7 +128,7 @@ export class BoardComponent implements OnInit {
 
     let tabIndex = null;
     for (const index in this.tabs) {
-      if (this.tabs[index].articleId === this.articleView.selectedRow?.articleId) {
+      if (this.tabs[index].articleId === this.drawerArticleView.article?.articleId) {
         tabIndex = index;
       }
     }

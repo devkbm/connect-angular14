@@ -1,6 +1,5 @@
-export class MenuGroup {
-  constructor(
-    public menuGroupId: string,
-    public menuGroupName: string,
-    public description: string) {}
+export interface MenuGroup {
+  menuGroupId: string;
+  menuGroupName: string;
+  description: string;
 }

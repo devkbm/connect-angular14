@@ -1,15 +1,14 @@
-export class Menu {
-  constructor(
-    public createdDt: Date,
-    public createdBy: string,
-    public modifiedDt: Date,
-    public modifiedBy: string,
-    public menuGroupId: string,
-    public menuId: string,
-    public menuName: string,
-    public menuType: string,
-    public parentMenuId: string,
-    public sequence: number,
-    public level: number,
-    public resource: string) { }
+export interface Menu {
+  createdDt: Date;
+  createdBy: string;
+  modifiedDt: Date;
+  modifiedBy: string;
+  menuGroupId: string;
+  menuId: string;
+  menuName: string;
+  menuType: string;
+  parentMenuId: string;
+  sequence: number;
+  level: number;
+  resource: string;
 }

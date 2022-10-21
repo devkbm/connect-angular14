@@ -53,15 +53,15 @@ export class StaffGridComponent extends AggridFunction implements OnInit {
         }
       },*/
       {
-        headerName: 'No',
+        headerName: '',
         valueGetter: 'node.rowIndex + 1',
-        width: 70,
+        width: 38,
         cellStyle: {'text-align': 'center'}
       },
-      {headerName: '직원ID',        field: 'staffId',         width: 100 },      
-      {headerName: '직원번호',      field: 'staffNo',         width: 100 },
-      {headerName: '직원명',        field: 'name',            width: 100 },      
-      {headerName: '생년월일',      field: 'birthday',        width: 200 }
+      /*{headerName: '직원ID',        field: 'staffId',         width: 100 }, */
+      {headerName: '직원번호',      field: 'staffNo',         width: 77},
+      {headerName: '직원명',        field: 'name',            width: 75 }
+      /*{headerName: '생년월일',      field: 'birthday',        width: 200 } */
     ];
 
     this.getRowId = function(params: any) {

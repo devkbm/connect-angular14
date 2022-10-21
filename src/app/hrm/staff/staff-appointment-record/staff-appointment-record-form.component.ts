@@ -116,7 +116,12 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
     this.fg.patchValue(formData);
   }
 
-  getForm(staffId: string, id: string): void {
+  closeForm(grid: any) {
+    grid.getGridList(this.fg.get('staffId')?.value);
+    //this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(staffId: string, id: string): void {
 
     this.service
         .getStaffAppointmentRecord(staffId, id)
@@ -132,7 +137,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       );
   }
 
-  submitForm(): void {
+  save(): void {
     this.service
         .saveStaffAppointmentRecord(this.fg.getRawValue())
         .subscribe(
@@ -143,7 +148,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
         );
   }
 
-  deleteForm(id: any): void {
+  remove(id: any): void {
     /*this.appointmentCodeService
         .deleteAppointmentCodeDetail(this.fg.get('code').value)
         .subscribe(
@@ -156,12 +161,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
             },
             () => {}
         );*/
-  }
-
-  closeForm(grid: any) {
-    grid.getGridList(this.fg.get('staffId')?.value);
-    //this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   // [key: string]: any
   getHrmTypeDetailCodeList(typeId: string, propertyName: string): void {

@@ -179,10 +179,10 @@
 </form>
 
 <app-nz-crud-button-group
-  (searchClick)="getForm(fg.get('staffId')?.value, fg.get('id')?.value)"
+  (searchClick)="get(fg.get('staffId')?.value, fg.get('id')?.value)"
   (closeClick)="closeForm(grid)"
-  (saveClick)="submitForm()"
-  (deleteClick)="deleteForm(fg.get('id')?.value)">
+  (saveClick)="save()"
+  (deleteClick)="remove(fg.get('id')?.value)">
 </app-nz-crud-button-group>
 
 

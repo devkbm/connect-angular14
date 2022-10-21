@@ -1,8 +1,9 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChild, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Location } from '@angular/common';
+
+import { AppBase } from 'src/app/core/app/app-base';
+
 import { TermGridComponent } from './term-grid.component';
-import { TermFormComponent } from './term-form.component';
-import { AppBase } from '../../core/app/app-base';
 import { DataDomainGridComponent } from './data-domain-grid.component';
 import { WordGridComponent } from './word-grid.component';
 
@@ -28,19 +29,19 @@ export class TermComponent extends AppBase implements OnInit {
 
   tabIndex: number = 0;  
 
-  term: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  termDrawer: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
-  word: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  wordDrawer: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
-  domain: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  domainDrawer: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
   constructor(location: Location) {
@@ -67,59 +68,59 @@ export class TermComponent extends AppBase implements OnInit {
       params[this.query.key] = this.query.value;
     }
     
-    this.term.drawerVisible = false;
+    this.termDrawer.visible = false;
     this.termGrid.getList(params);
   }
 
   newTerm() {    
-    this.term.selectedRowId = null;
-    this.term.drawerVisible = true;
+    this.termDrawer.initLoadId = null;
+    this.termDrawer.visible = true;
   }
   
   editTerm(item: any) {    
-    this.term.selectedRowId = item.termId;
-    this.term.drawerVisible = true;
+    this.termDrawer.initLoadId = item.termId;
+    this.termDrawer.visible = true;
   }
 
   termGridSelected(item: any) {        
-    this.term.selectedRowId = item.termId;
+    this.termDrawer.initLoadId = item.termId;
   }
   //#endregion 용어사전
 
   //#region 단어사전
   getWordList() {
-    this.word.drawerVisible = false;
+    this.wordDrawer.visible = false;
     this.wordGrid.getList();
   }
 
   newWord() {
-    this.word.selectedRowId = null;
-    this.word.drawerVisible = true;
+    this.wordDrawer.initLoadId = null;
+    this.wordDrawer.visible = true;
   }
 
   editWord(item: any) {    
-    this.word.selectedRowId = item.logicalName;
-    this.word.drawerVisible = true;
+    this.wordDrawer.initLoadId = item.logicalName;
+    this.wordDrawer.visible = true;
   }
 
   wordGridSelected(item: any) {
-    this.word.selectedRowId = item.logicalName;
+    this.wordDrawer.initLoadId = item.logicalName;
   }
   //#endregion 단어사전
 
   //#region 도메인
   getDomainList() {
-    this.domain.drawerVisible = false;
+    this.domainDrawer.visible = false;
     this.domainGrid.getList();
   }
 
   newDomain() {
-    this.domain.selectedRowId = null;
-    this.domain.drawerVisible = true;
+    this.domainDrawer.initLoadId = null;
+    this.domainDrawer.visible = true;
   }  
       
   domainGridSelected(item: any) {    
-    this.domain.selectedRowId = item.domainId;
+    this.domainDrawer.initLoadId = item.domainId;
   }
   //#endregion 도메인
 

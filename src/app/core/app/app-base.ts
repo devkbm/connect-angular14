@@ -2,7 +2,7 @@ import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 
 import { ResponseObject } from '../model/response-object';
-import { WebResource } from '../../system/webresource/web-resource';
+import { WebResource } from '../../system/webresource/web-resource.model';
 import { WebResourceService } from '../../system/webresource/web-resource.service';
 import { AppInjector } from './app-injector.service';
 

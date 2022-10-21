@@ -1,7 +1,6 @@
-export class TodoModel {
-  constructor(
-    public pkTodoGroup: string,
-    public pkTodo: string,
-    public isCompleted: boolean,
-    public todo: string) {}
+export interface TodoModel {
+  pkTodoGroup: string;
+  pkTodo: string;
+  isCompleted: boolean;
+  todo: string;
 }

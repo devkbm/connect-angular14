@@ -1,23 +1,25 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
-import { ResponseList } from 'src/app/core/model/response-list';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 import { HrmCodeService } from './hrm-code.service';
 import { HrmType } from './hrm-type.model';
-import { existingHrmTypeValidator } from './hrm-type-duplication-validator';
+import { existingHrmTypeValidator } from './hrm-code-type-duplication-validator';
+
 
 @Component({
-  selector: 'app-hrm-type-form',
-  templateUrl: './hrm-type-form.component.html',
-  styleUrls: ['./hrm-type-form.component.css']
+  selector: 'app-hrm-code-type-form',
+  templateUrl: './hrm-code-type-form.component.html',
+  styleUrls: ['./hrm-code-type-form.component.css']
 })
-export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewInit {
+export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterViewInit {
   
-
+  @ViewChild('typeId') typeId!: NzInputTextComponent;
+  
   constructor(private fb: FormBuilder,
               private service: HrmCodeService,              
               private appAlarmService: AppAlarmService) { 
@@ -29,8 +31,7 @@ export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewI
                     asyncValidators: [existingHrmTypeValidator(this.service)],
                     updateOn: 'blur'
                   }),
-      typeName  : new FormControl<string | null>(null, { validators: Validators.required }),
-      useYn     : new FormControl<boolean>(true),
+      typeName  : new FormControl<string | null>(null, { validators: Validators.required }),      
       sequence  : new FormControl<number>(0),
       comment   : new FormControl<string | null>(null)
     });
@@ -53,7 +54,9 @@ export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewI
 
     this.fg.reset();
     this.fg.get('typeId')?.enable();
-    this.fg.get('useYn')?.setValue(true);    
+    this.fg.get('useYn')?.setValue(true);
+
+    this.typeId.focus();      
   }
 
   modifyForm(formData: HrmType): void {
@@ -61,6 +64,10 @@ export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewI
 
     this.fg.patchValue(formData);
     this.fg.controls['typeId'].disable();
+  }
+
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
   }
 
   select(param: any) {
@@ -83,7 +90,12 @@ export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewI
       );
   }
 
-  submit(): void {
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm();
+      return;
+    }
+
     this.service
         .saveHrmType(this.fg.getRawValue())
         .subscribe(
@@ -94,7 +106,7 @@ export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  deleteEntity(): void {
+  remove(): void {
     const id = this.fg.get('typeId')?.value;
 
     this.service
@@ -105,11 +117,7 @@ export class HrmTypeFormComponent extends FormBase implements OnInit, AfterViewI
             this.formDeleted.emit(this.fg.getRawValue());
             }
         );
-  }
-
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
 }
 

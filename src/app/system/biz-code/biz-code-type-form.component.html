@@ -64,10 +64,10 @@
 <div class="footer">
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
-    (searchClick)="loadForm(fg.get('typeId')?.value)"
+    (searchClick)="get(fg.get('typeId')?.value)"
     (closeClick)="closeForm()"
-    (saveClick)="saveForm()"
-    (deleteClick)="deleteForm(fg.get('typeId')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('typeId')?.value)">
   </app-nz-crud-button-group>
 </div>
 

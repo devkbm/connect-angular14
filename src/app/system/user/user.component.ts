@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { UserGridComponent } from './user-grid.component';
-import { AppBase } from '../../core/app/app-base';
-import { UserService } from './user.service';
+
+import { AppBase } from 'src/app/core/app/app-base';
 import { ResponseObject } from 'src/app/core/model/response-object';
+
+import { UserGridComponent } from './user-grid.component';
+import { UserService } from './user.service';
 import { User } from './user.model';
+
 import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
@@ -14,8 +17,7 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 })
 export class UserComponent extends AppBase implements OnInit {
 
-  @ViewChild(UserGridComponent, {static: true})
-  grid!: UserGridComponent;
+  @ViewChild(UserGridComponent) grid!: UserGridComponent;
 
   buttons: ButtonTemplate[] = [{
     text: '구글 로그인',
@@ -56,9 +58,9 @@ export class UserComponent extends AppBase implements OnInit {
     ]
   }  
 
-  user: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerUser: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }  
 
   constructor(location: Location,private userService: UserService) {
@@ -69,14 +71,14 @@ export class UserComponent extends AppBase implements OnInit {
   }  
 
   newForm() {
-    this.user.selectedRowId = null;
-    this.user.drawerVisible = true;
+    this.drawerUser.initLoadId = null;
+    this.drawerUser.visible = true;
     
   }
 
   editForm(item: any) {
-    this.user.selectedRowId = item.userId;    
-    this.user.drawerVisible = true;    
+    this.drawerUser.initLoadId = item.userId;    
+    this.drawerUser.visible = true;    
   }
 
   getUserList() {
@@ -85,7 +87,7 @@ export class UserComponent extends AppBase implements OnInit {
       params[this.query.key] = this.query.value;
     }
 
-    this.user.drawerVisible = false;
+    this.drawerUser.visible = false;
     this.grid.getUserList(params);
   }
 
@@ -101,7 +103,7 @@ export class UserComponent extends AppBase implements OnInit {
   }
 
   userGridSelected(params: any) {    
-    this.user.selectedRowId = params.userId;
+    this.drawerUser.initLoadId = params.userId;
   }
 
   test() {

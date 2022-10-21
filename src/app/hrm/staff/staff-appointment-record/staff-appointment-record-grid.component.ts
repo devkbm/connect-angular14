@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
@@ -9,27 +9,35 @@ import { StaffAppointmentRecord } from './staff-appointment-record.model';
 
 @Component({
   selector: 'app-staff-appointment-record-grid',
-  templateUrl: './staff-appointment-record-grid.component.html',
-  styleUrls: ['./staff-appointment-record-grid.component.css']
+  template: `
+    <ag-grid-angular
+      [ngStyle]="style"
+      class="ag-theme-balham-dark"
+      [rowSelection]="'single'"
+      [rowData]="_list"
+      [columnDefs]="columnDefs"
+      [defaultColDef]="defaultColDef"
+      [getRowId]="getRowId"
+      [frameworkComponents]="frameworkComponents"
+      (gridReady)="onGridReady($event)"
+      (selectionChanged)="selectionChanged($event)"
+      (rowDoubleClicked)="rowDbClicked($event)">
+    </ag-grid-angular>
+  `,
+  styles: [``]
 })
-export class StaffAppointmentRecordGridComponent extends AggridFunction implements OnInit {
+export class StaffAppointmentRecordGridComponent extends AggridFunction implements OnInit, OnChanges {
 
-  gridList: StaffAppointmentRecord[] = [];
+  protected _list: StaffAppointmentRecord[] = [];
 
-  @Input()
-  appointmentCode: any = '';
+  @Input() staffId?: string;
 
-  @Output()
-  rowSelected = new EventEmitter();
-
-  @Output()
-  rowDoubleClicked = new EventEmitter();
-
-  @Output()
-  editButtonClicked = new EventEmitter();
+  @Output() rowSelected = new EventEmitter();
+  @Output() rowDoubleClicked = new EventEmitter();
+  @Output() editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
-              private staffAppointmentRecordService: StaffAppointmentRecordService) {
+              private service: StaffAppointmentRecordService) {
     super();
 
     this.columnDefs = [
@@ -70,31 +78,33 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
       resizable: true
     };
 
-    this.getRowId = function(data: any) {
-        return data.id;
+    this.getRowId = function(params: any) {
+      return params.data.id;
     };
 
   }
-
+  
   ngOnInit() {
   }
 
-  getGridList(staffId: string): void {
-    this.staffAppointmentRecordService
+  ngOnChanges(changes: SimpleChanges): void {    
+    if (changes['staffId']) {
+      this.getList(changes['staffId'].currentValue);
+    }
+  }
+
+  getList(staffId: string): void {
+    this.service
         .getStaffAppointmentRecordList(staffId)
         .subscribe(
           (model: ResponseList<StaffAppointmentRecord>) => {
               if (model.total > 0) {
-                  this.gridList = model.data;
+                this._list = model.data;
               } else {
-                  this.gridList = [];
+                this._list = [];
               }
               this.appAlarmService.changeMessage(model.message);
-          },
-          (err) => {
-              console.log(err);
-          },
-          () => {}
+          }
         );
   }
 
@@ -108,7 +118,7 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
     this.rowDoubleClicked.emit(event.data);
   }
 
-  private onEditButtonClick(e: any) {
+  onEditButtonClick(e: any) {
     this.editButtonClicked.emit(e.rowData);
   }
 }

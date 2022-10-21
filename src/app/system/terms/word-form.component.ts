@@ -67,6 +67,10 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.patchValue(formData);
   }
 
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+  
   get(id: string) {
     this.service
         .get(id)
@@ -82,7 +86,12 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  submit() {
+  save() {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
+    
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
@@ -93,7 +102,7 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  delete(id: string) {
+  remove(id: string) {
     this.service
         .delete(id)
         .subscribe(
@@ -102,10 +111,6 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }
-
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
 }

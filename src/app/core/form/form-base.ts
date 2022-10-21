@@ -61,13 +61,12 @@ export abstract class FormBase {
       return formGroup.get(fieldName)?.dirty
           && formGroup.get(fieldName)?.hasError(errorName) ? true : false;
   }
-
-  isValid(): boolean {
+  
+  checkForm() {
     for (const i in this.fg.controls) {
       this.fg.controls[i].markAsDirty();
       this.fg.controls[i].updateValueAndValidity({onlySelf: true});
     }
-    return this.fg.valid;
   }
 
 }

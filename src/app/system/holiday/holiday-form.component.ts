@@ -59,6 +59,10 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
     this.fg.patchValue(formData);
   }
 
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
   get(date: Date): void {
     const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
 
@@ -76,8 +80,11 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  submit(): void {
-    if (this.fg.valid === false) return;
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
 
     this.service
         .saveHoliday(this.fg.getRawValue())
@@ -89,7 +96,7 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  delete(date: Date): void {
+  remove(date: Date): void {
     const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
     if (id === null) return;
 
@@ -101,10 +108,6 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
           this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
 }

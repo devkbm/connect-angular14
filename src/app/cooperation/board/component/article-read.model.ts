@@ -1,5 +1,4 @@
-export class ArticleRead {
-  constructor(
-    public articleReadId: number,
-    public hitCount: number) {}
+export interface ArticleRead {
+  articleReadId: number;
+  hitCount: number;
 }

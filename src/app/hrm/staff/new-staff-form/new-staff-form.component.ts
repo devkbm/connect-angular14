@@ -4,11 +4,9 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 
-import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { StaffService } from '../staff.service';
 import { NewStaff } from './new-staff.model';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-new-staff-form',
@@ -72,7 +70,11 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
   }
   */  
 
-  submit() {
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  save() {
     this.service
         .newStaff(this.fg.getRawValue())
         .subscribe(
@@ -82,9 +84,5 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
           }
         );
   }
-  
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
-
+    
 }

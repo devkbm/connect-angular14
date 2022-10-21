@@ -1,5 +1,4 @@
-export class ResouceTypeEnum {
-  constructor(
-    public label: string,
-    public value: string) {}
+export interface ResouceTypeEnum {
+  label: string;
+  value: string;
 }

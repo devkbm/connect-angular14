@@ -8,13 +8,13 @@ import { HrmCodeService } from './hrm-code.service';
 import { HrmType } from './hrm-type.model';
 
 @Component({
-  selector: 'app-hrm-type-grid',
+  selector: 'app-hrm-code-type-grid',
   template: `
     <ag-grid-angular
         [ngStyle]="style"
         class="ag-theme-balham-dark"
         [rowSelection]="'single'"
-        [rowData]="gridList"
+        [rowData]="_list"
         [columnDefs]="columnDefs"
         [defaultColDef]="defaultColDef"
         [getRowId]="getRowId"
@@ -25,16 +25,16 @@ import { HrmType } from './hrm-type.model';
     </ag-grid-angular>  
   `
 })
-export class HrmTypeGridComponent extends AggridFunction implements OnInit {
+export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
 
-  gridList: HrmType[] = [];
+  _list: HrmType[] = [];
   
   @Output() rowSelected = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
-              private hrmCodeService: HrmCodeService) {
+              private service: HrmCodeService) {
 
     super();
 
@@ -58,8 +58,7 @@ export class HrmTypeGridComponent extends AggridFunction implements OnInit {
       },
       { headerName: '구분ID',       field: 'typeId',          width: 150 },
       { headerName: '구분명',       field: 'typeName',        width: 200 },
-      { headerName: '설명',         field: 'comment',         width: 200 },
-      { headerName: '사용여부',     field: 'useYn',           width: 80 },
+      { headerName: '설명',         field: 'comment',         width: 200 },      
       { headerName: '순번',         field: 'sequence',        width: 80 }
     ];
 
@@ -68,32 +67,31 @@ export class HrmTypeGridComponent extends AggridFunction implements OnInit {
       resizable: true
     };
 
-    this.getRowId = function(data: any) {
-        return data.data.typeId;
+    this.getRowId = function(params: any) {
+      return params.data.typeId;
     };
   }
 
-  ngOnInit() {
-    this.getGridList("");
+  ngOnInit() {    
   }
 
-  private onEditButtonClick(e: any) {
+  onEditButtonClick(e: any) {
     this.editButtonClicked.emit(e.rowData);
   }
 
-  public getGridList(hrmType: string): void {
+  getList(hrmType: string): void {
     const params = {
       hrmType : hrmType
     };
 
-    this.hrmCodeService
+    this.service
         .getHrmTypeList(params)
         .subscribe(
           (model: ResponseList<HrmType>) => {
             if (model.total > 0) {
-              this.gridList = model.data;
+              this._list = model.data;
             } else {
-              this.gridList = [];
+              this._list = [];
             }
             this.appAlarmService.changeMessage(model.message);
           }

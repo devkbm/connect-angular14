@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { AppBase } from 'src/app/core/app/app-base';
 import { StaffRegistFormComponent } from './staff-regist-form.component';
+import { StaffGridComponent } from './staff-grid.component';
 
 @Component({
   selector: 'app-staff-management',
@@ -11,11 +12,20 @@ import { StaffRegistFormComponent } from './staff-regist-form.component';
 export class StaffManagementComponent extends AppBase implements OnInit {
 
   @ViewChild(StaffRegistFormComponent) staffForm!: StaffRegistFormComponent;
+  @ViewChild(StaffGridComponent) grid!: StaffGridComponent;
   
 
-  staff?: {staffId: string, staffNo: string, staffName: string};
+  selectedStaff?: {staffId: string, staffNo: string, staffName: string};  
 
-  staffId?: string;
+  staffDrawer: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
+  }
+
+  appointmentDrawer: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null    
+  }  
 
   constructor(location: Location) {
     super(location);
@@ -25,8 +35,19 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   staffGridRowClicked(params: any) {
-    this.staff = {staffId: params.staffId, staffNo: params.staffNo, staffName: params.name};
-    this.staffId = params.staffId;
-    this.staffForm.getForm(params.staffId);
+    this.selectedStaff = {staffId: params.staffId, staffNo: params.staffNo, staffName: params.name};    
+    this.staffForm.get(params.staffId);
+  }
+
+  selectStaffGrid() {
+    this.grid.getList();
+  }
+
+  newStaff() {
+    this.staffDrawer.visible = true;
+  }
+
+  newAppoint() {
+    this.appointmentDrawer.visible = true;
   }
 }

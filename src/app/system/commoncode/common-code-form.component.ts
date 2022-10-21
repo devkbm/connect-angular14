@@ -18,8 +18,7 @@ import { SystemTypeEnum } from './system-type-enum.model';
   styleUrls: ['./common-code-form.component.css']
 })
 export class CommonCodeFormComponent extends FormBase implements OnInit {
-
-   ;
+   
   nodeItems: CommonCodeHierarchy[] = [];
   systemTypeCodeList: SystemTypeEnum[] = [];
 
@@ -73,7 +72,11 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     this.fg.patchValue(formData);
   }
 
-  getCommonCode(id: string): void {
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(id: string): void {
     this.commonCodeService
         .getCommonCode(id)
         .subscribe(
@@ -86,6 +89,43 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
             this.appAlarmService.changeMessage(model.message);
           }
         );
+  }  
+
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
+
+    this.commonCodeService
+        .registerCommonCode(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<CommonCode>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formSaved.emit(this.fg.getRawValue());
+          }
+        );
+  }
+
+  remove(): void {
+    this.commonCodeService
+        .deleteCommonCode(this.fg.get('id')?.value)
+        .subscribe(
+          (model: ResponseObject<CommonCode>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formDeleted.emit(this.fg.getRawValue());
+          }
+        );
+  }  
+
+  getSystemTypeCode(): void {
+    this.commonCodeService
+      .getSystemTypeList()
+      .subscribe(
+        (model: ResponseList<SystemTypeEnum>) => {
+          this.systemTypeCodeList = model.data;
+        }
+      );
   }
 
   getCommonCodeHierarchy(systemTypeCode: string): void {
@@ -104,44 +144,6 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
             }
           }
         );
-  }
-
-  submitCommonCode(): void {
-    if (this.fg.invalid) return;
-
-    this.commonCodeService
-        .registerCommonCode(this.fg.getRawValue())
-        .subscribe(
-          (model: ResponseObject<CommonCode>) => {
-            this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.fg.getRawValue());
-          }
-        );
-  }
-
-  deleteCommonCode(): void {
-    this.commonCodeService
-        .deleteCommonCode(this.fg.get('id')?.value)
-        .subscribe(
-          (model: ResponseObject<CommonCode>) => {
-            this.appAlarmService.changeMessage(model.message);
-            this.formDeleted.emit(this.fg.getRawValue());
-          }
-        );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
-
-  getSystemTypeCode(): void {
-    this.commonCodeService
-      .getSystemTypeList()
-      .subscribe(
-        (model: ResponseList<SystemTypeEnum>) => {
-          this.systemTypeCodeList = model.data;
-        }
-      );
   }
 
 }

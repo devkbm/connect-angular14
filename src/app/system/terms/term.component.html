@@ -59,8 +59,8 @@
     <div class="grid-wrapper">
       <app-data-domain-grid #domainGrid
         (rowClickedEvent)="domainGridSelected($event)"
-        (editButtonClickedEvent)="this.domain.drawerVisible = true"
-        (rowDoubleClickedEvent)="this.domain.drawerVisible = true">
+        (editButtonClickedEvent)="this.domainDrawer.visible = true"
+        (rowDoubleClickedEvent)="this.domainDrawer.visible = true">
       </app-data-domain-grid>
     </div>
   </nz-tab>
@@ -70,15 +70,15 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="term.drawerVisible"
+  [nzVisible]="termDrawer.visible"
   nzTitle="용어 등록"
-  (nzOnClose)="this.term.drawerVisible = false">
+  (nzOnClose)="this.termDrawer.visible = false">
     <app-term-form *nzDrawerContent
       #termForm
-      [initLoadId]="term.selectedRowId"
+      [initLoadId]="termDrawer.initLoadId"
       (formSaved)="getTermList()"
       (formDeleted)="getTermList()"
-      (formClosed)="this.term.drawerVisible = false">
+      (formClosed)="this.termDrawer.visible = false">
     </app-term-form>
 </nz-drawer>
 
@@ -86,14 +86,14 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="word.drawerVisible"
+  [nzVisible]="wordDrawer.visible"
   nzTitle="단어 등록"
-  (nzOnClose)="this.word.drawerVisible = false">
+  (nzOnClose)="this.wordDrawer.visible = false">
     <app-word-form *nzDrawerContent #wordForm
-      [initLoadId]="word.selectedRowId"
+      [initLoadId]="wordDrawer.initLoadId"
       (formSaved)="getWordList()"
       (formDeleted)="getWordList()"
-      (formClosed)="word.drawerVisible = false">
+      (formClosed)="wordDrawer.visible = false">
     </app-word-form>
 </nz-drawer>
 
@@ -101,13 +101,13 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="domain.drawerVisible"
+  [nzVisible]="domainDrawer.visible"
   nzTitle="도메인 등록"
-  (nzOnClose)="domain.drawerVisible = false">
+  (nzOnClose)="domainDrawer.visible = false">
     <app-data-domain-form *nzDrawerContent #doaminForm
-      [initLoadId]="domain.selectedRowId"
+      [initLoadId]="domainDrawer.initLoadId"
       (formSaved)="getDomainList()"
       (formDeleted)="getDomainList()"
-      (formClosed)="domain.drawerVisible = false">
+      (formClosed)="domainDrawer.visible = false">
     </app-data-domain-form>
 </nz-drawer>

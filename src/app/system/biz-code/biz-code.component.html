@@ -17,19 +17,18 @@
 </div>
 
 <div class="content">
-  <h3 class="pgm-title">업무코드분류 {{codeType | json}}</h3>
+  <h3 class="pgm-title">업무코드분류</h3>
   <app-biz-type-grid
     (rowClickedEvent)="codeTypeGridRowClicked($event)"
     (editButtonClickedEvent)="editCodeType($event)"
     (rowDoubleClickedEvent)="editCodeType($event)">
   </app-biz-type-grid>
 
-  <h3 class="pgm-title">업무코드 {{code | json}}</h3>
+  <h3 class="pgm-title">업무코드</h3>
   <app-biz-code-grid
     (rowClickedEvent)="codeGridRowClicked($event)"
     (editButtonClickedEvent)="editCode($event)"
-    (rowDoubleClickedEvent)="editCode($event)">
-    >
+    (rowDoubleClickedEvent)="editCode($event)">    
   </app-biz-code-grid>
 </div>
 
@@ -37,14 +36,14 @@
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
     nzWidth="80%"
-    [nzVisible]="codeType.drawerVisible"
+    [nzVisible]="drawerCodeType.visible"
     nzTitle="업무코드분류 등록"
-    (nzOnClose)="codeType.drawerVisible = false">
+    (nzOnClose)="drawerCodeType.visible = false">
     <app-biz-code-type-form *nzDrawerContent
-        [initLoadId]="codeType.selectedRowId"        
+        [initLoadId]="drawerCodeType.initLoadId"        
         (formSaved)="selectBizCodeTypeList()"
         (formDeleted)="selectBizCodeTypeList()"
-        (formClosed)="codeType.drawerVisible = false">
+        (formClosed)="drawerCodeType.visible = false">
     </app-biz-code-type-form>
 </nz-drawer>
 
@@ -52,13 +51,13 @@
     [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
     [nzMaskClosable]="true"
     nzWidth="80%"
-    [nzVisible]="code.drawerVisible"
+    [nzVisible]="drawerCode.visible"
     nzTitle="업무코드 등록"
-    (nzOnClose)="code.drawerVisible = false">
+    (nzOnClose)="drawerCode.visible = false">
     <app-biz-code-form *nzDrawerContent
-        [initLoadId]="code.selectedRowId"        
+        [initLoadId]="drawerCode.initLoadId"        
         (formSaved)="selectBizCodeList()"
         (formDeleted)="selectBizCodeList()"
-        (formClosed)="code.drawerVisible = false">
+        (formClosed)="drawerCode.visible = false">
     </app-biz-code-form>
 </nz-drawer>

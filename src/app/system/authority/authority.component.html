@@ -35,11 +35,11 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px'}"
   [nzMaskClosable]="true"
   [nzWidth]="720"
-  [nzVisible]="drawerVisible"
+  [nzVisible]="drawerAuthority.visible"
   nzTitle="권한 등록"
   (nzOnClose)="closeDrawer()">
     <app-authority-form #form *nzDrawerContent
-      [initLoadId]="this.selectedId"
+      [initLoadId]="drawerAuthority.initLoadId"
       (formSaved)="getAuthorityList()"
       (formDeleted)="getAuthorityList()"
       (formClosed)="closeDrawer()">

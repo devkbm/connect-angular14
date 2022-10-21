@@ -5,16 +5,16 @@ import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 
 import { HrmCodeService } from './hrm-code.service';
-import { HrmTypeDetailCode } from './hrm-type-detail-code';
+import { HrmCode } from './hrm-code.model';
 
 @Component({
-  selector: 'app-hrm-type-code-grid',
+  selector: 'app-hrm-code-grid',
   template: `
     <ag-grid-angular
         [ngStyle]="style"
         class="ag-theme-balham-dark"
         [rowSelection]="'single'"
-        [rowData]="gridList"
+        [rowData]="_list"
         [columnDefs]="columnDefs"
         [defaultColDef]="defaultColDef"
         [getRowId]="getRowId"
@@ -25,21 +25,15 @@ import { HrmTypeDetailCode } from './hrm-type-detail-code';
     </ag-grid-angular>
   `
 })
-export class HrmTypeCodeGridComponent extends AggridFunction implements OnInit {
+export class HrmCodeGridComponent extends AggridFunction implements OnInit {
 
-  gridList: HrmTypeDetailCode[] = [];
+  _list: HrmCode[] = [];
 
-  @Input()
-  appointmentCode: any = '';
+  @Input() appointmentCode: any = '';
 
-  @Output()
-  rowSelected = new EventEmitter();
-
-  @Output()
-  rowDoubleClicked = new EventEmitter();
-
-  @Output()
-  editButtonClicked = new EventEmitter();
+  @Output() rowSelected = new EventEmitter();
+  @Output() rowDoubleClicked = new EventEmitter();
+  @Output() editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
               private hrmCodeService: HrmCodeService) {
@@ -67,7 +61,17 @@ export class HrmTypeCodeGridComponent extends AggridFunction implements OnInit {
       { headerName: '코드',         field: 'code',        width: 150, filter: 'agTextColumnFilter' },
       { headerName: '코드명',       field: 'codeName',    width: 200, filter: 'agTextColumnFilter' },
       { headerName: '설명',         field: 'comment',     width: 200, filter: 'agTextColumnFilter' },
-      { headerName: '사용여부',     field: 'useYn',       width: 80 },
+      {
+        headerName: '사용여부',
+        field: 'useYn',
+        width: 80,
+        cellStyle: {'text-align': 'center', padding: '0px'},
+        cellRenderer: 'checkboxRenderer',
+        cellRendererParams: {
+          label: '',
+          disabled: true
+        }
+      },      
       { headerName: '순번',         field: 'sequence',    width: 80,  filter: 'agNumberColumnFilter' }
     ];
 
@@ -77,7 +81,7 @@ export class HrmTypeCodeGridComponent extends AggridFunction implements OnInit {
     };
 
     this.getRowId = function(params: any) {
-        return params.data.typeId + params.data.code;
+      return params.data.typeId + params.data.code;
     };
   }
 
@@ -96,11 +100,11 @@ export class HrmTypeCodeGridComponent extends AggridFunction implements OnInit {
     this.hrmCodeService
         .getHrmTypeDetailCodeList(params)
         .subscribe(
-          (model: ResponseList<HrmTypeDetailCode>) => {
+          (model: ResponseList<HrmCode>) => {
             if (model.total > 0) {
-              this.gridList = model.data;
+              this._list = model.data;
             } else {
-              this.gridList = [];
+              this._list = [];
             }
             this.appAlarmService.changeMessage(model.message);
           }

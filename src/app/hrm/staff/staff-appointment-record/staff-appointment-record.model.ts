@@ -1,20 +1,18 @@
-export class StaffAppointmentRecord {
-  constructor(
-    public staffId: string,
-    public id: string,
-    public appointmentDate: Date,
-    public appointmentEndDate: Date,
-    public recordName: string,
-    public comment: string,
-    public processWatingYn: string = '',
-    public blngDeptCode: string,
-    public workDeptCode: string,
-    public jobGroupCode: string,
-    public jobPositionCode: string,
-    public occupationCode: string,
-    public jobGradeCode: string,
-    public payStepCode: string,
-    public jobCode: string,
-    public dutyResponsibilityCode: string
-  ) {}
+export interface StaffAppointmentRecord {
+  staffId: string;
+  id: string;
+  appointmentDate: Date;
+  appointmentEndDate: Date;
+  recordName: string;
+  comment: string;
+  processWatingYn: string;
+  blngDeptCode: string;
+  workDeptCode: string;
+  jobGroupCode: string;
+  jobPositionCode: string;
+  occupationCode: string;
+  jobGradeCode: string;
+  payStepCode: string;
+  jobCode: string;
+  dutyResponsibilityCode: string;
 }

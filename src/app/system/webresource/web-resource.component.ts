@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { WebResourceGridComponent } from './web-resource-grid.component';
-import { WebResourceFormComponent } from './web-resource-form.component';
-import { AppBase } from '../../core/app/app-base';
-import { WebResourceService } from './web-resource.service';
+
+import { AppBase } from 'src/app/core/app/app-base';
 import { ResponseObject } from 'src/app/core/model/response-object';
-import { WebResource } from './web-resource';
+
+import { WebResourceGridComponent } from './web-resource-grid.component';
+import { WebResourceService } from './web-resource.service';
+import { WebResource } from './web-resource.model';
+
 import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
@@ -52,9 +54,9 @@ export class WebResourceComponent extends AppBase  implements OnInit {
     }
   }];
 
-  resource: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerResource: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }  
 
   constructor(location: Location,
@@ -71,18 +73,18 @@ export class WebResourceComponent extends AppBase  implements OnInit {
       params[this.query.key] = this.query.value;
     }
 
-    this.resource.drawerVisible = false;
+    this.drawerResource.visible = false;
     this.grid.getList(params);
   }
 
   newResource(): void {
-    this.resource.selectedRowId = null;
-    this.resource.drawerVisible = true;
+    this.drawerResource.initLoadId = null;
+    this.drawerResource.visible = true;
   }
 
   editResource(item: any): void {
-    this.resource.selectedRowId = item.resourceCode;
-    this.resource.drawerVisible = true;
+    this.drawerResource.initLoadId = item.resourceCode;
+    this.drawerResource.visible = true;
   }  
 
   delete(): void {
@@ -98,7 +100,7 @@ export class WebResourceComponent extends AppBase  implements OnInit {
   }
 
   resourceGridRowClicked(item: any): void {    
-    this.resource.selectedRowId = item.resourceCode;
+    this.drawerResource.initLoadId = item.resourceCode;
   }
 
 }

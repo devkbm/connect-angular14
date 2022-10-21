@@ -71,7 +71,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
   ngOnInit(): void {
 
     if (this.initLoadId) {
-      this.getArticle(this.initLoadId);
+      this.get(this.initLoadId);
     } else {
       this.newForm(this.boardId);
     }
@@ -104,7 +104,11 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
     this.fg.patchValue(formData);
   }
 
-  getArticle(id: any): void {
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(id: any): void {
     this.boardService.getArticle(id)
         .subscribe(
           (model: ResponseObject<Article>) => {
@@ -122,7 +126,20 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  deleteArticle(id: any): void {
+  save(): void {
+    this.convertFileList();
+
+    this.boardService
+        .saveArticleJson(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<Article>) => {
+            console.log(model);
+            this.formSaved.emit(this.fg.getRawValue());
+          }
+        );
+  }
+
+  remove(id: any): void {
     console.log(id);
     this.boardService.deleteArticle(id)
       .subscribe(
@@ -147,24 +164,7 @@ export class ArticleFormComponent extends FormBase implements OnInit, AfterViewI
   textChange({ editor }: ChangeEvent): void {
     const data = editor.getData();
     this.fg.get('contents')?.setValue(data);
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
-
-  saveArticle(): void {
-    this.convertFileList();
-
-    this.boardService
-        .saveArticleJson(this.fg.getRawValue())
-        .subscribe(
-          (model: ResponseObject<Article>) => {
-            console.log(model);
-            this.formSaved.emit(this.fg.getRawValue());
-          }
-        );
-  }
+  }  
 
   convertFileList() {
     const attachFileIdList = [];

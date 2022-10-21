@@ -72,14 +72,14 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="menuGroup.drawerVisible"
+  [nzVisible]="drawerMenuGroup.visible"
   nzTitle="메뉴그룹 등록"
-  (nzOnClose)="menuGroup.drawerVisible = false">
+  (nzOnClose)="drawerMenuGroup.visible = false">
     <app-menu-group-form #menuGroupForm *nzDrawerContent
-      [initLoadId]="menuGroup.selectedRowId"
+      [initLoadId]="drawerMenuGroup.initLoadId"
       (formSaved)="getMenuGroupList()"
       (formDeleted)="getMenuGroupList()"
-      (formClosed)="menuGroup.drawerVisible = false">
+      (formClosed)="drawerMenuGroup.visible = false">
     </app-menu-group-form>
 </nz-drawer>
 
@@ -87,14 +87,14 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="menu.drawerVisible"
+  [nzVisible]="drawerMenu.visible"
   nzTitle="메뉴 등록"
-  (nzOnClose)="menu.drawerVisible = false">
+  (nzOnClose)="drawerMenu.visible = false">
     <app-menu-form #menuForm *nzDrawerContent
-      [menuGroupId]="menuGroup.selectedRowId"
-      [initLoadId]="menu.selectedRowId"
+      [menuGroupId]="drawerMenuGroup.initLoadId"
+      [initLoadId]="drawerMenu.initLoadId"
       (formSaved)="getMenuList()"
       (formDeleted)="getMenuList()"
-      (formClosed)="menu.drawerVisible = false">
+      (formClosed)="drawerMenu.visible = false">
     </app-menu-form>
 </nz-drawer>

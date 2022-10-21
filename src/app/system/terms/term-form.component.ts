@@ -78,6 +78,10 @@ export class TermFormComponent extends FormBase implements OnInit, AfterViewInit
         
     this.fg.patchValue(formData);
   }
+  
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
 
   get(id: string) {    
     this.service
@@ -94,7 +98,12 @@ export class TermFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  submit() {
+  save() {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
+    
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
@@ -105,7 +114,7 @@ export class TermFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  delete() {
+  remove() {
     const id: string = this.fg.get('termId')?.value;
     this.service
         .delete(id)
@@ -115,11 +124,7 @@ export class TermFormComponent extends FormBase implements OnInit, AfterViewInit
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
-
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   getSystemTypeList() {
     this.service

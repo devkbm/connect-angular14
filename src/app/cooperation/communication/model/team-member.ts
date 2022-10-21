@@ -1,5 +1,4 @@
-export class TeamMember {
-  constructor(
-    public userId: string,
-    public name: string) {}
+export interface TeamMember {
+  userId: string;
+  name: string;
 }

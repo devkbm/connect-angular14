@@ -1,13 +1,12 @@
-export class Dept {
-  constructor(
-    public parentDeptCode: string,
-    public deptCode: string,
-    public deptNameKorean: string,
-    public deptAbbreviationKorean: string,
-    public deptNameEnglish: string,
-    public deptAbbreviationEnglish: string,
-    public fromDate: Date,
-    public toDate: Date,
-    public seq: number,
-    public comment: string) {}
+export interface Dept {
+  parentDeptCode: string;
+  deptCode: string;
+  deptNameKorean: string;
+  deptAbbreviationKorean: string;
+  deptNameEnglish: string;
+  deptAbbreviationEnglish: string;
+  fromDate: Date;
+  toDate: Date;
+  seq: number;
+  comment: string;
 }

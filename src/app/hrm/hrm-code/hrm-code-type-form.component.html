@@ -1,4 +1,4 @@
-{{fg.value | json}}
+{{fg.getRawValue() | json}} - {{fg.valid}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
   <!-- ERROR TEMPLATE-->
   <ng-template #errorTpl let-control>
@@ -30,16 +30,8 @@
   </div>
 
   <!-- 2 row -->
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
-      <app-nz-input-checkbox
-        [parentFormGroup]="fg" formControlName="useYn"
-        checkboxText=""
-        [required]="true">사용여부
-      </app-nz-input-checkbox>      
-    </div>
-          
-    <div nz-col nzSpan="12">
+  <div nz-row nzGutter="8">              
+    <div nz-col nzSpan="24">
       <app-nz-input-number-custom
         [parentFormGroup]="this.fg" formControlName="sequence" itemId="sequence"
         [required]="true" [nzErrorTip]="errorTpl">출력 순번
@@ -65,8 +57,8 @@
     [isSavePopupConfirm]="false"
     (searchClick)="get(fg.get('typeId')?.value)"
     (closeClick)="closeForm()"
-    (saveClick)="submit()"
-    (deleteClick)="deleteEntity()">
+    (saveClick)="save()"
+    (deleteClick)="remove()">
   </app-nz-crud-button-group>
 </div>
 

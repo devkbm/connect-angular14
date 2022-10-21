@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { NewFormValue, WorkScheduleFormComponent } from './work-schedule-form.component';
-import { WorkGroupFormComponent } from './workgroup-form.component';
-import { MyWorkGroupGridComponent } from './myworkgroup-grid.component';
-import { NewDateSelectedArgs, WorkCalendarComponent } from './work-calendar.component';
+
 import { DaypilotCalendarNavigatorComponent } from 'src/app/shared/calendar/daypilot-calendar-navigator.component';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
 import { ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
+
+import { NewFormValue, WorkScheduleFormComponent } from './schedule/work-schedule-form.component';
+import { WorkGroupFormComponent } from './work-group/workgroup-form.component';
+import { MyWorkGroupGridComponent } from './work-group/myworkgroup-grid.component';
+import { NewDateSelectedArgs, WorkCalendarComponent } from './calendar/work-calendar.component';
 
 @Component({
   selector: 'app-workgroup',
@@ -83,7 +85,7 @@ export class WorkgroupComponent implements OnInit {
     this.openWorkGroupDrawer();
 
     setTimeout(() => {
-      this.workGroupForm.getWorkGroup(workGroup.id);
+      this.workGroupForm.get(workGroup.id);
     },50);
   }
 

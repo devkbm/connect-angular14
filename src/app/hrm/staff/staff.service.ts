@@ -48,7 +48,7 @@ export class StaffService extends DataService {
     );
   }
 
-  getEmployee(id: string): Observable<ResponseObject<Staff>> {
+  get(id: string): Observable<ResponseObject<Staff>> {
     const url = `${this.API_URL}/staff/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -56,18 +56,18 @@ export class StaffService extends DataService {
     };
 
     return this.http.get<ResponseObject<Staff>>(url, options).pipe(
-      catchError(this.handleError<ResponseObject<Staff>>('getEmployee', undefined))
+      catchError(this.handleError<ResponseObject<Staff>>('get', undefined))
     );
   }
 
-  saveEmployee(obj: Staff): Observable<ResponseObject<Staff>> {
+  save(obj: Staff): Observable<ResponseObject<Staff>> {
     const url = `${this.API_URL}/staff`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
     return this.http.post<ResponseObject<Staff>>(url, obj, options).pipe(
-      catchError(this.handleError<ResponseObject<Staff>>('saveEmployee', undefined))
+      catchError(this.handleError<ResponseObject<Staff>>('save', undefined))
     );
   }
 

@@ -1,11 +1,13 @@
 import { AfterViewInit, Component, ContentChild, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+
+import { AppBase } from 'src/app/core/app/app-base';
+import { ResponseObject } from 'src/app/core/model/response-object';
+
 import { AuthorityGridComponent } from './authority-grid.component';
-import { AppBase } from '../../core/app/app-base';
-import { ResponseObject } from '../../core/model/response-object';
 import { AuthorityService } from './authority.service';
 import { Authority } from './authority.model';
-import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
+
 import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 
 @Component({
@@ -16,9 +18,7 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 export class AuthorityComponent extends AppBase implements AfterViewInit {
 
   @ViewChild(AuthorityGridComponent) grid!: AuthorityGridComponent;
-
-  drawerVisible = false;
-
+  
   queryKey = 'authority';
   queryValue = '';
   queryOptionList = [
@@ -26,9 +26,10 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
     {label: '설명', value: 'description'}
   ];
 
-  selectedId: any;
-
-  menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
+  drawerAuthority: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
+  }    
 
   buttons: ButtonTemplate[] = [{
     text: '조회',
@@ -67,23 +68,23 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   }
 
   openDrawer(): void {
-    this.drawerVisible = true;
+    this.drawerAuthority.visible = true;
   }
 
   closeDrawer(): void {
-    this.drawerVisible = false;
+    this.drawerAuthority.visible = false;
   }
 
   selectedItem(data: any): void {
     if (data) {
-      this.selectedId = data.id;
+      this.drawerAuthority.initLoadId = data.id;
     } else {
-      this.selectedId = null;
+      this.drawerAuthority.initLoadId = null;
     }
   }
 
   initForm(): void {
-    this.selectedId = null;
+    this.drawerAuthority.initLoadId = null;
 
     this.openDrawer();
   }

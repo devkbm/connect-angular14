@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DatePipe, Location } from '@angular/common';
-import { AppBase } from '../../core/app/app-base';
+
+import { AppBase } from 'src/app/core/app/app-base';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+
 import { HolidayGridComponent } from './holiday-grid.component';
 import { HolidayService } from './holiday.service';
-import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { Holiday } from './holiday.model';
-import { ResponseObject } from 'src/app/core/model/response-object';
+
 
 @Component({
   selector: 'app-holiday',
@@ -26,9 +29,9 @@ export class HolidayComponent extends AppBase implements OnInit {
     year: new Date()
   }  
 
-  holiday: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerHoliday: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
   constructor(location: Location,
@@ -42,11 +45,11 @@ export class HolidayComponent extends AppBase implements OnInit {
   }
 
   openDrawer(): void {
-    this.holiday.drawerVisible = true;
+    this.drawerHoliday.visible = true;
   }
 
   closeDrawer(): void {
-    this.holiday.drawerVisible = false;
+    this.drawerHoliday.visible = false;
   }
 
   getHolidayList(): void {
@@ -62,7 +65,7 @@ export class HolidayComponent extends AppBase implements OnInit {
   }
 
   newHoliday(): void {
-    this.holiday.selectedRowId = null;
+    this.drawerHoliday.initLoadId = null;
     this.openDrawer();    
   }
   
@@ -86,11 +89,11 @@ export class HolidayComponent extends AppBase implements OnInit {
   }
 
   holidayGridRowClicked(item: any): void {
-    this.holiday.selectedRowId = item.date;
+    this.drawerHoliday.initLoadId = item.date;
   }
 
   edit(item: any): void {
-    this.holiday.selectedRowId = item.date;
+    this.drawerHoliday.initLoadId = item.date;
     this.openDrawer();        
   }
 }

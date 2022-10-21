@@ -5,7 +5,7 @@ import { WebResourceService } from './web-resource.service';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 
 import { ResponseObject } from '../../core/model/response-object';
-import { WebResource } from './web-resource';
+import { WebResource } from './web-resource.model';
 import { FormBase, FormType } from '../../core/form/form-base';
 import { existingWebResourceValidator } from './web-resource-duplication-validator.directive';
 import { ResponseList } from '../../core/model/response-list';
@@ -74,6 +74,10 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     this.fg.patchValue(formData);
   }
 
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
   get(id: string): void {
     this.service
         .get(id)
@@ -90,7 +94,10 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
   }
 
   save(): void {
-    if (this.isValid() === false) return;
+    if (this.fg.invalid) {
+      this.checkForm();
+      return;
+    }
 
     this.service
         .save(this.fg.getRawValue())
@@ -102,7 +109,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  delete(id: string) {
+  remove(id: string) {
     this.service
         .delete(id)
         .subscribe(
@@ -111,11 +118,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
-
-  close() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   getCommonCodeList() {
     this.service

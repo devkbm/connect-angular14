@@ -30,12 +30,12 @@ import { AgGridModule } from 'ag-grid-angular';
 import { SharedModule } from 'src/app/shared/shared.module';
 
 import { HrmRelationCodeGridComponent } from './hrm-relation-code-grid.component';
-import { HrmTypeCodeGridComponent } from './hrm-type-code-grid.component';
-import { HrmTypeGridComponent } from './hrm-type-grid.component';
-import { HrmTypeFormComponent } from './hrm-type-form.component';
-import { HrmTypeCodeFormComponent } from './hrm-type-code-form.component';
+import { HrmCodeGridComponent } from './hrm-code-grid.component';
+import { HrmCodeTypeGridComponent } from './hrm-code-type-grid.component';
+import { HrmCodeTypeFormComponent } from './hrm-code-type-form.component';
+import { HrmTypeCodeFormComponent } from './hrm-code-form.component';
 import { HrmRelationCodeFormComponent } from './hrm-relation-code-form.component';
-import { HrmTypeComponent } from './hrm-type.component';
+import { HrmCodeComponent } from './hrm-code.component';
 import { HrmRelationCodeComponent } from './hrm-relation-code.component';
 import { HrmCodeService } from './hrm-code.service';
 
@@ -73,17 +73,17 @@ const nzModules = [
     HrmRelationCodeComponent,
     HrmRelationCodeGridComponent,
     HrmRelationCodeFormComponent,
-    HrmTypeCodeGridComponent,
+    HrmCodeGridComponent,
     HrmTypeCodeFormComponent,
-    HrmTypeGridComponent,
-    HrmTypeFormComponent,
-    HrmTypeComponent    
+    HrmCodeTypeGridComponent,
+    HrmCodeTypeFormComponent,
+    HrmCodeComponent    
   ],
   providers: [
     HrmCodeService
   ],
   exports: [
-    HrmTypeComponent
+    HrmCodeComponent
   ]
 })
 export class HrmCodeModule { }

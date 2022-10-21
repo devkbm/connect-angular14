@@ -26,7 +26,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
   deptHierarchy: DeptHierarchy[] = [];
 
   constructor(private fb: FormBuilder,
-              private deptService: DeptService,
+              private service: DeptService,
               private appAlarmService: AppAlarmService) {
     super();
 
@@ -34,7 +34,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
       parentDeptId            : new FormControl<string | null>(null),
       deptId                  : new FormControl<string | null>(null, {
                                   validators: Validators.required,
-                                  asyncValidators: [existingDeptValidator(this.deptService)],
+                                  asyncValidators: [existingDeptValidator(this.service)],
                                   updateOn: 'blur'
                                 }),
       deptCode                : new FormControl<string | null>(null),
@@ -65,7 +65,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
     this.getDeptHierarchy();
 
     this.fg.reset();
-    this.fg.get('deptId')?.setAsyncValidators(existingDeptValidator(this.deptService));
+    this.fg.get('deptId')?.setAsyncValidators(existingDeptValidator(this.service));
     this.fg.get('deptCode')?.enable();
     this.fg.get('deptCode')?.valueChanges.subscribe(value => {
       if (value === null) return;
@@ -97,8 +97,12 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.patchValue(formData);
   }
 
-  getDept(id: string): void {
-    this.deptService
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(id: string): void {
+    this.service
         .getDept(id)
         .subscribe(
             (model: ResponseObject<Dept>) => {
@@ -110,10 +114,37 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
               this.appAlarmService.changeMessage(model.message);
             }
         );
+  }  
+
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
+
+    this.service
+        .saveDept(this.fg.getRawValue())
+        .subscribe(
+          (model: ResponseObject<Dept>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formSaved.emit(this.fg.getRawValue());
+          }
+        );
   }
 
+  remove(): void {
+    this.service
+        .deleteDept(this.fg.get('deptId')?.value)
+        .subscribe(
+            (model: ResponseObject<Dept>) => {
+            this.appAlarmService.changeMessage(model.message);
+            this.formDeleted.emit(this.fg.getRawValue());
+            }
+        );
+  }  
+
   getDeptHierarchy(): void {
-    this.deptService
+    this.service
         .getDeptHierarchyList()
         .subscribe(
           (model: ResponseList<DeptHierarchy>) => {
@@ -124,33 +155,6 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
             }
           }
         );
-  }
-
-  submitDept(): void {
-
-    this.deptService
-        .saveDept(this.fg.getRawValue())
-        .subscribe(
-          (model: ResponseObject<Dept>) => {
-            this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.fg.getRawValue());
-          }
-        );
-  }
-
-  deleteDept(): void {
-    this.deptService
-        .deleteDept(this.fg.get('deptId')?.value)
-        .subscribe(
-            (model: ResponseObject<Dept>) => {
-            this.appAlarmService.changeMessage(model.message);
-            this.formDeleted.emit(this.fg.getRawValue());
-            }
-        );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
   }
 
 }

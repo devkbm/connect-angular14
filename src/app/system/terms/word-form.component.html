@@ -55,7 +55,7 @@
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
-    (saveClick)="submit()"
-    (deleteClick)="delete(fg.get('logicalName')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('logicalName')?.value)">
   </app-nz-crud-button-group>
 </div>

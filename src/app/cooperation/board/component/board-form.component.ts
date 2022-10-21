@@ -24,7 +24,7 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
   boardTypeList: any;
 
   constructor(private fb: FormBuilder,
-              private boardService: BoardService) {
+              private service: BoardService) {
     super();
 
     this.fg = this.fb.group({
@@ -41,7 +41,7 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
 
   ngOnInit() {
     if (this.initLoadId) {
-      this.getBoard(this.initLoadId);
+      this.get(this.initLoadId);
     } else {
       this.newForm();
     }
@@ -66,24 +66,14 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
     this.fg.get('boardId')?.disable();
 
     this.fg.patchValue(formData);
-  }
+  }  
 
-  getBoardTypeList(): void {
-    this.boardService
-        .getBoardTypeList()
-        .subscribe(
-          (model: ResponseObject<any>) => {
-            if (model.data) {
-              this.boardTypeList = model.data;
-            } else {
-              this.boardTypeList = [];
-            }
-          }
-        );
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
   }
-
-  getBoard(id: string): void {
-    this.boardService.getBoard(id)
+  
+  get(id: string): void {
+    this.service.getBoard(id)
         .subscribe(
           (model: ResponseObject<Board>) => {
             if (model.data) {
@@ -95,8 +85,8 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
         );
   }
 
-  saveBoard(): void {
-    this.boardService
+  save(): void {
+    this.service
         .saveBoard(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Board>) => {
@@ -106,8 +96,8 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
         );
   }
 
-  deleteBoard(): void {
-    this.boardService
+  remove(): void {
+    this.service
         .deleteBoard(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Board>) => {
@@ -115,10 +105,10 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
+  }    
 
   getboardHierarchy(): void {
-    this.boardService
+    this.service
         .getBoardHierarchy()
         .subscribe(
           (model: ResponseList<BoardHierarchy>) => {
@@ -136,8 +126,18 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
         );
   }
 
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
+  getBoardTypeList(): void {
+    this.service
+        .getBoardTypeList()
+        .subscribe(
+          (model: ResponseObject<any>) => {
+            if (model.data) {
+              this.boardTypeList = model.data;
+            } else {
+              this.boardTypeList = [];
+            }
+          }
+        );
   }
 
 }

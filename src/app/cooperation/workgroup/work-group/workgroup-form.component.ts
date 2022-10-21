@@ -2,12 +2,14 @@ import { SessionManager } from 'src/app/core/session-manager';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ResponseObject } from '../../../../core/model/response-object';
-import { FormBase, FormType } from '../../../../core/form/form-base';
-import { WorkGroupService } from '../../service/workgroup.service';
-import { WorkGroup } from '../../model/workgroup.model';
-import { WorkGroupMember } from '../../model/workgroup-member.model';
-import { ResponseList } from '../../../../core/model/response-list';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { FormBase, FormType } from 'src/app/core/form/form-base';
+import { ResponseList } from 'src/app/core/model/response-list';
+
+import { WorkGroupService } from './workgroup.service';
+import { WorkGroup } from './workgroup.model';
+import { WorkGroupMember } from './workgroup-member.model';
+
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
@@ -58,7 +60,11 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
     this.fg.patchValue(formData);
   }
 
-  getWorkGroup(id: number): void {
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(id: number): void {
     this.workGroupService.getWorkGroup(id)
         .subscribe(
           (model: ResponseObject<WorkGroup>) => {
@@ -72,7 +78,7 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  saveWorkGroup(): void {
+  save(): void {
     this.workGroupService
         .saveWorkGroup(this.fg.getRawValue())
         .subscribe(
@@ -82,18 +88,14 @@ export class WorkGroupFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  deleteWorkGroup(id: number): void {
+  remove(id: number): void {
     this.workGroupService.deleteWorkGroup(id)
         .subscribe(
             (model: ResponseObject<WorkGroup>) => {
               this.formDeleted.emit(this.fg.getRawValue());
             }
         );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   getAllMember(): void {
     this.workGroupService.getMemberList()

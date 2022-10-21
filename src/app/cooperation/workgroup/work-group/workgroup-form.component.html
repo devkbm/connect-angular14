@@ -77,7 +77,7 @@
 <div class="footer">
   <app-nz-crud-button-group
     (closeClick)="closeForm()"
-    (saveClick)="saveWorkGroup()"
-    (deleteClick)="deleteWorkGroup(fg.get('workGroupId')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('workGroupId')?.value)">
   </app-nz-crud-button-group>
 </div>

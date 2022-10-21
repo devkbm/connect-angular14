@@ -52,7 +52,7 @@
     [searchVisible]="false"
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
-    (saveClick)="submit()"
-    (deleteClick)="delete(this.fg.get('date')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(this.fg.get('date')?.value)">
   </app-nz-crud-button-group>
 </div>

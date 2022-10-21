@@ -1,6 +1,5 @@
-export class Team {
-  constructor(
-    public teamId: number,
-    public teamName: string,
-    public memberList: string[]) {}
+export interface Team {
+  teamId: number;
+  teamName: string;
+  memberList: string[];
 }

@@ -4,7 +4,7 @@
 <div nz-row class="btn-group">
   <div nz-col [nzSpan]="12">
     <nz-input-group nzSearch [nzSuffix]="suffixIconSearch">
-      <input type="text" style="ime-mode:normal;" [(ngModel)]="queryValue" nz-input placeholder="input search text">
+      <input type="text" [(ngModel)]="queryValue" nz-input placeholder="input search text">
     </nz-input-group>
     <ng-template #suffixIconSearch>
       <span nz-icon nzType="search"></span>
@@ -12,27 +12,23 @@
   </div>
   <div nz-col [nzSpan]="12" style="text-align: right;">
     <button nz-button (click)="getDeptTree()">
-      <span nz-icon nzType="search"></span>
-      조회
+      <span nz-icon nzType="search"></span>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button (click)="initForm()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>
-      신규
+      <span nz-icon nzType="form" nzTheme="outline"></span>신규
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary"
       nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
       (nzOnConfirm)="saveDept()" (nzOnCancel)="false">
-      <span nz-icon nzType="save" nzTheme="outline"></span>
-      저장
+      <span nz-icon nzType="save" nzTheme="outline"></span>저장
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzDanger
       nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
       (nzOnConfirm)="deleteDept()" (nzOnCancel)="false">
-      <span nz-icon nzType="delete" nzTheme="outline"></span>
-      삭제
+      <span nz-icon nzType="delete" nzTheme="outline"></span>삭제
     </button>
   </div>
 </div>
@@ -41,16 +37,12 @@
 <h3 class="pgm-title">부서코드 목록</h3>
 
 <div class="grid-wrapper">
-  <app-dept-tree
-    #deptTree
-    id="deptTree"
+  <app-dept-tree    
     [searchValue]="queryValue"
     (itemSelected)="selectedItem($event)">
   </app-dept-tree>
 
-  <app-dept-form
-    id="deptForm"
-    #deptForm
+  <app-dept-form    
     (formSaved)="getDeptTree()"
     (formDeleted)="getDeptTree()">
   </app-dept-form>

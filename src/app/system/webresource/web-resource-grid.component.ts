@@ -5,7 +5,7 @@ import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { ResponseList } from 'src/app/core/model/response-list';
 
 import { WebResourceService } from './web-resource.service';
-import { WebResource } from './web-resource';
+import { WebResource } from './web-resource.model';
 
 @Component({
   selector: 'app-web-resource-grid',

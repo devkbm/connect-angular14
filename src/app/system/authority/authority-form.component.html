@@ -40,8 +40,8 @@
   <app-nz-crud-button-group
     [searchVisible]="false"
     (closeClick)="closeForm()"
-    (saveClick)="saveAuthority()"
-    (deleteClick)="deleteAuthority(this.fg.get('id')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(this.fg.get('id')?.value)">
   </app-nz-crud-button-group>
 </div>
 

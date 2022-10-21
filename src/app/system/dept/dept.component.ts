@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+
 import { AppBase } from 'src/app/core/app/app-base';
 
 import { DeptTreeComponent } from './dept-tree.component';
 import { DeptFormComponent } from './dept-form.component';
-import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 
 @Component({
   selector: 'app-dept',
@@ -13,16 +13,10 @@ import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
 })
 export class DeptComponent extends AppBase implements OnInit {
 
-  @ViewChild('deptTree', {static: true})
-  tree!: DeptTreeComponent;
-
-  @ViewChild('deptForm', {static: true})
-  form!: DeptFormComponent;
-
-  queryKey = 'programCode';
+  @ViewChild('deptTree') tree!: DeptTreeComponent;
+  @ViewChild('deptForm') form!: DeptFormComponent;
+  
   queryValue = '';  
-
-  //menuBreadCrumb: MenuBreadCrumb[] = SessionManager.createBreadCrumb();
 
   constructor(location: Location) {
     super(location);
@@ -41,15 +35,15 @@ export class DeptComponent extends AppBase implements OnInit {
   }
 
   saveDept(): void {  
-    this.form.submitDept();
+    this.form.save();
   }
 
   deleteDept(): void {
-    this.form.deleteDept();
+    this.form.remove();
   }
 
   selectedItem(item: any): void {
-    this.form.getDept(item.deptCode);
+    this.form.get(item.deptCode);
   }
 
 }

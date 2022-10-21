@@ -1,13 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { AppAlarmService } from '../../core/service/app-alarm.service';
+import { FormBase, FormType } from 'src/app/core/form/form-base';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { ResponseObject } from 'src/app/core/model/response-object';
 
-import { ResponseObject } from '../../core/model/response-object';
 import { Authority } from './authority.model';
-import { FormBase, FormType } from '../../core/form/form-base';
 import { existingAuthorityValidator } from './authority-duplication-validator.directive';
 import { AuthorityService } from './authority.service';
+
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
@@ -37,7 +38,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
   ngOnInit() {
     if (this.initLoadId) {
-      this.getAuthority(this.initLoadId);
+      this.get(this.initLoadId);
     } else {
       this.newForm();
     }
@@ -82,7 +83,11 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.fg.patchValue(formData);
   }
 
-  getAuthority(id: string): void {
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(id: string): void {
     this.service
         .getAuthority(id)
         .subscribe(
@@ -97,8 +102,11 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  saveAuthority(): void {
-    if (this.fg.invalid) return;
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm();
+      return;
+    }
 
     this.service
         .registerAuthority(this.fg.getRawValue())
@@ -110,7 +118,7 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  deleteAuthority(id: string): void {
+  remove(id: string): void {
     this.service
         .deleteAuthority(id)
         .subscribe(
@@ -119,10 +127,6 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
 }

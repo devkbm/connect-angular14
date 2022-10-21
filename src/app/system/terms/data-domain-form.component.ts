@@ -76,6 +76,10 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
     this.fg.patchValue(formData);
   }
 
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
   get(id: string) {
     this.service
         .get(id)
@@ -91,7 +95,12 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
         );
   }
 
-  submit() {
+  save() {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
+    
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
@@ -102,7 +111,7 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
         );
   }
 
-  delete(id: string) {
+  remove(id: string) {
     this.service
         .delete(id)
         .subscribe(
@@ -111,11 +120,7 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }
-
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   getDatabaseList() {
     this.service

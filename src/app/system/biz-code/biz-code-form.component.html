@@ -76,7 +76,7 @@
     [searchVisible]="false"
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
-    (saveClick)="saveForm()"
-    (deleteClick)="deleteForm(fg.get('typeId')?.value, fg.get('code')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('typeId')?.value, fg.get('code')?.value)">
   </app-nz-crud-button-group>
 </div>

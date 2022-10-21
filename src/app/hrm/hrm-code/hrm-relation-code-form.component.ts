@@ -9,7 +9,7 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { CommonCodeService } from 'src/app/system/commoncode/common-code.service';
 import { HrmCodeService } from './hrm-code.service';
 import { HrmRelationCode } from './hrm-relation-code';
-import { HrmTypeDetailCode } from './hrm-type-detail-code';
+import { HrmCode } from './hrm-code.model';
 
 
 @Component({
@@ -128,7 +128,7 @@ export class HrmRelationCodeFormComponent extends FormBase implements OnInit {
     this.hrmCodeService
         .getHrmTypeDetailCodeList({typeId: typeId})
         .subscribe(
-          (model: ResponseList<HrmTypeDetailCode>) => {
+          (model: ResponseList<HrmCode>) => {
             if (isParent) {
               this.parentHrmDetailCodeList = model.data;
             } else {

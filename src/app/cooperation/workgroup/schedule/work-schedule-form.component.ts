@@ -1,17 +1,20 @@
 import { Component, OnInit, ViewChild, AfterViewInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { ResponseObject } from '../../../../core/model/response-object';
-import { FormBase, FormType } from '../../../../core/form/form-base';
-import { WorkGroupService } from '../../service/workgroup.service';
-import { WorkGroup } from '../../model/workgroup.model';
-import { WorkGroupSchedule } from '../../model/workgroup-schedule.model';
-import { ResponseList } from '../../../../core/model/response-list';
+import { FormBase, FormType } from 'src/app/core/form/form-base';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { ResponseList } from 'src/app/core/model/response-list';
+
+import { WorkGroupSchedule } from './workgroup-schedule.model';
+import { WorkScheduleService } from './work-schedule.service';
+import { WorkGroup } from '../work-group/workgroup.model';
+
 import { NzInputTextareaComponent } from 'src/app/shared/nz-input-textarea/nz-input-textarea.component';
 import { TimeFormat } from 'src/app/shared/nz-input-datetime/nz-input-datetime.component';
-import { DatePipe } from '@angular/common';
 
 import * as dateFns from "date-fns";
+import { WorkGroupService } from '../work-group/workgroup.service';
+
 
 export interface NewFormValue {
   workGroupId: number;
@@ -35,6 +38,7 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
   workGroupList: WorkGroup[] = [];
 
   constructor(private fb: FormBuilder,
+              private service: WorkScheduleService,
               private workGroupService: WorkGroupService) {
     super();
 
@@ -52,7 +56,7 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
     this.getMyWorkGroupList();
 
     if (this.initLoadId > 0) {
-      this.getWorkGroupSchedule(this.initLoadId);
+      this.get(this.initLoadId);
     }
   }
 
@@ -86,8 +90,12 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
     this.fg.patchValue(formData);
   }
 
-  getWorkGroupSchedule(id: number): void {
-    this.workGroupService.getWorkGroupSchedule(id)
+  closeForm(): void {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+  
+  get(id: number): void {
+    this.service.getWorkGroupSchedule(id)
         .subscribe(
             (model: ResponseObject<WorkGroupSchedule>) => {
               if (model.data) {
@@ -98,10 +106,13 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
         );
   }
 
-  saveWorkGroupSchedule(): void {
-    if (this.isValid() === false) return;
+  save(): void {
+    if (this.fg.invalid) {
+      this.checkForm();
+      return;
+    }
 
-    this.workGroupService
+    this.service
         .saveWorkGroupSchedule(this.fg.getRawValue())
         .subscribe(
             (model: ResponseObject<WorkGroupSchedule>) => {
@@ -110,14 +121,14 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
         );
   }
 
-  deleteWorkGroupSchedule(id: number): void {
-    this.workGroupService.deleteWorkGroupSchedule(id)
+  remove(id: number): void {
+    this.service.deleteWorkGroupSchedule(id)
         .subscribe(
             (model: ResponseObject<WorkGroupSchedule>) => {
               this.formDeleted.emit(this.fg.getRawValue());
             }
         );
-  }
+  }    
 
   getMyWorkGroupList(): void {
     this.workGroupService
@@ -132,9 +143,5 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
             //this.appAlarmService.changeMessage(model.message);
           }
         );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.getRawValue());
   }
 }

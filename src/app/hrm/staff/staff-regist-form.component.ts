@@ -22,12 +22,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
   @Input() staffId?: string;
 
   imageUrl: any;
-  imageUploadParam: any;
-
-  newStaff: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
-  }
+  imageUploadParam: any;  
 
   newAppointment: { drawerVisible: boolean, selectedRowId: any } = {
     drawerVisible: false,
@@ -47,13 +42,15 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
   
     this.fg = this.fb.group({
       staffId                     : [ null, [ Validators.required ] ],
+      staffNo                     : [ null, [ Validators.required ] ],
       name                        : [ null, [ Validators.required ] ],
       nameEng                     : [ null ],
       nameChi                     : [ null ],
       residentRegistrationNumber  : [ null ],
       gender                      : [ null ],
       birthday                    : [ null ],
-      workCondition               : [ null ],      imagePath                   : [ null ]
+      workCondition               : [ null ],      
+      imagePath                   : [ null ]
     });
 
   }
@@ -66,7 +63,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     this.formType = FormType.NEW;    
   }
 
-  public modifyForm(formData: Staff): void {    
+  modifyForm(formData: Staff): void {    
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
@@ -74,11 +71,13 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     this.imageUrl = GlobalProperty.serverUrl + '/static/' + this.fg.get('imagePath')?.value;
   }
 
-  public getForm(staffId: string): void {
-    //const empId = this.fg.get('id').value;
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
 
+  get(staffId: string): void {        
     this.staffServie
-        .getEmployee(staffId)
+        .get(staffId)
         .subscribe(
           (model: ResponseObject<Staff>) => {
             if ( model.total > 0 ) {
@@ -99,39 +98,18 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
       );
   }
 
-  public submitForm(): void {
+  save(): void {
     this.staffServie
-        .saveEmployee(this.fg.getRawValue())
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Staff>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.fg.getRawValue());
           }
         );
-  }
+  }  
 
-  public newEmployee(): void {
-
-    this.newStaff.drawerVisible = true;
-    console.log('af');
-    /*
-    const staffId =this.fg.get('staffId')?.value;
-    const name =this.fg.get('name')?.value;
-    const residentRegistrationNumber = this.fg.get('residentRegistrationNumber')?.value;
-    const obj = null; //new NewStaff(staffId, name, '', '', residentRegistrationNumber);
-    
-    this.staffServie
-        .createEmployee(obj)
-        .subscribe(
-          (model: ResponseObject<NewStaff>) => {
-            this.appAlarmService.changeMessage(model.message);
-            this.formSaved.emit(this.fg.getRawValue());
-          }
-        );
-    */
-  }
-
-  public deleteForm(id: any): void {
+  remove(id: any): void {
     /*this.appointmentCodeService
         .deleteAppointmentCodeDetail(this.fg.get('code').value)
         .subscribe(
@@ -144,11 +122,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
             },
             () => {}
         );*/
-  }
-
-  public closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   handleChange(info: { file: NzUploadFile }): void {
     switch (info.file.status) {
@@ -157,7 +131,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
         break;
       case 'done':
         console.log('image upload done');
-        this.getForm(this.fg.get('id')?.value);
+        this.get(this.fg.get('id')?.value);
         // Get this url from response in real world.
         /*
         this.getBase64(info.file!.originFileObj!, (img: string) => {
@@ -173,7 +147,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     }
   }
 
-  public downloadImage(params: any): void {
+  downloadImage(params: any): void {
 
     this.staffServie
         .downloadEmployeeImage(this.fg.get('id')?.value)

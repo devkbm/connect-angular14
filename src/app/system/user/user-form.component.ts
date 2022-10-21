@@ -78,7 +78,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   ngOnInit(): void {
     if (this.initLoadId) {
-      this.getUser(this.initLoadId);
+      this.get(this.initLoadId);
     } else {
       this.newForm();
     }
@@ -122,7 +122,11 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.patchValue(formData);
   }
 
-  getUser(userId: string): void {
+  closeForm(): void {
+    this.formClosed.emit(this.fg.value);
+  }
+
+  get(userId: string): void {
     this.userService
         .getUser(userId)
         .subscribe(
@@ -150,7 +154,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  registerUser(): void {
+  save(): void {
     // if (this.isValid() === false) return;
 
     this.userService
@@ -163,7 +167,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  deleteUser(userId: string): void {
+  remove(userId: string): void {
     this.userService
         .deleteUser(userId)
         .subscribe(
@@ -210,10 +214,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
             }
           }
         );
-  }
-
-  closeForm(): void {
-    this.formClosed.emit(this.fg.value);
-  }
+  }  
 
 }

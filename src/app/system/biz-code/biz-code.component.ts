@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
-import { AppBase } from '../../core/app/app-base';
-import { ResponseObject } from '../../core/model/response-object';
 
-import { BizCodeTypeFormComponent } from './biz-code-type-form.component';
+import { AppBase } from 'src/app/core/app/app-base';
+
 import { BizCodeTypeGridComponent } from './biz-code-type-grid.component';
 import { BizCodeGridComponent } from './biz-code-grid.component';
 
@@ -17,14 +16,14 @@ export class BizCodeComponent extends AppBase implements OnInit {
   @ViewChild(BizCodeTypeGridComponent) gridCodeType!: BizCodeTypeGridComponent;
   @ViewChild(BizCodeGridComponent) gridCode!: BizCodeGridComponent;  
 
-  codeType: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerCodeType: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
-  code: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerCode: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
   constructor(location: Location) {
@@ -36,44 +35,44 @@ export class BizCodeComponent extends AppBase implements OnInit {
   }
   
   selectBizCodeTypeList() {
-    this.codeType.drawerVisible = false;
+    this.drawerCodeType.visible = false;
 
     this.gridCodeType.getList();
   }
 
   newCodeType() {
-    this.codeType.selectedRowId = null;
-    this.codeType.drawerVisible = true;
+    this.drawerCodeType.initLoadId = null;
+    this.drawerCodeType.visible = true;
   }
 
   editCodeType(params: any) {
-    this.codeType.selectedRowId = params.typeId;
-    this.codeType.drawerVisible = true;
+    this.drawerCodeType.initLoadId = params.typeId;
+    this.drawerCodeType.visible = true;
   }
 
   codeTypeGridRowClicked(params: any) {
-    this.codeType.selectedRowId = params.typeId;   
-    this.code.selectedRowId = {typeId: params.typeId};
+    this.drawerCodeType.initLoadId = params.typeId;   
+    this.drawerCode.initLoadId = {typeId: params.typeId};
 
-    this.gridCode.getList(this.code.selectedRowId.typeId);
+    this.gridCode.getList(this.drawerCode.initLoadId.typeId);
   }
 
   selectBizCodeList() {
-    this.code.drawerVisible = false;
-    this.gridCode.getList(this.code.selectedRowId.typeId);
+    this.drawerCode.visible = false;
+    this.gridCode.getList(this.drawerCode.initLoadId.typeId);
   }
 
   newCode() {    
-    this.code.drawerVisible = true;
+    this.drawerCode.visible = true;
   }
 
   editCode(params: any) {
-    this.code.selectedRowId = {typeId: params.typeId, code: params.code};
-    this.code.drawerVisible = true;
+    this.drawerCode.initLoadId = {typeId: params.typeId, code: params.code};
+    this.drawerCode.visible = true;
   }
 
   codeGridRowClicked(params: any) {    
-    this.code.selectedRowId = {typeId: params.typeId, code: params.code};
+    this.drawerCode.initLoadId = {typeId: params.typeId, code: params.code};
   }
 
 }

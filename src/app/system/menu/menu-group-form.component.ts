@@ -52,7 +52,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     this.newForm();
 
     if (this.initLoadId) {
-      this.getMenuGroup(this.initLoadId);
+      this.get(this.initLoadId);
     }
   }
 
@@ -73,7 +73,11 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     this.fg.patchValue(formData);
   }
 
-  getMenuGroup(menuGroupId: string) {
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+  
+  get(menuGroupId: string) {
     this.menuService
         .getMenuGroup(menuGroupId)
         .subscribe(
@@ -88,8 +92,11 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  submitMenuGroup() {
-    if (this.isValid() === false) return;
+  save() {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
 
     this.menuService
         .registerMenuGroup(this.fg.getRawValue())
@@ -101,7 +108,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  deleteMenuGroup() {
+  remove() {
     this.menuService
         .deleteMenuGroup(this.fg.get('menuGroupId')?.value)
         .subscribe(
@@ -110,10 +117,6 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
             this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 삭제되었습니다.');
           }
         );
-  }
-
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
 }

@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
 import { DatePipe } from '@angular/common';
 
-import { ResponseList } from '../../../../core/model/response-list';
-import { WorkGroupService } from '../../service/workgroup.service';
-import { WorkGroupSchedule } from '../../model/workgroup-schedule.model';
+import { ResponseList } from 'src/app/core/model/response-list';
+import { WorkGroupService } from '../work-group/workgroup.service';
+import { WorkGroupSchedule } from '../schedule/workgroup-schedule.model';
+
 import { DaypilotCalendarComponent, ModeChangedArgs } from 'src/app/shared/calendar/daypilot-calendar.component';
 import { DayPilot } from '@daypilot/daypilot-lite-angular';
+import { WorkScheduleService } from '../schedule/work-schedule.service';
 
 export interface NewDateSelectedArgs {
   workGroupId: number;
@@ -33,7 +35,7 @@ export class WorkCalendarComponent implements AfterViewInit {
   eventData: any[] = [];
   mode?: ModeChangedArgs;
 
-  constructor(private workGroupService: WorkGroupService,
+  constructor(private service: WorkScheduleService,
               private datePipe: DatePipe) {
   }
 
@@ -63,7 +65,7 @@ export class WorkCalendarComponent implements AfterViewInit {
       toDate: this.to
     };
 
-    this.workGroupService
+    this.service
         .getWorkScheduleList(param)
         .subscribe(
             (model: ResponseList<WorkGroupSchedule>) => {

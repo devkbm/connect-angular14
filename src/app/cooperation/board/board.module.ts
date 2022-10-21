@@ -27,10 +27,9 @@ import { BoardService } from './component/board.service';
 import { BoardTreeComponent } from './component/board-tree.component';
 import { BoardFormComponent } from './component/board-form.component';
 import { ArticleFormComponent } from './component/article-form.component';
-import { BoardComponent } from './component/board.component';
+import { BoardComponent } from './board.component';
 import { ArticleGridComponent } from './component/article-grid.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../../core/grid/renderer/button-renderer.component';
 import { ArticleViewComponent } from './component/article-view.component';
 import { SharedModule } from 'src/app/shared/shared.module';
 

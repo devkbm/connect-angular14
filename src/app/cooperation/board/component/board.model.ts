@@ -1,12 +1,11 @@
-export class Board {
-  constructor(
-    public pkBoard: number,
-    public ppkBoard: number,
-    public boardType: string,
-    public boardName: string,
-    public boardDescription: string,
-    public useYn: string,
-    public articleCount: number,
-    public sequence: number,
-    public pwdYn: string) {}
+export interface Board {
+  pkBoard: number;
+  ppkBoard: number;
+  boardType: string;
+  boardName: string;
+  boardDescription: string;
+  useYn: string;
+  articleCount: number;
+  sequence: number;
+  pwdYn: string;
 }

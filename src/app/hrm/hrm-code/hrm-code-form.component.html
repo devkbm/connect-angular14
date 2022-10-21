@@ -75,8 +75,8 @@
     [isSavePopupConfirm]="false"
     (searchClick)="get(this.fg.get('typeId')?.value, this.fg.get('code')?.value)"
     (closeClick)="closeForm()"
-    (saveClick)="submit()"
-    (deleteClick)="deleteEntity()">
+    (saveClick)="save()"
+    (deleteClick)="remove()">
   </app-nz-crud-button-group>  
 </div>
 

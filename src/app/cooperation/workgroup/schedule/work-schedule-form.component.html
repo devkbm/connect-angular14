@@ -79,7 +79,7 @@
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
-    (saveClick)="saveWorkGroupSchedule()"
-    (deleteClick)="deleteWorkGroupSchedule(fg.get('id')?.value)">
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('id')?.value)">
   </app-nz-crud-button-group>
 </div>

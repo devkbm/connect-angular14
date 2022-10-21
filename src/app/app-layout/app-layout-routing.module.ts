@@ -15,9 +15,9 @@ import { HolidayComponent } from '../system/holiday/holiday.component';
 import { BizCodeComponent } from '../system/biz-code/biz-code.component';
 
 import { TeamComponent } from '../cooperation/communication/component/team.component';
-import { BoardComponent } from '../cooperation/board/component/board.component';
+import { BoardComponent } from '../cooperation/board/board.component';
 import { SurveyFormComponent } from '../cooperation/survey/component/survey-form.component';
-import { WorkgroupComponent } from '../cooperation/workgroup/component/workgroup/workgroup.component';
+import { WorkgroupComponent } from '../cooperation/workgroup/workgroup.component';
 import { TodosComponent } from '../cooperation/todo/todos.component';
 
 import { AppointmentCodeComponent } from '../hrm/appointment/component/appointment-code/appointment-code.component';
@@ -31,7 +31,8 @@ import { DeptEmployeeListComponent } from '../hrm/employee/component/dept-employ
 import { PayitemComponent } from './../hrm/payitem/component/pay-item/payitem.component';
 import { PayTableComponent } from '../hrm/payitem/component/paytable/pay-table.component';
 import { StaffManagementComponent } from '../hrm/staff/staff-management.component';
-import { HrmTypeComponent } from '../hrm/hrm-code/hrm-type.component';
+import { HrmCodeComponent } from '../hrm/hrm-code/hrm-code.component';
+
 
 const layoutroutes: Routes = [
   {
@@ -56,7 +57,7 @@ const layoutroutes: Routes = [
       {path: 'todo',          component: TodosComponent},
 
       /* 인사시스템 */
-      {path: 'hrmtype',           component: HrmTypeComponent},
+      {path: 'hrmtype',           component: HrmCodeComponent},
       {path: 'relationcode',      component: HrmRelationCodeComponent},
       {path: 'appointmentcode',   component: AppointmentCodeComponent},
       {path: 'appointmentledger', component: LedgerComponent},

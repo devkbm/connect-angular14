@@ -1,8 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
+
+import { AppBase } from 'src/app/core/app/app-base';
+
 import { MenuGroupGridComponent } from './menu-group-grid.component';
 import { MenuGridComponent } from './menu-grid.component';
-import { AppBase } from '../../core/app/app-base';
+
 
 @Component({
   selector: 'app-menu',
@@ -32,14 +35,14 @@ export class MenuComponent extends AppBase implements OnInit {
     ]
   }
 
-  menuGroup: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerMenuGroup: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
-  menu: { drawerVisible: boolean, selectedRowId: any } = {
-    drawerVisible: false,
-    selectedRowId: null
+  drawerMenu: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
   }
 
   constructor(location: Location) {
@@ -56,53 +59,52 @@ export class MenuComponent extends AppBase implements OnInit {
       params[this.queryMenuGroup.key] = this.queryMenuGroup.value;
     }
 
-    this.menuGroup.drawerVisible = false;
+    this.drawerMenuGroup.visible = false;
     this.menuGrid.clearData();
     this.menuGroupGrid.getMenuGroupList(params);
   }
 
   newMenuGroup(): void {
-    this.menuGroup.selectedRowId = null;
-    this.menuGroup.drawerVisible = true;
+    this.drawerMenuGroup.initLoadId = null;
+    this.drawerMenuGroup.visible = true;
   }  
 
   editMenuGroup(item: any) {
-    this.menuGroup.selectedRowId = item.menuGroupId;
-    this.menuGroup.drawerVisible = true;
+    this.drawerMenuGroup.initLoadId = item.menuGroupId;
+    this.drawerMenuGroup.visible = true;
   }
 
   menuGroupGridRowClicked(row: any): void {
-    this.menuGroup.selectedRowId = row.menuGroupId;
+    this.drawerMenuGroup.initLoadId = row.menuGroupId;
     this.getMenuList();
   }
-
   //#endregion 메뉴그룹
   
   //#region 메뉴
   getMenuList(): void {
     let params: any = new Object();
-    params['menuGroupId'] = this.menuGroup.selectedRowId;
+    params['menuGroupId'] = this.drawerMenuGroup.initLoadId;
 
     if ( this.queryMenu.value !== '') {
       params[this.queryMenu.key] = this.queryMenu.value;
     }
 
-    this.menu.drawerVisible = false;
+    this.drawerMenu.visible = false;
     this.menuGrid.getMenuList(params);
   }
 
   newMenu(): void {
-    this.menu.selectedRowId = null;
-    this.menu.drawerVisible = true;
+    this.drawerMenu.initLoadId = null;
+    this.drawerMenu.visible = true;
   }
   
   editMenu(item: any) {
-    this.menu.selectedRowId = item.menuId;
-    this.menu.drawerVisible = true;
+    this.drawerMenu.initLoadId = item.menuId;
+    this.drawerMenu.visible = true;
   }  
 
   menuGridRowClicked(row: any): void {    
-    this.menu.selectedRowId = row.menuId;
+    this.drawerMenu.initLoadId = row.menuId;
   }
   //#endregion 메뉴
 

@@ -68,7 +68,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   ngOnInit() {    
     if (this.initLoadId) {
       console.log(this.initLoadId);
-      this.getMenu(this.initLoadId);
+      this.get(this.initLoadId);
     } else {
       this.newForm();
     }
@@ -102,7 +102,11 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.patchValue(formData);
   }
 
-  getMenu(menuId: string) {
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(menuId: string) {
 
     this.menuService
         .getMenu(menuId)
@@ -118,7 +122,12 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  submitMenu() {
+  save() {
+    if (this.fg.invalid) {
+      this.checkForm()
+      return;
+    }
+
     this.menuService
         .registerMenu(this.fg.getRawValue())
         .subscribe(
@@ -129,7 +138,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  deleteMenu(): void {
+  remove(): void {
     this.menuService
         .deleteMenu(this.fg.getRawValue())
         .subscribe(
@@ -138,11 +147,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }
-
-  closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
+  }  
 
   getMenuHierarchy(menuGroupId: string): void {
     if (!menuGroupId) return;

@@ -1,10 +1,10 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AggridFunction } from '../../../../core/grid/aggrid-function';
-import { ResponseList } from '../../../../core/model/response-list';
-import { AppAlarmService } from '../../../../core/service/app-alarm.service';
+import { AggridFunction } from '../../../core/grid/aggrid-function';
+import { ResponseList } from '../../../core/model/response-list';
+import { AppAlarmService } from '../../../core/service/app-alarm.service';
 
-import { WorkGroupService } from '../../service/workgroup.service';
-import { WorkGroup } from '../../model/workgroup.model';
+import { WorkGroupService } from './workgroup.service';
+import { WorkGroup } from './workgroup.model';
 
 @Component({
   selector: 'app-myworkgroup-grid',
