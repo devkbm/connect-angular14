@@ -76,7 +76,7 @@ import { StaffManagementComponent } from './staff-management.component';
   declarations: [
     StaffRegistFormComponent,
     StaffAppointmentRecordFormComponent,
-    StaffAppointmentRecordGridComponent,    
+    StaffAppointmentRecordGridComponent,
     NewStaffFormComponent,
     StaffGridComponent,
     StaffManagementComponent

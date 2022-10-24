@@ -40,6 +40,8 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   selectStaffGrid() {
+    this.staffDrawer.visible = false;
+
     this.grid.getList();
   }
 

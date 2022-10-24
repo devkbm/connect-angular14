@@ -33,7 +33,7 @@
         [required]="true" [nzErrorTip]="errorTpl">직원명
       </app-nz-input-text>
     </div>
-  </div>    
+  </div>
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
@@ -42,7 +42,7 @@
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="id" itemId="id"
         placeholder=""
-        [required]="false" [nzErrorTip]="errorTpl">발령ID
+        [required]="false" [readonly]="true" [nzErrorTip]="errorTpl">발령ID
       </app-nz-input-text>
     </div>
 
@@ -88,14 +88,14 @@
         [parentFormGroup]="fg" formControlName="blngDeptCode"
         placeholder="부서 없음">소속부서
       </app-nz-dept-tree-select>
-    </div>    
+    </div>
 
     <div nz-col nzSpan="12">
       <app-nz-dept-tree-select
         [parentFormGroup]="fg" formControlName="workDeptCode"
         placeholder="부서 없음">근무부서
       </app-nz-dept-tree-select>
-    </div>    
+    </div>
 
   </div>
 
@@ -131,7 +131,7 @@
         [nzErrorTip]="errorTpl" [required]="true">직종
       </app-nz-input-select>
     </div>
-    
+
     <div nz-col nzSpan="12">
       <app-nz-input-select
         [parentFormGroup]="fg" formControlName="jobGradeCode" itemId="jobGradeCode"
@@ -139,7 +139,7 @@
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직급
       </app-nz-input-select>
-    </div>    
+    </div>
   </div>
 
   <!-- 7 row-->
@@ -178,14 +178,11 @@
 
 </form>
 
-<app-nz-crud-button-group
-  (searchClick)="get(fg.get('staffId')?.value, fg.get('id')?.value)"
-  (closeClick)="closeForm(grid)"
-  (saveClick)="save()"
-  (deleteClick)="remove(fg.get('id')?.value)">
-</app-nz-crud-button-group>
-
-
-<app-staff-appointment-record-grid #grid>
-
-</app-staff-appointment-record-grid>
+<div class="footer">
+  <app-nz-crud-button-group
+    (searchClick)="get(fg.get('staffId')?.value, fg.get('id')?.value)"
+    (closeClick)="closeForm()"
+    (saveClick)="save()"
+    (deleteClick)="remove(fg.get('id')?.value)">
+  </app-nz-crud-button-group>
+</div>

@@ -7,6 +7,7 @@ import { MenuBreadCrumb, SessionManager } from 'src/app/core/session-manager';
   template: `
    <nz-page-header (nzBack)="goBack()" nzBackIcon [nzTitle]="title" [nzSubtitle]="subtitle">
     <nz-breadcrumb nz-page-header-breadcrumb nzSeparator=">" >
+      <nz-breadcrumb-item><a routerLink="/home"><span nz-icon [nzType]="'home'"></span></a></nz-breadcrumb-item>
       <nz-breadcrumb-item *ngFor="let menu of menuBreadCrumb">{{menu.name}}</nz-breadcrumb-item>
     </nz-breadcrumb>
   </nz-page-header>

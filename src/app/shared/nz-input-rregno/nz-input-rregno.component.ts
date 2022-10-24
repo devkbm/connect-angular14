@@ -2,22 +2,8 @@ import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, O
 import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
-/*
-,
-  changeDetection: ChangeDetectionStrategy.Default,
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(
-        () => NzInputTextComponent
-      ),
-      multi: true
-    }
-  ]
-*/
-
 @Component({
-  selector: 'app-nz-input-text',
+  selector: 'app-nz-input-rregno',
   template: `
     <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
@@ -31,14 +17,16 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
               [placeholder]="placeholder"
               [(ngModel)]="value"
               [readonly]="readonly"
+              mask="000000-0000000"
               (ngModelChange)="onChange($event)"
               (ngModelChange)="valueChange($event)"
               (blur)="onTouched()"/>
       </nz-form-control>
     </nz-form-item>
-  `
+  `,
+  styles: []
 })
-export class NzInputTextComponent implements ControlValueAccessor, OnInit {
+export class NzInputRregnoComponent implements ControlValueAccessor, OnInit {
 
   @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
   @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;

@@ -82,9 +82,9 @@ export class StaffService extends DataService {
     );
   }
 
-  downloadEmployeeImage(employeeId: string): Observable<Blob> {
+  downloadStaffImage(staffId: string): Observable<Blob> {
     const url = `${this.API_URL}/staff/downloadimage`;
-    const obj:any = {employeeId: employeeId};
+    const obj:any = {staffId: staffId};
     const token = sessionStorage.getItem('token') as string;
 
     const options = {

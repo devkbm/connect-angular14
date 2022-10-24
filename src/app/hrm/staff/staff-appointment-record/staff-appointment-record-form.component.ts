@@ -18,7 +18,7 @@ import { StaffAppointmentRecordService } from './staff-appointment-record.servic
   styleUrls: ['./staff-appointment-record-form.component.css']
 })
 export class StaffAppointmentRecordFormComponent extends FormBase implements OnInit {
-  
+
   @Input() staff?: {staffId: string, staffNo: string, staffName: string};
 
   bizTypeList = [{code:'code', name:'name'},{code:'code2', name:'name2'}];
@@ -107,7 +107,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
       this.fg.get('staffName')?.setValue(this.staff?.staffName);
     }
-    
+
   }
 
   modifyForm(formData: StaffAppointmentRecord): void {
@@ -116,9 +116,9 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
     this.fg.patchValue(formData);
   }
 
-  closeForm(grid: any) {
-    grid.getGridList(this.fg.get('staffId')?.value);
-    //this.formClosed.emit(this.fg.getRawValue());
+  closeForm() {
+    //grid.getGridList(this.fg.get('staffId')?.value);
+    this.formClosed.emit(this.fg.getRawValue());
   }
 
   get(staffId: string, id: string): void {
@@ -161,7 +161,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
             },
             () => {}
         );*/
-  }  
+  }
 
   // [key: string]: any
   getHrmTypeDetailCodeList(typeId: string, propertyName: string): void {

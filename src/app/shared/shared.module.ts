@@ -46,7 +46,12 @@ import { NzPageHeaderCustomComponent } from './nz-page-header-custom/nz-page-hea
 import { NzButtonsComponent } from './nz-buttons/nz-buttons.component';
 import { NzInputDateTimeComponent } from './nz-input-datetime/nz-input-datetime.component';
 import { NzInputDeptSelectComponent } from './nz-input-dept-select/nz-input-dept-select.component';
+import { RouterModule } from '@angular/router';
 
+
+import { NgxMaskModule, IConfig } from 'ngx-mask';
+import { NzInputRregnoComponent } from './nz-input-rregno/nz-input-rregno.component';
+export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 const nzModules = [
   NzPageHeaderModule,
@@ -72,11 +77,13 @@ const nzModules = [
 @NgModule({
   imports: [
     CommonModule,
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     nzModules,
     ColorPickerModule,
-    CKEditorModule
+    CKEditorModule,
+    NgxMaskModule.forRoot()
   ],
   declarations: [
     NzPageHeaderCustomComponent,
@@ -98,7 +105,8 @@ const nzModules = [
     NzInputSwitchComponent,
     NzInputCheckboxComponent,
     NzButtonsComponent,
-    NzInputDeptSelectComponent
+    NzInputDeptSelectComponent,
+    NzInputRregnoComponent
    ],
   providers: [
     DeptHierarchyService
@@ -123,7 +131,8 @@ const nzModules = [
     NzInputSwitchComponent,
     NzInputCheckboxComponent,
     NzButtonsComponent,
-    NzInputDeptSelectComponent
+    NzInputDeptSelectComponent,
+    NzInputRregnoComponent
   ]
 })
 export class SharedModule { }

@@ -155,7 +155,10 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   save(): void {
-    // if (this.isValid() === false) return;
+    if (this.fg.invalid) {
+      this.checkForm();
+      return;
+    }
 
     this.userService
         .registerUser(this.fg.getRawValue())

@@ -1,11 +1,11 @@
 <app-nz-page-header-custom title="직원정보관리" subtitle="This is a subtitle"></app-nz-page-header-custom>
 
-<div nz-row class="btn-group"> 
-  
+<div nz-row class="btn-group">
+
   <div nz-col [nzSpan]="24" style="text-align: right;">
     {{selectedStaff | json}}
     <button nz-button (click)="selectStaffGrid()">
-      <span nz-icon nzType="search" nzTheme="outline"></span>조회      
+      <span nz-icon nzType="search" nzTheme="outline"></span>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary" (click)="newStaff()">
@@ -21,23 +21,23 @@
 
 
 
-<div class="app-grid">        
-  <app-staff-grid     
+<div class="app-grid">
+  <app-staff-grid
     (rowClickedEvent)="staffGridRowClicked($event)">
-  </app-staff-grid>  
-        
+  </app-staff-grid>
+
   <app-staff-regist-form [staffId]="selectedStaff?.staffId">
   </app-staff-regist-form>
-    
-  <nz-tabset>    
+
+  <nz-tabset>
     <nz-tab nzTitle="발령">
-      <div style="height:calc(100vh - 300px)">
+      <div style="height:calc(100vh - 310px)">
         <app-staff-appointment-record-grid
           [staffId]="selectedStaff?.staffId">
         </app-staff-appointment-record-grid>
       </div>
     </nz-tab>
-  </nz-tabset>  
+  </nz-tabset>
 </div>
 
 
@@ -47,11 +47,12 @@
   nzWidth="80%"
   [nzVisible]="staffDrawer.visible"
   nzTitle="직원 등록"
-  (nzOnClose)="staffDrawer.visible = false">  
+  (nzOnClose)="staffDrawer.visible = false">
     <!-- (formSaved)="getForm(newStaff.selectedRowId)" -->
-    <app-new-staff-form *nzDrawerContent      
-      [initLoadId]="staffDrawer.initLoadId"      
-      (formDeleted)="staffDrawer.visible = false"
+    <app-new-staff-form *nzDrawerContent
+      [initLoadId]="staffDrawer.initLoadId"
+      (formSaved)="selectStaffGrid()"
+      (formDeleted)="selectStaffGrid()"
       (formClosed)="staffDrawer.visible = false">
     </app-new-staff-form>
 </nz-drawer>
@@ -66,9 +67,9 @@
   (nzOnClose)="appointmentDrawer.visible = false">
   <!-- (formSaved)="getTermList()"
       (formDeleted)="getTermList()" -->
-    <app-staff-appointment-record-form *nzDrawerContent      
+    <app-staff-appointment-record-form *nzDrawerContent
       [staff]="selectedStaff"
-      [initLoadId]="appointmentDrawer.initLoadId"      
+      [initLoadId]="appointmentDrawer.initLoadId"
       (formClosed)="appointmentDrawer.visible = false">
     </app-staff-appointment-record-form>
 </nz-drawer>

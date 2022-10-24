@@ -13,13 +13,13 @@ import { UserService } from './user.service';
     <br/>
     <nz-space [nzAlign]="'center'">
       <nz-upload
-          [nzAction]="uploadUrl"
+          [nzAction]="upload.url"
           [nzShowUploadList]="false"
           [nzPreview]="handlePreview"
           [nzRemove]="handleRemove"
           [nzWithCredentials]="true"
-          [nzData]="data"
-          [nzHeaders]="headers"
+          [nzData]="upload.data"
+          [nzHeaders]="upload.headers"
           [nzFileList]="fileList"
           (nzChange)="fileUploadChange($event)">
           <button nz-button class="upload-button">
@@ -30,6 +30,8 @@ import { UserService } from './user.service';
         <span nz-icon nzType="download" class="button-icon"></span>
       </button>
     </nz-space>
+
+    {{upload | json}}
   </div>
   `,
   styles: [`
@@ -40,9 +42,10 @@ import { UserService } from './user.service';
 
       width: 12px;
       height: 24px;
-      background-color: darkslategray;
+      /*background-color: darkslategray;*/
 
       padding-top: -20px;
+      text-align: center;
     }
 
     .download-button {
@@ -52,7 +55,7 @@ import { UserService } from './user.service';
 
       width: 12px;
       height: 24px;
-      background-color: darkslategray;
+      /*background-color: darkslategray;*/
 
       padding-top: -20px;
     }
@@ -66,9 +69,17 @@ import { UserService } from './user.service';
 })
 export class UserImageUploadComponent implements OnInit, OnChanges {
 
+  /*
   uploadUrl: string = GlobalProperty.serverUrl + '/api/system/user/image';
   headers: any = { Authorization: sessionStorage.getItem('token') };
   data: any;
+  */
+
+  upload: {url: string, headers: any, data: any} = {
+    url: GlobalProperty.serverUrl + '/api/system/user/image',
+    headers: { Authorization: sessionStorage.getItem('token') },
+    data: null
+  }
 
   previewImage: string | undefined = '';
 
@@ -91,7 +102,7 @@ export class UserImageUploadComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['userId']) {
-      this.data = {userId : changes['userId'].currentValue};
+      this.upload.data = {userId : changes['userId'].currentValue};
     }
   }
 
