@@ -58,19 +58,28 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      { headerName: '발령일',         field: 'appointmentDate',         width: 150 },
-      { headerName: '발령종료일',     field: 'appointmentEndDate',      width: 200 },
+      { headerName: '발령일',         field: 'appointmentDate',         width: 90 },
+      { headerName: '발령종료일',     field: 'appointmentEndDate',      width: 90 },
       { headerName: '발령기록',       field: 'recordName',              width: 200 },
-      { headerName: '비고',           field: 'comment',                 width: 80 },
-      { headerName: '소속부서코드',   field: 'blngDeptCode',            width: 80 },
-      { headerName: '근무부서코드',   field: 'workDeptCode',            width: 80 },
+      { headerName: '소속부서코드',   field: 'blngDeptCode',            width: 100 },
+      { headerName: '소속부서명',     field: 'blngDeptName',            width: 100 },
+      { headerName: '근무부서코드',   field: 'workDeptCode',            width: 100 },
+      { headerName: '근무부서명',     field: 'workDeptName',            width: 100 },
       { headerName: '직군코드',       field: 'jobGroupCode',            width: 80 },
+      { headerName: '직군명',         field: 'jobGroupName',            width: 80 },
       { headerName: '직위코드',       field: 'jobPositionCode',         width: 80 },
+      { headerName: '직위명',         field: 'jobPositionName',         width: 80 },
       { headerName: '직종코드',       field: 'occupationCode',          width: 80 },
+      { headerName: '직종명',         field: 'occupationName',          width: 80 },
       { headerName: '직급코드',       field: 'jobGradeCode',            width: 80 },
+      { headerName: '직급명',         field: 'jobGradeName',            width: 80 },
       { headerName: '호봉코드',       field: 'payStepCode',             width: 80 },
+      { headerName: '호봉명',         field: 'payStepName',             width: 80 },
       { headerName: '직무코드',       field: 'jobCode',                 width: 80 },
-      { headerName: '직책코드',       field: 'dutyResponsibilityCode',  width: 80 }
+      { headerName: '직무명',         field: 'jobName',                 width: 80 },
+      { headerName: '직책코드',       field: 'dutyResponsibilityCode',  width: 80 },
+      { headerName: '직책명',         field: 'dutyResponsibilityName',  width: 80 },
+      { headerName: '비고',           field: 'comment',                 width: 80 }
     ];
 
     this.defaultColDef = {
@@ -83,11 +92,11 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
     };
 
   }
-  
+
   ngOnInit() {
   }
 
-  ngOnChanges(changes: SimpleChanges): void {    
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes['staffId']) {
       this.getList(changes['staffId'].currentValue);
     }

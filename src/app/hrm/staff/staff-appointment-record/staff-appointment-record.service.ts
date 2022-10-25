@@ -19,7 +19,7 @@ export class StaffAppointmentRecordService extends DataService {
   }
 
   getStaffAppointmentRecordList(staffId: string): Observable<ResponseList<StaffAppointmentRecord>> {
-    const url = `${this.API_URL}/${staffId}/appointmentrecord`;
+    const url = `${this.API_URL}/${staffId}/record`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
