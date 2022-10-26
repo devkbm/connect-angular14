@@ -34,21 +34,31 @@
         sdfsdf
       </nz-collapse-panel>
       <nz-collapse-panel [nzHeader]="'보직'">
-        sdfsdf
+        sdfsdf<br>
+        fdsasf<br>
+        sdfsdf<br>
+        fdsasf<br>
+        sdfsdf<br>
+        fdsasf<br>
+        sdfsdf<br>
+        fdsasf<br>
       </nz-collapse-panel>
     </nz-collapse>
   </div>
 
 
-  <nz-tabset>
-    <nz-tab nzTitle="발령">
-      <div style="height:calc(100vh - 310px)">
-        <app-staff-appointment-record-grid
-          [staffId]="selectedStaff?.staffId">
-        </app-staff-appointment-record-grid>
-      </div>
-    </nz-tab>
-  </nz-tabset>
+  <div>
+    <nz-tabset>
+      <nz-tab nzTitle="발령" >
+        <div style="height:calc(100vh - 310px)">
+          <app-staff-appointment-record-grid
+            [staffId]="selectedStaff?.staffId">
+          </app-staff-appointment-record-grid>
+        </div>
+      </nz-tab>
+    </nz-tabset>
+  </div>
+
 </div>
 
 
