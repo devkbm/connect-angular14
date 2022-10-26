@@ -14,30 +14,25 @@
   <!-- 1 row -->
   <div nz-row nzGutter="8">
 
-    <!--공통코드 필드-->
-    <div nz-col nzSpan="2">
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="id" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">ID</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <input nz-input id="id" formControlName="id">
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-
     <!--시스템구분코드 필드-->
     <div nz-col nzSpan="4">
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="systemTypeCode" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">시스템구분코드</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" nzHasFeedback [nzErrorTip]="errorTpl">
-          <nz-select formControlName="systemTypeCode"  nzPlaceHolder="시스템구분코드를 선택해주세요.">
-            <nz-option *ngFor="let option of systemTypeCodeList" [nzLabel]="option.label" [nzValue]="option.value"></nz-option>
-          </nz-select>
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="systemTypeCode" itemId="systemTypeCode"
+        [options]="systemTypeCodeList" [opt_value]="'value'" [opt_label]="'label'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">시스템구분코드
+      </app-nz-input-select>
     </div>
 
     <!--상위 공통코드 필드-->
     <div nz-col nzSpan="8">
+      <app-nz-input-tree-select
+        [parentFormGroup]="fg" formControlName="parentId"
+        [nodes]="nodeItems"
+        [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="false">상위 공통코드
+      </app-nz-input-tree-select>
+
+      <!--
       <nz-form-item class="form-item">
         <nz-form-label nzFor="parentId" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">상위 공통코드</nz-form-label>
         <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
@@ -52,48 +47,40 @@
           </nz-tree-select>
         </nz-form-control>
       </nz-form-item>
+      -->
     </div>
 
   </div>
 
   <!-- 2 row -->
   <div nz-row nzGutter="8">
-    <!--공통코드 필드-->
     <div nz-col nzSpan="8">
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="code" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">공통코드</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" nzHasFeedback [nzErrorTip]="errorTpl">
-          <input nz-input id="code" formControlName="code" placeholder="공통코드를 입력해주세요.">
-        </nz-form-control>
-      </nz-form-item>
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="code" itemId="code"
+        placeholder="코드를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">코드
+      </app-nz-input-text>
     </div>
 
-    <!--공통코드명 필드-->
-    <div nz-col nzSpan="12">
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="codeName" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">공통코드명</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" nzHasFeedback [nzErrorTip]="errorTpl">
-          <input nz-input id="codeName" formControlName="codeName" placeholder="공통코드명을 입력해주세요.">
-        </nz-form-control>
-      </nz-form-item>
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="codeName" itemId="codeName"
+        placeholder="코드명 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">코드명
+      </app-nz-input-text>
     </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="codeNameAbbreviation" itemId="codeNameAbbreviation"
+        placeholder="코드약어를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">코드약어
+      </app-nz-input-text>
+    </div>
+
   </div>
 
   <!-- 3 row -->
-  <div nz-row nzGutter="8">
-
-    <div nz-col nzSpan="12">
-      <!--공통코드 약어 필드-->
-      <nz-form-item class="form-item">
-        <nz-form-label nzFor="codeNameAbbreviation" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">공통코드 약어</nz-form-label>
-        <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-          <input nz-input id="codeNameAbbreviation" formControlName="codeNameAbbreviation" placeholder="공통코드 약어를 입력해주세요.">
-        </nz-form-control>
-      </nz-form-item>
-    </div>
-  </div>
-
-  <!-- 4 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="5">
       <!--시작일 필드-->
@@ -113,12 +100,8 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-  </div>
 
-  <!-- 5 row -->
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="3">
-      <!--출력순번 필드-->
+    <div nz-col nzSpan="5">
       <nz-form-item class="form-item">
         <nz-form-label nzFor="seq" nzRequired [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">출력 순번</nz-form-label>
         <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm" [nzErrorTip]="errorTpl">
@@ -126,33 +109,28 @@
         </nz-form-control>
       </nz-form-item>
     </div>
-    <div nz-col nzSpan="3">
-      <!--고정길이사용여부 필드-->
+
+    <div nz-col nzSpan="5">
       <nz-form-item class="form-item">
-          <nz-form-label nzFor="fixedLengthYn" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">고정 길이 사용여부</nz-form-label>
+          <nz-form-label nzFor="lowLevelCodeLength" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">하위 코드 길이</nz-form-label>
           <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-              <label id="fixedLengthYn" nz-checkbox formControlName="fixedLengthYn"></label>
-          </nz-form-control>
-      </nz-form-item>
-    </div>
-    <div nz-col nzSpan="3">
-      <!--고정길이 필드-->
-      <nz-form-item class="form-item">
-          <nz-form-label nzFor="codeLength" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">고정 길이</nz-form-label>
-          <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-              <nz-input-number id="codeLength" formControlName="codeLength" [nzMax]="255" [nzStep]="1" [nzDisabled]="!fg.get('fixedLengthYn')?.value"></nz-input-number>
+            <nz-input-number id="lowLevelCodeLength" formControlName="lowLevelCodeLength" [nzMax]="255" [nzStep]="1"></nz-input-number>
           </nz-form-control>
       </nz-form-item>
     </div>
   </div>
 
-  <!--설명 필드-->
-  <nz-form-item>
-    <nz-form-label nzFor="cmt" [nzXs]="defaultLabelSize.xs" [nzSm]="defaultLabelSize.sm">설명</nz-form-label>
-    <nz-form-control [nzXs]="defaultControlSize.xs" [nzSm]="defaultControlSize.sm">
-        <textarea nz-input id="cmt" formControlName="cmt" placeholder="비고를 입력해주세요." [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
-    </nz-form-control>
-  </nz-form-item>
+  <!-- 4 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="cmt" itemId="cmt"
+        placeholder="비고를 입력해주세요."
+        [rows]="13"
+        [required]="false" [nzErrorTip]="errorTpl">비고
+      </app-nz-input-textarea>
+    </div>
+  </div>
 
 </form>
 

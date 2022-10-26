@@ -21,7 +21,7 @@ import { NzFormatEmitEvent } from 'ng-zorro-antd/tree';
 })
 export class CommonCodeTreeComponent implements OnInit {
 
-  @ViewChild('treeComponent', {static: false}) treeComponent: any;  
+  @ViewChild('treeComponent', {static: false}) treeComponent: any;
 
   @Input() searchValue = '';
   @Output() itemSelected = new EventEmitter();
@@ -30,7 +30,7 @@ export class CommonCodeTreeComponent implements OnInit {
 
   constructor(private service: CommonCodeService) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
   }
 
   getCommonCodeHierarchy(systemTypeCode: string) {
@@ -39,7 +39,7 @@ export class CommonCodeTreeComponent implements OnInit {
     };
 
     this.service
-        .getCommonCodeHierarchy(params)
+        .getCodeHierarchy(params)
         .subscribe(
           (model: ResponseList<CommonCodeHierarchy>) => {
             if ( model.total > 0 ) {

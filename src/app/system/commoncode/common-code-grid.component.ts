@@ -91,7 +91,7 @@ export class CommonCodeGridComponent extends AggridFunction implements OnInit {
 
   getCommonCodeList(params?: any): void {
     this.commonCodeService
-        .getCommonCodeList(params)
+        .getCodeList(params)
         .subscribe(
           (model: ResponseList<CommonCode>) => {
               if (model.total > 0) {

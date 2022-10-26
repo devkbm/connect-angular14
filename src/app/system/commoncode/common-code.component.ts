@@ -15,7 +15,7 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
   templateUrl: './common-code.component.html',
   styleUrls: ['./common-code.component.css']
 })
-export class CommonCodeComponent extends AppBase implements OnInit {  
+export class CommonCodeComponent extends AppBase implements OnInit {
 
   @ViewChild(CommonCodeTreeComponent) tree!: CommonCodeTreeComponent;
   @ViewChild(CommonCodeFormComponent) form!: CommonCodeFormComponent;
@@ -75,7 +75,7 @@ export class CommonCodeComponent extends AppBase implements OnInit {
   }
 
   newForm(): void {
-    this.form.newForm(this.selectedCode);
+    this.form.newForm(this.systeTypeCode, this.selectedCode);
   }
 
   saveCommonCode(): void {
@@ -88,7 +88,7 @@ export class CommonCodeComponent extends AppBase implements OnInit {
 
   selectedItem(item: any): void {
     this.selectedCode = item.id;
-    this.form.get(item.id);
+    this.form.get(item.systemTypeCode, item.id);
   }
 
   getSystemTypeCode(): void {

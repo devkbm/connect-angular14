@@ -18,7 +18,7 @@ import { SystemTypeEnum } from './system-type-enum.model';
   styleUrls: ['./common-code-form.component.css']
 })
 export class CommonCodeFormComponent extends FormBase implements OnInit {
-   
+
   nodeItems: CommonCodeHierarchy[] = [];
   systemTypeCodeList: SystemTypeEnum[] = [];
 
@@ -28,36 +28,35 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   ngOnInit(): void {
     this.fg = this.fb.group({
-      id                      : new FormControl<string | null>(null),
       systemTypeCode          : new FormControl<string | null>(null),
+      codeId                  : new FormControl<string | null>(null),
       parentId                : new FormControl<string | null>(null),
       code                    : new FormControl<string | null>(null, { validators: [Validators.required] }),
       codeName                : new FormControl<string | null>(null, { validators: [Validators.required] }),
       codeNameAbbreviation    : new FormControl<string | null>(null),
       fromDate                : new FormControl<Date | null>(null, { validators: [Validators.required] }),
       toDate                  : new FormControl<Date | null>(null, { validators: [Validators.required] }),
-      seq                     : new FormControl<number | null>(null),
       hierarchyLevel          : new FormControl<number | null>(null),
-      fixedLengthYn           : new FormControl<boolean | null>(null),
-      codeLength              : new FormControl<number | null>(null),
+      seq                     : new FormControl<number | null>(null),
+      lowLevelCodeLength      : new FormControl<number | null>(null),
       cmt                     : new FormControl<string | null>(null)
     });
-
-    this.newForm(null);
 
     this.getCommonCodeHierarchy('');
     this.getSystemTypeCode();
   }
 
-  newForm(parentId: any): void {
+  newForm(systemTypeCode: string, parentId: any): void {
     this.formType = FormType.NEW;
     this.fg.reset();
 
-    this.fg.get('id')?.disable();
+    this.fg.get('codeId')?.disable();
     this.fg.get('code')?.enable();
     this.fg.get('systemTypeCode')?.enable();
+    this.fg.get('systemTypeCode')?.setValue(systemTypeCode);
     this.fg.get('parentId')?.setValue(parentId);
     this.fg.get('seq')?.setValue(1);
+    this.fg.get('lowLevelCodeLength')?.setValue(0);
     this.fg.get('fromDate')?.setValue(new Date());
     this.fg.get('toDate')?.setValue(new Date(9999, 11, 31));
   }
@@ -65,9 +64,10 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
   modifyForm(formData: CommonCode): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('id')?.disable();
+    this.fg.get('codeId')?.disable();
     this.fg.get('code')?.disable();
     this.fg.get('systemTypeCode')?.disable();
+    this.fg.get('parentId')?.disable();
 
     this.fg.patchValue(formData);
   }
@@ -76,20 +76,18 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     this.formClosed.emit(this.fg.getRawValue());
   }
 
-  get(id: string): void {
+  get(systemTypeCode: string, codeId: string): void {
     this.commonCodeService
-        .getCommonCode(id)
+        .getCode(systemTypeCode, codeId)
         .subscribe(
           (model: ResponseObject<CommonCode>) => {
             if ( model.total > 0 ) {
               this.modifyForm(model.data);
-            } else {
-              this.newForm('');
             }
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }  
+  }
 
   save(): void {
     if (this.fg.invalid) {
@@ -98,7 +96,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     }
 
     this.commonCodeService
-        .registerCommonCode(this.fg.getRawValue())
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -109,14 +107,14 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   remove(): void {
     this.commonCodeService
-        .deleteCommonCode(this.fg.get('id')?.value)
+        .remove(this.fg.get('systemTypeCode')?.value, this.fg.get('codeId')?.value)
         .subscribe(
           (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }  
+  }
 
   getSystemTypeCode(): void {
     this.commonCodeService
@@ -134,7 +132,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
     };
 
     this.commonCodeService
-        .getCommonCodeHierarchy(params)
+        .getCodeHierarchy(params)
         .subscribe(
           (model: ResponseList<CommonCodeHierarchy>) => {
             if ( model.total > 0 ) {

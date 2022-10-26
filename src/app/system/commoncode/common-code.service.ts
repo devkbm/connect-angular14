@@ -33,7 +33,7 @@ export class CommonCodeService extends DataService {
   }
 
 
-  getCommonCodeList(params?: any): Observable<ResponseList<CommonCode>> {
+  getCodeList(params?: any): Observable<ResponseList<CommonCode>> {
     const url = `${this.API_URL}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
@@ -46,8 +46,8 @@ export class CommonCodeService extends DataService {
     );
   }
 
-  getCommonCode(id: string): Observable<ResponseObject<CommonCode>> {
-    const url = `${this.API_URL}/${id}`;
+  getCode(systemTypeCode: string, codeId: string): Observable<ResponseObject<CommonCode>> {
+    const url = `${this.API_URL}/${systemTypeCode}/${codeId}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
@@ -58,7 +58,7 @@ export class CommonCodeService extends DataService {
     );
   }
 
-  getCommonCodeHierarchy(params?: any): Observable<ResponseList<CommonCodeHierarchy>> {
+  getCodeHierarchy(params?: any): Observable<ResponseList<CommonCodeHierarchy>> {
     const url = GlobalProperty.serverUrl + `/api/system/codetree`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
@@ -86,7 +86,7 @@ export class CommonCodeService extends DataService {
     );
   }
 
-  registerCommonCode(program: CommonCode): Observable<ResponseObject<CommonCode>> {
+  save(program: CommonCode): Observable<ResponseObject<CommonCode>> {
     const url = `${this.API_URL}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -98,8 +98,8 @@ export class CommonCodeService extends DataService {
     );
   }
 
-  deleteCommonCode(id: string): Observable<ResponseObject<CommonCode>> {
-    const url = `${this.API_URL}/${id}`;
+  remove(systemTypeCode: string, codeId: string): Observable<ResponseObject<CommonCode>> {
+    const url = `${this.API_URL}/${systemTypeCode}/${codeId}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true

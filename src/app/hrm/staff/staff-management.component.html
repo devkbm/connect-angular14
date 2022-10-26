@@ -4,7 +4,7 @@
 
   <div nz-col [nzSpan]="24" style="text-align: right;">
     {{selectedStaff | json}}
-    <button nz-button (click)="selectStaffGrid()">
+    <button nz-button (click)="selectGridStaff()">
       <span nz-icon nzType="search" nzTheme="outline"></span>조회
     </button>
     <nz-divider nzType="vertical"></nz-divider>
@@ -26,8 +26,19 @@
     (rowClickedEvent)="staffGridRowClicked($event)">
   </app-staff-grid>
 
-  <app-staff-regist-form [staffId]="selectedStaff?.staffId">
-  </app-staff-regist-form>
+  <div>
+    <app-staff-regist-form [staffId]="selectedStaff?.staffId">
+    </app-staff-regist-form>
+    <nz-collapse>
+      <nz-collapse-panel [nzHeader]="'발령'">
+        sdfsdf
+      </nz-collapse-panel>
+      <nz-collapse-panel [nzHeader]="'보직'">
+        sdfsdf
+      </nz-collapse-panel>
+    </nz-collapse>
+  </div>
+
 
   <nz-tabset>
     <nz-tab nzTitle="발령">
@@ -45,15 +56,15 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="staffDrawer.visible"
+  [nzVisible]="drawerNewStaff.visible"
   nzTitle="직원 등록"
-  (nzOnClose)="staffDrawer.visible = false">
+  (nzOnClose)="drawerNewStaff.visible = false">
     <!-- (formSaved)="getForm(newStaff.selectedRowId)" -->
     <app-new-staff-form *nzDrawerContent
-      [initLoadId]="staffDrawer.initLoadId"
-      (formSaved)="selectStaffGrid()"
-      (formDeleted)="selectStaffGrid()"
-      (formClosed)="staffDrawer.visible = false">
+      [initLoadId]="drawerNewStaff.initLoadId"
+      (formSaved)="selectGridStaff()"
+      (formDeleted)="selectGridStaff()"
+      (formClosed)="drawerNewStaff.visible = false">
     </app-new-staff-form>
 </nz-drawer>
 
@@ -62,14 +73,14 @@
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
-  [nzVisible]="appointmentDrawer.visible"
+  [nzVisible]="drawerAppointment.visible"
   nzTitle="발령 등록"
-  (nzOnClose)="appointmentDrawer.visible = false">
-  <!-- (formSaved)="getTermList()"
-      (formDeleted)="getTermList()" -->
+  (nzOnClose)="drawerAppointment.visible = false">
     <app-staff-appointment-record-form *nzDrawerContent
       [staff]="selectedStaff"
-      [initLoadId]="appointmentDrawer.initLoadId"
-      (formClosed)="appointmentDrawer.visible = false">
+      [initLoadId]="drawerAppointment.initLoadId"
+      (formSaved)="selectGridAppointment()"
+      (formDeleted)="selectGridAppointment()"
+      (formClosed)="drawerAppointment.visible = false">
     </app-staff-appointment-record-form>
 </nz-drawer>

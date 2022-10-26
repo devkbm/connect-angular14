@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { AppBase } from 'src/app/core/app/app-base';
 import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffGridComponent } from './staff-grid.component';
+import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
 
 @Component({
   selector: 'app-staff-management',
@@ -11,21 +12,21 @@ import { StaffGridComponent } from './staff-grid.component';
 })
 export class StaffManagementComponent extends AppBase implements OnInit {
 
-  @ViewChild(StaffRegistFormComponent) staffForm!: StaffRegistFormComponent;
-  @ViewChild(StaffGridComponent) grid!: StaffGridComponent;
-  
+  @ViewChild(StaffGridComponent) gridStaff!: StaffGridComponent;
+  @ViewChild(StaffRegistFormComponent) formStaff!: StaffRegistFormComponent;
+  @ViewChild(StaffAppointmentRecordGridComponent) gridAppointment!: StaffAppointmentRecordGridComponent;
 
-  selectedStaff?: {staffId: string, staffNo: string, staffName: string};  
+  selectedStaff?: {staffId: string, staffNo: string, staffName: string};
 
-  staffDrawer: { visible: boolean, initLoadId: any } = {
+  drawerNewStaff: { visible: boolean, initLoadId: any } = {
     visible: false,
     initLoadId: null
   }
 
-  appointmentDrawer: { visible: boolean, initLoadId: any } = {
+  drawerAppointment: { visible: boolean, initLoadId: any } = {
     visible: false,
-    initLoadId: null    
-  }  
+    initLoadId: null
+  }
 
   constructor(location: Location) {
     super(location);
@@ -35,21 +36,27 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   staffGridRowClicked(params: any) {
-    this.selectedStaff = {staffId: params.staffId, staffNo: params.staffNo, staffName: params.name};    
-    this.staffForm.get(params.staffId);
+    this.selectedStaff = {staffId: params.staffId, staffNo: params.staffNo, staffName: params.name};
+    this.formStaff.get(params.staffId);
   }
 
-  selectStaffGrid() {
-    this.staffDrawer.visible = false;
+  selectGridStaff() {
+    this.drawerNewStaff.visible = false;
 
-    this.grid.getList();
+    this.gridStaff.getList();
   }
 
   newStaff() {
-    this.staffDrawer.visible = true;
+    this.drawerNewStaff.visible = true;
   }
 
   newAppoint() {
-    this.appointmentDrawer.visible = true;
+    this.drawerAppointment.visible = true;
+  }
+
+  selectGridAppointment() {
+    this.drawerAppointment.visible = false;
+
+    this.gridAppointment.getList(this.selectedStaff?.staffId!);
   }
 }

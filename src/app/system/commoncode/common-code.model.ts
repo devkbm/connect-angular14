@@ -1,6 +1,7 @@
 export interface CommonCode {
-  id: string;
   systemTypeCode: string;
+  codeId: string;
+  parentId: string;
   code: string;
   codeName: string;
   codeNameAbbreviation: string;
@@ -8,8 +9,6 @@ export interface CommonCode {
   toDate: Date;
   seq: number;
   hierarchyLevel: number;
-  fixedLengthYn: boolean;
-  codeLength: number;
+  lowLevelCodeLength: number;
   cmt: string;
-  parentId: string;
 }

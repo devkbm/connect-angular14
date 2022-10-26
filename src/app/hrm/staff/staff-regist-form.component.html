@@ -62,7 +62,7 @@
   </div>
 
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="nameEng" itemId="nameEng"
         placeholder="직원명(영문)을 입력해주세요."
@@ -70,25 +70,21 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="nameChi" itemId="nameChi"
         placeholder="직원명(한문)을 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">직원명(한문)
       </app-nz-input-text>
     </div>
-  </div>
 
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="24">
-      <!--성별 필드-->
+    <div nz-col nzSpan="8">
       <nz-form-item>
-        <nz-form-label nzFor="gender" [nzXs]="4" [nzSm]="4">
-          성별
+        <nz-form-label nzFor="gender">성별
         </nz-form-label>
         <nz-radio-group id="gender" formControlName="gender">
-          <label nz-radio nzValue="M">Male</label>
-          <label nz-radio nzValue="F">Female</label>
+          <label nz-radio nzValue="M">M</label>
+          <label nz-radio nzValue="F">F</label>
         </nz-radio-group>
       </nz-form-item>
     </div>

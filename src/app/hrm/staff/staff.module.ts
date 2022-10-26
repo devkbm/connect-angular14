@@ -15,7 +15,6 @@ import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzDrawerModule } from 'ng-zorro-antd/drawer';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { NzModalService } from 'ng-zorro-antd/modal';
 import { NzTreeModule } from 'ng-zorro-antd/tree';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
@@ -26,6 +25,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 
 const nzModules = [
   NzLayoutModule,
@@ -46,7 +46,8 @@ const nzModules = [
   NzCardModule,
   NzUploadModule,
   NzRadioModule,
-  NzIconModule
+  NzIconModule,
+  NzCollapseModule
 ]
 
 /* AG-GRID */
