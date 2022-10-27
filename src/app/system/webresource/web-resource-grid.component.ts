@@ -15,7 +15,7 @@ import { WebResource } from './web-resource.model';
         [ngStyle]="style"
         class="ag-theme-balham-dark"
         [rowSelection]="'single'"
-        [rowData]="programList"
+        [rowData]="_list"
         [columnDefs]="columnDefs"
         [defaultColDef]="defaultColDef"
         [getRowId]="getRowId"
@@ -48,16 +48,11 @@ import { WebResource } from './web-resource.model';
 export class WebResourceGridComponent extends AggridFunction implements OnInit {
 
   isLoading: boolean = false;
-  programList: WebResource[] = [];
+  _list: WebResource[] = [];
 
-  @Output()
-  rowClicked = new EventEmitter();
-
-  @Output()
-  rowDoubleClicked = new EventEmitter();
-
-  @Output()
-  editButtonClicked = new EventEmitter();
+  @Output() rowClicked = new EventEmitter();
+  @Output() rowDoubleClicked = new EventEmitter();
+  @Output() editButtonClicked = new EventEmitter();
 
   constructor(private programService: WebResourceService,
               private appAlarmService: AppAlarmService) {
@@ -82,11 +77,11 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      { headerName: '리소스코드',   field: 'resourceCode',    width: 150 },
+      { headerName: '리소스ID',     field: 'resourceId',      width: 150 },
       { headerName: '리소스명',     field: 'resourceName',    width: 200 },
       { headerName: '리소스타입',   field: 'resourceType',    width: 200 },
-      { headerName: 'Url',         field: 'url',             width: 200 },
-      { headerName: '설명',        field: 'description',     width: 300 }
+      { headerName: 'Url',          field: 'url',             width: 200 },
+      { headerName: '설명',         field: 'description',     width: 300 }
     ];
 
     this.defaultColDef = {
@@ -95,7 +90,7 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
     };
 
     this.getRowId = function(params: any) {
-        return params.data.resourceCode;
+        return params.data.resourceId;
     };
   }
 
@@ -114,9 +109,9 @@ export class WebResourceGridComponent extends AggridFunction implements OnInit {
         .subscribe(
           (model: ResponseList<WebResource>) => {
             if (model.total > 0) {
-              this.programList = model.data;
+              this._list = model.data;
             } else {
-              this.programList = [];
+              this._list = [];
             }
             this.isLoading = false;
             this.appAlarmService.changeMessage(model.message);

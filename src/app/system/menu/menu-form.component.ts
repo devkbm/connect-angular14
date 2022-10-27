@@ -65,7 +65,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.getMenuGroupList();
   }
 
-  ngOnInit() {    
+  ngOnInit() {
     if (this.initLoadId) {
       console.log(this.initLoadId);
       this.get(this.initLoadId);
@@ -87,9 +87,8 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
 
     this.getMenuHierarchy(this.menuGroupId);
 
-    this.fg.reset();
-    this.fg.controls['menuGroupId'].setValue(this.menuGroupId);
-    this.fg.controls['menuId'].enable();
+    this.fg.get('menuGroupId')?.setValue(this.menuGroupId);
+    this.fg.get('menuId')?.enable();
   }
 
   modifyForm(formData: Menu): void {
@@ -97,7 +96,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
 
     this.getMenuHierarchy(formData.menuGroupId);
 
-    this.fg.controls['menuId'].disable();
+    this.fg.get('menuId')?.disable();
 
     this.fg.patchValue(formData);
   }
@@ -147,7 +146,7 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }  
+  }
 
   getMenuHierarchy(menuGroupId: string): void {
     if (!menuGroupId) return;

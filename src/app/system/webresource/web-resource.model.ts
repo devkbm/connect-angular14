@@ -3,7 +3,7 @@ export interface WebResource {
   createdBy: string;
   modifiedDt: Date;
   modifiedBy: string;
-  resourceCode: string;
+  resourceId: string;
   resourceName: string;
   resourceType: string;
   url: string;

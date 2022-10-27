@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -11,18 +11,21 @@ import { DeptFormComponent } from './dept-form.component';
   templateUrl: './dept.component.html',
   styleUrls: ['./dept.component.css']
 })
-export class DeptComponent extends AppBase implements OnInit {
+export class DeptComponent extends AppBase implements OnInit, AfterViewInit {
 
-  @ViewChild('deptTree') tree!: DeptTreeComponent;
-  @ViewChild('deptForm') form!: DeptFormComponent;
-  
-  queryValue = '';  
+  @ViewChild(DeptTreeComponent) tree!: DeptTreeComponent;
+  @ViewChild(DeptFormComponent) form!: DeptFormComponent;
+
+  queryValue = '';
 
   constructor(location: Location) {
     super(location);
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
     this.getDeptTree();
   }
 
@@ -34,7 +37,7 @@ export class DeptComponent extends AppBase implements OnInit {
     this.form.newForm();
   }
 
-  saveDept(): void {  
+  saveDept(): void {
     this.form.save();
   }
 

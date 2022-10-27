@@ -45,6 +45,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     this.fg.get('menuGroupCode')?.valueChanges.subscribe(x => {
       const organizationCode = sessionStorage.getItem('organizationCode');
       this.fg.get('menuGroupId')?.setValue(organizationCode + x);
+      this.fg.get('menuGroupId')?.markAsTouched();
     });
   }
 
@@ -76,7 +77,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
   closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
   }
-  
+
   get(menuGroupId: string) {
     this.menuService
         .getMenuGroup(menuGroupId)
@@ -117,6 +118,6 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
             this.appAlarmService.changeMessage(model.total + '건의 메뉴그룹이 삭제되었습니다.');
           }
         );
-  }  
+  }
 
 }

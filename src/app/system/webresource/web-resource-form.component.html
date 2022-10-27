@@ -15,9 +15,9 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text #resourceCode
-        [parentFormGroup]="fg" formControlName="resourceCode" itemId="resourceCode"
-        placeholder="리소스코드를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">리소스코드
+        [parentFormGroup]="fg" formControlName="resourceId" itemId="resourceId"
+        placeholder="리소스ID를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">리소스ID
       </app-nz-input-text>
     </div>
 
@@ -67,6 +67,6 @@
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(this.fg.get('resourceCode')?.value)">
+    (deleteClick)="remove(this.fg.get('resourceId')?.value)">
   </app-nz-crud-button-group>
 </div>

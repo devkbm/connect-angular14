@@ -18,9 +18,9 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
 
   constructor(private fb: FormBuilder,
               private service: BizCodeService,
-              private appAlarmService: AppAlarmService) { 
+              private appAlarmService: AppAlarmService) {
     super();
-    
+
     this.fg = this.fb.group({
       typeId      : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
       code        : new FormControl<string | null>('', { validators: [Validators.required] }),
@@ -29,23 +29,24 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
       sequence    : new FormControl<number | null>(null),
       comment     : new FormControl<string | null>(null)
     });
-  }  
-
-  ngOnInit(): void {    
   }
 
-  ngAfterViewInit(): void {  
-    if (this.initLoadId.typeId && this.initLoadId.code) {
+  ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.initLoadId && this.initLoadId.typeId && this.initLoadId.code) {
       this.get(this.initLoadId.typeId, this.initLoadId.code);
-    } else {
+    } else if (this.initLoadId && this.initLoadId.typeId) {
+      console.log(this.initLoadId);
       this.newForm(this.initLoadId.typeId);
     }
   }
-  
+
 
   newForm(typeId: string): void {
     this.formType = FormType.NEW;
-    
+
     this.fg.get('typeId')?.setValue(typeId);
     this.fg.get('code')?.enable();
     this.fg.get('useYn')?.setValue(true);
@@ -53,11 +54,11 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
 
   modifyForm(formData: BizCode): void {
     this.formType = FormType.MODIFY;
-    
+
     this.fg.get('code')?.disable();
     this.fg.patchValue(formData);
   }
-  
+
   closeForm(): void {
     this.formClosed.emit(this.fg.getRawValue());
   }
@@ -102,6 +103,6 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }  
+  }
 
 }

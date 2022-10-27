@@ -29,7 +29,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     super();
 
     this.fg = this.fb.group({
-      resourceCode  : new FormControl<string | null>(null, {
+      resourceId   : new FormControl<string | null>(null, {
         validators: Validators.required,
         asyncValidators: [existingWebResourceValidator(this.service)],
         updateOn: 'blur'
@@ -38,10 +38,10 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
       resourceType  : new FormControl<string | null>('', {validators: [Validators.required]}),
       url           : new FormControl<string | null>('', {validators: [Validators.required]}),
       description   : new FormControl<string | null>(null)
-    });    
+    });
   }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.getCommonCodeList();
 
     if (this.initLoadId) {
@@ -63,13 +63,13 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('resourceCode')?.enable();
+    this.fg.get('resourceId')?.enable();
   }
 
   modifyForm(formData: WebResource): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('resourceCode')?.disable();
+    this.fg.get('resourceId')?.disable();
 
     this.fg.patchValue(formData);
   }
@@ -118,7 +118,7 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }  
+  }
 
   getCommonCodeList() {
     this.service

@@ -14,8 +14,8 @@ import { MenuGridComponent } from './menu-grid.component';
 })
 export class MenuComponent extends AppBase implements OnInit {
 
-  @ViewChild(MenuGroupGridComponent) menuGroupGrid!: MenuGroupGridComponent;  
-  @ViewChild(MenuGridComponent) menuGrid!: MenuGridComponent;
+  @ViewChild(MenuGroupGridComponent) gridMenuGroup!: MenuGroupGridComponent;
+  @ViewChild(MenuGridComponent) gridMenu!: MenuGridComponent;
 
   queryMenuGroup: { key: string, value: string, list: {label: string, value: string}[] } = {
     key: 'menuGroupId',
@@ -60,14 +60,14 @@ export class MenuComponent extends AppBase implements OnInit {
     }
 
     this.drawerMenuGroup.visible = false;
-    this.menuGrid.clearData();
-    this.menuGroupGrid.getMenuGroupList(params);
+    this.gridMenu.clearData();
+    this.gridMenuGroup.getMenuGroupList(params);
   }
 
   newMenuGroup(): void {
     this.drawerMenuGroup.initLoadId = null;
     this.drawerMenuGroup.visible = true;
-  }  
+  }
 
   editMenuGroup(item: any) {
     this.drawerMenuGroup.initLoadId = item.menuGroupId;
@@ -79,7 +79,7 @@ export class MenuComponent extends AppBase implements OnInit {
     this.getMenuList();
   }
   //#endregion 메뉴그룹
-  
+
   //#region 메뉴
   getMenuList(): void {
     let params: any = new Object();
@@ -90,20 +90,20 @@ export class MenuComponent extends AppBase implements OnInit {
     }
 
     this.drawerMenu.visible = false;
-    this.menuGrid.getMenuList(params);
+    this.gridMenu.getMenuList(params);
   }
 
   newMenu(): void {
     this.drawerMenu.initLoadId = null;
     this.drawerMenu.visible = true;
   }
-  
+
   editMenu(item: any) {
     this.drawerMenu.initLoadId = item.menuId;
     this.drawerMenu.visible = true;
-  }  
+  }
 
-  menuGridRowClicked(row: any): void {    
+  menuGridRowClicked(row: any): void {
     this.drawerMenu.initLoadId = row.menuId;
   }
   //#endregion 메뉴

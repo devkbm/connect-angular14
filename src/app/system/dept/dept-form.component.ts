@@ -67,6 +67,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
     this.fg.reset();
     this.fg.get('deptId')?.setAsyncValidators(existingDeptValidator(this.service));
     this.fg.get('deptCode')?.enable();
+
     this.fg.get('deptCode')?.valueChanges.subscribe(value => {
       if (value === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
@@ -74,8 +75,6 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
       //this.fg.get('deptId')?.markAsTouched();
     });
 
-    //dateFns.formatISO9075(new Date()),
-    //new Intl.DateTimeFormat('ko-KR', ).format(new Date())
     this.fg.patchValue({
       fromDate: dateFns.format(new Date(), "yyyy-MM-dd"),
       toDate: dateFns.format(new Date(9999,11,31), "yyyy-MM-dd"),
@@ -114,7 +113,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
               this.appAlarmService.changeMessage(model.message);
             }
         );
-  }  
+  }
 
   save(): void {
     if (this.fg.invalid) {
@@ -141,7 +140,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
             this.formDeleted.emit(this.fg.getRawValue());
             }
         );
-  }  
+  }
 
   getDeptHierarchy(): void {
     this.service

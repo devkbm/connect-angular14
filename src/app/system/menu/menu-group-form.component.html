@@ -11,18 +11,18 @@
     </ng-container>
   </ng-template>
 
+  <!-- 1 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
-      <!--메뉴그룹ID 필드-->
+      {{fg.get('menuGroupId')?.errors | json}}
       <app-nz-input-text #menuGroupId
         [parentFormGroup]="fg" formControlName="menuGroupId" itemId="menuGroupId"
         placeholder="메뉴그룹ID를 입력해주세요."
-        [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
+        [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="8">
-      <!--메뉴그룹코드 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuGroupCode" itemId="menuGroupCode"
         placeholder="메뉴그룹코드를 입력해주세요."
@@ -31,7 +31,6 @@
     </div>
 
     <div nz-col nzSpan="8">
-      <!--메뉴그룹명 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuGroupName" itemId="menuGroupName"
         placeholder="메뉴그룹명을 입력해주세요."
@@ -40,12 +39,17 @@
     </div>
   </div>
 
-  <!--비고 필드-->
-  <app-nz-input-textarea
-    [parentFormGroup]="fg" formControlName="description" itemId="description"
-    placeholder="비고를 입력해주세요."
-    [rows]="20">비고
-  </app-nz-input-textarea>
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="24">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="description" itemId="description"
+        placeholder="비고를 입력해주세요."
+        [rows]="25">비고
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
 </form>
 
 <div class="footer">

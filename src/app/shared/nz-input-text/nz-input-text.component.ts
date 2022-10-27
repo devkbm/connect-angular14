@@ -64,7 +64,10 @@ export class NzInputTextComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+    if (this.control) {
+      console.log(this.control);
+      this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+    }
   }
 
   writeValue(obj: any): void {
