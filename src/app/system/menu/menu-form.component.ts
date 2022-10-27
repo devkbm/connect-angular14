@@ -1,17 +1,17 @@
 import { Component, OnInit, Input, Output, EventEmitter, ViewChild, AfterViewInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
-import { MenuService } from './menu.service';
-import { AppAlarmService } from '../../core/service/app-alarm.service';
+import { FormBase, FormType } from 'src/app/core/form/form-base';
+import { ResponseList } from 'src/app/core/model/response-list';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
-import { ResponseList } from '../../core/model/response-list';
-import { ResponseObject } from '../../core/model/response-object';
+import { MenuService } from './menu.service';
 import { Menu } from './menu.model';
 import { MenuHierarchy } from './menu-hierarchy.model';
 import { MenuGroup } from './menu-group.model';
-import { FormBase, FormType } from '../../core/form/form-base';
 import { existingMenuValidator } from './menu-duplication-validator.directive';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-menu-form',
@@ -20,7 +20,7 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 })
 export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild('menuId') menuId!: NzInputTextComponent;
+  @ViewChild('menuCode') menuCode!: NzInputTextComponent;
 
   programList: any;
   menuGroupList: any;
@@ -53,12 +53,6 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
       appUrl            : new FormControl<string | null>(null, { validators: Validators.required })
     });
 
-    this.fg.get('menuCode')?.valueChanges.subscribe(x => {
-      const menuGroupId = this.fg.get('menuGroupId')?.value;
-
-      this.fg.get('menuId')?.setValue(menuGroupId + x);
-    });
-
     this.menuHiererachy = [];
 
     this.getMenuTypeList();
@@ -66,16 +60,14 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   }
 
   ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
     if (this.initLoadId) {
-      console.log(this.initLoadId);
       this.get(this.initLoadId);
     } else {
       this.newForm();
     }
-  }
-
-  ngAfterViewInit(): void {
-    this.menuId.focus();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -88,7 +80,19 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
     this.getMenuHierarchy(this.menuGroupId);
 
     this.fg.get('menuGroupId')?.setValue(this.menuGroupId);
-    this.fg.get('menuId')?.enable();
+    this.fg.get('menuId')?.disable();
+    this.fg.get('menuCode')?.valueChanges.subscribe(x => {
+      if (x) {
+        const menuGroupId = this.fg.get('menuGroupId')?.value;
+        this.fg.get('menuId')?.setValue(menuGroupId + x);
+        this.fg.get('menuId')?.markAsTouched();
+      } else {
+        this.fg.get('menuId')?.setValue(null);
+      }
+
+    });
+
+    this.menuCode.focus();
   }
 
   modifyForm(formData: Menu): void {

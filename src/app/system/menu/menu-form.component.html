@@ -14,7 +14,6 @@
   <!-- 1 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <!--메뉴그룹아이디 필드-->
       <app-nz-input-select
         [parentFormGroup]="fg" formControlName="menuGroupId" itemId="menuGroupId"
         (ngModelChange)="selectMenuGroup($event)"
@@ -36,8 +35,7 @@
   <!-- 2 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
-      <!--메뉴코드 필드-->
-      <app-nz-input-text #menuId
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuId" itemId="menuId"
         placeholder="메뉴Id를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴ID
@@ -45,8 +43,7 @@
     </div>
 
     <div nz-col nzSpan="8">
-      <!--메뉴코드 필드-->
-      <app-nz-input-text
+      <app-nz-input-text #menuCode
         [parentFormGroup]="fg" formControlName="menuCode" itemId="menuCode"
         placeholder="메뉴코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴코드
@@ -54,7 +51,6 @@
     </div>
 
     <div nz-col nzSpan="8">
-      <!--메뉴명 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuName" itemId="menuName"
         placeholder="메뉴명을 입력해주세요."
@@ -66,7 +62,6 @@
   <!-- 3 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <!--메뉴타입 필드-->
       <app-nz-input-select
         [parentFormGroup]="fg" formControlName="menuType" itemId="menuType"
         [options]="menuTypeList" [opt_value]="'value'" [opt_label]="'label'"
@@ -75,7 +70,6 @@
     </div>
 
     <div nz-col nzSpan="12">
-      <!--APP URL 필드-->
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="appUrl" itemId="appUrl"
         placeholder="URL을 입력해주세요."
@@ -87,7 +81,6 @@
   <!-- 4 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <!--순번 필드-->
       <app-nz-input-number-custom
         [parentFormGroup]="fg" formControlName="sequence" itemId="sequence"
         placeholder="순번을 입력해주세요."

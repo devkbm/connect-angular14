@@ -30,8 +30,6 @@ import { UserService } from './user.service';
         <span nz-icon nzType="download" class="button-icon"></span>
       </button>
     </nz-space>
-
-    {{upload | json}}
   </div>
   `,
   styles: [`

@@ -102,6 +102,10 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   newForm(): void {
     this.formType = FormType.NEW;
 
+    this.fg.get('staffId')?.disable();
+    this.fg.get('staffNo')?.disable();
+    this.fg.get('staffName')?.disable();
+
     if (this.staff) {
       this.fg.get('staffId')?.setValue(this.staff?.staffId);
       this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
@@ -112,6 +116,10 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
 
   modifyForm(formData: StaffAppointmentRecord): void {
     this.formType = FormType.MODIFY;
+
+    this.fg.get('staffId')?.disable();
+    this.fg.get('staffNo')?.disable();
+    this.fg.get('staffName')?.disable();
 
     this.fg.patchValue(formData);
   }

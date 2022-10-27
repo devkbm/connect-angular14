@@ -14,8 +14,7 @@
   <!-- 1 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
-      {{fg.get('menuGroupId')?.errors | json}}
-      <app-nz-input-text #menuGroupId
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="menuGroupId" itemId="menuGroupId"
         placeholder="메뉴그룹ID를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
@@ -23,7 +22,7 @@
     </div>
 
     <div nz-col nzSpan="8">
-      <app-nz-input-text
+      <app-nz-input-text #menuGroupCode
         [parentFormGroup]="fg" formControlName="menuGroupCode" itemId="menuGroupCode"
         placeholder="메뉴그룹코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹코드

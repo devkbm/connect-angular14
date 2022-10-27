@@ -20,11 +20,9 @@ export class UserSessionService extends DataService {
 
   getAvartarImageString(): string | null {
     const imageUrl = sessionStorage.getItem('imageUrl');
-    if (imageUrl === null || imageUrl === 'null') {
-      return null;
-    } else {
-      return this.STATIC_URI + sessionStorage.getItem('imageUrl');
-    }
+    if (imageUrl === 'null') return null;
+
+    return this.STATIC_URI + sessionStorage.getItem('imageUrl');
   }
 
   getMyProfile(): Observable<ResponseObject<User>> {

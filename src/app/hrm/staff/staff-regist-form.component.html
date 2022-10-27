@@ -40,7 +40,7 @@
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
         placeholder="아이디를 입력해주세요."
-        [disabled]="true" [required]="true" [nzErrorTip]="errorTpl">아이디
+        [required]="true" [nzErrorTip]="errorTpl">아이디
       </app-nz-input-text>
     </div>
 
@@ -83,8 +83,8 @@
         <nz-form-label nzFor="gender">성별
         </nz-form-label>
         <nz-radio-group id="gender" formControlName="gender">
-          <label nz-radio nzValue="M">M</label>
-          <label nz-radio nzValue="F">F</label>
+          <label nz-radio nzValue="M">남</label>
+          <label nz-radio nzValue="F">여</label>
         </nz-radio-group>
       </nz-form-item>
     </div>

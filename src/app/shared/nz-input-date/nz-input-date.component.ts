@@ -1,4 +1,4 @@
-import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
@@ -20,6 +20,7 @@ import * as dateFns from "date-fns";
               [required]="required"
               [nzDisabled]="disabled"
               [nzInputReadOnly]="readonly"
+              nzAllowClear="false"
               [(ngModel)]="value"
               (ngModelChange)="valueChange($event)"
               (blur)="onTouched()">
@@ -33,7 +34,7 @@ import * as dateFns from "date-fns";
     }
   `]
 })
-export class NzInputDateComponent implements ControlValueAccessor, OnInit {
+export class NzInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
   @ViewChild(NzFormControlComponent, {static: true})
   control!: NzFormControlComponent;
@@ -61,7 +62,12 @@ export class NzInputDateComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
-    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+  }
+
+  ngAfterViewInit(): void {
+    if (this.control) {
+      this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+    }
   }
 
   writeValue(obj: any): void {

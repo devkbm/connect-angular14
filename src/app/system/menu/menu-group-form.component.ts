@@ -1,19 +1,14 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit, ViewChild } from '@angular/core';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+
+import { FormBase, FormType } from 'src/app/core/form/form-base';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 import { MenuService } from './menu.service';
-import { AppAlarmService } from '../../core/service/app-alarm.service';
-
-import { ResponseObject } from '../../core/model/response-object';
 import { MenuGroup } from './menu-group.model';
 import { existingMenuGroupValidator } from './menu-group-duplication-validator.directive';
-import { FormBase, FormType } from '../../core/form/form-base';
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-menu-group-form',
@@ -22,14 +17,12 @@ import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text
 })
 export class MenuGroupFormComponent extends FormBase implements OnInit, AfterViewInit {
 
-  @ViewChild('menuGroupId', {static: true}) menuGroupId!: NzInputTextComponent;
+  @ViewChild('menuGroupCode') menuGroupCode!: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
               private appAlarmService: AppAlarmService) {
     super();
-
-
 
     this.fg = this.fb.group({
       menuGroupId     : new FormControl<string | null>(null, {
@@ -41,35 +34,39 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
       menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
       description     : new FormControl<string | null>(null)
     });
-
-    this.fg.get('menuGroupCode')?.valueChanges.subscribe(x => {
-      const organizationCode = sessionStorage.getItem('organizationCode');
-      this.fg.get('menuGroupId')?.setValue(organizationCode + x);
-      this.fg.get('menuGroupId')?.markAsTouched();
-    });
   }
 
   ngOnInit() {
-    this.newForm();
-
-    if (this.initLoadId) {
-      this.get(this.initLoadId);
-    }
   }
 
   ngAfterViewInit(): void {
-    this.menuGroupId.focus();
+    if (this.initLoadId) {
+      this.get(this.initLoadId);
+    } else {
+      this.newForm();
+    }
   }
 
   newForm(): void {
     this.formType = FormType.NEW;
-    this.fg.get('menuGroupCode')?.setValue('');
-
     this.fg.reset();
+
+    this.fg.get('menuGroupCode')?.valueChanges.subscribe(x => {
+      if (x) {
+        const organizationCode = sessionStorage.getItem('organizationCode');
+        this.fg.get('menuGroupId')?.setValue(organizationCode + x);
+        this.fg.get('menuGroupId')?.markAsTouched();
+      } else {
+        this.fg.get('menuGroupId')?.setValue(null);
+      }
+    });
+
+    this.menuGroupCode.focus();
   }
 
   modifyForm(formData: MenuGroup): void {
     this.formType = FormType.MODIFY;
+    this.fg.get('menuGroupId')?.disable();
 
     this.fg.patchValue(formData);
   }

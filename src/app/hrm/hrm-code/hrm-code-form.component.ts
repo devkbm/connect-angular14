@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core'; 
+import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -18,7 +18,7 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
 
   constructor(private fb:FormBuilder,
               private service: HrmCodeService,
-              private appAlarmService: AppAlarmService) { 
+              private appAlarmService: AppAlarmService) {
     super();
 
     this.fg = this.fb.group({
@@ -33,26 +33,26 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
       sequence  : new FormControl<number>(0),
       comment   : new FormControl<string | null>(null)
     });
-  }  
+  }
 
-  ngOnInit() {    
+  ngOnInit() {
 
   }
 
   ngAfterViewInit(): void {
-    if (this.initLoadId.typeId && this.initLoadId.code) {
+    if (this.initLoadId && this.initLoadId.typeId && this.initLoadId.code) {
       this.get(this.initLoadId.typeId, this.initLoadId.code);
-    } else {
+    } else if (this.initLoadId && this.initLoadId.typeId){
       this.newForm(this.initLoadId.typeId);
     }
   }
 
   newForm(typeId: string): void {
     this.formType = FormType.NEW;
-    
-    this.fg.get('typeId')?.setValue(typeId);    
+
+    this.fg.get('typeId')?.setValue(typeId);
     this.fg.get('useYn')?.setValue(true);
-    
+
     this.fg.get('typeId')?.disable();
     this.fg.get('code')?.enable();
   }

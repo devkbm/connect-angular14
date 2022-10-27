@@ -1,4 +1,4 @@
-import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
@@ -38,7 +38,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
     </nz-form-item>
   `
 })
-export class NzInputTextComponent implements ControlValueAccessor, OnInit {
+export class NzInputTextComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
   @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
   @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
@@ -64,8 +64,10 @@ export class NzInputTextComponent implements ControlValueAccessor, OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
     if (this.control) {
-      console.log(this.control);
       this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
     }
   }

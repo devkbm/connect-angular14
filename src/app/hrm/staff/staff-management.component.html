@@ -31,7 +31,8 @@
     </app-staff-regist-form>
     <nz-collapse>
       <nz-collapse-panel [nzHeader]="'발령'">
-        sdfsdf
+        <app-staff-current-appointment-description [staffId]="selectedStaff?.staffId">
+        </app-staff-current-appointment-description>
       </nz-collapse-panel>
       <nz-collapse-panel [nzHeader]="'보직'">
         sdfsdf<br>

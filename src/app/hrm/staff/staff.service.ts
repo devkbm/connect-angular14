@@ -11,6 +11,7 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 import { Staff } from './staff.model';
 import { NewStaff } from './new-staff-form/new-staff.model';
 import { SearchStaff } from './search-staff.request';
+import { StaffCurrentAppointment } from './staff-current-appointment-description.component';
 
 @Injectable({
   providedIn: 'root'
@@ -96,6 +97,18 @@ export class StaffService extends DataService {
 
     return this.http.get<Blob>(url, options).pipe(
       catchError(this.handleError<Blob>('downloadEmployeeImage', undefined))
+    );
+  }
+
+  getCurrentAppointment(id: string): Observable<ResponseObject<StaffCurrentAppointment>> {
+    const url = `${this.API_URL}/staff/${id}/currentappointment`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http.get<ResponseObject<StaffCurrentAppointment>>(url, options).pipe(
+      catchError(this.handleError<ResponseObject<StaffCurrentAppointment>>('getCurrentAppointment', undefined))
     );
   }
 
