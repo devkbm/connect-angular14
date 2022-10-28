@@ -23,8 +23,7 @@ import { StaffAppointmentRecord } from './staff-appointment-record.model';
       (selectionChanged)="selectionChanged($event)"
       (rowDoubleClicked)="rowDbClicked($event)">
     </ag-grid-angular>
-  `,
-  styles: [``]
+  `
 })
 export class StaffAppointmentRecordGridComponent extends AggridFunction implements OnInit, OnChanges {
 
@@ -94,6 +93,7 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
   }
 
   ngOnInit() {
+    //this.setWidthAndHeight('100%', '600px');
   }
 
   ngOnChanges(changes: SimpleChanges): void {

@@ -39,15 +39,15 @@
     <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
-        placeholder="아이디를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">아이디
+        placeholder=""
+        [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">아이디
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="staffNo" itemId="staffNo"
-        placeholder="직원번호를 입력해주세요."
+        placeholder=""
         [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">직원번호
       </app-nz-input-text>
     </div>
@@ -55,7 +55,7 @@
     <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="name" itemId="name"
-        placeholder="직원명을 입력해주세요."
+        placeholder=""
         [required]="true" [nzErrorTip]="errorTpl">직원명
       </app-nz-input-text>
     </div>
@@ -65,7 +65,7 @@
     <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="nameEng" itemId="nameEng"
-        placeholder="직원명(영문)을 입력해주세요."
+        placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">직원명(영문)
       </app-nz-input-text>
     </div>
@@ -73,7 +73,7 @@
     <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="nameChi" itemId="nameChi"
-        placeholder="직원명(한문)을 입력해주세요."
+        placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">직원명(한문)
       </app-nz-input-text>
     </div>
@@ -94,7 +94,7 @@
     <div nz-col nzSpan="12" >
       <app-nz-input-rregno
         [parentFormGroup]="fg" formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
-        placeholder="주민등록번호를 입력해주세요."
+        placeholder=""
         [required]="false" [readonly]="true" [nzErrorTip]="errorTpl">주민등록번호
       </app-nz-input-rregno>
     </div>

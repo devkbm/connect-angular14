@@ -54,14 +54,14 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
 
   newForm(): void {
     this.formType = FormType.NEW;
+
+    this.fg.reset();
   }
 
   modifyForm(formData: Staff): void {
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
-
-
   }
 
   closeForm() {
