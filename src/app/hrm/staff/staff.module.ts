@@ -64,6 +64,7 @@ import { NewStaffFormComponent } from './new-staff-form/new-staff-form.component
 import { StaffGridComponent } from './staff-grid.component';
 import { StaffManagementComponent } from './staff-management.component';
 import { StaffCurrentAppointmentDescriptionComponent } from './staff-current-appointment-description.component';
+import { StaffDutyResponsibilityFormComponent } from './staff-duty-responsibility/staff-duty-responsibility-form.component';
 
 
 
@@ -84,6 +85,7 @@ import { StaffCurrentAppointmentDescriptionComponent } from './staff-current-app
     NewStaffFormComponent,
     StaffGridComponent,
     StaffCurrentAppointmentDescriptionComponent,
+    StaffDutyResponsibilityFormComponent,
     StaffManagementComponent
   ],
   exports: [
