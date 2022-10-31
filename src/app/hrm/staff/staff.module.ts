@@ -27,6 +27,7 @@ import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { NzCollapseModule } from 'ng-zorro-antd/collapse';
 import { NzDescriptionsModule } from 'ng-zorro-antd/descriptions';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 const nzModules = [
   NzLayoutModule,
@@ -49,7 +50,8 @@ const nzModules = [
   NzRadioModule,
   NzIconModule,
   NzCollapseModule,
-  NzDescriptionsModule
+  NzDescriptionsModule,
+  NzListModule
 ]
 
 /* AG-GRID */
@@ -65,6 +67,8 @@ import { StaffGridComponent } from './staff-grid.component';
 import { StaffManagementComponent } from './staff-management.component';
 import { StaffCurrentAppointmentDescriptionComponent } from './staff-current-appointment-description.component';
 import { StaffDutyResponsibilityFormComponent } from './staff-duty-responsibility/staff-duty-responsibility-form.component';
+import { StaffDutyResponsibilityListComponent } from './staff-duty-responsibility/staff-duty-responsibility-list.component';
+import { StaffContactFormComponent } from './staff-contact/staff-contact-form.component';
 
 
 
@@ -86,6 +90,8 @@ import { StaffDutyResponsibilityFormComponent } from './staff-duty-responsibilit
     StaffGridComponent,
     StaffCurrentAppointmentDescriptionComponent,
     StaffDutyResponsibilityFormComponent,
+    StaffDutyResponsibilityListComponent,
+    StaffContactFormComponent,
     StaffManagementComponent
   ],
   exports: [

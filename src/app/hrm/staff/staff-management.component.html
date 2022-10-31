@@ -15,7 +15,10 @@
     <button nz-button nzType="primary" (click)="newAppoint()">
       <span nz-icon nzType="save" nzTheme="outline"></span>발령등록
     </button>
-
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="newDutyResponsibility()">
+      <span nz-icon nzType="save" nzTheme="outline"></span>직책등록
+    </button>
   </div>
 </div>
 
@@ -35,14 +38,11 @@
         </app-staff-current-appointment-description>
       </nz-collapse-panel>
       <nz-collapse-panel [nzHeader]="'보직'">
-        sdfsdf<br>
-        fdsasf<br>
-        sdfsdf<br>
-        fdsasf<br>
-        sdfsdf<br>
-        fdsasf<br>
-        sdfsdf<br>
-        fdsasf<br>
+        <div style="height:100px; padding: 0px; margin: 0px;">
+          <app-staff-duty-responsibility-list
+            [staffId]="selectedStaff?.staffId">
+          </app-staff-duty-responsibility-list>
+        </div>
       </nz-collapse-panel>
     </nz-collapse>
   </div>
@@ -94,4 +94,20 @@
       (formDeleted)="selectGridAppointment()"
       (formClosed)="drawerAppointment.visible = false">
     </app-staff-appointment-record-form>
+</nz-drawer>
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="80%"
+  [nzVisible]="drawerDutyResponsibility.visible"
+  nzTitle="직책 등록"
+  (nzOnClose)="drawerDutyResponsibility.visible = false">
+  <!--(formSaved)="selectGridAppointment()"
+      (formDeleted)="selectGridAppointment()"-->
+    <app-staff-duty-responsibility-form *nzDrawerContent
+      [staff]="selectedStaff"
+      [initLoadId]="drawerDutyResponsibility.initLoadId"
+      (formClosed)="drawerDutyResponsibility.visible = false">
+    </app-staff-duty-responsibility-form>
 </nz-drawer>

@@ -2,7 +2,7 @@
 <!--{{formModel | json}}-->
 <!--{{fileList | json}}-->
 
-<form nz-form [formGroup]="fg" nzLayout="vertical">
+<form nz-form [formGroup]="fg" nzLayout="vertical" style="padding: 0px; margin: 0px;">
   <!-- 폼 오류 메시지 템플릿 -->
   <ng-template #errorTpl let-control>
     <ng-container *ngIf="control.hasError('required')">
@@ -40,7 +40,7 @@
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
         placeholder=""
-        [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">아이디
+        [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">직원ID
       </app-nz-input-text>
     </div>
 
@@ -107,7 +107,9 @@
     </div>
   </div>
 </form>
+<nz-divider></nz-divider>
 
+<!--
 <div>
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
@@ -117,4 +119,4 @@
     (deleteClick)="remove(this.fg.get('id')?.value)">
   </app-nz-crud-button-group>
 </div>
-
+-->
