@@ -25,6 +25,7 @@ export class RoadAddressService extends DataService {
 
     const options = {
       headers: new HttpHeaders()
+                  //.set('Access-Control-Allow-Origin','*')
                   .set('Content-Type', 'application/json')
                   //.set('X-Requested-With', 'XMLHttpRequest')
                   .set('Authorization', token),
