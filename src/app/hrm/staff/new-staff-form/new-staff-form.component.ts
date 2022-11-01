@@ -3,10 +3,11 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
-
 import { ResponseObject } from 'src/app/core/model/response-object';
+
 import { StaffService } from '../staff.service';
 import { NewStaff } from './new-staff.model';
+import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
 @Component({
   selector: 'app-new-staff-form',
@@ -14,8 +15,8 @@ import { NewStaff } from './new-staff.model';
   styleUrls: ['./new-staff-form.component.css']
 })
 export class NewStaffFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
-  
-  //@ViewChild('domainName') domainName?: NzInputTextComponent;
+
+  @ViewChild('staffNo') staffNo?: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
               private service: StaffService,
@@ -30,45 +31,35 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
       nameChi                     : new FormControl<string | null>(null)
     });
   }
-  
+
+  ngOnInit() {
+  }
+
+  ngAfterViewInit(): void {
+    this.newForm('');
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
-  }
-
-  ngOnInit() {    
-
-    /*
-    if (this.initLoadId) {
-      this.get(this.initLoadId);
-    } else {
-      this.newForm();
-    }
-    */
-  }
-
-  ngAfterViewInit(): void {    
-    this.focus();
-  }  
-
-  focus() {
-    //this.domainName?.focus();
   }
 
   newForm(id: String) {
     this.formType = FormType.NEW;
-    
-    this.fg.get('staffId')?.setValue(id);  
+
+    this.fg.get('staffId')?.setValue(id);
+
+    this.staffNo?.focus();
   }
 
   /*
   modifyForm(formData: DataDomain) {
     this.formType = FormType.MODIFY;
-    
+
     this.fg.get('database')?.disable();
     this.fg.get('domainName')?.disable();
-    
+
     this.fg.patchValue(formData);
   }
-  */  
+  */
 
   closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
@@ -84,5 +75,5 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
           }
         );
   }
-    
+
 }

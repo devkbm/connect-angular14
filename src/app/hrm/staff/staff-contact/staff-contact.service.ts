@@ -8,7 +8,7 @@ import { DataService } from 'src/app/core/service/data.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 
-import { StaffAppointmentRecord } from '../staff-appointment-record/staff-appointment-record.model';
+import { StaffContact } from './staff-contact.model';
 
 @Injectable({
   providedIn: 'root'
@@ -19,15 +19,26 @@ export class StaffContactService extends DataService {
     super('/api/hrm/staff', http, tokenExtractor);
   }
 
-  getStaffAppointmentRecord(staffId: string, id: string): Observable<ResponseObject<StaffAppointmentRecord>> {
-    const url = `${this.API_URL}/${staffId}/appointmentrecord/${id}`;
+  get(staffId: string): Observable<ResponseObject<StaffContact>> {
+    const url = `${this.API_URL}/${staffId}/contact`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
 
-    return this.http.get<ResponseObject<StaffAppointmentRecord>>(url, options).pipe(
-      catchError(this.handleError<ResponseObject<StaffAppointmentRecord>>('getStaffAppointmentRecord', undefined))
+    return this.http.get<ResponseObject<StaffContact>>(url, options).pipe(
+      catchError(this.handleError<ResponseObject<StaffContact>>('getStaffAppointmentRecord', undefined))
+    );
+  }
+
+  save(obj: StaffContact): Observable<ResponseObject<StaffContact>> {
+    const url = `${this.API_URL}/staff/${obj.staffId}/contact`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+    return this.http.post<ResponseObject<StaffContact>>(url, obj, options).pipe(
+      catchError(this.handleError<ResponseObject<StaffContact>>('save', undefined))
     );
   }
 }

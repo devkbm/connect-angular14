@@ -17,6 +17,7 @@ import { NzSwitchModule } from 'ng-zorro-antd/switch';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
+import { NzListModule } from 'ng-zorro-antd/list';
 
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
@@ -51,6 +52,8 @@ import { RouterModule } from '@angular/router';
 
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { NzInputRregnoComponent } from './nz-input-rregno/nz-input-rregno.component';
+import { NzListRoadAddressComponent } from './nz-list-road-address/nz-list-road-address.component';
+import { RoadAddressService } from './nz-list-road-address/road-address.service';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 const nzModules = [
@@ -71,7 +74,8 @@ const nzModules = [
   NzCheckboxModule,
   NzDropDownModule,
   NzBreadCrumbModule,
-  NzMessageModule
+  NzMessageModule,
+  NzListModule
 ]
 
 @NgModule({
@@ -106,10 +110,12 @@ const nzModules = [
     NzInputCheckboxComponent,
     NzButtonsComponent,
     NzInputDeptSelectComponent,
-    NzInputRregnoComponent
+    NzInputRregnoComponent,
+    NzListRoadAddressComponent
    ],
   providers: [
-    DeptHierarchyService
+    DeptHierarchyService,
+    RoadAddressService
   ],
   exports: [
     NzSearchAreaComponent,
@@ -132,7 +138,8 @@ const nzModules = [
     NzInputCheckboxComponent,
     NzButtonsComponent,
     NzInputDeptSelectComponent,
-    NzInputRregnoComponent
+    NzInputRregnoComponent,
+    NzListRoadAddressComponent
   ]
 })
 export class SharedModule { }

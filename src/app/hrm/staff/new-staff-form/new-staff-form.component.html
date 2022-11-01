@@ -14,7 +14,7 @@
   <!-- 1 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
-      <app-nz-input-text
+      <app-nz-input-text #staffNo
         [parentFormGroup]="fg" formControlName="staffNo" itemId="staffNo"
         placeholder="직원번호를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">직원번호
@@ -22,7 +22,7 @@
     </div>
 
     <div nz-col nzSpan="8">
-      <app-nz-input-text #domainName
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="name" itemId="name"
         placeholder="직원명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">직원명
