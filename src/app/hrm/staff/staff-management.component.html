@@ -50,14 +50,6 @@
 
   <div>
     <nz-tabset>
-      <nz-tab nzTitle="발령기록">
-        <div class="tab-grid">
-          <app-staff-appointment-record-grid
-            [staffId]="selectedStaff?.staffId">
-          </app-staff-appointment-record-grid>
-        </div>
-      </nz-tab>
-
       <nz-tab nzTitle="주소">
         <div class="tab-grid">
           <app-nz-list-road-address>
@@ -65,6 +57,13 @@
         </div>
       </nz-tab>
 
+      <nz-tab nzTitle="발령기록">
+        <div class="tab-grid">
+          <app-staff-appointment-record-grid
+            [staffId]="selectedStaff?.staffId">
+          </app-staff-appointment-record-grid>
+        </div>
+      </nz-tab>
     </nz-tabset>
   </div>
 

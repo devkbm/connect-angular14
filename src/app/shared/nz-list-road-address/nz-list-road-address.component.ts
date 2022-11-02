@@ -23,7 +23,6 @@ export class NzListRoadAddressComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.getList('은계중앙로',1);
   }
 
   cli() {
