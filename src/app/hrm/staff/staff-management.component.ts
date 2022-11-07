@@ -33,6 +33,11 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
+  drawerContact: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
+  }
+
   constructor(location: Location) {
     super(location);
   }
@@ -61,6 +66,10 @@ export class StaffManagementComponent extends AppBase implements OnInit {
 
   newDutyResponsibility() {
     this.drawerDutyResponsibility.visible = true;
+  }
+
+  newContact() {
+    this.drawerContact.visible = true;
   }
 
   selectGridAppointment() {

@@ -18,6 +18,8 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzListModule } from 'ng-zorro-antd/list';
+import { NzTypographyModule } from 'ng-zorro-antd/typography';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
@@ -75,7 +77,9 @@ const nzModules = [
   NzDropDownModule,
   NzBreadCrumbModule,
   NzMessageModule,
-  NzListModule
+  NzListModule,
+  NzTypographyModule,
+  NzPaginationModule
 ]
 
 @NgModule({

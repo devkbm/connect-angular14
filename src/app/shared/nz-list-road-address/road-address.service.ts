@@ -5,8 +5,6 @@ import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 
 import { DataService } from 'src/app/core/service/data.service';
-import { ResponseList } from 'src/app/core/model/response-list';
-import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { RoadAddressResult } from './road-address.model';
 
@@ -15,21 +13,13 @@ import { RoadAddressResult } from './road-address.model';
 })
 export class RoadAddressService extends DataService {
 
-  conf: { url: string, key: string } = {
-    url: 'https://www.juso.go.kr/addrlink/addrLinkApi.do',
-    key: 'devU01TX0FVVEgyMDIyMTEwMTE1MDk1MjExMzE2ODM='
-  }
-
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
     super('/api', http, tokenExtractor);
   }
 
   // RoadAddressResult
-  get(keyword: string, currentPage: number): Observable<any> {
-    //const url = `${this.API_URL}/address`;
-    const url = `http://localhost:8090/sample/getAddrApi.do`;
-
-    //const url = this.conf.url;
+  get(keyword: string, currentPage: number): Observable<RoadAddressResult> {
+    const url = `${this.API_URL}/address/sync`;
     const token = sessionStorage.getItem('token') as string;
 
     const options = {
@@ -42,15 +32,13 @@ export class RoadAddressService extends DataService {
                   .set('x-auth-token', token),
       withCredentials: true,
       params: {
-      //  confmKey: this.conf.key,
-      //  resultType: 'json',
         keyword: keyword,
         currentPage: currentPage
       }
     };
 
-    return this.http.get<any>(url, options).pipe(
-      catchError(this.handleError<any>('get', undefined))
+    return this.http.get<RoadAddressResult>(url, options).pipe(
+      catchError(this.handleError<RoadAddressResult>('get', undefined))
     );
   }
 

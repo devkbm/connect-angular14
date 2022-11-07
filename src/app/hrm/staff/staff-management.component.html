@@ -19,6 +19,10 @@
     <button nz-button nzType="primary" (click)="newDutyResponsibility()">
       <span nz-icon nzType="save" nzTheme="outline"></span>직책등록
     </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="newContact()">
+      <span nz-icon nzType="save" nzTheme="outline"></span>연락처등록
+    </button>
   </div>
 </div>
 
@@ -117,4 +121,20 @@
       [initLoadId]="drawerDutyResponsibility.initLoadId"
       (formClosed)="drawerDutyResponsibility.visible = false">
     </app-staff-duty-responsibility-form>
+</nz-drawer>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="80%"
+  [nzVisible]="drawerContact.visible"
+  nzTitle="연락처 등록"
+  (nzOnClose)="drawerContact.visible = false">
+    <app-staff-contact-form *nzDrawerContent
+      [initLoadId]="drawerContact.initLoadId"
+      (formSaved)="selectGridAppointment()"
+      (formDeleted)="selectGridAppointment()"
+      (formClosed)="drawerContact.visible = false">
+    </app-staff-contact-form>
 </nz-drawer>
