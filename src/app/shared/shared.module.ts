@@ -21,6 +21,9 @@ import { NzListModule } from 'ng-zorro-antd/list';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { NzPaginationModule } from 'ng-zorro-antd/pagination';
 
+/* Angular Material */
+import { MatListModule } from '@angular/material/list';
+
 import { NzInputTextComponent } from './nz-input-text/nz-input-text.component';
 import { NzInputTextareaComponent } from './nz-input-textarea/nz-input-textarea.component';
 import { NzInputNumberCustomComponent } from './nz-input-number-custom/nz-input-number-custom.component';
@@ -56,6 +59,7 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { NzInputRregnoComponent } from './nz-input-rregno/nz-input-rregno.component';
 import { NzListRoadAddressComponent } from './nz-list-road-address/nz-list-road-address.component';
 import { RoadAddressService } from './nz-list-road-address/road-address.service';
+import { MatListRoadAddressComponent } from './nz-list-road-address/mat-list-road-address.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 const nzModules = [
@@ -82,6 +86,10 @@ const nzModules = [
   NzPaginationModule
 ]
 
+const matModules = [
+  MatListModule
+]
+
 @NgModule({
   imports: [
     CommonModule,
@@ -89,6 +97,7 @@ const nzModules = [
     FormsModule,
     ReactiveFormsModule,
     nzModules,
+    matModules,
     ColorPickerModule,
     CKEditorModule,
     NgxMaskModule.forRoot()
@@ -115,7 +124,8 @@ const nzModules = [
     NzButtonsComponent,
     NzInputDeptSelectComponent,
     NzInputRregnoComponent,
-    NzListRoadAddressComponent
+    NzListRoadAddressComponent,
+    MatListRoadAddressComponent
    ],
   providers: [
     DeptHierarchyService,
@@ -143,7 +153,8 @@ const nzModules = [
     NzButtonsComponent,
     NzInputDeptSelectComponent,
     NzInputRregnoComponent,
-    NzListRoadAddressComponent
+    NzListRoadAddressComponent,
+    MatListRoadAddressComponent
   ]
 })
 export class SharedModule { }

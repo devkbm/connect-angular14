@@ -25,10 +25,11 @@ import { StaffContact } from './staff-contact.model';
       </ng-template>
 
       <!-- 1 Row -->
+      <!--
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="8">
           <app-nz-input-text #staffId
-            [parentFormGroup]="fg" formControlName="staffId" itemId="duty_staffId"
+            [parentFormGroup]="fg" formControlName="staffId" itemId="contact_staffId"
             placeholder="직원ID를 입력해주세요."
             [required]="true" [nzErrorTip]="errorTpl">직원ID
           </app-nz-input-text>
@@ -36,33 +37,78 @@ import { StaffContact } from './staff-contact.model';
 
         <div nz-col nzSpan="8">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="name" itemId="name"
-            placeholder="직원명을 입력해주세요."
-            [required]="true" [nzErrorTip]="errorTpl">직원명
+            [parentFormGroup]="fg" formControlName="staffNo" itemId="contact_staffNo"
+            placeholder="직원번호를 입력해주세요."
+            [required]="true" [nzErrorTip]="errorTpl">직원번호
           </app-nz-input-text>
         </div>
 
         <div nz-col nzSpan="8">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="staffName" itemId="duty_staffName"
+            [parentFormGroup]="fg" formControlName="staffName" itemId="contact_staffName"
             placeholder="직원명을 입력해주세요."
             [required]="true" [nzErrorTip]="errorTpl">직원명
           </app-nz-input-text>
         </div>
       </div>
+      -->
 
       <!-- 2 Row -->
       <div nz-row nzGutter="8">
-        <div nz-col nzSpan="8">
+        <div nz-col nzSpan="2">
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="homePostNumber" itemId="contact_homePostNumber"
+            placeholder="우편번호를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">우편번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="12">
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="homeMainAddress" itemId="contact_homeMainAddress"
+            placeholder="기본주소를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">기본주소
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="10">
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="homeSubAddress" itemId="contact_homeSubAddress"
+            placeholder="상세주소를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">상세주소
+          </app-nz-input-text>
         </div>
       </div>
+
+      <!-- 3 Row -->
+      <div nz-row nzGutter="8">
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="extensionNumber" itemId="contact_extensionNumber"
+            placeholder="내선번호를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">내선번호
+          </app-nz-input-text>
+        </div>
+
+        <div nz-col nzSpan="8">
+          <app-nz-input-text
+            [parentFormGroup]="fg" formControlName="mobileNumber" itemId="contact_mobileNumber"
+            placeholder="휴대번호를 입력해주세요."
+            [required]="false" [nzErrorTip]="errorTpl">휴대번호
+          </app-nz-input-text>
+        </div>
+      </div>
+
     </form>
 
-    <nz-divider nzText="With Text"></nz-divider>
+    <nz-divider nzText="주소 검색"></nz-divider>
 
-    <app-nz-list-road-address>
+    <app-mat-list-road-address (itemClicked)="changeRoadAddress($event)">
+    </app-mat-list-road-address>
+    <!--
+    <app-nz-list-road-address (itemClicked)="changeRoadAddress($event)">
     </app-nz-list-road-address>
-
+    -->
     <div class="footer">
       <app-nz-crud-button-group
         [isSavePopupConfirm]="false"
@@ -87,6 +133,8 @@ import { StaffContact } from './staff-contact.model';
 })
 export class StaffContactFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
+  @Input() staff?: {staffId: string, staffNo: string, staffName: string};
+
   //@ViewChild('domainName') domainName?: NzInputTextComponent;
 
   constructor(private fb: FormBuilder,
@@ -108,6 +156,9 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['staff']) {
+      this.get(changes['staff'].currentValue.staffId);
+    }
   }
 
   ngOnInit() {
@@ -121,32 +172,55 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
   }
 
   ngAfterViewInit(): void {
-    this.focus();
+
   }
 
-  focus() {
-    //this.domainName?.focus();
-  }
-
-  newForm(id: String) {
+  newForm() {
     this.formType = FormType.NEW;
 
-    this.fg.get('staffId')?.setValue(id);
+    this.fg.get('homePostNumber')?.disable();
+    this.fg.get('homeMainAddress')?.disable();
+
+    if (this.staff) {
+      this.fg.get('staffId')?.setValue(this.staff?.staffId);
+      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
+      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+    }
   }
 
-  /*
-  modifyForm(formData: DataDomain) {
+
+  modifyForm(formData: StaffContact) {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('database')?.disable();
-    this.fg.get('domainName')?.disable();
+    this.fg.get('homePostNumber')?.disable();
+    this.fg.get('homeMainAddress')?.disable();
+
+    if (this.staff) {
+      this.fg.get('staffId')?.setValue(this.staff?.staffId);
+      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
+      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+    }
 
     this.fg.patchValue(formData);
   }
-  */
 
   closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(staffId: string): void {
+    this.service
+        .get(staffId)
+        .subscribe(
+          (model: ResponseObject<StaffContact>) => {
+            if (model.total > 0) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
+            this.appAlarmService.changeMessage(model.message);
+          }
+        );
   }
 
   save() {
@@ -158,6 +232,13 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
             this.appAlarmService.changeMessage(model.message);
           }
         );
+  }
+
+  // {roadAddress: string, zipNo: string}
+  changeRoadAddress(item: any) {
+    this.fg.get('homeMainAddress')?.setValue(item.roadAddress);
+    this.fg.get('homePostNumber')?.setValue(item.zipNo);
+    this.fg.get('homeSubAddress')?.setValue(null);
   }
 
 }

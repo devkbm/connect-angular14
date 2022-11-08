@@ -32,7 +32,7 @@ export class StaffContactService extends DataService {
   }
 
   save(obj: StaffContact): Observable<ResponseObject<StaffContact>> {
-    const url = `${this.API_URL}/staff/${obj.staffId}/contact`;
+    const url = `${this.API_URL}/${obj.staffId}/contact`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true

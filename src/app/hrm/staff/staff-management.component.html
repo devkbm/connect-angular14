@@ -54,10 +54,14 @@
 
   <div>
     <nz-tabset>
-      <nz-tab nzTitle="주소">
+      <nz-tab nzTitle="연락처">
         <div class="tab-grid">
-          <app-nz-list-road-address>
-          </app-nz-list-road-address>
+          <app-staff-contact-form
+            [staff]="selectedStaff"
+            (formSaved)="selectGridAppointment()"
+            (formDeleted)="selectGridAppointment()"
+            (formClosed)="drawerContact.visible = false">
+          </app-staff-contact-form>
         </div>
       </nz-tab>
 
@@ -133,6 +137,7 @@
   (nzOnClose)="drawerContact.visible = false">
     <app-staff-contact-form *nzDrawerContent
       [initLoadId]="drawerContact.initLoadId"
+      [staff]="selectedStaff"
       (formSaved)="selectGridAppointment()"
       (formDeleted)="selectGridAppointment()"
       (formClosed)="drawerContact.visible = false">
