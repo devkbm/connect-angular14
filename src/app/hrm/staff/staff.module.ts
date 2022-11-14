@@ -69,6 +69,7 @@ import { StaffCurrentAppointmentDescriptionComponent } from './staff-current-app
 import { StaffDutyResponsibilityFormComponent } from './staff-duty-responsibility/staff-duty-responsibility-form.component';
 import { StaffDutyResponsibilityListComponent } from './staff-duty-responsibility/staff-duty-responsibility-list.component';
 import { StaffContactFormComponent } from './staff-contact/staff-contact-form.component';
+import { StaffFamilyFormComponent } from './staff-family/staff-family-form.component';
 
 
 
@@ -92,7 +93,8 @@ import { StaffContactFormComponent } from './staff-contact/staff-contact-form.co
     StaffDutyResponsibilityFormComponent,
     StaffDutyResponsibilityListComponent,
     StaffContactFormComponent,
-    StaffManagementComponent
+    StaffManagementComponent,
+    StaffFamilyFormComponent
   ],
   exports: [
     StaffRegistFormComponent,

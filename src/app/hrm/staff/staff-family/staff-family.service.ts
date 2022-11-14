@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpXsrfTokenExtractor } from '@angular/common/http';
+
+import { Observable } from 'rxjs';
+import { map, tap, catchError } from 'rxjs/operators';
+
+import { DataService } from 'src/app/core/service/data.service';
+import { ResponseList } from 'src/app/core/model/response-list';
+import { ResponseObject } from 'src/app/core/model/response-object';
+import { StaffFamily } from './staff-family.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class StaffFamilyService extends DataService {
+
+  constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
+    super('/api/hrm', http, tokenExtractor);
+  }
+
+  get(staffId: string, seq: string): Observable<ResponseObject<StaffFamily>> {
+    const url = `${this.API_URL}/staff/${staffId}/family/${seq}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http.get<ResponseObject<StaffFamily>>(url, options).pipe(
+      catchError(this.handleError<ResponseObject<StaffFamily>>('getCurrentAppointment', undefined))
+    );
+  }
+
+  save(obj: StaffFamily): Observable<ResponseObject<StaffFamily>> {
+    const url = `${this.API_URL}/staff/${obj.staffId}/family/`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+    return this.http.post<ResponseObject<StaffFamily>>(url, obj, options).pipe(
+      catchError(this.handleError<ResponseObject<StaffFamily>>('save', undefined))
+    );
+  }
+
+}
+
