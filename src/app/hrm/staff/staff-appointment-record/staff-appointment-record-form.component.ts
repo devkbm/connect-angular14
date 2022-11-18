@@ -79,7 +79,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
       staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
       staffName               : new FormControl<string | null>(null),
-      id                      : new FormControl<string | null>(null),
+      seq                     : new FormControl<string | null>(null),
       appointmentDate         : new FormControl<Date | null>(null),
       appointmentEndDate      : new FormControl<Date | null>(null),
       recordName              : new FormControl<string | null>(null),

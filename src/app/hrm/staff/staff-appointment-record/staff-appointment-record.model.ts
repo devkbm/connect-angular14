@@ -1,11 +1,11 @@
 export interface StaffAppointmentRecord {
   staffId: string;
-  id: string;
+  seq: string;
   appointmentDate: Date;
   appointmentEndDate: Date;
   recordName: string;
   comment: string;
-  processWatingYn: string;
+  isCompleted: boolean;
   blngDeptCode: string;
   workDeptCode: string;
   jobGroupCode: string;

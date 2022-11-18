@@ -87,7 +87,7 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
     };
 
     this.getRowId = function(params: any) {
-      return params.data.id;
+      return params.data.seq;
     };
 
   }

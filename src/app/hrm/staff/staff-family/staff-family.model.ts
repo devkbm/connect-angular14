@@ -2,7 +2,7 @@ export interface StaffFamily {
   staffId: string;
   staffNo: string;
   staffName: string;
-  id: number;
+  seq: number;
 	name: string;
 	residentRegistrationNumber: string;
 	relation: string;
