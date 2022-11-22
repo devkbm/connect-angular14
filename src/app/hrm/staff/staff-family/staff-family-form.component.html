@@ -1,3 +1,98 @@
-<p>
-  staff-family-form works!
-</p>
+{{fg.getRawValue() | json}} - {{fg.valid}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 Row -->
+  <!--
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <app-nz-input-text #staffId
+        [parentFormGroup]="fg" formControlName="staffId" itemId="contact_staffId"
+        placeholder="직원ID를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원ID
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="staffNo" itemId="contact_staffNo"
+        placeholder="직원번호를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원번호
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="staffName" itemId="contact_staffName"
+        placeholder="직원명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">직원명
+      </app-nz-input-text>
+    </div>
+  </div>
+  -->
+
+  <!-- 2 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="familyName" itemId="familyName"
+        placeholder="가족명을 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">가족명
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="familyRRN" itemId="familyRRN"
+        placeholder="가족 주민번호를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">주민등록번호
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="familyRelation" itemId="familyRelation"
+        placeholder="가족 관계를 입력해주세요."
+        [required]="true" [nzErrorTip]="errorTpl">가족관계
+      </app-nz-input-text>
+    </div>
+  </div>
+
+  <!-- 3 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="occupation" itemId="occupation"
+        placeholder="직업을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">직업
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="8">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="schoolCareerType" itemId="schoolCareerType"
+        placeholder="학력을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">학력
+      </app-nz-input-text>
+    </div>
+  </div>
+
+</form>
+
+
+<div class="footer">
+  <app-nz-crud-button-group
+    [isSavePopupConfirm]="false"
+    [deleteVisible]="false"
+    (closeClick)="closeForm()"
+    (saveClick)="save()">
+  </app-nz-crud-button-group>
+</div>

@@ -3,9 +3,9 @@ export interface StaffFamily {
   staffNo: string;
   staffName: string;
   seq: number;
-	name: string;
-	residentRegistrationNumber: string;
-	relation: string;
+	familyName: string;
+	familyRRN: string;
+	familyRelation: string;
 	occupation: string;
 	schoolCareerType: string;
 	comment: string;

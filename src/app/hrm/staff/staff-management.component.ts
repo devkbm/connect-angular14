@@ -4,6 +4,7 @@ import { AppBase } from 'src/app/core/app/app-base';
 import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffGridComponent } from './staff-grid.component';
 import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
+import { StaffFamilyGridComponent } from './staff-family/staff-family-grid.component';
 
 @Component({
   selector: 'app-staff-management',
@@ -15,6 +16,7 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   @ViewChild(StaffGridComponent) gridStaff!: StaffGridComponent;
   @ViewChild(StaffRegistFormComponent) formStaff!: StaffRegistFormComponent;
   @ViewChild(StaffAppointmentRecordGridComponent) gridAppointment!: StaffAppointmentRecordGridComponent;
+  @ViewChild(StaffFamilyGridComponent) gridFamily!: StaffFamilyGridComponent;
 
   selectedStaff?: {staffId: string, staffNo: string, staffName: string};
 
@@ -34,6 +36,11 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   drawerContact: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
+  }
+
+  drawerFamily: { visible: boolean, initLoadId: any } = {
     visible: false,
     initLoadId: null
   }
@@ -72,9 +79,17 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     this.drawerContact.visible = true;
   }
 
+  newFamily() {
+    this.drawerFamily.visible = true;
+  }
+
   selectGridAppointment() {
     this.drawerAppointment.visible = false;
-
     this.gridAppointment.getList(this.selectedStaff?.staffId!);
+  }
+
+  selectGridFaimly() {
+    this.drawerFamily.visible = false;
+    this.gridFamily.getList(this.selectedStaff?.staffId!);
   }
 }

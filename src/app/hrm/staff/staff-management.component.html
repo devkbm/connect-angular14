@@ -23,6 +23,10 @@
     <button nz-button nzType="primary" (click)="newContact()">
       <span nz-icon nzType="save" nzTheme="outline"></span>연락처등록
     </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="newFamily()">
+      <span nz-icon nzType="save" nzTheme="outline"></span>가족등록
+    </button>
   </div>
 </div>
 
@@ -72,6 +76,15 @@
           </app-staff-appointment-record-grid>
         </div>
       </nz-tab>
+
+      <nz-tab nzTitle="가족">
+        <div class="tab-grid">
+          <app-staff-family-grid
+            [staffId]="selectedStaff?.staffId">
+          </app-staff-family-grid>
+        </div>
+      </nz-tab>
+
     </nz-tabset>
   </div>
 
@@ -142,4 +155,21 @@
       (formDeleted)="selectGridAppointment()"
       (formClosed)="drawerContact.visible = false">
     </app-staff-contact-form>
+</nz-drawer>
+
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="80%"
+  [nzVisible]="drawerFamily.visible"
+  nzTitle="연락처 등록"
+  (nzOnClose)="drawerFamily.visible = false">
+    <app-staff-family-form *nzDrawerContent
+      [initLoadId]="drawerFamily.initLoadId"
+      [staff]="selectedStaff"
+      (formSaved)="selectGridFaimly()"
+      (formDeleted)="selectGridFaimly()"
+      (formClosed)="drawerFamily.visible = false">
+    </app-staff-family-form>
 </nz-drawer>

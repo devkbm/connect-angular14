@@ -93,6 +93,7 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
   }
 
   ngOnInit() {
+    console.log('StaffAppointmentRecordGridComponent init');
     //this.setWidthAndHeight('100%', '600px');
   }
 

@@ -18,6 +18,18 @@ export class StaffFamilyService extends DataService {
     super('/api/hrm', http, tokenExtractor);
   }
 
+  getList(staffId: string): Observable<ResponseList<StaffFamily>> {
+    const url = `${this.API_URL}/staff/${staffId}/family`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http.get<ResponseList<StaffFamily>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<StaffFamily>>('getList', undefined))
+    );
+  }
+
   get(staffId: string, seq: string): Observable<ResponseObject<StaffFamily>> {
     const url = `${this.API_URL}/staff/${staffId}/family/${seq}`;
     const options = {
@@ -39,6 +51,20 @@ export class StaffFamilyService extends DataService {
     return this.http.post<ResponseObject<StaffFamily>>(url, obj, options).pipe(
       catchError(this.handleError<ResponseObject<StaffFamily>>('save', undefined))
     );
+  }
+
+  delete(staffId: string, seq: string): Observable<ResponseObject<StaffFamily>> {
+    const url = `${this.API_URL}/staff/${staffId}/family/${seq}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+      .delete<ResponseObject<StaffFamily>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseObject<StaffFamily>>('delete', undefined))
+      );
   }
 
 }

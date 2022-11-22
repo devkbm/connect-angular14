@@ -70,6 +70,7 @@ import { StaffDutyResponsibilityFormComponent } from './staff-duty-responsibilit
 import { StaffDutyResponsibilityListComponent } from './staff-duty-responsibility/staff-duty-responsibility-list.component';
 import { StaffContactFormComponent } from './staff-contact/staff-contact-form.component';
 import { StaffFamilyFormComponent } from './staff-family/staff-family-form.component';
+import { StaffFamilyGridComponent } from './staff-family/staff-family-grid.component';
 
 
 
@@ -94,7 +95,8 @@ import { StaffFamilyFormComponent } from './staff-family/staff-family-form.compo
     StaffDutyResponsibilityListComponent,
     StaffContactFormComponent,
     StaffManagementComponent,
-    StaffFamilyFormComponent
+    StaffFamilyFormComponent,
+    StaffFamilyGridComponent
   ],
   exports: [
     StaffRegistFormComponent,

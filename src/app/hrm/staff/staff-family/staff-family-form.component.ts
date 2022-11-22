@@ -16,7 +16,7 @@ import { StaffFamily } from './staff-family.model';
 })
 export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
-  @ViewChild('staffNo') staffNo?: NzInputTextComponent;
+  @Input() staff?: {staffId: string, staffNo: string, staffName: string};
 
   constructor(private fb: FormBuilder,
               private service: StaffFamilyService,
@@ -24,45 +24,74 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
     super();
 
     this.fg = this.fb.group({
-      staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
-      name                        : new FormControl<string | null>(null, { validators: Validators.required }),
-      residentRegistrationNumber  : new FormControl<string | null>(null, { validators: Validators.required }),
-      nameEng                     : new FormControl<string | null>(null),
-      nameChi                     : new FormControl<string | null>(null)
+      staffId             : new FormControl<string | null>(null, { validators: Validators.required }),
+      staffNo             : new FormControl<string | null>(null, { validators: Validators.required }),
+      staffName           : new FormControl<string | null>(null, { validators: Validators.required }),
+      seq                 : new FormControl<string | null>(null),
+      familyName          : new FormControl<string | null>(null, { validators: Validators.required }),
+      familyRRN           : new FormControl<string | null>(null, { validators: Validators.required }),
+      familyRelation      : new FormControl<string | null>(null, { validators: Validators.required }),
+      occupation          : new FormControl<string | null>(null),
+      schoolCareerType    : new FormControl<string | null>(null),
+      comment             : new FormControl<string | null>(null)
     });
   }
 
   ngOnInit() {
+    this.newForm();
   }
 
   ngAfterViewInit(): void {
-    this.newForm('');
+
   }
 
   ngOnChanges(changes: SimpleChanges): void {
   }
 
-  newForm(id: String) {
+  newForm() {
     this.formType = FormType.NEW;
 
-    this.fg.get('staffId')?.setValue(id);
-
-    this.staffNo?.focus();
+    if (this.staff) {
+      this.fg.get('staffId')?.setValue(this.staff?.staffId);
+      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
+      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+    }
   }
 
-  /*
-  modifyForm(formData: DataDomain) {
+
+  modifyForm(formData: StaffFamily) {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('database')?.disable();
-    this.fg.get('domainName')?.disable();
+    if (this.staff) {
+      this.fg.get('staffId')?.setValue(this.staff?.staffId);
+      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
+      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+    }
+
+    //this.fg.get('database')?.disable();
+    //this.fg.get('domainName')?.disable();
 
     this.fg.patchValue(formData);
   }
-  */
+
 
   closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(staffId: string, seq: string): void {
+    this.service
+        .get(staffId, seq)
+        .subscribe(
+          (model: ResponseObject<StaffFamily>) => {
+            if (model.total > 0) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
+            this.appAlarmService.changeMessage(model.message);
+          }
+        );
   }
 
   save() {
@@ -71,6 +100,21 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
         .subscribe(
           (model: ResponseObject<StaffFamily>) => {
             this.formSaved.emit(this.fg.getRawValue());
+            this.appAlarmService.changeMessage(model.message);
+          }
+        );
+  }
+
+  remove(staffId: string, seq: string): void {
+    this.service
+        .delete(staffId, seq)
+        .subscribe(
+          (model: ResponseObject<StaffFamily>) => {
+            if (model.total > 0) {
+              this.modifyForm(model.data);
+            } else {
+              this.newForm();
+            }
             this.appAlarmService.changeMessage(model.message);
           }
         );
