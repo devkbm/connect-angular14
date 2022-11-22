@@ -27,6 +27,10 @@
     <button nz-button nzType="primary" (click)="newFamily()">
       <span nz-icon nzType="save" nzTheme="outline"></span>가족등록
     </button>
+    <nz-divider nzType="vertical"></nz-divider>
+    <button nz-button nzType="primary" (click)="newLicense()">
+      <span nz-icon nzType="save" nzTheme="outline"></span>자격면허등록
+    </button>
   </div>
 </div>
 
@@ -80,7 +84,9 @@
       <nz-tab nzTitle="가족">
         <div class="tab-grid">
           <app-staff-family-grid
-            [staffId]="selectedStaff?.staffId">
+            [staffId]="selectedStaff?.staffId"
+            (editButtonClicked)="editFamily($event)"
+            (rowDoubleClicked)="editFamily($event)">
           </app-staff-family-grid>
         </div>
       </nz-tab>
@@ -157,13 +163,12 @@
     </app-staff-contact-form>
 </nz-drawer>
 
-
 <nz-drawer
   [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
   [nzMaskClosable]="true"
   nzWidth="80%"
   [nzVisible]="drawerFamily.visible"
-  nzTitle="연락처 등록"
+  nzTitle="가족 등록"
   (nzOnClose)="drawerFamily.visible = false">
     <app-staff-family-form *nzDrawerContent
       [initLoadId]="drawerFamily.initLoadId"
@@ -172,4 +177,20 @@
       (formDeleted)="selectGridFaimly()"
       (formClosed)="drawerFamily.visible = false">
     </app-staff-family-form>
+</nz-drawer>
+
+<nz-drawer
+  [nzBodyStyle]="{ height: 'calc(100% - 55px)', overflow: 'auto', 'padding-bottom':'53px' }"
+  [nzMaskClosable]="true"
+  nzWidth="80%"
+  [nzVisible]="drawerLicense.visible"
+  nzTitle="자격면허 등록"
+  (nzOnClose)="drawerLicense.visible = false">
+    <app-staff-license-form *nzDrawerContent
+      [initLoadId]="drawerLicense.initLoadId"
+      [staff]="selectedStaff"
+      (formSaved)="selectGridFaimly()"
+      (formDeleted)="selectGridFaimly()"
+      (formClosed)="drawerLicense.visible = false">
+    </app-staff-license-form>
 </nz-drawer>

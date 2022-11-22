@@ -29,7 +29,7 @@
     "ckeditor5-custom-build": "file:ckeditor5",
     "date-fns": "^2.29.2",
     "file-saver": "^2.0.5",
-    "ng-zorro-antd": "^14.1.1",
+    "ng-zorro-antd": "^14.2.0",
     "ngx-color-picker": "^12.0.1",
     "ngx-mask": "^14.2.3",
     "rxjs": "~7.5.0",

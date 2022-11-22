@@ -5,6 +5,7 @@ import { StaffRegistFormComponent } from './staff-regist-form.component';
 import { StaffGridComponent } from './staff-grid.component';
 import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
 import { StaffFamilyGridComponent } from './staff-family/staff-family-grid.component';
+import { StaffFamily } from './staff-family/staff-family.model';
 
 @Component({
   selector: 'app-staff-management',
@@ -45,6 +46,11 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     initLoadId: null
   }
 
+  drawerLicense: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
+  }
+
   constructor(location: Location) {
     super(location);
   }
@@ -79,10 +85,6 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     this.drawerContact.visible = true;
   }
 
-  newFamily() {
-    this.drawerFamily.visible = true;
-  }
-
   selectGridAppointment() {
     this.drawerAppointment.visible = false;
     this.gridAppointment.getList(this.selectedStaff?.staffId!);
@@ -92,4 +94,18 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     this.drawerFamily.visible = false;
     this.gridFamily.getList(this.selectedStaff?.staffId!);
   }
+
+  newFamily() {
+    this.drawerFamily.visible = true;
+  }
+
+  editFamily(row: StaffFamily) {
+    this.drawerFamily.initLoadId = {staffId: row.staffId, seq: row.seq};
+    this.drawerFamily.visible = true;
+  }
+
+  newLicense() {
+    this.drawerLicense.visible = true;
+  }
+
 }

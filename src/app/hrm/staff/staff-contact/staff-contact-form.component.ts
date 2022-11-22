@@ -11,8 +11,14 @@ import { StaffContact } from './staff-contact.model';
 @Component({
   selector: 'app-staff-contact-form',
   template: `
-    {{fg.getRawValue() | json}}
-    {{fg.valid}}
+    <app-nz-crud-button-group
+        [isSavePopupConfirm]="false"
+        [deleteVisible]="false"
+        (closeClick)="closeForm()"
+        (saveClick)="save()">
+    </app-nz-crud-button-group>
+
+    {{fg.getRawValue() | json}} - {{fg.valid}}
     <form nz-form [formGroup]="fg" nzLayout="vertical">
       <!-- 폼 오류 메시지 템플릿 -->
       <ng-template #errorTpl let-control>
@@ -103,20 +109,13 @@ import { StaffContact } from './staff-contact.model';
 
     <nz-divider nzText="주소 검색"></nz-divider>
 
+    <!--
     <app-mat-list-road-address (itemClicked)="changeRoadAddress($event)">
     </app-mat-list-road-address>
-    <!--
+    -->
     <app-nz-list-road-address (itemClicked)="changeRoadAddress($event)">
     </app-nz-list-road-address>
-    -->
-    <div class="footer">
-      <app-nz-crud-button-group
-        [isSavePopupConfirm]="false"
-        [deleteVisible]="false"
-        (closeClick)="closeForm()"
-        (saveClick)="save()">
-      </app-nz-crud-button-group>
-    </div>
+
   `,
   styles: [`
     .footer {
