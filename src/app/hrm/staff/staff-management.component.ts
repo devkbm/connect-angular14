@@ -6,6 +6,8 @@ import { StaffGridComponent } from './staff-grid.component';
 import { StaffAppointmentRecordGridComponent } from './staff-appointment-record/staff-appointment-record-grid.component';
 import { StaffFamilyGridComponent } from './staff-family/staff-family-grid.component';
 import { StaffFamily } from './staff-family/staff-family.model';
+import { StaffLicense } from './staff-license/staff-license.model';
+import { StaffLicenseGridComponent } from './staff-license/staff-license-grid.component';
 
 @Component({
   selector: 'app-staff-management',
@@ -18,6 +20,7 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   @ViewChild(StaffRegistFormComponent) formStaff!: StaffRegistFormComponent;
   @ViewChild(StaffAppointmentRecordGridComponent) gridAppointment!: StaffAppointmentRecordGridComponent;
   @ViewChild(StaffFamilyGridComponent) gridFamily!: StaffFamilyGridComponent;
+  @ViewChild(StaffLicenseGridComponent) gridLicense!: StaffLicenseGridComponent;
 
   selectedStaff?: {staffId: string, staffNo: string, staffName: string};
 
@@ -104,7 +107,17 @@ export class StaffManagementComponent extends AppBase implements OnInit {
     this.drawerFamily.visible = true;
   }
 
+  selectGridLicense() {
+    this.drawerFamily.visible = false;
+    this.gridLicense.getList(this.selectedStaff?.staffId!);
+  }
+
   newLicense() {
+    this.drawerLicense.visible = true;
+  }
+
+  editLicense(row: StaffLicense) {
+    this.drawerLicense.initLoadId = {staffId: row.staffId, seq: row.seq};
     this.drawerLicense.visible = true;
   }
 
