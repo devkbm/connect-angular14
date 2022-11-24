@@ -12,24 +12,8 @@
       <span nz-icon nzType="save" nzTheme="outline"></span>신규직원등록
     </button>
     <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newAppoint()">
-      <span nz-icon nzType="save" nzTheme="outline"></span>발령등록
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
     <button nz-button nzType="primary" (click)="newDutyResponsibility()">
       <span nz-icon nzType="save" nzTheme="outline"></span>직책등록
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newContact()">
-      <span nz-icon nzType="save" nzTheme="outline"></span>연락처등록
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newFamily()">
-      <span nz-icon nzType="save" nzTheme="outline"></span>가족등록
-    </button>
-    <nz-divider nzType="vertical"></nz-divider>
-    <button nz-button nzType="primary" (click)="newLicense()">
-      <span nz-icon nzType="save" nzTheme="outline"></span>자격면허등록
     </button>
   </div>
 </div>
@@ -63,6 +47,9 @@
   <div>
     <nz-tabset>
       <nz-tab nzTitle="연락처">
+        <button nz-button nzType="primary" (click)="newContact()">
+          <span nz-icon nzType="save" nzTheme="outline"></span>연락처등록
+        </button>
         <div class="tab-grid">
           <app-staff-contact-form
             [staff]="selectedStaff"
@@ -74,6 +61,9 @@
       </nz-tab>
 
       <nz-tab nzTitle="발령기록">
+        <button nz-button nzType="primary" (click)="newAppoint()">
+          <span nz-icon nzType="save" nzTheme="outline"></span>발령등록
+        </button>
         <div class="tab-grid">
           <app-staff-appointment-record-grid
             [staffId]="selectedStaff?.staffId">
@@ -82,6 +72,9 @@
       </nz-tab>
 
       <nz-tab nzTitle="가족">
+        <button nz-button nzType="primary" (click)="newFamily()">
+          <span nz-icon nzType="save" nzTheme="outline"></span>가족등록
+        </button>
         <div class="tab-grid">
           <app-staff-family-grid
             [staffId]="selectedStaff?.staffId"
@@ -92,6 +85,9 @@
       </nz-tab>
 
       <nz-tab nzTitle="자격면허">
+        <button nz-button nzType="primary" (click)="newLicense()">
+          <span nz-icon nzType="save" nzTheme="outline"></span>자격면허등록
+        </button>
         <div class="tab-grid">
           <app-staff-license-grid
             [staffId]="selectedStaff?.staffId"
@@ -199,8 +195,8 @@
     <app-staff-license-form *nzDrawerContent
       [initLoadId]="drawerLicense.initLoadId"
       [staff]="selectedStaff"
-      (formSaved)="selectGridFaimly()"
-      (formDeleted)="selectGridFaimly()"
+      (formSaved)="selectGridLicense()"
+      (formDeleted)="selectGridLicense()"
       (formClosed)="drawerLicense.visible = false">
     </app-staff-license-form>
 </nz-drawer>

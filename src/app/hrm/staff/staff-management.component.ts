@@ -108,7 +108,7 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   selectGridLicense() {
-    this.drawerFamily.visible = false;
+    this.drawerLicense.visible = false;
     this.gridLicense.getList(this.selectedStaff?.staffId!);
   }
 
