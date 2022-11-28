@@ -115,7 +115,6 @@ import { StaffContact } from './staff-contact.model';
     -->
     <app-nz-list-road-address (itemClicked)="changeRoadAddress($event)">
     </app-nz-list-road-address>
-
   `,
   styles: [`
     .footer {

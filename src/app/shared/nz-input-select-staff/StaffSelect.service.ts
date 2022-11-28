@@ -7,31 +7,31 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { DataService } from 'src/app/core/service/data.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 
-export interface Dept {
-  deptId: string;
-  deptCode: string;
-  parentDeptCode: string;
-  deptNameKorean: string;
-  deptAbbreviationKorean: string;
-  deptNameEnglish: string;
-  deptAbbreviationEnglish: string;
-  fromDate: Date;
-  toDate: Date;
-  seq: number;
-  comment: string;
+export interface Staff {
+  staffId: string;
+  organizationCode: string;
+  staffNo: string;
+  name: string;
+  nameEng: string;
+  nameChi: string;
+  residentRegistrationNumber: string;
+  gender: string;
+  birthday: Date;
+  imagePath: string;
+
   [key:string]:any;
 }
 
 @Injectable({
   providedIn: 'root'
 })
-export class DeptSelectService extends DataService {
+export class StaffSelectService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
-    super('/api/system/dept', http, tokenExtractor);
+    super('/api/hrm/staff', http, tokenExtractor);
   }
 
-  getDeptList(params?: any): Observable<ResponseList<Dept>> {
+  getList(params?: any): Observable<ResponseList<Staff>> {
     const url = `${this.API_URL}`;
     const options = {
         headers: this.getAuthorizedHttpHeaders(),
@@ -39,8 +39,8 @@ export class DeptSelectService extends DataService {
         params: params
      };
 
-    return this.http.get<ResponseList<Dept>>(url, options).pipe(
-      catchError(this.handleError<ResponseList<Dept>>('getDeptList', undefined))
+    return this.http.get<ResponseList<Staff>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<Staff>>('getList', undefined))
     );
   }
 

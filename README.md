@@ -31,8 +31,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 NG-ZORRO(https://ng.ant.design/docs/introduce/en)
 AG-GRID(https://www.ag-grid.com/)
 CKEDITOR5(https://ckeditor.com/ckeditor-5/)
-DATE_FNS(https://date-fns.org/)
+DATE\_FNS(https://date-fns.org/)
 DAYPILOT(https://www.daypilot.org/)
 NGX-COLOR-PICKER(https://www.npmjs.com/package/ngx-color-picker)
 FILE-SAVER(https://www.npmjs.com/package/file-saver)
-

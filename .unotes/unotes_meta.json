@@ -1,0 +1,69 @@
+{
+  "name": "",
+  "isOrdered": true,
+  "folders": {
+    "ckeditor5": {
+      "name": "ckeditor5",
+      "isOrdered": true,
+      "folders": {
+        "build": {
+          "name": "build",
+          "isOrdered": true,
+          "folders": {
+            "translations": {
+              "name": "translations",
+              "isOrdered": true,
+              "folders": {},
+              "files": {}
+            }
+          },
+          "files": {}
+        },
+        "sample": {
+          "name": "sample",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        },
+        "src": {
+          "name": "src",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        }
+      },
+      "files": {
+        "README": 0,
+        "LICENSE": 1
+      }
+    },
+    "src": {
+      "name": "src",
+      "isOrdered": true,
+      "folders": {
+        "app": {
+          "name": "app",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        },
+        "assets": {
+          "name": "assets",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        },
+        "environments": {
+          "name": "environments",
+          "isOrdered": true,
+          "folders": {},
+          "files": {}
+        }
+      },
+      "files": {}
+    }
+  },
+  "files": {
+    "README": 0
+  }
+}

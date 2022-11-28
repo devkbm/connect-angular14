@@ -13,15 +13,14 @@ import { RoadAddressService } from './road-address.service';
       <input [(ngModel)]="searchText" (keyup.enter)="search()" type="text" nz-input placeholder="input search text"/>
     </nz-input-group>
 
-    <div>
-      <nz-list [nzLoading]="_isLoading">
-        <nz-list-item *ngFor="let item of _data?.juso" (click)="choice(item)">
-          <span nz-typography> {{ item.roadAddr }} </span>
-          {{ item.zipNo }}
-        </nz-list-item>
-      </nz-list>
-      <nz-pagination [nzPageIndex]="_page?.index" [nzTotal]="_page?.total" (nzPageIndexChange)="changePageIndex($event)"></nz-pagination>
-    </div>
+    <nz-pagination [nzPageIndex]="_page?.index" [nzTotal]="_page?.total" (nzPageIndexChange)="changePageIndex($event)"></nz-pagination>
+    <nz-list [nzLoading]="_isLoading">
+      <nz-list-item *ngFor="let item of _data?.juso" (click)="choice(item)">
+        <span nz-typography> {{ item.roadAddr }} </span>
+        {{ item.zipNo }}
+      </nz-list-item>
+    </nz-list>
+
   `,
   styles: [`
     span:hover {

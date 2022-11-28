@@ -1,0 +1,96 @@
+{{fg.getRawValue() | json}} - {{fg.valid}}
+<form nz-form [formGroup]="fg" nzLayout="vertical">
+
+  <!-- 폼 오류 메시지 템플릿 -->
+  <ng-template #errorTpl let-control>
+    <ng-container *ngIf="control.hasError('required')">
+      필수 입력 값입니다.
+    </ng-container>
+    <ng-container *ngIf="control.hasError('exists')">
+      기존 코드가 존재합니다.
+    </ng-container>
+  </ng-template>
+
+  <!-- 1 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="dutyId" itemId="dutyId"
+        placeholder=""
+        [required]="false" [nzErrorTip]="errorTpl">근태신청ID
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-select-staff
+        [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
+        placeholder="비고를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">직원
+      </app-nz-input-select-staff>
+    </div>
+  </div>
+
+  <!-- 2 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="dutyCode" itemId="dutyCode"
+        placeholder=""
+        [required]="false" [nzErrorTip]="errorTpl">근태코드
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="dutyReason" itemId="dutyReason"
+        placeholder="근태사유를 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">근태사유
+      </app-nz-input-text>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-date
+        [parentFormGroup]="this.fg" formControlName="dutyStartDateTime" itemId="dutyStartDateTime"
+        [required]="true" [nzErrorTip]="errorTpl">근태 시작일
+      </app-nz-input-date>
+    </div>
+
+    <div nz-col nzSpan="12">
+      <app-nz-input-date
+        [parentFormGroup]="this.fg" formControlName="dutyEndDateTime" itemId="dutyEndDateTime"
+        [required]="true" [nzErrorTip]="errorTpl">근태 종료일
+      </app-nz-input-date>
+    </div>
+  </div>
+
+</form>
+
+<div class="footer">
+  <button nz-button (click)="getForm(fg.get('dutyId')?.value)">
+    <span nz-icon nzType="search" nzTheme="outline"></span>
+    조회
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button (click)="closeForm()">
+    <span nz-icon nzType="form" nzTheme="outline"></span>
+    닫기
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzType="primary"
+    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
+    (nzOnConfirm)="submitForm()" (nzOnCancel)="false">
+    <span nz-icon nzType="save" nzTheme="outline"></span>
+    저장
+  </button>
+  <nz-divider nzType="vertical"></nz-divider>
+  <button nz-button nzDanger
+    nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
+    (nzOnConfirm)= "deleteForm(fg.get('dutyId')?.value)"(nzOnCancel)="false">
+    <span nz-icon nzType="delete" nzTheme="outline"></span>
+    삭제
+  </button>
+</div>
+
