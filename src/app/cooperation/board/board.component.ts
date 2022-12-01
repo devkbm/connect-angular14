@@ -99,8 +99,8 @@ export class BoardComponent implements OnInit {
     this.drawerArticle.initLoadId = item.articleId;
   }
 
-  editArticle(): void {
-    this.drawerArticle.initLoadId = this.articleGrid.getSelectedRows()[0]?.articleId;
+  editArticleByButton(item: any) {
+    this.drawerArticle.initLoadId = item.articleId;
     if (this.drawerArticle.initLoadId === null || this.drawerArticle.initLoadId === undefined) {
       this.message.create('error', '게시글을 선택해주세요.');
       return;

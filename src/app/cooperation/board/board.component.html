@@ -12,9 +12,6 @@
     <button nz-button (click)="newArticle()">
       <span nz-icon nzType="form" nzTheme="outline"></span>게시글 등록
     </button>
-    <button nz-button (click)="editArticle()">
-      <span nz-icon nzType="form" nzTheme="outline"></span>게시글 수정
-    </button>
   </div>
 </div>
 
@@ -40,7 +37,8 @@
     <div id="grid-wrapper" class="grid">
       <app-article-grid id="articleGrid" #articleGrid
         (rowClicked)="selectArticle($event)"
-        (rowDoubleClicked)="addTabArticleView()">
+        (rowDoubleClicked)="addTabArticleView()"
+        (editButtonClicked)="editArticleByButton($event)">
       </app-article-grid>
     </div>
   </nz-tab>

@@ -79,6 +79,18 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
         width: 210,
         cellStyle: {'text-align': 'center'},
         suppressSizeToFit: true
+      },
+      {
+        headerName: '',
+        width: 34,
+        cellStyle: {'text-align': 'center', 'padding': '0px'},
+        cellRenderer: 'buttonRenderer',
+        cellRendererParams: {
+          onClick: this.onEditButtonClick.bind(this),
+          label: '',
+          iconType: 'form'
+        },
+        suppressSizeToFit: true
       }
     ];
 
@@ -120,6 +132,10 @@ export class ArticleGridComponent extends AggridFunction implements OnInit {
 
   rowDbClicked(params: RowDoubleClickedEvent) {
     this.rowDoubleClicked.emit(params.data);
+  }
+
+  onEditButtonClick(e: any) {
+    this.editButtonClicked.emit(e.rowData);
   }
 
   onGridSizeChanged(params: GridSizeChangedEvent) {
