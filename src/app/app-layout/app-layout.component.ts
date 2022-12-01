@@ -109,7 +109,7 @@ export class AppLayoutComponent implements OnInit  {
     // this.profileAvatarSrc = `http://localhost:8090/static/${url}`;
 
     const profilePictureUrl: string | null = this.sessionService.getAvartarImageString();
-    if (profilePictureUrl !== null) {
+    if (profilePictureUrl) {
       this.profileAvatarSrc = profilePictureUrl as string;
     }
   }

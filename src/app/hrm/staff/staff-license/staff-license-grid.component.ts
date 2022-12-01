@@ -81,7 +81,7 @@ export class StaffLicenseGridComponent extends AggridFunction implements OnInit,
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['staffId']) {
+    if (changes['staffId'].currentValue) {
       this.getList(changes['staffId'].currentValue);
     }
   }

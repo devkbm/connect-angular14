@@ -154,7 +154,7 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes['staff']) {
+    if (changes['staff'].currentValue) {
       this.get(changes['staff'].currentValue.staffId);
     }
   }

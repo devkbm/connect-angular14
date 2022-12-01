@@ -78,8 +78,9 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
 
               this.upload.data = { staffId: model.data.staffId };
 
-              this.imageUrl = GlobalProperty.serverUrl + '/static/' + model.data.imagePath;
-
+              if (model.data.imagePath) {
+                this.imageUrl = GlobalProperty.serverUrl + '/static/' + model.data.imagePath;
+              }
             } else {
               this.newForm();
             }
