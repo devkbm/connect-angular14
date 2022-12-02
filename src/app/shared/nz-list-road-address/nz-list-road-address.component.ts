@@ -6,25 +6,31 @@ import { RoadAddressService } from './road-address.service';
 @Component({
   selector: 'app-nz-list-road-address',
   template: `
-    <ng-template #suffixIconButton>
-      <button nz-button nzType="primary" nzSearch on-click="search()"><span nz-icon nzType="search"></span></button>
-    </ng-template>
-    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
-      <input [(ngModel)]="searchText" (keyup.enter)="search()" type="text" nz-input placeholder="input search text"/>
-    </nz-input-group>
+    <div class="container">
+      <ng-template #suffixIconButton>
+        <button nz-button nzType="primary" nzSearch on-click="search()"><span nz-icon nzType="search"></span></button>
+      </ng-template>
+      <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+        <input [(ngModel)]="searchText" (keyup.enter)="search()" type="text" nz-input placeholder="input search text"/>
+      </nz-input-group>
 
-    <nz-pagination [nzPageIndex]="_page?.index" [nzTotal]="_page?.total" (nzPageIndexChange)="changePageIndex($event)"></nz-pagination>
-    <nz-list [nzLoading]="_isLoading">
-      <nz-list-item *ngFor="let item of _data?.juso" (click)="choice(item)">
-        <span nz-typography> {{ item.roadAddr }} </span>
-        {{ item.zipNo }}
-      </nz-list-item>
-    </nz-list>
-
+      <nz-pagination [nzPageIndex]="_page?.index" [nzTotal]="_page?.total" (nzPageIndexChange)="changePageIndex($event)"></nz-pagination>
+      <nz-list [nzLoading]="_isLoading">
+        <nz-list-item *ngFor="let item of _data?.juso" (click)="choice(item)">
+          <span nz-typography> {{ item.roadAddr }} </span>
+          {{ item.zipNo }}
+        </nz-list-item>
+      </nz-list>
+    </div>
   `,
   styles: [`
     span:hover {
       text-decoration: underline;
+    }
+
+    .container {
+      overflow: auto;
+      background-color:green;
     }
   `]
 })

@@ -32,6 +32,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { DutyApplicationComponent } from './duty-application.component';
 import { DutyApplicationGridComponent } from './duty-application-grid.component';
 import { DutyApplicationFormComponent } from './duty-application-form.component';
+import { DutyDateListComponent } from './duty-date-list.component';
 
 const nzModules = [
   NzLayoutModule,
@@ -66,6 +67,7 @@ const nzModules = [
   declarations: [
     DutyApplicationGridComponent,
     DutyApplicationFormComponent,
+    DutyDateListComponent,
     DutyApplicationComponent
   ],
   providers: [

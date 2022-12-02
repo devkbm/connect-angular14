@@ -18,31 +18,31 @@ import { DutyCodeService } from './duty-code.service';
 })
 export class DutyApplicationFormComponent extends FormBase  implements OnInit {
 
-   ;
   dutyCodeList: any[] = [];
-  employeeList: any[] = [];
 
   constructor(private fb: FormBuilder,
-              private dutyApplicationService: DutyApplicationService,
+              private service: DutyApplicationService,
               private dutyCodeService: DutyCodeService,
               private hrmCoreService: HrmCoreService,
               private appAlarmService: AppAlarmService) {  super(); }
 
   ngOnInit() {
     this.fg = this.fb.group({
-      dutyId      : [ null, [ Validators.required ] ],
-      employeeId  : [ null, [ Validators.required ] ],
-      dutyCode    : [ null],
-      dutyReason        : [ null],
-      dutyStartDateTime : [ null],
-      dutyEndDateTime   : [ null]
+      dutyId            : new FormControl<string | null>(null, { validators: Validators.required }),
+      staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
+      dutyCode          : new FormControl<string | null>(null),
+      dutyReason        : new FormControl<string | null>(null),
+      fromDate          : new FormControl<Date | null>(null),
+      toDate            : new FormControl<Date | null>(null),
+      selectedDate      : new FormControl<Date[] | null>(null),
+      dutyTime          : new FormControl<number | null>(null)
     });
+
     this.getDutyCodeList();
-    this.getEmployeeList();
     this.newForm();
   }
 
-  public newForm(): void {
+  newForm() {
     this.formType = FormType.NEW;
 
     this.fg.reset();
@@ -51,15 +51,19 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
     this.fg.get('dutyEndDateTime')?.setValue(new Date());
   }
 
-  public modifyForm(formData: DutyApplication) {
+  modifyForm(formData: DutyApplication) {
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
     this.fg.get('employeeId')?.disable();
   }
 
-  public getForm(id: string): void {
-    this.dutyApplicationService
+  closeForm() {
+    this.formClosed.emit(this.fg.getRawValue());
+  }
+
+  get(id: string) {
+    this.service
         .getDutyApplication(id)
         .subscribe(
           (model: ResponseObject<DutyApplication>) => {
@@ -73,23 +77,19 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
       );
   }
 
-  public submitForm(): void {
-    this.dutyApplicationService
+  save() {
+    this.service
         .saveDutyApplication(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<DutyApplication>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formSaved.emit(this.fg.getRawValue());
-          },
-          (err) => {
-            console.log(err);
-          },
-          () => {}
+          }
         );
   }
 
-  public deleteForm(id: string): void {
-    this.dutyApplicationService
+  remove(id: string) {
+    this.service
         .deleteDutyApplication(id)
         .subscribe(
             (model: ResponseObject<DutyApplication>) => {
@@ -99,28 +99,13 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
         );
   }
 
-  public getDutyCodeList(): void {
+  getDutyCodeList() {
     this.dutyCodeService
         .getDutyCodeList(null)
         .subscribe(
           (model: ResponseList<DutyCode>) => {
             console.log(model.data);
             this.dutyCodeList = model.data;
-          }
-      );
-  }
-
-  public closeForm() {
-    this.formClosed.emit(this.fg.getRawValue());
-  }
-
-  public getEmployeeList(): void {
-    this.hrmCoreService
-        .getEmployeeList()
-        .subscribe(
-          (model: ResponseList<any>) => {
-            console.log(model.data);
-            this.employeeList = model.data;
           }
       );
   }
