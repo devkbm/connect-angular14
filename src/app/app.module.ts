@@ -33,6 +33,7 @@ import { PayitemModule } from './hrm/payitem/payitem.module';
 import { StaffModule } from './hrm/staff/staff.module';
 import { TodoModule } from './cooperation/todo/todo.module';
 import { HrmCodeModule } from './hrm/hrm-code/hrm-code.module';
+import { DutyApplicationModule } from './hrm/duty-application/duty-application.module';
 
 registerLocaleData(ko);
 
@@ -71,7 +72,8 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     PayitemModule,
     HrmCodeModule,
     StaffModule,
-    TodoModule
+    TodoModule,
+    DutyApplicationModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },

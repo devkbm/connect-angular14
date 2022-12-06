@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { FormBase, FormType } from 'src/app/core/form/form-base';
@@ -7,6 +7,7 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { HrmCoreService } from 'src/app/hrm/hrm-core/service/hrm-core.service';
 import { DutyApplication } from './duty-application';
+import { DutyDate } from './duty-application.model';
 import { DutyApplicationService } from './duty-application.service';
 import { DutyCode } from './duty-code';
 import { DutyCodeService } from './duty-code.service';
@@ -34,8 +35,22 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
       dutyReason        : new FormControl<string | null>(null),
       fromDate          : new FormControl<Date | null>(null),
       toDate            : new FormControl<Date | null>(null),
-      selectedDate      : new FormControl<Date[] | null>(null),
+      selectedDate      : new FormControl<DutyDate[] | null>(null),
       dutyTime          : new FormControl<number | null>(null)
+    });
+
+    this.fg.get('fromDate')?.valueChanges.subscribe(x => {
+      if (x) {
+        const toDate = this.fg.get('toDate')?.value;
+        this.getDutyDateList(x, toDate);
+      }
+    });
+
+    this.fg.get('toDate')?.valueChanges.subscribe(x => {
+      if (x) {
+        const fromDate = this.fg.get('fromDate')?.value;
+        this.getDutyDateList(fromDate, x);
+      }
     });
 
     this.getDutyCodeList();
@@ -46,16 +61,25 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('employeeId')?.enable();
-    this.fg.get('dutyStartDateTime')?.setValue(new Date());
-    this.fg.get('dutyEndDateTime')?.setValue(new Date());
+    this.fg.get('staffId')?.enable();
+    this.fg.get('fromDate')?.setValue(new Date());
+    this.fg.get('toDate')?.setValue(new Date());
+    /*
+      date: Date;
+      isSelected: boolean;
+      isHoliday: boolean;
+      isSaturday: boolean;
+      isSunday: boolean;
+    */
+
+    this.fg.get('selectedDate')?.setValue([{ date: new Date(), isSelected: false}]);
   }
 
   modifyForm(formData: DutyApplication) {
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
-    this.fg.get('employeeId')?.disable();
+    this.fg.get('staffId')?.disable();
   }
 
   closeForm() {
@@ -108,6 +132,18 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
             this.dutyCodeList = model.data;
           }
       );
+  }
+
+  getDutyDateList(fromDate: string, toDate: string) {
+    this.service
+        .getDutyDateList(fromDate, toDate)
+        .subscribe(
+          (model: ResponseList<DutyDate>) => {
+            console.log(model.data);
+            this.fg.get('selectedDate')?.setValue(model.data);
+            //this.dutyCodeList = model.data;
+          }
+        )
   }
 
 }

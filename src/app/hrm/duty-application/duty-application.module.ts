@@ -23,6 +23,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzUploadModule } from 'ng-zorro-antd/upload';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
@@ -52,7 +53,8 @@ const nzModules = [
   NzAvatarModule,
   NzCardModule,
   NzUploadModule,
-  NzRadioModule
+  NzRadioModule,
+  NzCheckboxModule
 ]
 
 @NgModule({

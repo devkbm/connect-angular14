@@ -8,6 +8,7 @@ import { DataService } from 'src/app/core/service/data.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { DutyApplication } from './duty-application';
+import { DutyDate } from './duty-application.model';
 
 @Injectable({
   providedIn: 'root'
@@ -82,5 +83,19 @@ export class DutyApplicationService extends DataService {
                 catchError(this.handleError<ResponseObject<DutyApplication>>('deleteDutyApplication', undefined))
               );
   }
+
+
+  getDutyDateList(fromDate: string, toDate: string): Observable<ResponseList<DutyDate>> {
+    const url = `${this.API_URL}/dutyapplication/period/${fromDate}/${toDate}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http.get<ResponseList<DutyDate>>(url, options).pipe(
+      catchError(this.handleError<ResponseList<DutyDate>>('getDutyDateList', undefined))
+    );
+  }
+
 
 }
