@@ -20,7 +20,7 @@ import { DutyDate } from './duty-application.model';
 })
 export class DutyDateListComponent implements OnInit {
 
-  @Input() height: string = '100%';
+  @Input() height = '100%';
   @Input() _data: DutyDate[] = [];
 
   constructor() { }

@@ -1,4 +1,4 @@
-<!--{{fg.getRawValue() | json}} - {{fg.valid}}-->
+{{fg.getRawValue() | json}} - {{fg.valid}}
 <form nz-form [formGroup]="fg" nzLayout="vertical">
 
   <!-- 폼 오류 메시지 템플릿 -->
@@ -69,7 +69,7 @@
   <!-- 4 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-duty-date-list [_data]="this.fg.get('selectedDate')?.value" [height]="'200px'">
+      <app-duty-date-list [_data]="this.fg.get('selectedDate')?.value" [height]="'100px'">
       </app-duty-date-list>
     </div>
   </div>
