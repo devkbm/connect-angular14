@@ -6,11 +6,13 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+
 import { HrmCoreService } from 'src/app/hrm/hrm-core/service/hrm-core.service';
+import { HrmCode } from '../hrm-code/hrm-code.model';
+import { HrmCodeService } from '../hrm-code/hrm-code.service';
 import { DutyApplication } from './duty-application';
 import { DutyDate } from './duty-application.model';
 import { DutyApplicationService } from './duty-application.service';
-import { DutyCode } from './duty-code';
 import { DutyCodeService } from './duty-code.service';
 
 @Component({
@@ -20,10 +22,14 @@ import { DutyCodeService } from './duty-code.service';
 })
 export class DutyApplicationFormComponent extends FormBase  implements OnInit {
 
-  dutyCodeList: any[] = [];
+  /**
+   * 근태신청분류 - HR1001
+   */
+  dutyCodeList: HrmCode[] = [];
 
   constructor(private fb: FormBuilder,
               private service: DutyApplicationService,
+              private hrmCodeService: HrmCodeService,
               private dutyCodeService: DutyCodeService,
               private hrmCoreService: HrmCoreService,
               private appAlarmService: AppAlarmService) {  super(); }
@@ -72,8 +78,8 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
       isSaturday: boolean;
       isSunday: boolean;
     */
-
     this.fg.get('selectedDate')?.setValue([{ date: new Date(), isSelected: false}]);
+    this.fg.get('dutyTime')?.setValue(8);
   }
 
   modifyForm(formData: DutyApplication) {
@@ -103,6 +109,7 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
   }
 
   save() {
+    console.log('save');
     this.service
         .saveDutyApplication(this.fg.getRawValue())
         .subscribe(
@@ -117,20 +124,28 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
     this.service
         .deleteDutyApplication(id)
         .subscribe(
-            (model: ResponseObject<DutyApplication>) => {
+          (model: ResponseObject<DutyApplication>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formDeleted.emit(this.fg.getRawValue());
-            }
+          }
         );
   }
 
   getDutyCodeList() {
-    this.dutyCodeService
-        .getDutyCodeList(null)
+    const params = {
+      typeId : 'HR1001'
+    };
+
+    this.hrmCodeService
+        .getHrmTypeDetailCodeList(params)
         .subscribe(
-          (model: ResponseList<DutyCode>) => {
-            console.log(model.data);
-            this.dutyCodeList = model.data;
+          (model: ResponseList<HrmCode>) => {
+            if ( model.total > 0 ) {
+              this.dutyCodeList = model.data;
+            } else {
+              this.dutyCodeList = [];
+            }
+            this.appAlarmService.changeMessage(model.message);
           }
       );
   }

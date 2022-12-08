@@ -18,7 +18,7 @@ export class RoadAddressService extends DataService {
   }
 
   // RoadAddressResult
-  get(keyword: string, currentPage: number): Observable<RoadAddressResult> {
+  get(keyword: string, currentPage: number, countPerPage: number): Observable<RoadAddressResult> {
     const url = `${this.API_URL}/address/sync`;
     const token = sessionStorage.getItem('token') as string;
 
@@ -33,7 +33,8 @@ export class RoadAddressService extends DataService {
       withCredentials: true,
       params: {
         keyword: keyword,
-        currentPage: currentPage
+        currentPage: currentPage,
+        countPerPage: countPerPage
       }
     };
 

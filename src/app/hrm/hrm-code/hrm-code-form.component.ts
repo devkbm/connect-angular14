@@ -22,16 +22,21 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
     super();
 
     this.fg = this.fb.group({
-      typeId    : new FormControl<string | null>(null, { validators: Validators.required }),
-      code      : new FormControl(null, {
-                                    validators: Validators.required,
-                                    asyncValidators: [existingHrmTypeDetailCodeValidator(this.service)],
-                                    updateOn: 'blur'
-                                  }),
-      codeName  : new FormControl<string | null>(null, { validators: Validators.required }),
-      useYn     : new FormControl<boolean>(true),
-      sequence  : new FormControl<number>(0),
-      comment   : new FormControl<string | null>(null)
+      typeId        : new FormControl<string | null>(null, { validators: Validators.required }),
+      code          : new FormControl(null, {
+                                      validators: Validators.required,
+                                      asyncValidators: [existingHrmTypeDetailCodeValidator(this.service)],
+                                      updateOn: 'blur'
+                                    }),
+      codeName      : new FormControl<string | null>(null, { validators: Validators.required }),
+      useYn         : new FormControl<boolean>(true),
+      sequence      : new FormControl<number>(0),
+      comment       : new FormControl<string | null>(null),
+      the1AddInfo   : new FormControl<string | null>(null),
+      the2AddInfo   : new FormControl<string | null>(null),
+      the3AddInfo   : new FormControl<string | null>(null),
+      the4AddInfo   : new FormControl<string | null>(null),
+      the5AddInfo   : new FormControl<string | null>(null)
     });
   }
 

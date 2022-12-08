@@ -17,28 +17,33 @@ import { existingHrmTypeValidator } from './hrm-code-type-duplication-validator'
   styleUrls: ['./hrm-code-type-form.component.css']
 })
 export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterViewInit {
-  
+
   @ViewChild('typeId') typeId!: NzInputTextComponent;
-  
+
   constructor(private fb: FormBuilder,
-              private service: HrmCodeService,              
-              private appAlarmService: AppAlarmService) { 
-    super(); 
-    
+              private service: HrmCodeService,
+              private appAlarmService: AppAlarmService) {
+    super();
+
     this.fg = this.fb.group({
-      typeId    : new FormControl<string | null>(null, {
-                    validators: Validators.required,
-                    asyncValidators: [existingHrmTypeValidator(this.service)],
-                    updateOn: 'blur'
-                  }),
-      typeName  : new FormControl<string | null>(null, { validators: Validators.required }),      
-      sequence  : new FormControl<number>(0),
-      comment   : new FormControl<string | null>(null)
+      typeId          : new FormControl<string | null>(null, {
+                          validators: Validators.required,
+                          asyncValidators: [existingHrmTypeValidator(this.service)],
+                          updateOn: 'blur'
+                        }),
+      typeName        : new FormControl<string | null>(null, { validators: Validators.required }),
+      sequence        : new FormControl<number>(0),
+      comment         : new FormControl<string | null>(null),
+      the1AddInfoDesc : new FormControl<string | null>(null),
+      the2AddInfoDesc : new FormControl<string | null>(null),
+      the3AddInfoDesc : new FormControl<string | null>(null),
+      the4AddInfoDesc : new FormControl<string | null>(null),
+      the5AddInfoDesc : new FormControl<string | null>(null)
     });
   }
-  
-  ngOnInit() {        
-        
+
+  ngOnInit() {
+
   }
 
   ngAfterViewInit(): void {
@@ -46,7 +51,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
       this.get(this.initLoadId);
     } else {
       this.newForm();
-    }    
+    }
   }
 
   newForm(): void {
@@ -56,7 +61,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
     this.fg.get('typeId')?.enable();
     this.fg.get('useYn')?.setValue(true);
 
-    this.typeId.focus();      
+    this.typeId.focus();
   }
 
   modifyForm(formData: HrmType): void {
@@ -72,7 +77,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
 
   select(param: any) {
     this.get(param.value['typeId']);
-  }  
+  }
 
   get(code: string): void {
     this.service
@@ -117,7 +122,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
             this.formDeleted.emit(this.fg.getRawValue());
             }
         );
-  }  
+  }
 
 }
 

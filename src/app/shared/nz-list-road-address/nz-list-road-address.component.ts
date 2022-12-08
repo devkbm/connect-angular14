@@ -6,7 +6,7 @@ import { RoadAddressService } from './road-address.service';
 @Component({
   selector: 'app-nz-list-road-address',
   template: `
-    <div class="container">
+    <div class="container" [style.height]="height">
       <ng-template #suffixIconButton>
         <button nz-button nzType="primary" nzSearch on-click="search()"><span nz-icon nzType="search"></span></button>
       </ng-template>
@@ -14,13 +14,13 @@ import { RoadAddressService } from './road-address.service';
         <input [(ngModel)]="searchText" (keyup.enter)="search()" type="text" nz-input placeholder="input search text"/>
       </nz-input-group>
 
-      <nz-pagination [nzPageIndex]="_page?.index" [nzTotal]="_page?.total" (nzPageIndexChange)="changePageIndex($event)"></nz-pagination>
       <nz-list [nzLoading]="_isLoading">
         <nz-list-item *ngFor="let item of _data?.juso" (click)="choice(item)">
           <span nz-typography> {{ item.roadAddr }} </span>
           {{ item.zipNo }}
         </nz-list-item>
       </nz-list>
+      <nz-pagination [nzPageIndex]="_page?.index" [nzPageSize]="countPerPage" [nzTotal]="_page?.total" (nzPageIndexChange)="changePageIndex($event)"></nz-pagination>
     </div>
   `,
   styles: [`
@@ -30,13 +30,14 @@ import { RoadAddressService } from './road-address.service';
 
     .container {
       overflow: auto;
-      background-color:green;
     }
   `]
 })
 export class NzListRoadAddressComponent implements OnInit {
 
   @Input() searchText: string = '';
+  @Input() height = '100%';
+  @Input() countPerPage: number = 10;
   @Output() itemClicked: EventEmitter<{roadAddress: string, zipNo: string}> = new EventEmitter<{roadAddress: string, zipNo: string}>();
 
   protected _isLoading: boolean = false;
@@ -66,10 +67,10 @@ export class NzListRoadAddressComponent implements OnInit {
 
   search() {
     let currentPage: number = this._page?.index ?? 1;
-    this.getList(this.searchText, currentPage);
+    this.getList(this.searchText, currentPage, this.countPerPage);
   }
 
-  getList(keyword: string, currentPage: number) {
+  getList(keyword: string, currentPage: number, countPerPage: number) {
     if (!keyword) {
       this.message.create('warning', `검색어를 입력해주세요.`);
       return;
@@ -77,11 +78,11 @@ export class NzListRoadAddressComponent implements OnInit {
 
     this._isLoading = true;
     this.service
-        .get(keyword, currentPage)
+        .get(keyword, currentPage, countPerPage)
         .subscribe(
           (model: RoadAddressResult) => {
             this._data = model.results;
-            this._page = {index: this._data.common.currentPage, total: parseInt(this._data.common.totalCount)};
+            this._page = {index: this._data.common.currentPage, total: parseInt(this._data.common.totalCount) };
             this._isLoading = false;
           }
         );

@@ -47,9 +47,6 @@
   <div>
     <nz-tabset [nzAnimated]="false">
       <nz-tab nzTitle="연락처">
-        <button nz-button nzType="primary" (click)="newContact()">
-          <span nz-icon nzType="save" nzTheme="outline"></span>연락처등록
-        </button>
         <div class="tab-grid">
           <app-staff-contact-form
             [staff]="selectedStaff"

@@ -59,7 +59,6 @@ import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { NzInputRregnoComponent } from './nz-input-rregno/nz-input-rregno.component';
 import { NzListRoadAddressComponent } from './nz-list-road-address/nz-list-road-address.component';
 import { RoadAddressService } from './nz-list-road-address/road-address.service';
-import { MatListRoadAddressComponent } from './nz-list-road-address/mat-list-road-address.component';
 import { NzInputSelectStaffComponent } from './nz-input-select-staff/nz-input-select-staff.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
@@ -126,7 +125,6 @@ const matModules = [
     NzInputDeptSelectComponent,
     NzInputRregnoComponent,
     NzListRoadAddressComponent,
-    MatListRoadAddressComponent,
     NzInputSelectStaffComponent
    ],
   providers: [
@@ -156,7 +154,7 @@ const matModules = [
     NzInputDeptSelectComponent,
     NzInputRregnoComponent,
     NzListRoadAddressComponent,
-    MatListRoadAddressComponent,
+
     NzInputSelectStaffComponent
   ]
 })

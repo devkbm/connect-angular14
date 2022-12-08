@@ -13,57 +13,106 @@
 
   <!-- 1 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="8">
-      <app-nz-input-text 
+    <div nz-col nzSpan="4">
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="typeId" itemId="typeId"
         placeholder=""
         [required]="true" [nzErrorTip]="errorTpl">구분ID
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="8">
-      <app-nz-input-text 
+    <div nz-col nzSpan="4">
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="code" itemId="code"
         placeholder="코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">코드
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="8">
-      <app-nz-input-text 
+    <div nz-col nzSpan="10">
+      <app-nz-input-text
         [parentFormGroup]="fg" formControlName="codeName" itemId="codeName"
         placeholder="코드명를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">코드명
       </app-nz-input-text>
     </div>
-  </div>    
 
-  <!-- 2 row -->
-  <div nz-row nzGutter="8">
-    <div nz-col nzSpan="12">
-      <app-nz-input-checkbox
-        [parentFormGroup]="fg" formControlName="useYn"
-        checkboxText=""
-        [required]="true">사용여부
-      </app-nz-input-checkbox>
-    </div>
-
-    <div nz-col nzSpan="12">
+    <div nz-col nzSpan="4">
       <app-nz-input-number-custom
         [parentFormGroup]="this.fg" formControlName="sequence" itemId="sequence"
         [required]="true" [nzErrorTip]="errorTpl">출력 순번
       </app-nz-input-number-custom>
     </div>
+
+    <div nz-col nzSpan="2">
+      <app-nz-input-checkbox
+        [parentFormGroup]="fg" formControlName="useYn"
+        checkboxText=""
+        [required]="true">사용
+      </app-nz-input-checkbox>
+    </div>
   </div>
 
-  <!-- 3 row -->
+  <!-- 2 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
         [parentFormGroup]="fg" formControlName="comment" itemId="comment"
         placeholder="설명을 입력해주세요."
-        [rows] = "20"
+        [rows] = "10"
         [required]="false" [nzErrorTip]="errorTpl">설명
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
+  <!-- 3 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="the1AddInfo" itemId="the1AddInfo"
+        placeholder="설명을 입력해주세요."
+        [rows] = "5"
+        [required]="false" [nzErrorTip]="errorTpl">추가정보1
+      </app-nz-input-textarea>
+    </div>
+    <div nz-col nzSpan="12">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="the2AddInfo" itemId="the2AddInfo"
+        placeholder="설명을 입력해주세요."
+        [rows] = "5"
+        [required]="false" [nzErrorTip]="errorTpl">추가정보2
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
+  <!-- 4 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="the3AddInfo" itemId="the3AddInfo"
+        placeholder="설명을 입력해주세요."
+        [rows] = "5"
+        [required]="false" [nzErrorTip]="errorTpl">추가정보3
+      </app-nz-input-textarea>
+    </div>
+    <div nz-col nzSpan="12">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="the4AddInfo" itemId="the4AddInfo"
+        placeholder="설명을 입력해주세요."
+        [rows] = "5"
+        [required]="false" [nzErrorTip]="errorTpl">추가정보4
+      </app-nz-input-textarea>
+    </div>
+  </div>
+
+  <!-- 5 row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="12">
+      <app-nz-input-textarea
+        [parentFormGroup]="fg" formControlName="the5AddInfo" itemId="the5AddInfo"
+        placeholder="설명을 입력해주세요."
+        [rows] = "5"
+        [required]="false" [nzErrorTip]="errorTpl">추가정보5
       </app-nz-input-textarea>
     </div>
   </div>
@@ -71,12 +120,12 @@
 </form>
 
 <div class="footer">
-  <app-nz-crud-button-group    
+  <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
     (searchClick)="get(this.fg.get('typeId')?.value, this.fg.get('code')?.value)"
     (closeClick)="closeForm()"
     (saveClick)="save()"
     (deleteClick)="remove()">
-  </app-nz-crud-button-group>  
+  </app-nz-crud-button-group>
 </div>
 

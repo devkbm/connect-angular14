@@ -109,12 +109,10 @@ import { StaffContact } from './staff-contact.model';
 
     <nz-divider nzText="주소 검색"></nz-divider>
 
-    <!--
-    <app-mat-list-road-address (itemClicked)="changeRoadAddress($event)">
-    </app-mat-list-road-address>
-    -->
-
-    <app-nz-list-road-address (itemClicked)="changeRoadAddress($event)">
+    <app-nz-list-road-address
+      [height]="'300px'"
+      [countPerPage]="5"
+      (itemClicked)="changeRoadAddress($event)">
     </app-nz-list-road-address>
 
   `,

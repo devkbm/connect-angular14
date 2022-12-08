@@ -33,11 +33,20 @@
   <!-- 2 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
+      <!--
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="dutyCode" itemId="dutyCode"
         placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">근태코드
       </app-nz-input-text>
+      -->
+
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="dutyCode" itemId="dutyCode"
+        [options]="dutyCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">근태코드
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="12">
@@ -75,29 +84,16 @@
   </div>
 </form>
 
+
+<app-nz-crud-button-group
+  [isSavePopupConfirm]="false"
+  [deleteVisible]="true"
+  (searchClick)="get(fg.get('dutyId')?.value)"
+  (saveClick)="save()"
+  (deleteClick)="remove(fg.get('dutyId')?.value)"
+  (closeClick)="closeForm()">
+</app-nz-crud-button-group>
+
 <div class="footer">
-  <button nz-button (click)="get(fg.get('dutyId')?.value)">
-    <span nz-icon nzType="search" nzTheme="outline"></span>
-    조회
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button (click)="closeForm()">
-    <span nz-icon nzType="form" nzTheme="outline"></span>
-    닫기
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button nzType="primary"
-    nz-popconfirm nzPopconfirmTitle="저장하시겠습니까?"
-    (nzOnConfirm)="save()" (nzOnCancel)="false">
-    <span nz-icon nzType="save" nzTheme="outline"></span>
-    저장
-  </button>
-  <nz-divider nzType="vertical"></nz-divider>
-  <button nz-button nzDanger
-    nz-popconfirm nzPopconfirmTitle="삭제하시겠습니까?"
-    (nzOnConfirm)= "remove(fg.get('dutyId')?.value)"(nzOnCancel)="false">
-    <span nz-icon nzType="delete" nzTheme="outline"></span>
-    삭제
-  </button>
 </div>
 
