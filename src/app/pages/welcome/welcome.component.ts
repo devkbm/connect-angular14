@@ -1,3 +1,4 @@
+import { formatDate } from '@angular/common';
 import { Component, EventEmitter, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NzTreeNodeOptions } from 'ng-zorro-antd/tree';
@@ -76,7 +77,7 @@ export class WelcomeComponent implements OnInit {
     this.fg = this.fb.group({
       input_text: ['test', [ Validators.required ]],
       input_textarea: ['text area', [ Validators.required ]],
-      input_date: [new Date(), [ Validators.required ]],
+      input_date: [formatDate(new Date(),'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'), [ Validators.required ]],
       input_number: [1, [ Validators.required ]],
       input_select: [null, [ Validators.required ]],
       input_treeselect: [null, [ Validators.required ]],
@@ -87,8 +88,8 @@ export class WelcomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  custom_label(option: any, i: number): any {    
-    return option.label + ' ' + i;    
+  custom_label(option: any, i: number): any {
+    return option.label + ' ' + i;
   }
 
 }

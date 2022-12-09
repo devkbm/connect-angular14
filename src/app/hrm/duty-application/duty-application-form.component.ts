@@ -69,7 +69,9 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
 
     this.fg.reset();
     this.fg.get('staffId')?.enable();
-    this.fg.get('fromDate')?.setValue(formatDate(new Date(),'YYYY-MM-dd','ko-kr'));
+    //this.fg.get('fromDate')?.setValue(new Date().toLocaleString());
+    this.fg.get('fromDate')?.setValue(formatDate(new Date(),'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
+    //this.fg.get('fromDate')?.setValue(formatDate(new Date(),'YYYY-MM-dd','ko-kr'));
     this.fg.get('toDate')?.setValue(formatDate(new Date(),'YYYY-MM-dd','ko-kr'));
     /*
       date: Date;

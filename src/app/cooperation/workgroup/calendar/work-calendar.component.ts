@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, Output, EventEmitter, Input, AfterViewInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
+import { formatDate } from '@angular/common';
 
 import { ResponseList } from 'src/app/core/model/response-list';
 import { WorkGroupService } from '../work-group/workgroup.service';
@@ -35,19 +35,25 @@ export class WorkCalendarComponent implements AfterViewInit {
   eventData: any[] = [];
   mode?: ModeChangedArgs;
 
-  constructor(private service: WorkScheduleService,
-              private datePipe: DatePipe) {
+  constructor(private service: WorkScheduleService) {
   }
 
   ngAfterViewInit(): void {
-    this.from = this.datePipe.transform(this.calendar.start.toDateLocal(),'yyyyMMdd') ?? '';
-    this.to = this.datePipe.transform(this.calendar.end.toDateLocal(),'yyyyMMdd') ?? '';
+    //this.from = this.datePipe.transform(this.calendar.start.toDateLocal(),'yyyyMMdd') ?? '';
+    //this.to = this.datePipe.transform(this.calendar.end.toDateLocal(),'yyyyMMdd') ?? '';
+
+    this.from = formatDate(this.calendar.start.toDateLocal(),'YYYYMMdd','ko-kr') ?? '';
+    this.to = formatDate(this.calendar.end.toDateLocal(),'YYYYMMdd','ko-kr') ?? '';
   }
 
   rangeChanged(e: any): void {
     this.visibleRangeChanged.emit({start: e.start, end: e.end, date: e.date});
-    this.from = this.datePipe.transform(e.start,'yyyyMMdd') ?? '';
-    this.to = this.datePipe.transform(e.end,'yyyyMMdd') ?? '';
+
+    //this.from = this.datePipe.transform(e.start,'yyyyMMdd') ?? '';
+    //this.to = this.datePipe.transform(e.end,'yyyyMMdd') ?? '';
+
+    this.from = formatDate(e.start,'YYYYMMdd','ko-kr') ?? '';
+    this.to = formatDate(e.end,'YYYYMMdd','ko-kr') ?? '';
 
     this.getWorkScheduleList();
   }

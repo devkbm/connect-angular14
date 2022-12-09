@@ -4,7 +4,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzDatePickerComponent } from 'ng-zorro-antd/date-picker';
 import { NzTimePickerComponent } from 'ng-zorro-antd/time-picker';
 
-import * as dateFns from "date-fns";
+import { formatDate } from '@angular/common';
 
 export enum TimeFormat {
   HourMinuteSecond = 'HH:mm:ss',
@@ -119,7 +119,7 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
     }
 
     if (this.value !== null) {
-      this.onChange(dateFns.format(this.value, "yyyy-MM-dd HH:mm:ss"));
+      this.onChange(formatDate(this.value,'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
     } else {
       this.onChange(null);
       this.focus();
@@ -132,7 +132,7 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
     console.log(nativeValue);
 
     if (this.value !== null) {
-      this.onChange(dateFns.format(this.value, "yyyy-MM-dd HH:mm:ss"));
+      this.onChange(formatDate(this.value,'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
     }
   }
 

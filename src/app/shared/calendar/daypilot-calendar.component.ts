@@ -95,7 +95,7 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     startDate: DayPilot.Date.today(),
     locale: 'ko-kr',
     heightSpec: 'BusinessHours',
-    cellHeight: 40,
+    cellHeight: 41,
     onTimeRangeSelected: (params: DayPilot.CalendarTimeRangeSelectedArgs) => {
       this.setDate(params.start);
       this.datesSelected.emit({start: params.start.toDateLocal(), end: params.end.toDateLocal()});
@@ -110,7 +110,7 @@ export class DaypilotCalendarComponent implements AfterViewInit {
     viewType: "Week",
     locale: 'ko-kr',
     heightSpec: 'BusinessHours',
-    cellHeight: 40,
+    cellHeight: 41,
     onTimeRangeSelected: (params: DayPilot.CalendarTimeRangeSelectedArgs) => {
       this.setDate(params.start);
       this.datesSelected.emit({start: params.start.toDateLocal(), end: params.end.toDateLocal()});
@@ -123,7 +123,7 @@ export class DaypilotCalendarComponent implements AfterViewInit {
   configMonth: DayPilot.MonthConfig = {
     startDate: DayPilot.Date.today(),
     locale: 'ko-kr',
-    cellHeight: 141.6,
+    cellHeight: 150,
     onTimeRangeSelected: (params: DayPilot.MonthTimeRangeSelectedArgs) => {
       this.setDate(params.start);
       this.datesSelected.emit({start: params.start.toDateLocal(), end: params.end.toDateLocal()});
