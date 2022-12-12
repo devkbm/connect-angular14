@@ -8,6 +8,7 @@ import { StaffFamilyGridComponent } from './staff-family/staff-family-grid.compo
 import { StaffFamily } from './staff-family/staff-family.model';
 import { StaffLicense } from './staff-license/staff-license.model';
 import { StaffLicenseGridComponent } from './staff-license/staff-license-grid.component';
+import { StaffAppointmentRecord } from './staff-appointment-record/staff-appointment-record.model';
 
 @Component({
   selector: 'app-staff-management',
@@ -91,6 +92,11 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   selectGridAppointment() {
     this.drawerAppointment.visible = false;
     this.gridAppointment.getList(this.selectedStaff?.staffId!);
+  }
+
+  editAppointment(row: StaffAppointmentRecord) {
+    this.drawerAppointment.initLoadId = {staffId: row.staffId, seq: row.seq};
+    this.drawerAppointment.visible = true;
   }
 
   selectGridFaimly() {

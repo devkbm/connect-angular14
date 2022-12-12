@@ -18,7 +18,7 @@ export class StaffAppointmentRecordService extends DataService {
     super('/api/hrm/staff', http, tokenExtractor);
   }
 
-  getStaffAppointmentRecordList(staffId: string): Observable<ResponseList<StaffAppointmentRecord>> {
+  getList(staffId: string): Observable<ResponseList<StaffAppointmentRecord>> {
     const url = `${this.API_URL}/${staffId}/record`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -26,11 +26,11 @@ export class StaffAppointmentRecordService extends DataService {
     };
 
     return this.http.get<ResponseList<StaffAppointmentRecord>>(url, options).pipe(
-      catchError(this.handleError<ResponseList<StaffAppointmentRecord>>('getStaffAppointmentRecordList', undefined))
+      catchError(this.handleError<ResponseList<StaffAppointmentRecord>>('getList', undefined))
     );
   }
 
-  getStaffAppointmentRecord(staffId: string, id: string): Observable<ResponseObject<StaffAppointmentRecord>> {
+  get(staffId: string, id: string): Observable<ResponseObject<StaffAppointmentRecord>> {
     const url = `${this.API_URL}/${staffId}/appointmentrecord/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -38,18 +38,33 @@ export class StaffAppointmentRecordService extends DataService {
     };
 
     return this.http.get<ResponseObject<StaffAppointmentRecord>>(url, options).pipe(
-      catchError(this.handleError<ResponseObject<StaffAppointmentRecord>>('getStaffAppointmentRecord', undefined))
+      catchError(this.handleError<ResponseObject<StaffAppointmentRecord>>('get', undefined))
     );
   }
 
-  saveStaffAppointmentRecord(obj: StaffAppointmentRecord): Observable<ResponseObject<StaffAppointmentRecord>> {
+  save(obj: StaffAppointmentRecord): Observable<ResponseObject<StaffAppointmentRecord>> {
     const url = `${this.API_URL}/${obj.staffId}/appointmentrecord`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true
     };
     return this.http.post<ResponseObject<StaffAppointmentRecord>>(url, obj, options).pipe(
-      catchError(this.handleError<ResponseObject<StaffAppointmentRecord>>('saveStaffAppointmentRecord', undefined))
+      catchError(this.handleError<ResponseObject<StaffAppointmentRecord>>('save', undefined))
     );
   }
+
+  delete(staffId: string, id: string): Observable<ResponseObject<StaffAppointmentRecord>> {
+    const url = `${this.API_URL}/staff/${staffId}/appointmentrecord/${id}`;
+    const options = {
+      headers: this.getAuthorizedHttpHeaders(),
+      withCredentials: true
+    };
+
+    return this.http
+      .delete<ResponseObject<StaffAppointmentRecord>>(url, options)
+      .pipe(
+        catchError(this.handleError<ResponseObject<StaffAppointmentRecord>>('delete', undefined))
+      );
+  }
+
 }

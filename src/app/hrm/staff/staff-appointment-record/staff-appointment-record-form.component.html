@@ -198,9 +198,9 @@
 
 <div class="footer">
   <app-nz-crud-button-group
-    (searchClick)="get(fg.get('staffId')?.value, fg.get('id')?.value)"
+    (searchClick)="get(fg.get('staffId')?.value, fg.get('seq')?.value)"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(fg.get('id')?.value)">
+    (deleteClick)="remove(fg.get('staffId')?.value, fg.get('seq')?.value)">
   </app-nz-crud-button-group>
 </div>

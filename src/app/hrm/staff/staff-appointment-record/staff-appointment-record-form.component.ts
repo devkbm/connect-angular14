@@ -68,17 +68,8 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
               private service: StaffAppointmentRecordService,
               private hrmCodeService: HrmCodeService,
               private deptService: DeptService,
-              private appAlarmService: AppAlarmService) { super(); }
-
-  ngOnInit(): void {
-    this.getHrmTypeDetailCodeList('HR0000', "appointmentTypeList");
-    this.getHrmTypeDetailCodeList('HR0001', "groupJobCodeList");
-    this.getHrmTypeDetailCodeList('HR0002', "jobPositionCodeList");
-    this.getHrmTypeDetailCodeList('HR0003', "occupationCodeList");
-    this.getHrmTypeDetailCodeList('HR0004', "jobGradeCodeList");
-    this.getHrmTypeDetailCodeList('HR0005', "payStepCodeList");
-    this.getHrmTypeDetailCodeList('HR0006', "jobCodeList");
-    this.getHrmTypeDetailCodeList('HR0007', "dutyResponsibilityCodeList");
+              private appAlarmService: AppAlarmService) {
+    super();
 
     this.fg = this.fb.group({
       staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -101,8 +92,23 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       jobCode                 : new FormControl<string | null>(null),
       dutyResponsibilityCode  : new FormControl<string | null>(null)
     });
+  }
 
-    this.newForm();
+  ngOnInit(): void {
+    this.getHrmTypeDetailCodeList('HR0000', "appointmentTypeList");
+    this.getHrmTypeDetailCodeList('HR0001', "groupJobCodeList");
+    this.getHrmTypeDetailCodeList('HR0002', "jobPositionCodeList");
+    this.getHrmTypeDetailCodeList('HR0003', "occupationCodeList");
+    this.getHrmTypeDetailCodeList('HR0004', "jobGradeCodeList");
+    this.getHrmTypeDetailCodeList('HR0005', "payStepCodeList");
+    this.getHrmTypeDetailCodeList('HR0006', "jobCodeList");
+    this.getHrmTypeDetailCodeList('HR0007', "dutyResponsibilityCodeList");
+
+    if (this.initLoadId) {
+      this.get(this.initLoadId.staffId, this.initLoadId.seq);
+    } else {
+      this.newForm();
+    }
   }
 
   newForm(): void {
@@ -138,10 +144,11 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   get(staffId: string, id: string): void {
 
     this.service
-        .getStaffAppointmentRecord(staffId, id)
+        .get(staffId, id)
         .subscribe(
           (model: ResponseObject<StaffAppointmentRecord>) => {
             if ( model.total > 0 ) {
+              console.log(model.data);
               this.modifyForm(model.data);
             } else {
               this.newForm();
@@ -153,7 +160,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
 
   save(): void {
     this.service
-        .saveStaffAppointmentRecord(this.fg.getRawValue())
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<StaffAppointmentRecord>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -162,19 +169,15 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
         );
   }
 
-  remove(id: any): void {
-    /*this.appointmentCodeService
-        .deleteAppointmentCodeDetail(this.fg.get('code').value)
+  remove(staffId: string, id: string): void {
+    this.service
+        .delete(staffId, id)
         .subscribe(
-            (model: ResponseObject<AppointmentCodeDetail>) => {
+          (model: ResponseObject<StaffAppointmentRecord>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formDeleted.emit(this.fg.getRawValue());
-            },
-            (err) => {
-            console.log(err);
-            },
-            () => {}
-        );*/
+          }
+        );
   }
 
   // [key: string]: any

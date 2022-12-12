@@ -106,7 +106,7 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
 
   getList(staffId: string): void {
     this.service
-        .getStaffAppointmentRecordList(staffId)
+        .getList(staffId)
         .subscribe(
           (model: ResponseList<StaffAppointmentRecord>) => {
               if (model.total > 0) {
