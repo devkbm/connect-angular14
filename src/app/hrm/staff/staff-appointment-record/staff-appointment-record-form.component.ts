@@ -30,6 +30,10 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   [key: string]: any;
 
   /**
+   * 발령분류코드 - HR0000
+   */
+  appointmentTypeList: HrmTypeDetailCode[] = [];
+  /**
    * 직군코드 - HR0001
    */
   groupJobCodeList: HrmTypeDetailCode[] = [];
@@ -67,6 +71,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit(): void {
+    this.getHrmTypeDetailCodeList('HR0000', "appointmentTypeList");
     this.getHrmTypeDetailCodeList('HR0001', "groupJobCodeList");
     this.getHrmTypeDetailCodeList('HR0002', "jobPositionCodeList");
     this.getHrmTypeDetailCodeList('HR0003', "occupationCodeList");
@@ -80,11 +85,12 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
       staffName               : new FormControl<string | null>(null),
       seq                     : new FormControl<string | null>(null),
+      appointmentTypeCode     : new FormControl<string | null>(null),
       appointmentDate         : new FormControl<Date | null>(null),
       appointmentEndDate      : new FormControl<Date | null>(null),
       recordName              : new FormControl<string | null>(null),
       comment                 : new FormControl<string | null>(null),
-      processWatingYn         : new FormControl<string | null>(null),
+      isCompleted             : new FormControl<string | null>(null),
       blngDeptCode            : new FormControl<string | null>(null),
       workDeptCode            : new FormControl<string | null>(null),
       jobGroupCode            : new FormControl<string | null>(null),

@@ -57,6 +57,7 @@ export class StaffAppointmentRecordGridComponent extends AggridFunction implemen
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
+      { headerName: '발령분류',       field: 'appointmentTypeName',     width: 90 },
       { headerName: '발령일',         field: 'appointmentDate',         width: 90 },
       { headerName: '발령종료일',     field: 'appointmentEndDate',      width: 90 },
       { headerName: '발령기록',       field: 'recordName',              width: 200 },

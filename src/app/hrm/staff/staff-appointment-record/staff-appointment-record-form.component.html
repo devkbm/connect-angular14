@@ -38,7 +38,7 @@
   <!-- 2 row -->
   <div nz-row nzGutter="8">
 
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="6">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="seq" itemId="seq"
         placeholder=""
@@ -46,14 +46,31 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="6">
+
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="appointmentTypeCode" itemId="appointmentTypeCode"
+        [options]="appointmentTypeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">발령분류
+      </app-nz-input-select>
+      <!--
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="appointmentTypeCode" itemId="appointmentTypeCode"
+        placeholder=""
+        [required]="false" [nzErrorTip]="errorTpl">발령분류
+      </app-nz-input-text>
+      -->
+    </div>
+
+    <div nz-col nzSpan="6">
       <app-nz-input-date
         [parentFormGroup]="this.fg" formControlName="appointmentDate" itemId="appointmentDate"
         [required]="true" [nzErrorTip]="errorTpl">발령일
       </app-nz-input-date>
     </div>
 
-    <div nz-col nzSpan="8">
+    <div nz-col nzSpan="6">
       <app-nz-input-date
         [parentFormGroup]="this.fg" formControlName="appointmentEndDate" itemId="appointmentEndDate"
         [required]="false" [nzErrorTip]="errorTpl">발령종료일
@@ -81,6 +98,7 @@
 
   </div>
 
+  <nz-divider nzPlain nzText="발령" nzOrientation="center"></nz-divider>
   <!-- 4 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">

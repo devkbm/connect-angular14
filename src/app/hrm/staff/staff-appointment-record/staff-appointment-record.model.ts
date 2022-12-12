@@ -1,6 +1,7 @@
 export interface StaffAppointmentRecord {
   staffId: string;
   seq: string;
+  appointmentTypeCode: string;
   appointmentDate: Date;
   appointmentEndDate: Date;
   recordName: string;
