@@ -42,6 +42,15 @@
   <!-- 2 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="familyRelation" itemId="familyRelation"
+        [options]="familyRelationList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">가족관계
+      </app-nz-input-select>
+    </div>
+
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="familyName" itemId="familyName"
         placeholder="가족명을 입력해주세요."
@@ -54,14 +63,6 @@
         [parentFormGroup]="fg" formControlName="familyRRN" itemId="familyRRN"
         placeholder="가족 주민번호를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">주민등록번호
-      </app-nz-input-text>
-    </div>
-
-    <div nz-col nzSpan="8">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="familyRelation" itemId="familyRelation"
-        placeholder="가족 관계를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">가족관계
       </app-nz-input-text>
     </div>
   </div>
@@ -84,6 +85,18 @@
       </app-nz-input-text>
     </div>
   </div>
+
+    <!-- 4 Row -->
+    <div nz-row nzGutter="8">
+      <div nz-col nzSpan="24">
+        <app-nz-input-textarea
+          [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+          placeholder="비고를 입력해주세요."
+          [rows]="23"
+          [required]="false" [nzErrorTip]="errorTpl">비고
+        </app-nz-input-textarea>
+      </div>
+    </div>
 
 </form>
 

@@ -4,30 +4,32 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseObject } from 'src/app/core/model/response-object';
-
-import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
-import { StaffFamilyService } from './staff-family.service';
-import { StaffFamily } from './staff-family.model';
-import { HrmCodeService } from '../../hrm-code/hrm-code.service';
-import { HrmCode } from '../../hrm-code/hrm-code.model';
+import { StaffSchoolCareer } from './staff-school-career.model';
 import { ResponseList } from 'src/app/core/model/response-list';
+import { HrmCode } from '../../hrm-code/hrm-code.model';
+import { HrmCodeService } from '../../hrm-code/hrm-code.service';
+import { StaffSchoolCareerService } from './staff-school-career.service';
 
 @Component({
-  selector: 'app-staff-family-form',
-  templateUrl: './staff-family-form.component.html',
-  styleUrls: ['./staff-family-form.component.css']
+  selector: 'app-staff-school-career-form',
+  templateUrl: './staff-school-career-form.component.html',
+  styleUrls: ['./staff-school-career-form.component.css']
 })
-export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
+export class StaffSchoolCareerFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   @Input() staff?: {staffId: string, staffNo: string, staffName: string};
 
   /**
-   * 가족관계 - HR0008
+   * 학력 - HR0009
    */
-  familyRelationList: HrmCode[] = [];
+  schoolCareerTypeList: HrmCode[] = [];
+  /**
+   * 학교 - HR0010
+   */
+  schoolCodeList: HrmCode[] = [];
 
   constructor(private fb: FormBuilder,
-              private service: StaffFamilyService,
+              private service: StaffSchoolCareerService,
               private hrmCodeService: HrmCodeService,
               private appAlarmService: AppAlarmService) {
     super();
@@ -37,17 +39,21 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
       staffNo             : new FormControl<string | null>(null, { validators: Validators.required }),
       staffName           : new FormControl<string | null>(null, { validators: Validators.required }),
       seq                 : new FormControl<string | null>(null),
-      familyName          : new FormControl<string | null>(null, { validators: Validators.required }),
-      familyRRN           : new FormControl<string | null>(null, { validators: Validators.required }),
-      familyRelation      : new FormControl<string | null>(null, { validators: Validators.required }),
-      occupation          : new FormControl<string | null>(null),
-      schoolCareerType    : new FormControl<string | null>(null),
+      schoolCareerType    : new FormControl<string | null>(null, { validators: Validators.required }),
+      schoolCode          : new FormControl<string | null>(null, { validators: Validators.required }),
+      fromDate            : new FormControl<Date | null>(null, { validators: Validators.required }),
+      toDate              : new FormControl<Date | null>(null),
+      majorName           : new FormControl<string | null>(null),
+      pluralMajorName     : new FormControl<string | null>(null),
+      location            : new FormControl<string | null>(null),
+      lessonYear          : new FormControl<number | null>(null),
       comment             : new FormControl<string | null>(null)
     });
   }
 
   ngOnInit() {
-    this.getFamilyRelationList();
+    this.getSchoolCareerTypeList();
+    this.getSchoolCodeList();
 
     if (this.initLoadId) {
       this.get(this.initLoadId.staffId, this.initLoadId.seq);
@@ -73,7 +79,7 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
   }
 
 
-  modifyForm(formData: StaffFamily) {
+  modifyForm(formData: StaffSchoolCareer) {
     this.formType = FormType.MODIFY;
 
     if (this.staff) {
@@ -97,7 +103,7 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
     this.service
         .get(staffId, seq)
         .subscribe(
-          (model: ResponseObject<StaffFamily>) => {
+          (model: ResponseObject<StaffSchoolCareer>) => {
             if (model.total > 0) {
               this.modifyForm(model.data);
             } else {
@@ -112,7 +118,7 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
-          (model: ResponseObject<StaffFamily>) => {
+          (model: ResponseObject<StaffSchoolCareer>) => {
             this.formSaved.emit(this.fg.getRawValue());
             this.appAlarmService.changeMessage(model.message);
           }
@@ -123,16 +129,16 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
     this.service
         .delete(staffId, seq)
         .subscribe(
-          (model: ResponseObject<StaffFamily>) => {
+          (model: ResponseObject<StaffSchoolCareer>) => {
             this.formDeleted.emit(this.fg.getRawValue());
             this.appAlarmService.changeMessage(model.message);
           }
         );
   }
 
-  getFamilyRelationList() {
+  getSchoolCareerTypeList() {
     const params = {
-      typeId : 'HR0008'
+      typeId : 'HR0009'
     };
 
     this.hrmCodeService
@@ -140,9 +146,28 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
         .subscribe(
           (model: ResponseList<HrmCode>) => {
             if ( model.total > 0 ) {
-              this.familyRelationList = model.data;
+              this.schoolCareerTypeList = model.data;
             } else {
-              this.familyRelationList = [];
+              this.schoolCareerTypeList = [];
+            }
+            this.appAlarmService.changeMessage(model.message);
+          }
+      );
+  }
+
+  getSchoolCodeList() {
+    const params = {
+      typeId : 'HR0010'
+    };
+
+    this.hrmCodeService
+        .getHrmTypeDetailCodeList(params)
+        .subscribe(
+          (model: ResponseList<HrmCode>) => {
+            if ( model.total > 0 ) {
+              this.schoolCodeList = model.data;
+            } else {
+              this.schoolCodeList = [];
             }
             this.appAlarmService.changeMessage(model.message);
           }

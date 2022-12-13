@@ -73,6 +73,8 @@ import { StaffFamilyFormComponent } from './staff-family/staff-family-form.compo
 import { StaffFamilyGridComponent } from './staff-family/staff-family-grid.component';
 import { StaffLicenseFormComponent } from './staff-license/staff-license-form.component';
 import { StaffLicenseGridComponent } from './staff-license/staff-license-grid.component';
+import { StaffSchoolCareerFormComponent } from './staff-school-career/staff-school-career-form.component';
+import { StaffSchoolCareerGridComponent } from './staff-school-career/staff-school-career-grid.component';
 
 
 
@@ -100,7 +102,9 @@ import { StaffLicenseGridComponent } from './staff-license/staff-license-grid.co
     StaffFamilyFormComponent,
     StaffFamilyGridComponent,
     StaffLicenseFormComponent,
-    StaffLicenseGridComponent
+    StaffLicenseGridComponent,
+    StaffSchoolCareerFormComponent,
+    StaffSchoolCareerGridComponent
   ],
   exports: [
     StaffRegistFormComponent,

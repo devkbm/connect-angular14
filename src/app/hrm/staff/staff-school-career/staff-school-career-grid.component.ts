@@ -1,16 +1,15 @@
 import { Component, OnInit, Output, EventEmitter, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
-
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 
-import { StaffLicenseService } from './staff-license.service';
-import { StaffLicense } from './staff-license.model';
+import { StaffSchoolCareerService } from './staff-school-career.service';
+import { StaffSchoolCareer } from './staff-school-career.model';
 
 @Component({
-  selector: 'app-staff-license-grid',
+  selector: 'app-staff-school-career-grid',
   template: `
-    <ag-grid-angular
+   <ag-grid-angular
       [ngStyle]="style"
       class="ag-theme-balham-dark"
       [rowSelection]="'single'"
@@ -26,9 +25,9 @@ import { StaffLicense } from './staff-license.model';
   `,
   styles: []
 })
-export class StaffLicenseGridComponent extends AggridFunction implements OnInit, OnChanges {
+export class StaffSchoolCareerGridComponent extends AggridFunction implements OnInit, OnChanges {
 
-  protected _list: StaffLicense[] = [];
+  protected _list: StaffSchoolCareer[] = [];
 
   @Input() staffId?: string;
 
@@ -37,7 +36,7 @@ export class StaffLicenseGridComponent extends AggridFunction implements OnInit,
   @Output() editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
-              private service: StaffLicenseService) {
+              private service: StaffSchoolCareerService) {
     super();
 
     this.columnDefs = [
@@ -58,11 +57,15 @@ export class StaffLicenseGridComponent extends AggridFunction implements OnInit,
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      { headerName: '자격면허',       field: 'licenseTypeName',         width: 90 },
-      { headerName: '자격면허번호',   field: 'licenseNumber',           width: 150 },
-      { headerName: '취득일',         field: 'dateOfAcquisition',       width: 200 },
-      { headerName: '인증기관',       field: 'certificationAuthority',  width: 100 },
-      { headerName: '비고',           field: 'comment',                 width: 100 }
+      { headerName: '학력',           field: 'schoolCareerTypeName',  width: 100 },
+      { headerName: '학교',           field: 'schoolCodeName',        width: 150 },
+      { headerName: '입학일',         field: 'fromDate',          width: 90 },
+      { headerName: '졸업일',         field: 'toDate',            width: 90 },
+      { headerName: '전공',           field: 'majorName',         width: 100 },
+      { headerName: '부전공',         field: 'pluralMajorName',   width: 100 },
+      { headerName: '지역',           field: 'location',          width: 100 },
+      { headerName: '수업연한',       field: 'lessonYear',        width: 100 },
+      { headerName: '비고',           field: 'comment',           width: 200 }
     ];
 
     this.defaultColDef = {
@@ -90,7 +93,7 @@ export class StaffLicenseGridComponent extends AggridFunction implements OnInit,
     this.service
         .getList(staffId)
         .subscribe(
-          (model: ResponseList<StaffLicense>) => {
+          (model: ResponseList<StaffSchoolCareer>) => {
               if (model.total > 0) {
                 this._list = model.data;
               } else {

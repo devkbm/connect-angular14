@@ -9,6 +9,8 @@ import { StaffFamily } from './staff-family/staff-family.model';
 import { StaffLicense } from './staff-license/staff-license.model';
 import { StaffLicenseGridComponent } from './staff-license/staff-license-grid.component';
 import { StaffAppointmentRecord } from './staff-appointment-record/staff-appointment-record.model';
+import { StaffSchoolCareer } from './staff-school-career/staff-school-career.model';
+import { StaffSchoolCareerGridComponent } from './staff-school-career/staff-school-career-grid.component';
 
 @Component({
   selector: 'app-staff-management',
@@ -22,6 +24,7 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   @ViewChild(StaffAppointmentRecordGridComponent) gridAppointment!: StaffAppointmentRecordGridComponent;
   @ViewChild(StaffFamilyGridComponent) gridFamily!: StaffFamilyGridComponent;
   @ViewChild(StaffLicenseGridComponent) gridLicense!: StaffLicenseGridComponent;
+  @ViewChild(StaffSchoolCareerGridComponent) gridSchoolcareer!: StaffSchoolCareerGridComponent;
 
   selectedStaff?: {staffId: string, staffNo: string, staffName: string};
 
@@ -46,6 +49,11 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   }
 
   drawerFamily: { visible: boolean, initLoadId: any } = {
+    visible: false,
+    initLoadId: null
+  }
+
+  drawerSchoolCareer: { visible: boolean, initLoadId: any } = {
     visible: false,
     initLoadId: null
   }
@@ -111,6 +119,20 @@ export class StaffManagementComponent extends AppBase implements OnInit {
   editFamily(row: StaffFamily) {
     this.drawerFamily.initLoadId = {staffId: row.staffId, seq: row.seq};
     this.drawerFamily.visible = true;
+  }
+
+  selectGridSchoolCareer() {
+    this.drawerSchoolCareer.visible = false;
+    this.gridSchoolcareer.getList(this.selectedStaff?.staffId!);
+  }
+
+  newSchoolCareer() {
+    this.drawerSchoolCareer.visible = true;
+  }
+
+  editSchoolCareer(row: StaffSchoolCareer) {
+    this.drawerSchoolCareer.initLoadId = {staffId: row.staffId, seq: row.seq};
+    this.drawerSchoolCareer.visible = true;
   }
 
   selectGridLicense() {

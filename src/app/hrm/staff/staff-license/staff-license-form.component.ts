@@ -7,6 +7,9 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 
 import { StaffLicenseService } from './staff-license.service';
 import { StaffLicense } from './staff-license.model';
+import { HrmCode } from '../../hrm-code/hrm-code.model';
+import { HrmCodeService } from '../../hrm-code/hrm-code.service';
+import { ResponseList } from 'src/app/core/model/response-list';
 
 @Component({
   selector: 'app-staff-license-form',
@@ -16,9 +19,14 @@ import { StaffLicense } from './staff-license.model';
 export class StaffLicenseFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   @Input() staff?: {staffId: string, staffNo: string, staffName: string};
+  /**
+   * 자격면허 - HR0011
+   */
+  licenseTypeList: HrmCode[] = [];
 
   constructor(private fb: FormBuilder,
               private service: StaffLicenseService,
+              private hrmCodeService: HrmCodeService,
               private appAlarmService: AppAlarmService) {
     super();
 
@@ -36,6 +44,8 @@ export class StaffLicenseFormComponent extends FormBase implements OnInit, After
   }
 
   ngOnInit() {
+    this.getLicenseTypeList();
+
     if (this.initLoadId) {
       this.get(this.initLoadId.staffId, this.initLoadId.seq);
     } else {
@@ -115,6 +125,25 @@ export class StaffLicenseFormComponent extends FormBase implements OnInit, After
             this.appAlarmService.changeMessage(model.message);
           }
         );
+  }
+
+  getLicenseTypeList() {
+    const params = {
+      typeId : 'HR0011'
+    };
+
+    this.hrmCodeService
+        .getHrmTypeDetailCodeList(params)
+        .subscribe(
+          (model: ResponseList<HrmCode>) => {
+            if ( model.total > 0 ) {
+              this.licenseTypeList = model.data;
+            } else {
+              this.licenseTypeList = [];
+            }
+            this.appAlarmService.changeMessage(model.message);
+          }
+      );
   }
 
 }

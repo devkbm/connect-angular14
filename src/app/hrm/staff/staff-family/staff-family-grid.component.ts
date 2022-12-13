@@ -57,12 +57,12 @@ export class StaffFamilyGridComponent extends AggridFunction implements OnInit, 
         width: 70,
         cellStyle: {'text-align': 'center'}
       },
-      { headerName: '가족명',         field: 'familyName',        width: 90 },
-      { headerName: '가족주민번호',   field: 'familyRRN',         width: 90 },
-      { headerName: '발령기록',       field: 'familyRelation',    width: 200 },
-      { headerName: '직업',           field: 'occupation',        width: 100 },
-      { headerName: '학력',           field: 'schoolCareerType',  width: 100 },
-      { headerName: '비고',           field: 'comment',           width: 100 }
+      { headerName: '가족관계',       field: 'familyRelationName',  width: 90 },
+      { headerName: '가족명',         field: 'familyName',          width: 90 },
+      { headerName: '가족주민번호',   field: 'familyRRN',           width: 150 },
+      { headerName: '직업',           field: 'occupation',          width: 100 },
+      { headerName: '학력',           field: 'schoolCareerType',    width: 100 },
+      { headerName: '비고',           field: 'comment',             width: 200 }
     ];
 
     this.defaultColDef = {

@@ -43,47 +43,72 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="6">
       <app-nz-input-select
-        [parentFormGroup]="fg" formControlName="licenseType" itemId="licenseType"
-        [options]="licenseTypeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [parentFormGroup]="fg" formControlName="schoolCareerType" itemId="schoolCareerType"
+        [options]="schoolCareerTypeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
-        [nzErrorTip]="errorTpl" [required]="true">자격면허
+        [nzErrorTip]="errorTpl" [required]="true">학력
       </app-nz-input-select>
-
-      <!--
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="licenseType" itemId="licenseType"
-        placeholder="자격면허를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">자격면허
-      </app-nz-input-text>
-      -->
     </div>
 
     <div nz-col nzSpan="6">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="licenseNumber" itemId="licenseNumber"
-        placeholder="자격면허 번호를 입력해주세요."
-        [required]="true" [nzErrorTip]="errorTpl">자격면허 번호
-      </app-nz-input-text>
+      <app-nz-input-select
+        [parentFormGroup]="fg" formControlName="schoolCode" itemId="schoolCode"
+        [options]="schoolCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
+        [placeholder]="'Please select'"
+        [nzErrorTip]="errorTpl" [required]="true">학교
+      </app-nz-input-select>
     </div>
 
     <div nz-col nzSpan="6">
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="dateOfAcquisition" itemId="dateOfAcquisition"
-        [required]="true" [nzErrorTip]="errorTpl">취득일자
+        [parentFormGroup]="this.fg" formControlName="fromDate" itemId="fromDate"
+        [required]="false" [nzErrorTip]="errorTpl">시작일
       </app-nz-input-date>
     </div>
 
     <div nz-col nzSpan="6">
-      <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="certificationAuthority" itemId="certificationAuthority"
-        placeholder="인증기관을 입력해주세요."
-        [required]="false" [nzErrorTip]="errorTpl">인증기관
-      </app-nz-input-text>
+      <app-nz-input-date
+        [parentFormGroup]="this.fg" formControlName="toDate" itemId="toDate"
+        [required]="false" [nzErrorTip]="errorTpl">종료일
+      </app-nz-input-date>
     </div>
-
   </div>
 
   <!-- 3 Row -->
+  <div nz-row nzGutter="8">
+    <div nz-col nzSpan="6">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="majorName" itemId="majorName"
+        placeholder="전공을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">전공
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="6">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="pluralMajorName" itemId="pluralMajorName"
+        placeholder="부전공을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">부전공
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="6">
+      <app-nz-input-text
+        [parentFormGroup]="fg" formControlName="location" itemId="location"
+        placeholder="지역을 입력해주세요."
+        [required]="false" [nzErrorTip]="errorTpl">지역
+      </app-nz-input-text>
+    </div>
+
+    <div nz-col nzSpan="6">
+      <app-nz-input-number-custom
+        [parentFormGroup]="this.fg" formControlName="lessonYear" itemId="lessonYear"
+        [required]="false" [nzErrorTip]="errorTpl">수업년한
+      </app-nz-input-number-custom>
+    </div>
+  </div>
+
+  <!-- 4 Row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
