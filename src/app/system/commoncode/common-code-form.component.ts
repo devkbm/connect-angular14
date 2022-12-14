@@ -22,26 +22,26 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
   nodeItems: CommonCodeHierarchy[] = [];
   systemTypeCodeList: SystemTypeEnum[] = [];
 
+  override fg = this.fb.group({
+    systemTypeCode          : new FormControl<string | null>(null),
+    codeId                  : new FormControl<string | null>(null),
+    parentId                : new FormControl<string | null>(null),
+    code                    : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    codeName                : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    codeNameAbbreviation    : new FormControl<string | null>(null),
+    fromDate                : new FormControl<Date | null>(null, { validators: [Validators.required] }),
+    toDate                  : new FormControl<Date | null>(null, { validators: [Validators.required] }),
+    hierarchyLevel          : new FormControl<number | null>(null),
+    seq                     : new FormControl<number | null>(null),
+    lowLevelCodeLength      : new FormControl<number | null>(null),
+    cmt                     : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private commonCodeService: CommonCodeService,
               private appAlarmService: AppAlarmService) { super(); }
 
   ngOnInit(): void {
-    this.fg = this.fb.group({
-      systemTypeCode          : new FormControl<string | null>(null),
-      codeId                  : new FormControl<string | null>(null),
-      parentId                : new FormControl<string | null>(null),
-      code                    : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      codeName                : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      codeNameAbbreviation    : new FormControl<string | null>(null),
-      fromDate                : new FormControl<Date | null>(null, { validators: [Validators.required] }),
-      toDate                  : new FormControl<Date | null>(null, { validators: [Validators.required] }),
-      hierarchyLevel          : new FormControl<number | null>(null),
-      seq                     : new FormControl<number | null>(null),
-      lowLevelCodeLength      : new FormControl<number | null>(null),
-      cmt                     : new FormControl<string | null>(null)
-    });
-
     this.getCommonCodeHierarchy('');
     this.getSystemTypeCode();
   }
@@ -107,7 +107,7 @@ export class CommonCodeFormComponent extends FormBase implements OnInit {
 
   remove(): void {
     this.commonCodeService
-        .remove(this.fg.get('systemTypeCode')?.value, this.fg.get('codeId')?.value)
+        .remove(this.fg.controls.systemTypeCode.value!, this.fg.controls.codeId.value!)
         .subscribe(
           (model: ResponseObject<CommonCode>) => {
             this.appAlarmService.changeMessage(model.message);

@@ -71,7 +71,7 @@ export class HrmCodeGridComponent extends AggridFunction implements OnInit {
           label: '',
           disabled: true
         }
-      },      
+      },
       { headerName: '순번',         field: 'sequence',    width: 80,  filter: 'agNumberColumnFilter' }
     ];
 
@@ -98,7 +98,7 @@ export class HrmCodeGridComponent extends AggridFunction implements OnInit {
     };
 
     this.hrmCodeService
-        .getHrmTypeDetailCodeList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<HrmCode>) => {
             if (model.total > 0) {

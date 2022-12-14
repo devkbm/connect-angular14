@@ -1,11 +1,7 @@
 export interface WebResource {
-  createdDt: Date;
-  createdBy: string;
-  modifiedDt: Date;
-  modifiedBy: string;
-  resourceId: string;
-  resourceName: string;
-  resourceType: string;
-  url: string;
-  description: string;
+  resourceId: string | null;
+  resourceName: string | null;
+  resourceType: string | null;
+  url: string | null;
+  description: string | null;
 }

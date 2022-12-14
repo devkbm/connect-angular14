@@ -1,5 +1,5 @@
 export interface Holiday {
-  date: Date;
-  holidayName: string;
-  comment: string;
+  date: Date | null;
+  holidayName: string | null;
+  comment: string | null;
 }

@@ -18,14 +18,14 @@
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="8">      
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="typeName" itemId="typeName"
         [required]="true" [nzErrorTip]="errorTpl">코드분류명
       </app-nz-input-text>
     </div>
 
-    <div nz-col nzSpan="8">    
+    <div nz-col nzSpan="8">
       <app-nz-input-number-custom
         [parentFormGroup]="this.fg" formControlName="sequence" itemId="sequence"
         [required]="true"
@@ -44,12 +44,12 @@
         [options]="bizTypeList" [opt_value]="'value'" [opt_label]="'label'"
         [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">시스템
       </app-nz-input-select>
-    </div>    
+    </div>
   </div>
 
   <!-- 3 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="24">      
+    <div nz-col nzSpan="24">
       <app-nz-input-textarea
         [parentFormGroup]="fg" formControlName="comment" itemId="comment"
         placeholder="비고를 입력해주세요."
@@ -64,10 +64,10 @@
 <div class="footer">
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
-    (searchClick)="get(fg.get('typeId')?.value)"
+    (searchClick)="get(fg.controls.typeId.value!)"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(fg.get('typeId')?.value)">
+    (deleteClick)="remove()">
   </app-nz-crud-button-group>
 </div>
 

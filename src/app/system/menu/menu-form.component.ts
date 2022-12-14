@@ -21,6 +21,7 @@ import { existingMenuValidator } from './menu-duplication-validator.directive';
 export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('menuCode') menuCode!: NzInputTextComponent;
+  @Input() menuGroupId: any;
 
   programList: any;
   menuGroupList: any;
@@ -29,16 +30,9 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   /**
    * 상위 메뉴 트리
    */
-  menuHiererachy: MenuHierarchy[];
+  menuHiererachy: MenuHierarchy[] = [];
 
-  @Input() menuGroupId: any;
-
-  constructor(private fb: FormBuilder,
-              private menuService: MenuService,
-              private appAlarmService: AppAlarmService) {
-    super();
-
-    this.fg = this.fb.group({
+  override fg = this.fb.group({
       menuGroupId       : new FormControl<string | null>(null, { validators: Validators.required }),
       menuId            : new FormControl<string | null>(null, {
         validators: Validators.required,
@@ -53,13 +47,15 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
       appUrl            : new FormControl<string | null>(null, { validators: Validators.required })
     });
 
-    this.menuHiererachy = [];
-
-    this.getMenuTypeList();
-    this.getMenuGroupList();
+  constructor(private fb: FormBuilder,
+              private menuService: MenuService,
+              private appAlarmService: AppAlarmService) {
+    super();
   }
 
   ngOnInit() {
+    this.getMenuTypeList();
+    this.getMenuGroupList();
   }
 
   ngAfterViewInit(): void {
@@ -79,17 +75,16 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
 
     this.getMenuHierarchy(this.menuGroupId);
 
-    this.fg.get('menuGroupId')?.setValue(this.menuGroupId);
-    this.fg.get('menuId')?.disable();
-    this.fg.get('menuCode')?.valueChanges.subscribe(x => {
+    this.fg.controls.menuGroupId.setValue(this.menuGroupId);
+    this.fg.controls.menuId.disable();
+    this.fg.controls.menuCode.valueChanges.subscribe(x => {
       if (x) {
-        const menuGroupId = this.fg.get('menuGroupId')?.value;
-        this.fg.get('menuId')?.setValue(menuGroupId + x);
-        this.fg.get('menuId')?.markAsTouched();
+        const menuGroupId = this.fg.controls.menuGroupId.value;
+        this.fg.controls.menuId.setValue(menuGroupId + x);
+        this.fg.controls.menuId.markAsTouched();
       } else {
-        this.fg.get('menuId')?.setValue(null);
+        this.fg.controls.menuId.setValue(null);
       }
-
     });
 
     this.menuCode.focus();
@@ -98,9 +93,8 @@ export class MenuFormComponent extends FormBase implements OnInit, AfterViewInit
   modifyForm(formData: Menu): void {
     this.formType = FormType.MODIFY;
 
-    this.getMenuHierarchy(formData.menuGroupId);
-
-    this.fg.get('menuId')?.disable();
+    this.getMenuHierarchy(formData.menuGroupId!);
+    this.fg.controls.menuId.disable();
 
     this.fg.patchValue(formData);
   }

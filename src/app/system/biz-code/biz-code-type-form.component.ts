@@ -19,23 +19,23 @@ export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterV
 
   bizTypeList: SelectControlModel[] = [];
 
+  override fg = this.fb.group({
+    typeId    : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    typeName  : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    sequence  : new FormControl<number | null>(null),
+    bizType   : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    comment   : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: BizCodeTypeService,
-              private appAlarmService: AppAlarmService) { 
+              private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      typeId    : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      typeName  : new FormControl<string | null>(null, { validators: [Validators.required] }),      
-      sequence  : new FormControl<number | null>(null),
-      bizType   : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      comment   : new FormControl<string | null>(null)
-    });
   }
-  
+
   ngOnInit(): void {
     this.getSystemList();
-  }  
+  }
 
   ngAfterViewInit(): void {
     if (this.initLoadId) {
@@ -46,13 +46,13 @@ export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterV
   }
 
   newForm(): void {
-    this.formType = FormType.NEW;    
+    this.formType = FormType.NEW;
   }
 
   modifyForm(formData: BizCodeType): void {
     this.formType = FormType.MODIFY;
-    this.fg.get('typeId')?.disable();
-    
+    this.fg.controls.typeId.disable();
+
     this.fg.patchValue(formData);
   }
 
@@ -91,16 +91,16 @@ export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterV
         )
   }
 
-  remove(id: string): void {
+  remove(): void {
     this.service
-        .delete(id)
+        .delete(this.fg.controls.typeId.value!)
         .subscribe(
           (model: ResponseObject<BizCodeType>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }  
+  }
 
   getSystemList(): void {
     this.service
@@ -111,7 +111,7 @@ export class BizCodeTypeFormComponent extends FormBase implements OnInit, AfterV
               this.bizTypeList = model.data;
             } else {
               this.bizTypeList = [];
-            }            
+            }
           }
         );
   }

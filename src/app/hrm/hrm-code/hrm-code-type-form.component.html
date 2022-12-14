@@ -105,7 +105,7 @@
 <div class="footer">
   <app-nz-crud-button-group
     [isSavePopupConfirm]="false"
-    (searchClick)="get(fg.get('typeId')?.value)"
+    (searchClick)="get(fg.controls.typeId.value!)"
     (closeClick)="closeForm()"
     (saveClick)="save()"
     (deleteClick)="remove()">

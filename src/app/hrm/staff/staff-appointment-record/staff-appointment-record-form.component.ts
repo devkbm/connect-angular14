@@ -62,16 +62,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
    */
   dutyResponsibilityCodeList: HrmTypeDetailCode[] = [];
 
-  //deptList: Dept[];
-
-  constructor(private fb: FormBuilder,
-              private service: StaffAppointmentRecordService,
-              private hrmCodeService: HrmCodeService,
-              private deptService: DeptService,
-              private appAlarmService: AppAlarmService) {
-    super();
-
-    this.fg = this.fb.group({
+  override fg = this.fb.group({
       staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
       staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
       staffName               : new FormControl<string | null>(null),
@@ -81,7 +72,7 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       appointmentEndDate      : new FormControl<Date | null>(null),
       recordName              : new FormControl<string | null>(null),
       comment                 : new FormControl<string | null>(null),
-      isCompleted             : new FormControl<string | null>(null),
+      isCompleted             : new FormControl<boolean | null>(null),
       blngDeptCode            : new FormControl<string | null>(null),
       workDeptCode            : new FormControl<string | null>(null),
       jobGroupCode            : new FormControl<string | null>(null),
@@ -92,6 +83,13 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
       jobCode                 : new FormControl<string | null>(null),
       dutyResponsibilityCode  : new FormControl<string | null>(null)
     });
+
+  constructor(private fb: FormBuilder,
+              private service: StaffAppointmentRecordService,
+              private hrmCodeService: HrmCodeService,
+              private deptService: DeptService,
+              private appAlarmService: AppAlarmService) {
+    super();
   }
 
   ngOnInit(): void {
@@ -114,14 +112,14 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   newForm(): void {
     this.formType = FormType.NEW;
 
-    this.fg.get('staffId')?.disable();
-    this.fg.get('staffNo')?.disable();
-    this.fg.get('staffName')?.disable();
+    this.fg.controls.staffId.disable();
+    this.fg.controls.staffNo.disable();
+    this.fg.controls.staffName.disable();
 
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
 
   }
@@ -129,9 +127,9 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   modifyForm(formData: StaffAppointmentRecord): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('staffId')?.disable();
-    this.fg.get('staffNo')?.disable();
-    this.fg.get('staffName')?.disable();
+    this.fg.controls.staffId.disable();
+    this.fg.controls.staffNo.disable();
+    this.fg.controls.staffName.disable();
 
     this.fg.patchValue(formData);
   }

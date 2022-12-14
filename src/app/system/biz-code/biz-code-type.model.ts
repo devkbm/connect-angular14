@@ -1,7 +1,7 @@
 export interface BizCodeType {
-  typeId: string;
-  typeName: string;  
-  sequence: number;  
-  bizType: string;
-  comment: string;
+  typeId: string | null;
+  typeName: string | null;
+  sequence: number | null;
+  bizType: string | null;
+  comment: string | null;
 }

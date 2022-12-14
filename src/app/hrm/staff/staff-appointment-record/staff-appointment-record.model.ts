@@ -1,19 +1,21 @@
 export interface StaffAppointmentRecord {
-  staffId: string;
-  seq: string;
-  appointmentTypeCode: string;
-  appointmentDate: Date;
-  appointmentEndDate: Date;
-  recordName: string;
-  comment: string;
-  isCompleted: boolean;
-  blngDeptCode: string;
-  workDeptCode: string;
-  jobGroupCode: string;
-  jobPositionCode: string;
-  occupationCode: string;
-  jobGradeCode: string;
-  payStepCode: string;
-  jobCode: string;
-  dutyResponsibilityCode: string;
+  staffId: string | null;
+  staffNo: string | null;
+  staffName: string | null;
+  seq: string | null;
+  appointmentTypeCode: string | null;
+  appointmentDate: Date | null;
+  appointmentEndDate: Date | null;
+  recordName: string | null;
+  comment: string | null;
+  isCompleted: boolean | null;
+  blngDeptCode: string | null;
+  workDeptCode: string | null;
+  jobGroupCode: string | null;
+  jobPositionCode: string | null;
+  occupationCode: string | null;
+  jobGradeCode: string | null;
+  payStepCode: string | null;
+  jobCode: string | null;
+  dutyResponsibilityCode: string | null;
 }

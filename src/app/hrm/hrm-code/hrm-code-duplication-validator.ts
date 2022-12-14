@@ -10,7 +10,7 @@ export function existingHrmTypeDetailCodeValidator(hrmCodeService: HrmCodeServic
     console.log(control.root);
     console.log(control.parent?.get('typeId')?.value);
     return control.value ? hrmCodeService
-              .getValidHrmTypeDetailCode(control.parent?.get('typeId')?.value + control.value)
+              .valid(control.parent?.get('typeId')?.value + control.value)
               .pipe(
                 map( responseObj => {
                   if ( responseObj.data === true ) {

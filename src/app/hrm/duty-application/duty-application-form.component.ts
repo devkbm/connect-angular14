@@ -139,7 +139,7 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
     };
 
     this.hrmCodeService
-        .getHrmTypeDetailCodeList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<HrmCode>) => {
             if ( model.total > 0 ) {

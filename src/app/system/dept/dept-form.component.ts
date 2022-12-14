@@ -12,8 +12,6 @@ import { DeptHierarchy } from './dept-hierarchy.model';
 import { ResponseList } from '../../core/model/response-list';
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
-import * as dateFns from "date-fns";
-
 @Component({
   selector: 'app-dept-form',
   templateUrl: './dept-form.component.html',
@@ -25,29 +23,28 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
 
   deptHierarchy: DeptHierarchy[] = [];
 
+  override fg = this.fb.group({
+    parentDeptId            : new FormControl<string | null>(null),
+    deptId                  : new FormControl<string | null>(null, {
+                                validators: Validators.required,
+                                asyncValidators: [existingDeptValidator(this.service)],
+                                updateOn: 'blur'
+                              }),
+    deptCode                : new FormControl<string | null>(null),
+    deptNameKorean          : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    deptAbbreviationKorean  : new FormControl<string | null>(null),
+    deptNameEnglish         : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    deptAbbreviationEnglish : new FormControl<string | null>(null),
+    fromDate                : new FormControl<Date | null>(null, { validators: [Validators.required] }),
+    toDate                  : new FormControl<Date | null>(null, { validators: [Validators.required] }),
+    seq                     : new FormControl<number | null>(1, { validators: [Validators.required] }),
+    comment                 : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: DeptService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      parentDeptId            : new FormControl<string | null>(null),
-      deptId                  : new FormControl<string | null>(null, {
-                                  validators: Validators.required,
-                                  asyncValidators: [existingDeptValidator(this.service)],
-                                  updateOn: 'blur'
-                                }),
-      deptCode                : new FormControl<string | null>(null),
-      deptNameKorean          : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      deptAbbreviationKorean  : new FormControl<string | null>(null),
-      deptNameEnglish         : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      deptAbbreviationEnglish : new FormControl<string | null>(null),
-      fromDate                : new FormControl<Date | null>(null, { validators: [Validators.required] }),
-      toDate                  : new FormControl<Date | null>(null, { validators: [Validators.required] }),
-      seq                     : new FormControl<number | null>(1, { validators: [Validators.required] }),
-      comment                 : new FormControl<string | null>(null)
-    });
-
   }
 
   ngOnInit(): void {
@@ -62,27 +59,25 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
   newForm(): void {
     this.formType = FormType.NEW;
 
-    this.getDeptHierarchy();
-
     this.fg.reset();
-    this.fg.get('deptId')?.setAsyncValidators(existingDeptValidator(this.service));
-    this.fg.get('deptCode')?.enable();
+    this.fg.controls.deptId.setAsyncValidators(existingDeptValidator(this.service));
+    this.fg.controls.deptCode.enable();
 
-    this.fg.get('deptCode')?.valueChanges.subscribe(value => {
+    this.fg.controls.deptCode.valueChanges.subscribe(value => {
       if (value === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
-      this.fg.get('deptId')?.setValue(organizationCode + value);
-      //this.fg.get('deptId')?.markAsTouched();
+      this.fg.controls.deptId.setValue(organizationCode + value);
     });
 
+    /*
     this.fg.patchValue({
       fromDate: dateFns.format(new Date(), "yyyy-MM-dd"),
       toDate: dateFns.format(new Date(9999,11,31), "yyyy-MM-dd"),
       seq: 1
     });
+    */
 
     this.deptCode.focus();
-
   }
 
   modifyForm(formData: Dept): void {
@@ -108,6 +103,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
               if ( model.total > 0 ) {
                 this.modifyForm(model.data);
               } else {
+                this.getDeptHierarchy();
                 this.newForm();
               }
               this.appAlarmService.changeMessage(model.message);
@@ -133,7 +129,7 @@ export class DeptFormComponent extends FormBase implements OnInit, AfterViewInit
 
   remove(): void {
     this.service
-        .deleteDept(this.fg.get('deptId')?.value)
+        .deleteDept(this.fg.controls.deptId.value!)
         .subscribe(
             (model: ResponseObject<Dept>) => {
             this.appAlarmService.changeMessage(model.message);

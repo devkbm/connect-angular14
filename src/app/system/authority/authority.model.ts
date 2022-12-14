@@ -1,7 +1,5 @@
 export interface Authority {
-  id: string;
-  organizationCode: string;
-  authorityCode: string;
-  description: string;
-  appId: string;
+  id: string | null;
+  authorityCode: string | null;
+  description: string | null;
 }

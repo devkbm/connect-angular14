@@ -1,12 +1,11 @@
 export interface HrmType {
-  typeId: string;
-  typeName: string;
-  useYn: boolean;
-  sequence: number;
-  comment: string;
-  the1AddInfoDesc: string;
-	the2AddInfoDesc: string;
-	the3AddInfoDesc: string;
-	the4AddInfoDesc: string;
-	the5AddInfoDesc: string;
+  typeId: string | null;
+  typeName: string | null;
+  sequence: number | null;
+  comment: string | null;
+  the1AddInfoDesc: string | null;
+	the2AddInfoDesc: string | null;
+	the3AddInfoDesc: string | null;
+	the4AddInfoDesc: string | null;
+	the5AddInfoDesc: string | null;
 }

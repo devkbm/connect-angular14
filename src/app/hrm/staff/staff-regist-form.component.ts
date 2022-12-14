@@ -28,24 +28,23 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     data: null
   }
 
+  override fg = this.fb.group({
+    staffId                     : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
+    name                        : new FormControl<string | null>(null, { validators: Validators.required }),
+    nameEng                     : new FormControl<string | null>(null),
+    nameChi                     : new FormControl<string | null>(null),
+    residentRegistrationNumber  : new FormControl<string | null>(null),
+    gender                      : new FormControl<string | null>(null),
+    birthday                    : new FormControl<Date | null>(null),
+    workCondition               : new FormControl<string | null>(null),
+    imagePath                   : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
-              private staffServie: StaffService,
+              private service: StaffService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      staffId                     : [ null, [ Validators.required ] ],
-      staffNo                     : [ null, [ Validators.required ] ],
-      name                        : [ null, [ Validators.required ] ],
-      nameEng                     : [ null ],
-      nameChi                     : [ null ],
-      residentRegistrationNumber  : [ null ],
-      gender                      : [ null ],
-      birthday                    : [ null ],
-      workCondition               : [ null ],
-      imagePath                   : [ null ]
-    });
-
   }
 
   ngOnInit(): void {
@@ -69,7 +68,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
   }
 
   get(staffId: string): void {
-    this.staffServie
+    this.service
         .get(staffId)
         .subscribe(
           (model: ResponseObject<Staff>) => {
@@ -90,7 +89,7 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
   }
 
   save(): void {
-    this.staffServie
+    this.service
         .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<Staff>) => {
@@ -130,8 +129,8 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
 
   downloadImage(params: any): void {
 
-    this.staffServie
-        .downloadStaffImage(this.fg.get('staffId')?.value)
+    this.service
+        .downloadStaffImage(this.fg.controls.staffId.value!)
         .subscribe(
           (model: Blob) => {
             //this.appAlarmService.changeMessage(model.message);

@@ -18,7 +18,7 @@
       <app-nz-input-date
         [parentFormGroup]="this.fg" formControlName="date" itemId="date"
         [required]="true" [nzErrorTip]="errorTpl">휴일
-      </app-nz-input-date>      
+      </app-nz-input-date>
     </div>
 
     <div nz-col nzSpan="12">
@@ -27,7 +27,7 @@
         [parentFormGroup]="fg" formControlName="holidayName" itemId="holidayName"
         placeholder="휴일명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">휴일명
-      </app-nz-input-text>                
+      </app-nz-input-text>
     </div>
 
   </div>
@@ -41,18 +41,18 @@
         placeholder="설명을 입력해주세요."
         [rows]="25"
         [required]="false" [nzErrorTip]="errorTpl">설명
-      </app-nz-input-textarea>      
+      </app-nz-input-textarea>
     </div>
   </div>
 
 </form>
 
-<div class="footer">   
+<div class="footer">
   <app-nz-crud-button-group
     [searchVisible]="false"
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(this.fg.get('date')?.value)">
+    (deleteClick)="remove()">
   </app-nz-crud-button-group>
 </div>

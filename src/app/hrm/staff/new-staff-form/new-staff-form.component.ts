@@ -18,18 +18,18 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
 
   @ViewChild('staffNo') staffNo?: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
+    name                        : new FormControl<string | null>(null, { validators: Validators.required }),
+    residentRegistrationNumber  : new FormControl<string | null>(null, { validators: Validators.required }),
+    nameEng                     : new FormControl<string | null>(null),
+    nameChi                     : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: StaffService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
-      name                        : new FormControl<string | null>(null, { validators: Validators.required }),
-      residentRegistrationNumber  : new FormControl<string | null>(null, { validators: Validators.required }),
-      nameEng                     : new FormControl<string | null>(null),
-      nameChi                     : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -44,8 +44,6 @@ export class NewStaffFormComponent extends FormBase implements OnInit, AfterView
 
   newForm(id: String) {
     this.formType = FormType.NEW;
-
-    this.fg.get('staffId')?.setValue(id);
 
     this.staffNo?.focus();
   }

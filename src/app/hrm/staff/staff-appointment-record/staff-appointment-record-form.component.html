@@ -41,7 +41,7 @@
     <div nz-col nzSpan="6">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="seq" itemId="seq"
-        placeholder=""
+        placeholder="신규"
         [required]="false" [readonly]="true" [nzErrorTip]="errorTpl">발령순번
       </app-nz-input-text>
     </div>
@@ -198,9 +198,9 @@
 
 <div class="footer">
   <app-nz-crud-button-group
-    (searchClick)="get(fg.get('staffId')?.value, fg.get('seq')?.value)"
+    (searchClick)="get(fg.controls.staffId.value!, fg.controls.seq.value!)"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(fg.get('staffId')?.value, fg.get('seq')?.value)">
+    (deleteClick)="remove(fg.controls.staffId.value!, fg.controls.seq.value!)">
   </app-nz-crud-button-group>
 </div>

@@ -1,5 +1,6 @@
 export interface MenuGroup {
-  menuGroupId: string;
-  menuGroupName: string;
-  description: string;
+  menuGroupId: string | null;
+  menuGroupCode: string | null;
+  menuGroupName: string | null;
+  description: string | null;
 }

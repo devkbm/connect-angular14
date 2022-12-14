@@ -1,12 +1,12 @@
 export interface StaffFamily {
-  staffId: string;
-  staffNo: string;
-  staffName: string;
-  seq: number;
-	familyName: string;
-	familyRRN: string;
-	familyRelation: string;
-	occupation: string;
-	schoolCareerType: string;
-	comment: string;
+  staffId: string | null;
+  staffNo: string | null;
+  staffName: string | null;
+  seq: string | null;
+	familyName: string | null;
+	familyRRN: string | null;
+	familyRelation: string | null;
+	occupation: string | null;
+	schoolCareerType: string | null;
+	comment: string | null;
 }

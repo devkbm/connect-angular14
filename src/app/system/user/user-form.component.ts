@@ -50,30 +50,29 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
   @ViewChild('staffNo') staffNoField!: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    userId: new FormControl<string | null>(null, {
+      validators: Validators.required,
+      asyncValidators: [existingUserValidator(this.userService)],
+      updateOn: 'blur'
+    }),
+    organizationCode: new FormControl<string | null>({ value: null, disabled: true }, { validators: Validators.required }),
+    staffNo: new FormControl<string | null>(null),
+    name: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
+    enabled: new FormControl<boolean>(true),
+    deptCode: new FormControl<string | null>(null),
+    mobileNum: new FormControl<string | null>(null),
+    email: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.email }),
+    imageBase64: new FormControl<string | null>(null),
+    authorityList: new FormControl<string[] | null>({ value: null, disabled: false }, { validators: Validators.required }),
+    menuGroupList: new FormControl<string[] | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private userService: UserService,
               private deptService: DeptService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      userId: new FormControl<string | null>(null, {
-        validators: Validators.required,
-        asyncValidators: [existingUserValidator(this.userService)],
-        updateOn: 'blur'
-      }),
-      organizationCode: new FormControl<string | null>({ value: null, disabled: true }, { validators: Validators.required }),
-      staffNo: new FormControl<string | null>(null),
-      name: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
-      enabled: new FormControl<boolean>(true),
-      deptCode: new FormControl<string | null>(null),
-      mobileNum: new FormControl<string | null>(null),
-      email: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.email }),
-      imageBase64: new FormControl<string | null>(null),
-      authorityList: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
-      menuGroupList: new FormControl<string | null>(null)
-    });
-
   }
 
   ngOnInit(): void {
@@ -103,21 +102,21 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
 
     this.fg.reset();
 
-    this.fg.get('userId')?.setAsyncValidators(existingUserValidator(this.userService));
-    this.fg.get('organizationCode')?.setValue(sessionStorage.getItem('organizationCode'));
-    this.fg.get('staffNo')?.valueChanges.subscribe(x => {
+    this.fg.controls.userId.setAsyncValidators(existingUserValidator(this.userService));
+    this.fg.controls.organizationCode.setValue(sessionStorage.getItem('organizationCode'));
+    this.fg.controls.staffNo.valueChanges.subscribe(x => {
       if (x === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
-      this.fg.get('userId')?.setValue(organizationCode + x);
-      this.fg.get('userId')?.markAsTouched();
+      this.fg.controls.userId.setValue(organizationCode + x);
+      this.fg.controls.userId.markAsTouched();
     });
-    this.fg.get('enabled')?.setValue(true);
+    this.fg.controls.enabled.setValue(true);
   }
 
   modifyForm(formData: User): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('userId')?.setAsyncValidators(null);
+    this.fg.controls.userId.setAsyncValidators(null);
 
     this.fg.patchValue(formData);
   }
@@ -170,9 +169,9 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  remove(userId: string): void {
+  remove(): void {
     this.userService
-        .deleteUser(userId)
+        .deleteUser(this.fg.controls.userId.value!)
         .subscribe(
           (model: ResponseObject<User>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -217,6 +216,6 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
             }
           }
         );
-  }  
+  }
 
 }

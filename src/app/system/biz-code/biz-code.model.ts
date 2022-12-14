@@ -1,9 +1,8 @@
 export interface BizCode {
-  organizationCode: string;
-  typeId: string;
-  code: string;
-  codeName: string;
-  useYn: boolean;
-  sequence: number;
-  comment: string;
+  typeId: string | null;
+  code: string | null;
+  codeName: string | null;
+  useYn: boolean | null;
+  sequence: number | null;
+  comment: string | null;
 }

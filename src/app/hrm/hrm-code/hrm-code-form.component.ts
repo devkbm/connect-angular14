@@ -16,28 +16,28 @@ import { existingHrmTypeDetailCodeValidator } from './hrm-code-duplication-valid
 })
 export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterViewInit {
 
+  override fg = this.fb.group({
+    typeId        : new FormControl<string | null>(null, { validators: Validators.required }),
+    code          : new FormControl<string | null>(null, {
+                                    validators: Validators.required,
+                                    asyncValidators: [existingHrmTypeDetailCodeValidator(this.service)],
+                                    updateOn: 'blur'
+                                  }),
+    codeName      : new FormControl<string | null>(null, { validators: Validators.required }),
+    useYn         : new FormControl<boolean | null>(true),
+    sequence      : new FormControl<number | null>(0),
+    comment       : new FormControl<string | null>(null),
+    the1AddInfo   : new FormControl<string | null>(null),
+    the2AddInfo   : new FormControl<string | null>(null),
+    the3AddInfo   : new FormControl<string | null>(null),
+    the4AddInfo   : new FormControl<string | null>(null),
+    the5AddInfo   : new FormControl<string | null>(null)
+  });
+
   constructor(private fb:FormBuilder,
               private service: HrmCodeService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      typeId        : new FormControl<string | null>(null, { validators: Validators.required }),
-      code          : new FormControl(null, {
-                                      validators: Validators.required,
-                                      asyncValidators: [existingHrmTypeDetailCodeValidator(this.service)],
-                                      updateOn: 'blur'
-                                    }),
-      codeName      : new FormControl<string | null>(null, { validators: Validators.required }),
-      useYn         : new FormControl<boolean>(true),
-      sequence      : new FormControl<number>(0),
-      comment       : new FormControl<string | null>(null),
-      the1AddInfo   : new FormControl<string | null>(null),
-      the2AddInfo   : new FormControl<string | null>(null),
-      the3AddInfo   : new FormControl<string | null>(null),
-      the4AddInfo   : new FormControl<string | null>(null),
-      the5AddInfo   : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -80,7 +80,7 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
 
   get(typeId: string, code: string): void {
     this.service
-        .getHrmTypeDetailCode(typeId, code)
+        .get(typeId, code)
         .subscribe(
           (model: ResponseObject<HrmCode>) => {
             if ( model.total > 0 ) {
@@ -95,7 +95,7 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
 
   save(): void {
     this.service
-        .saveHrmTypeDetailCode(this.fg.getRawValue())
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<HrmCode>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -106,7 +106,7 @@ export class HrmTypeCodeFormComponent extends FormBase implements OnInit, AfterV
 
   remove(): void {
     this.service
-        .deleteHrmTypeDetailCode(this.fg.get('typeId')?.value, this.fg.get('code')?.value)
+        .remove(this.fg.controls.typeId.value!, this.fg.controls.code.value!)
         .subscribe(
           (model: ResponseObject<HrmCode>) => {
             this.appAlarmService.changeMessage(model.message);

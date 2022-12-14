@@ -26,24 +26,24 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
    */
   familyRelationList: HrmCode[] = [];
 
+  override fg = this.fb.group({
+    staffId             : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffNo             : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffName           : new FormControl<string | null>(null, { validators: Validators.required }),
+    seq                 : new FormControl<string | null>(null),
+    familyName          : new FormControl<string | null>(null, { validators: Validators.required }),
+    familyRRN           : new FormControl<string | null>(null, { validators: Validators.required }),
+    familyRelation      : new FormControl<string | null>(null, { validators: Validators.required }),
+    occupation          : new FormControl<string | null>(null),
+    schoolCareerType    : new FormControl<string | null>(null),
+    comment             : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: StaffFamilyService,
               private hrmCodeService: HrmCodeService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      staffId             : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffNo             : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffName           : new FormControl<string | null>(null, { validators: Validators.required }),
-      seq                 : new FormControl<string | null>(null),
-      familyName          : new FormControl<string | null>(null, { validators: Validators.required }),
-      familyRRN           : new FormControl<string | null>(null, { validators: Validators.required }),
-      familyRelation      : new FormControl<string | null>(null, { validators: Validators.required }),
-      occupation          : new FormControl<string | null>(null),
-      schoolCareerType    : new FormControl<string | null>(null),
-      comment             : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -65,10 +65,14 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
   newForm() {
     this.formType = FormType.NEW;
 
+    this.fg.controls.staffId.disable();
+    this.fg.controls.staffNo.disable();
+    this.fg.controls.staffName.disable();
+
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
   }
 
@@ -76,14 +80,15 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
   modifyForm(formData: StaffFamily) {
     this.formType = FormType.MODIFY;
 
-    if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
-    }
+    this.fg.controls.staffId.disable();
+    this.fg.controls.staffNo.disable();
+    this.fg.controls.staffName.disable();
 
-    //this.fg.get('database')?.disable();
-    //this.fg.get('domainName')?.disable();
+    if (this.staff) {
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
+    }
 
     this.fg.patchValue(formData);
   }
@@ -136,7 +141,7 @@ export class StaffFamilyFormComponent extends FormBase implements OnInit, AfterV
     };
 
     this.hrmCodeService
-        .getHrmTypeDetailCodeList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<HrmCode>) => {
             if ( model.total > 0 ) {

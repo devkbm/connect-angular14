@@ -1,14 +1,14 @@
 export interface CommonCode {
-  systemTypeCode: string;
-  codeId: string;
-  parentId: string;
-  code: string;
-  codeName: string;
-  codeNameAbbreviation: string;
-  fromDate: Date;
-  toDate: Date;
-  seq: number;
-  hierarchyLevel: number;
-  lowLevelCodeLength: number;
-  cmt: string;
+  systemTypeCode: string | null;
+  codeId: string | null;
+  parentId: string | null;
+  code: string | null;
+  codeName: string | null;
+  codeNameAbbreviation: string | null;
+  fromDate: Date | null;
+  toDate: Date | null;
+  seq: number | null;
+  hierarchyLevel: number | null;
+  lowLevelCodeLength: number | null;
+  cmt: string | null;
 }

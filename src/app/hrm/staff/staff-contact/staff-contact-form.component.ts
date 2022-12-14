@@ -135,22 +135,22 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
 
   //@ViewChild('domainName') domainName?: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffNo           : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffName         : new FormControl<string | null>(null, { validators: Validators.required }),
+    homeAddressType   : new FormControl<string | null>(null, { validators: Validators.required }),
+    homePostNumber    : new FormControl<string | null>(null, { validators: Validators.required }),
+    homeMainAddress   : new FormControl<string | null>(null),
+    homeSubAddress    : new FormControl<string | null>(null),
+    extensionNumber   : new FormControl<string | null>(null),
+    mobileNumber      : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: StaffContactService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffNo           : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffName         : new FormControl<string | null>(null, { validators: Validators.required }),
-      homeAddressType   : new FormControl<string | null>(null, { validators: Validators.required }),
-      homePostNumber    : new FormControl<string | null>(null, { validators: Validators.required }),
-      homeMainAddress   : new FormControl<string | null>(null),
-      homeSubAddress    : new FormControl<string | null>(null),
-      extensionNumber   : new FormControl<string | null>(null),
-      mobileNumber      : new FormControl<string | null>(null)
-    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -176,13 +176,13 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
   newForm() {
     this.formType = FormType.NEW;
 
-    this.fg.get('homePostNumber')?.disable();
-    this.fg.get('homeMainAddress')?.disable();
+    this.fg.controls.homePostNumber.disable();
+    this.fg.controls.homeMainAddress.disable();
 
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
   }
 
@@ -190,13 +190,13 @@ export class StaffContactFormComponent extends FormBase implements OnInit, After
   modifyForm(formData: StaffContact) {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('homePostNumber')?.disable();
-    this.fg.get('homeMainAddress')?.disable();
+    this.fg.controls.homePostNumber.disable();
+    this.fg.controls.homeMainAddress.disable();
 
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
 
     this.fg.patchValue(formData);

@@ -1,11 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, AfterViewInit } from '@angular/core';
-import { DatePipe } from '@angular/common';
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { formatDate } from '@angular/common';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormBase, FormType } from '../../core/form/form-base';
 import { AppAlarmService } from '../../core/service/app-alarm.service';
 import { HolidayService } from './holiday.service';
@@ -18,39 +13,36 @@ import { Holiday } from './holiday.model';
   templateUrl: './holiday-form.component.html',
   styleUrls: ['./holiday-form.component.css']
 })
-export class HolidayFormComponent extends FormBase implements OnInit, AfterViewInit {   
+export class HolidayFormComponent extends FormBase implements OnInit, AfterViewInit {
+
+  override fg = this.fb.group({
+    date          : new FormControl<Date | null>(null, { validators: Validators.required }),
+    holidayName   : new FormControl<string | null>(null, { validators: Validators.required }),
+    comment       : new FormControl<string | null>(null)
+  });
 
   constructor(private fb: FormBuilder,
               private service: HolidayService,
-              private appAlarmService: AppAlarmService,
-              private datePipe: DatePipe) { 
-    super(); 
-    
-    this.fg = this.fb.group({
-      date          : new FormControl<Date | null>(null, { validators: Validators.required }),
-      holidayName   : new FormControl<string | null>(null, { validators: Validators.required }),
-      comment       : new FormControl<string | null>(null)
-    });
+              private appAlarmService: AppAlarmService) {
+    super();
   }
-  
-  ngOnInit(): void {    
+
+  ngOnInit(): void {
     if (this.initLoadId) {
       this.get(this.initLoadId);
     } else {
       this.newForm(new Date());
-    }    
+    }
   }
 
-  ngAfterViewInit(): void {    
+  ngAfterViewInit(): void {
   }
 
   newForm(date: Date): void {
     this.formType = FormType.NEW;
     this.fg.reset();
 
-    const id = this.datePipe.transform(date, 'yyyy-MM-dd') as string;
-
-    this.fg.get('date')?.setValue(id);
+    this.fg.controls.date.setValue(date);
   }
 
   modifyForm(formData: Holiday): void {
@@ -64,7 +56,7 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
   }
 
   get(date: Date): void {
-    const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
+    const id = formatDate(date,'YYYYMMdd','ko-kr');
 
     this.service
         .getHoliday(id)
@@ -96,18 +88,15 @@ export class HolidayFormComponent extends FormBase implements OnInit, AfterViewI
         );
   }
 
-  remove(date: Date): void {
-    const id = this.datePipe.transform(date, 'yyyyMMdd') as string;
-    if (id === null) return;
-
+  remove(): void {
     this.service
-        .deleteHoliday(id)
+        .deleteHoliday(formatDate(this.fg.controls.date.value!,'YYYYMMdd','ko-kr'))
         .subscribe(
           (model: ResponseObject<Holiday>) => {
           this.appAlarmService.changeMessage(model.message);
           this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }  
+  }
 
 }

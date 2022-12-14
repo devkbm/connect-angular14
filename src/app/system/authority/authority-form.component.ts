@@ -20,20 +20,20 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
 
   @ViewChild('authorityCode') authorityCode!: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    id: new FormControl<string | null>(null, {
+                                              validators: Validators.required,
+                                                asyncValidators: [existingAuthorityValidator(this.service)],
+                                                updateOn: 'blur'
+                                             }),
+    authorityCode : new FormControl<string | null>('', { validators: [Validators.required] }),
+    description   : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: AuthorityService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      id: new FormControl<string | null>(null, {
-                                                validators: Validators.required,
-                                                  asyncValidators: [existingAuthorityValidator(this.service)],
-                                                  updateOn: 'blur'
-                                               }),
-      authorityCode : new FormControl<string | null>('', { validators: [Validators.required] }),
-      description   : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -64,22 +64,23 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('id')?.setAsyncValidators(existingAuthorityValidator(this.service));
-
-    this.fg.get('authorityCode')?.valueChanges.subscribe(x => {
+    this.fg.controls.id.setAsyncValidators(existingAuthorityValidator(this.service));
+    this.fg.controls.authorityCode.valueChanges.subscribe(x => {
       if (x === null) return;
       const organizationCode = sessionStorage.getItem('organizationCode');
       this.fg.get('id')?.setValue(organizationCode + x);
       this.fg.get('id')?.markAsTouched();
     });
-    this.fg.get('authorityCode')?.enable();    
+
+    this.fg.controls.authorityCode.enable();
   }
 
   modifyForm(formData: Authority): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('id')?.setAsyncValidators(null);
-    this.fg.get('authorityCode')?.disable();
+    this.fg.controls.id.setAsyncValidators(null);
+    this.fg.controls.authorityCode.disable();
+
     this.fg.patchValue(formData);
   }
 
@@ -118,15 +119,15 @@ export class AuthorityFormComponent extends FormBase implements OnInit, AfterVie
         );
   }
 
-  remove(id: string): void {
+  remove(): void {
     this.service
-        .deleteAuthority(id)
+        .deleteAuthority(this.fg.controls.id.value!)
         .subscribe(
           (model: ResponseObject<Authority>) => {
             this.appAlarmService.changeMessage(model.message);
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }  
+  }
 
 }

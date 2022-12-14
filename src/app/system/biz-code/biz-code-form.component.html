@@ -10,7 +10,7 @@
 
   <!-- 1 row -->
   <div nz-row nzGutter="8">
-    <div nz-col nzSpan="8">      
+    <div nz-col nzSpan="8">
       <app-nz-input-text
         [parentFormGroup]="fg" formControlName="typeId" itemId="typeId"
         placeholder=""
@@ -57,7 +57,7 @@
   </div>
 
   <!-- 3 row -->
-  <div nz-row nzGutter="8">   
+  <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <!--비고 필드-->
       <app-nz-input-textarea
@@ -77,6 +77,6 @@
     [isSavePopupConfirm]="false"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(fg.get('typeId')?.value, fg.get('code')?.value)">
+    (deleteClick)="remove()">
   </app-nz-crud-button-group>
 </div>

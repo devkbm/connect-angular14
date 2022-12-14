@@ -1,11 +1,11 @@
 export interface StaffContact {
-  staffId: string;
-  staffNo: string;
-  staffName: string;
-  homeAddressType: string;
-  homePostNumber: string;
-  homeMainAddress: string;
-  homeSubAddress: string;
-  extensionNumber: string;
-  mobileNumber: string;
+  staffId: string | null;
+  staffNo: string | null;
+  staffName: string | null;
+  homeAddressType: string | null;
+  homePostNumber: string | null;
+  homeMainAddress: string | null;
+  homeSubAddress: string | null;
+  extensionNumber: string | null;
+  mobileNumber: string | null;
 }

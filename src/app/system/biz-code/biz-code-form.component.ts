@@ -4,7 +4,6 @@ import { AppAlarmService } from '../../core/service/app-alarm.service';
 import { FormBase, FormType } from '../../core/form/form-base';
 
 import { ResponseObject } from '../../core/model/response-object';
-import { ResponseList } from '../../core/model/response-list';
 
 import { BizCodeService } from './biz-code.service';
 import { BizCode } from './biz-code.model';
@@ -16,19 +15,19 @@ import { BizCode } from './biz-code.model';
 })
 export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewInit {
 
+  override fg = this.fb.group({
+    typeId      : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    code        : new FormControl<string | null>(null, { validators: [Validators.required] }),
+    codeName    : new FormControl<string | null>(null),
+    useYn       : new FormControl<boolean | null>(null),
+    sequence    : new FormControl<number | null>(null),
+    comment     : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: BizCodeService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      typeId      : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
-      code        : new FormControl<string | null>('', { validators: [Validators.required] }),
-      codeName    : new FormControl<string | null>(null),
-      useYn       : new FormControl<boolean | null>(null),
-      sequence    : new FormControl<number | null>(null),
-      comment     : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit(): void {
@@ -38,24 +37,22 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
     if (this.initLoadId && this.initLoadId.typeId && this.initLoadId.code) {
       this.get(this.initLoadId.typeId, this.initLoadId.code);
     } else if (this.initLoadId && this.initLoadId.typeId) {
-      console.log(this.initLoadId);
       this.newForm(this.initLoadId.typeId);
     }
   }
 
-
   newForm(typeId: string): void {
     this.formType = FormType.NEW;
 
-    this.fg.get('typeId')?.setValue(typeId);
-    this.fg.get('code')?.enable();
-    this.fg.get('useYn')?.setValue(true);
+    this.fg.controls.typeId.setValue(typeId);
+    this.fg.controls.code.enable();
+    this.fg.controls.useYn.setValue(true);
   }
 
   modifyForm(formData: BizCode): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('code')?.disable();
+    this.fg.controls.code.disable();
     this.fg.patchValue(formData);
   }
 
@@ -94,9 +91,9 @@ export class BizCodeFormComponent extends FormBase implements OnInit, AfterViewI
         )
   }
 
-  remove(typeCode: string, detailCode: string): void {
+  remove(): void {
     this.service
-        .delete(typeCode, detailCode)
+        .delete(this.fg.controls.typeId.value!, this.fg.controls.code.value!)
         .subscribe(
           (model: ResponseObject<BizCode>) => {
             this.appAlarmService.changeMessage(model.message);

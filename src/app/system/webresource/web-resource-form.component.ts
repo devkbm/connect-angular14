@@ -23,22 +23,22 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
 
   resourceTypeList: ResouceTypeEnum[] = [];
 
+  override fg = this.fb.group({
+    resourceId   : new FormControl<string | null>(null, {
+      validators: Validators.required,
+      asyncValidators: [existingWebResourceValidator(this.service)],
+      updateOn: 'blur'
+    }),
+    resourceName  : new FormControl<string | null>('', {validators: [Validators.required]}),
+    resourceType  : new FormControl<string | null>('', {validators: [Validators.required]}),
+    url           : new FormControl<string | null>('', {validators: [Validators.required]}),
+    description   : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: WebResourceService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      resourceId   : new FormControl<string | null>(null, {
-        validators: Validators.required,
-        asyncValidators: [existingWebResourceValidator(this.service)],
-        updateOn: 'blur'
-      }),
-      resourceName  : new FormControl<string | null>('', {validators: [Validators.required]}),
-      resourceType  : new FormControl<string | null>('', {validators: [Validators.required]}),
-      url           : new FormControl<string | null>('', {validators: [Validators.required]}),
-      description   : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit(): void {
@@ -52,10 +52,6 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
   }
 
   ngAfterViewInit(): void {
-    this.focus();
-  }
-
-  focus() {
     this.resourceCode.focus();
   }
 
@@ -63,13 +59,13 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('resourceId')?.enable();
+    this.fg.controls.resourceId.enable();
   }
 
   modifyForm(formData: WebResource): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('resourceId')?.disable();
+    this.fg.controls.resourceId.disable();
 
     this.fg.patchValue(formData);
   }
@@ -109,9 +105,9 @@ export class WebResourceFormComponent extends FormBase implements OnInit, AfterV
         );
   }
 
-  remove(id: string) {
+  remove() {
     this.service
-        .delete(id)
+        .delete(this.fg.controls.resourceId.value!)
         .subscribe(
           (model: ResponseObject<WebResource>) => {
             this.appAlarmService.changeMessage(model.message);

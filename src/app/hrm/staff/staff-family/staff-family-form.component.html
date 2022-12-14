@@ -107,6 +107,6 @@
     [deleteVisible]="true"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(fg.get('staffId')?.value, fg.get('seq')?.value)">
+    (deleteClick)="remove(fg.controls.staffId.value!, fg.controls.seq.value!)">
   </app-nz-crud-button-group>
 </div>

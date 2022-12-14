@@ -19,31 +19,31 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
 
   @ViewChild('logicalName') logicalName?: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    logicalName     : new FormControl<string | null>(null, { validators: Validators.required }),
+    physicalName    : new FormControl<string | null>(null, { validators: Validators.required }),
+    logicalNameEng  : new FormControl<string | null>(null),
+    comment         : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: WordService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      logicalName     : new FormControl<string | null>(null, { validators: Validators.required }),      
-      physicalName    : new FormControl<string | null>(null, { validators: Validators.required }),
-      logicalNameEng  : new FormControl<string | null>(null),
-      comment         : new FormControl<string | null>(null)
-    });
   }
 
-  ngOnInit() {     
-    if (this.initLoadId) {      
+  ngOnInit() {
+    if (this.initLoadId) {
       this.get(this.initLoadId);
     } else {
       this.newForm();
-    }    
+    }
   }
 
-  ngAfterViewInit(): void {    
+  ngAfterViewInit(): void {
     this.focus();
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
   }
 
@@ -54,23 +54,23 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
   newForm() {
     this.formType = FormType.NEW;
 
-    this.fg.get('logicalName')?.enable();
-    this.fg.get('physicalName')?.enable();    
+    this.fg.controls.logicalName.enable();
+    this.fg.controls.physicalName.enable();
   }
 
   modifyForm(formData: Word) {
     this.formType = FormType.MODIFY;
-    
-    this.fg.get('logicalName')?.disable();
-    this.fg.get('physicalName')?.disable();
-    
+
+    this.fg.controls.logicalName.disable();
+    this.fg.controls.physicalName.disable();
+
     this.fg.patchValue(formData);
   }
 
   closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
   }
-  
+
   get(id: string) {
     this.service
         .get(id)
@@ -91,7 +91,7 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
       this.checkForm()
       return;
     }
-    
+
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
@@ -102,15 +102,15 @@ export class WordFormComponent extends FormBase implements OnInit, AfterViewInit
         );
   }
 
-  remove(id: string) {
+  remove() {
     this.service
-        .delete(id)
+        .delete(this.fg.controls.logicalName.value!)
         .subscribe(
           (model: ResponseObject<Word>) => {
             this.formDeleted.emit(this.fg.getRawValue());
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }  
+  }
 
 }

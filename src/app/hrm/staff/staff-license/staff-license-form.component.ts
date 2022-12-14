@@ -24,23 +24,23 @@ export class StaffLicenseFormComponent extends FormBase implements OnInit, After
    */
   licenseTypeList: HrmCode[] = [];
 
+  override fg = this.fb.group({
+    staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffName               : new FormControl<string | null>(null, { validators: Validators.required }),
+    seq                     : new FormControl<string | null>(null),
+    licenseType             : new FormControl<string | null>(null, { validators: Validators.required }),
+    licenseNumber           : new FormControl<string | null>(null, { validators: Validators.required }),
+    dateOfAcquisition       : new FormControl<Date | null>(null),
+    certificationAuthority  : new FormControl<string | null>(null),
+    comment                 : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: StaffLicenseService,
               private hrmCodeService: HrmCodeService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffName               : new FormControl<string | null>(null, { validators: Validators.required }),
-      seq                     : new FormControl<string | null>(null),
-      licenseType             : new FormControl<string | null>(null, { validators: Validators.required }),
-      licenseNumber           : new FormControl<string | null>(null, { validators: Validators.required }),
-      dateOfAcquisition       : new FormControl<Date | null>(null),
-      certificationAuthority  : new FormControl<string | null>(null),
-      comment                 : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -63,9 +63,9 @@ export class StaffLicenseFormComponent extends FormBase implements OnInit, After
     this.formType = FormType.NEW;
 
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
   }
 
@@ -74,9 +74,9 @@ export class StaffLicenseFormComponent extends FormBase implements OnInit, After
     this.formType = FormType.MODIFY;
 
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
 
     //this.fg.get('database')?.disable();
@@ -133,7 +133,7 @@ export class StaffLicenseFormComponent extends FormBase implements OnInit, After
     };
 
     this.hrmCodeService
-        .getHrmTypeDetailCodeList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<HrmCode>) => {
             if ( model.total > 0 ) {

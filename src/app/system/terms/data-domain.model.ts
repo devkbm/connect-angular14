@@ -1,7 +1,7 @@
 export interface DataDomain {
   domainId: string | null;
-  database: string;
-  domainName: string;
-  dataType: string;
-  comment: string;
+  database: string | null;
+  domainName: string | null;
+  dataType: string | null;
+  comment: string | null;
 }

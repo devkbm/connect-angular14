@@ -17,7 +17,7 @@ import { HrmCode } from './hrm-code.model';
   templateUrl: './hrm-relation-code-form.component.html',
   styleUrls: ['./hrm-relation-code-form.component.css']
 })
-export class HrmRelationCodeFormComponent extends FormBase implements OnInit {   
+export class HrmRelationCodeFormComponent extends FormBase implements OnInit {
 
   commonCodeList: any[] = [];
   parentHrmTypeList: any[] = [];
@@ -26,7 +26,7 @@ export class HrmRelationCodeFormComponent extends FormBase implements OnInit {
   childHrmDetailCodeList: any[] = [];
 
   constructor(private fb:FormBuilder,
-              private hrmCodeService: HrmCodeService,              
+              private hrmCodeService: HrmCodeService,
               private commonCodeService: CommonCodeService,
               private appAlarmService: AppAlarmService) { super(); }
 
@@ -126,7 +126,7 @@ export class HrmRelationCodeFormComponent extends FormBase implements OnInit {
 
   public getHrmTypeDetail(isParent: boolean, typeId: string): void {
     this.hrmCodeService
-        .getHrmTypeDetailCodeList({typeId: typeId})
+        .getList({typeId: typeId})
         .subscribe(
           (model: ResponseList<HrmCode>) => {
             if (isParent) {

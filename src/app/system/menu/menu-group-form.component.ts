@@ -19,21 +19,21 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   @ViewChild('menuGroupCode') menuGroupCode!: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    menuGroupId     : new FormControl<string | null>(null, {
+      validators: Validators.required,
+      asyncValidators: [existingMenuGroupValidator(this.menuService)],
+      updateOn: 'blur'
+    }),
+    menuGroupCode   : new FormControl<string | null>(null, { validators: Validators.required }),
+    menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
+    description     : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private menuService: MenuService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      menuGroupId     : new FormControl<string | null>(null, {
-        validators: Validators.required,
-        asyncValidators: [existingMenuGroupValidator(this.menuService)],
-        updateOn: 'blur'
-      }),
-      menuGroupCode   : new FormControl<string | null>(null, { validators: Validators.required }),
-      menuGroupName   : new FormControl<string | null>(null, { validators: Validators.required }),
-      description     : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -51,13 +51,13 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
     this.formType = FormType.NEW;
     this.fg.reset();
 
-    this.fg.get('menuGroupCode')?.valueChanges.subscribe(x => {
+    this.fg.controls.menuGroupCode.valueChanges.subscribe(x => {
       if (x) {
         const organizationCode = sessionStorage.getItem('organizationCode');
-        this.fg.get('menuGroupId')?.setValue(organizationCode + x);
-        this.fg.get('menuGroupId')?.markAsTouched();
+        this.fg.controls.menuGroupId.setValue(organizationCode + x);
+        this.fg.controls.menuGroupId.markAsTouched();
       } else {
-        this.fg.get('menuGroupId')?.setValue(null);
+        this.fg.controls.menuGroupId.setValue(null);
       }
     });
 
@@ -66,7 +66,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   modifyForm(formData: MenuGroup): void {
     this.formType = FormType.MODIFY;
-    this.fg.get('menuGroupId')?.disable();
+    this.fg.controls.menuGroupId.disable();
 
     this.fg.patchValue(formData);
   }
@@ -108,7 +108,7 @@ export class MenuGroupFormComponent extends FormBase implements OnInit, AfterVie
 
   remove() {
     this.menuService
-        .deleteMenuGroup(this.fg.get('menuGroupId')?.value)
+        .deleteMenuGroup(this.fg.controls.menuGroupId.value!)
         .subscribe(
           (model: ResponseObject<MenuGroup>) => {
             this.formDeleted.emit(this.fg.getRawValue());

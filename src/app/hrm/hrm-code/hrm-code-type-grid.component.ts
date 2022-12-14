@@ -4,7 +4,7 @@ import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 
-import { HrmCodeService } from './hrm-code.service';
+import { HrmCodeTypeService } from './hrm-code-type.service';
 import { HrmType } from './hrm-type.model';
 
 @Component({
@@ -22,19 +22,19 @@ import { HrmType } from './hrm-type.model';
         (gridReady)="onGridReady($event)"
         (selectionChanged)="selectionChanged($event)"
         (rowDoubleClicked)="rowDbClicked($event)">
-    </ag-grid-angular>  
+    </ag-grid-angular>
   `
 })
 export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
 
   _list: HrmType[] = [];
-  
+
   @Output() rowSelected = new EventEmitter();
   @Output() rowDoubleClicked = new EventEmitter();
   @Output() editButtonClicked = new EventEmitter();
 
   constructor(private appAlarmService: AppAlarmService,
-              private service: HrmCodeService) {
+              private service: HrmCodeTypeService) {
 
     super();
 
@@ -58,7 +58,7 @@ export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
       },
       { headerName: '구분ID',       field: 'typeId',          width: 150 },
       { headerName: '구분명',       field: 'typeName',        width: 200 },
-      { headerName: '설명',         field: 'comment',         width: 200 },      
+      { headerName: '설명',         field: 'comment',         width: 200 },
       { headerName: '순번',         field: 'sequence',        width: 80 }
     ];
 
@@ -72,7 +72,7 @@ export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
     };
   }
 
-  ngOnInit() {    
+  ngOnInit() {
   }
 
   onEditButtonClick(e: any) {
@@ -85,7 +85,7 @@ export class HrmCodeTypeGridComponent extends AggridFunction implements OnInit {
     };
 
     this.service
-        .getHrmTypeList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<HrmType>) => {
             if (model.total > 0) {

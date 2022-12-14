@@ -6,9 +6,10 @@ import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { NzInputTextComponent } from 'src/app/shared/nz-input-text/nz-input-text.component';
 
-import { HrmCodeService } from './hrm-code.service';
+import { HrmCodeTypeService } from './hrm-code-type.service';
 import { HrmType } from './hrm-type.model';
 import { existingHrmTypeValidator } from './hrm-code-type-duplication-validator';
+
 
 
 @Component({
@@ -20,26 +21,26 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
 
   @ViewChild('typeId') typeId!: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    typeId          : new FormControl<string | null>(null, {
+                        validators: Validators.required,
+                        asyncValidators: [existingHrmTypeValidator(this.service)],
+                        updateOn: 'blur'
+                      }),
+    typeName        : new FormControl<string | null>(null, { validators: Validators.required }),
+    sequence        : new FormControl<number | null>(0),
+    comment         : new FormControl<string | null>(null),
+    the1AddInfoDesc : new FormControl<string | null>(null),
+    the2AddInfoDesc : new FormControl<string | null>(null),
+    the3AddInfoDesc : new FormControl<string | null>(null),
+    the4AddInfoDesc : new FormControl<string | null>(null),
+    the5AddInfoDesc : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
-              private service: HrmCodeService,
+              private service: HrmCodeTypeService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      typeId          : new FormControl<string | null>(null, {
-                          validators: Validators.required,
-                          asyncValidators: [existingHrmTypeValidator(this.service)],
-                          updateOn: 'blur'
-                        }),
-      typeName        : new FormControl<string | null>(null, { validators: Validators.required }),
-      sequence        : new FormControl<number>(0),
-      comment         : new FormControl<string | null>(null),
-      the1AddInfoDesc : new FormControl<string | null>(null),
-      the2AddInfoDesc : new FormControl<string | null>(null),
-      the3AddInfoDesc : new FormControl<string | null>(null),
-      the4AddInfoDesc : new FormControl<string | null>(null),
-      the5AddInfoDesc : new FormControl<string | null>(null)
-    });
   }
 
   ngOnInit() {
@@ -58,8 +59,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('typeId')?.enable();
-    this.fg.get('useYn')?.setValue(true);
+    this.fg.controls.typeId.enable();
 
     this.typeId.focus();
   }
@@ -68,7 +68,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
     this.formType = FormType.MODIFY;
 
     this.fg.patchValue(formData);
-    this.fg.controls['typeId'].disable();
+    this.fg.controls.typeId.disable();
   }
 
   closeForm() {
@@ -81,7 +81,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
 
   get(code: string): void {
     this.service
-        .getHrmType(code)
+        .get(code)
         .subscribe(
           (model: ResponseObject<HrmType>) => {
             if ( model.total > 0 ) {
@@ -102,7 +102,7 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
     }
 
     this.service
-        .saveHrmType(this.fg.getRawValue())
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<HrmType>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -112,10 +112,10 @@ export class HrmCodeTypeFormComponent extends FormBase implements OnInit, AfterV
   }
 
   remove(): void {
-    const id = this.fg.get('typeId')?.value;
+    const id = this.fg.controls.typeId.value!;
 
     this.service
-        .deleteHrmType(id)
+        .remove(id)
         .subscribe(
             (model: ResponseObject<HrmType>) => {
             this.appAlarmService.changeMessage(model.message);

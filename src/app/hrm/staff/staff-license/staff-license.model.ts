@@ -1,11 +1,11 @@
 export interface StaffLicense {
-  staffId: string;
-  staffNo: string;
-  staffName: string;
-  seq: string;
-  licenseType: string;
-	licenseNumber: string;
-	dateOfAcquisition: Date;
-  certificationAuthority: string;
-	comment: string;
+  staffId: string | null;
+  staffNo: string | null;
+  staffName: string | null;
+  seq: string | null;
+  licenseType: string | null;
+	licenseNumber: string | null;
+	dateOfAcquisition: Date | null;
+  certificationAuthority: string | null;
+	comment: string | null;
 }

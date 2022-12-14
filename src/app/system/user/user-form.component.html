@@ -18,7 +18,7 @@
   <div nz-row nzGutter="8" nzJustify="space-around" nzAlign="middle">
     <div nz-col nzSpan="4">
       <app-user-image-upload
-        [userId]="this.fg.get('userId')?.value"
+        [userId]="this.fg.controls.userId.value!"
         [pictureFileId]="imageBase64">
       </app-user-image-upload>
     </div>
@@ -130,6 +130,6 @@
     [isSavePopupConfirm]="true"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(this.fg.get('userId')?.value)">
+    (deleteClick)="remove()">
   </app-nz-crud-button-group>
 </div>

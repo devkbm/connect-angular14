@@ -23,25 +23,25 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
 
   @ViewChild('domainName') domainName?: NzInputTextComponent;
 
+  override fg = this.fb.group({
+    domainId      : new FormControl<string | null>(null, { validators: Validators.required }),
+    domainName    : new FormControl<string | null>(null, { validators: Validators.required }),
+    database      : new FormControl<string | null>(null, { validators: Validators.required }),
+    dataType      : new FormControl<string | null>(null),
+    comment       : new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: DataDomainService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      domainId      : new FormControl<string | null>(null, { validators: Validators.required }),
-      domainName    : new FormControl<string | null>(null, { validators: Validators.required }),
-      database      : new FormControl<string | null>(null, { validators: Validators.required }),
-      dataType      : new FormControl<string | null>(null),
-      comment       : new FormControl<string | null>(null)
-    });
   }
-  
+
   ngOnChanges(changes: SimpleChanges): void {
   }
 
   ngOnInit() {
-    this.getDatabaseList();    
+    this.getDatabaseList();
 
     if (this.initLoadId) {
       this.get(this.initLoadId);
@@ -50,9 +50,9 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
     }
   }
 
-  ngAfterViewInit(): void {    
+  ngAfterViewInit(): void {
     this.focus();
-  }  
+  }
 
   focus() {
     this.domainName?.focus();
@@ -60,19 +60,19 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
 
   newForm() {
     this.formType = FormType.NEW;
-    
-    this.fg.get('database')?.enable();
-    this.fg.get('domainName')?.enable();
 
-    this.fg.get('database')?.setValue('MYSQL');    
+    this.fg.controls.database.enable();
+    this.fg.controls.domainName.enable();
+
+    this.fg.controls.domainName.setValue('MYSQL');
   }
 
   modifyForm(formData: DataDomain) {
     this.formType = FormType.MODIFY;
-    
-    this.fg.get('database')?.disable();
-    this.fg.get('domainName')?.disable();
-    
+
+    this.fg.controls.database.disable();
+    this.fg.controls.domainName.disable();
+
     this.fg.patchValue(formData);
   }
 
@@ -100,7 +100,7 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
       this.checkForm()
       return;
     }
-    
+
     this.service
         .save(this.fg.getRawValue())
         .subscribe(
@@ -111,16 +111,16 @@ export class DataDomainFormComponent extends FormBase implements OnInit, AfterVi
         );
   }
 
-  remove(id: string) {
+  remove() {
     this.service
-        .delete(id)
+        .delete(this.fg.controls.domainId.value!)
         .subscribe(
           (model: ResponseObject<DataDomain>) => {
             this.formDeleted.emit(this.fg.getRawValue());
             this.appAlarmService.changeMessage(model.message);
           }
         );
-  }  
+  }
 
   getDatabaseList() {
     this.service

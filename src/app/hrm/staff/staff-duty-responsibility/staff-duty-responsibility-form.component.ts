@@ -25,24 +25,25 @@ export class StaffDutyResponsibilityFormComponent extends FormBase implements On
   /**
    * 직책코드 - HR0007
    */
-   dutyResponsibilityCodeList: HrmTypeDetailCode[] = [];
+  dutyResponsibilityCodeList: HrmTypeDetailCode[] = [];
+
+  override fg = this.fb.group({
+      staffId                 : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+      staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
+      staffName               : new FormControl<string | null>(null),
+      seq                     : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+      dutyResponsibilityCode  : new FormControl<string | null>(null),
+      dutyResponsibilityName  : new FormControl<string | null>(null),
+      fromDate                : new FormControl<Date | null>(null),
+      toDate                  : new FormControl<Date | null>(null),
+      isPayApply              : new FormControl<boolean | null>(null)
+    });
 
   constructor(private fb: FormBuilder,
               private service: StaffDutyResponsibilityService,
               private hrmCodeService: HrmCodeService,
               private appAlarmService: AppAlarmService) {
     super();
-
-    this.fg = this.fb.group({
-      staffId                 : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
-      staffNo                 : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffName               : new FormControl<string | null>(null),
-      seq                     : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
-      dutyResponsibilityCode  : new FormControl<string | null>(null),
-      fromDate                : new FormControl<Date | null>(null),
-      toDate                  : new FormControl<Date | null>(null),
-      isPayApply              : new FormControl<boolean | null>(null)
-    });
   }
 
   ngOnInit(): void {
@@ -50,7 +51,6 @@ export class StaffDutyResponsibilityFormComponent extends FormBase implements On
   }
 
   ngAfterViewInit(): void {
-
     if (this.initLoadId && this.initLoadId.staffId && this.initLoadId.seq) {
       this.get(this.initLoadId.staffId, this.initLoadId.seq);
     } else {
@@ -62,24 +62,24 @@ export class StaffDutyResponsibilityFormComponent extends FormBase implements On
   newForm(): void {
     this.formType = FormType.NEW;
 
-    this.fg.get('staffId')?.disable();
-    this.fg.get('staffNo')?.disable();
-    this.fg.get('staffName')?.disable();
+    this.fg.controls.staffId.disable();
+    this.fg.controls.staffNo.disable();
+    this.fg.controls.staffName.disable();
 
     if (this.staff) {
-      this.fg.get('staffId')?.setValue(this.staff?.staffId);
-      this.fg.get('staffNo')?.setValue(this.staff?.staffNo);
-      this.fg.get('staffName')?.setValue(this.staff?.staffName);
+      this.fg.controls.staffId.setValue(this.staff?.staffId);
+      this.fg.controls.staffNo.setValue(this.staff?.staffNo);
+      this.fg.controls.staffName.setValue(this.staff?.staffName);
     }
   }
 
   modifyForm(formData: StaffDutyResponsibility): void {
     this.formType = FormType.MODIFY;
 
-    this.fg.get('staffId')?.disable();
-    this.fg.get('staffNo')?.disable();
-    this.fg.get('staffName')?.disable();
-    this.fg.get('seq')?.disable();
+    this.fg.controls.staffId.disable();
+    this.fg.controls.staffNo.disable();
+    this.fg.controls.staffName.disable();
+    this.fg.controls.seq.disable();
 
     this.fg.patchValue(formData);
   }

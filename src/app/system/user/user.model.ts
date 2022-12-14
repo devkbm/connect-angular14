@@ -1,14 +1,14 @@
 export interface User {
-  userId: string;
-  organizationCode: string;
-  staffNo: string;
-  password: string;
-  name: string;
-  deptCode: string;
-  mobileNum: string;
-  email: string;
-  imageBase64: string;
-  enabled: boolean;
-  authorityList: string[];
-  menuGroupList: string[];
+  userId: string | null;
+  organizationCode: string | null;
+  staffNo: string | null;
+  password?: string | null;
+  name: string | null;
+  deptCode: string | null;
+  mobileNum: string | null;
+  email: string | null;
+  imageBase64: string | null;
+  enabled: boolean | null;
+  authorityList: string[] | null;
+  menuGroupList: string[] | null;
 }
