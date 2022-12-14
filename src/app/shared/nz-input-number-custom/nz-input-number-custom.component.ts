@@ -30,7 +30,6 @@ export class NzInputNumberCustomComponent implements ControlValueAccessor, OnIni
   @ViewChild(NzFormControlComponent, {static: true})
   control!: NzFormControlComponent;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

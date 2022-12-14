@@ -31,7 +31,6 @@ export class NzInputRregnoComponent implements ControlValueAccessor, OnInit, Aft
   @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
   @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

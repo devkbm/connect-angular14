@@ -35,7 +35,6 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
 })
 export class NzTreeSelectCustomComponent implements ControlValueAccessor {
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

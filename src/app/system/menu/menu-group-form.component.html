@@ -15,7 +15,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="menuGroupId" itemId="menuGroupId"
+         formControlName="menuGroupId" itemId="menuGroupId"
         placeholder="메뉴그룹ID를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹ID
       </app-nz-input-text>
@@ -23,7 +23,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text #menuGroupCode
-        [parentFormGroup]="fg" formControlName="menuGroupCode" itemId="menuGroupCode"
+         formControlName="menuGroupCode" itemId="menuGroupCode"
         placeholder="메뉴그룹코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹코드
       </app-nz-input-text>
@@ -31,7 +31,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="menuGroupName" itemId="menuGroupName"
+         formControlName="menuGroupName" itemId="menuGroupName"
         placeholder="메뉴그룹명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">메뉴그룹명
       </app-nz-input-text>
@@ -42,7 +42,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="description" itemId="description"
+         formControlName="description" itemId="description"
         placeholder="비고를 입력해주세요."
         [rows]="25">비고
       </app-nz-input-textarea>

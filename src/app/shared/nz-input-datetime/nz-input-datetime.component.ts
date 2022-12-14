@@ -59,7 +59,6 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
   @ViewChild('date') dateElement?: NzDatePickerComponent;
   @ViewChild('time') timeElement?: NzTimePickerComponent;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

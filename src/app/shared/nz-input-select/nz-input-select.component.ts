@@ -33,10 +33,8 @@ import { NzSelectModeType } from 'ng-zorro-antd/select';
 })
 export class NzInputSelectComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
-  @ViewChild(NzFormControlComponent, {static: true})
-  control!: NzFormControlComponent;
+  @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

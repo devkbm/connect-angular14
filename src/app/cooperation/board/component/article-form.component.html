@@ -16,14 +16,14 @@
 
   <!--일정ID 필드-->
   <app-nz-input-text #title
-    [parentFormGroup]="fg" formControlName="title"
+     formControlName="title"
     [itemId]="'title'"
     placeholder="제목을 입력해주세요."
     [required]="false" [nzErrorTip]="errorTpl">제목
   </app-nz-input-text>
 
   <app-nz-input-ckeditor
-    [parentFormGroup]="fg" formControlName="contents"
+     formControlName="contents"
     [itemId]="'contents'"
     [height]="'45vh'"
     >내용

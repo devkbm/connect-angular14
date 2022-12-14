@@ -28,7 +28,7 @@ export class WebResourceComponent extends AppBase  implements OnInit {
       {label: 'URL', value: 'url'},
       {label: '설명', value: 'description'}
     ]
-  }  
+  }
 
   buttons: ButtonTemplate[] = [{
     text: '조회',
@@ -57,7 +57,7 @@ export class WebResourceComponent extends AppBase  implements OnInit {
   drawerResource: { visible: boolean, initLoadId: any } = {
     visible: false,
     initLoadId: null
-  }  
+  }
 
   constructor(location: Location,
               private service: WebResourceService) {
@@ -65,7 +65,7 @@ export class WebResourceComponent extends AppBase  implements OnInit {
   }
 
   ngOnInit(): void {
-  }  
+  }
 
   getList(): void {
     let params: any = new Object();
@@ -83,12 +83,12 @@ export class WebResourceComponent extends AppBase  implements OnInit {
   }
 
   editResource(item: any): void {
-    this.drawerResource.initLoadId = item.resourceCode;
+    this.drawerResource.initLoadId = item.resourceId;
     this.drawerResource.visible = true;
-  }  
+  }
 
   delete(): void {
-    const id = this.grid.getSelectedRows()[0].resourceCode;
+    const id = this.grid.getSelectedRows()[0].resourceId;
 
     this.service
         .delete(id)
@@ -99,8 +99,8 @@ export class WebResourceComponent extends AppBase  implements OnInit {
         );
   }
 
-  resourceGridRowClicked(item: any): void {    
-    this.drawerResource.initLoadId = item.resourceCode;
+  resourceGridRowClicked(item: any): void {
+    this.drawerResource.initLoadId = item.resourceId;
   }
 
 }

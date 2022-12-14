@@ -49,7 +49,6 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, OnInit, A
   @ViewChild('ckEditor', { static: true })
   ckEditor!: CKEditorComponent;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

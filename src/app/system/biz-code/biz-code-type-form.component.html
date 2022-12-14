@@ -12,7 +12,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="typeId" itemId="typeId"
+         formControlName="typeId" itemId="typeId"
         placeholder=""
         [required]="true" [nzErrorTip]="errorTpl">코드분류ID
       </app-nz-input-text>
@@ -20,14 +20,14 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="typeName" itemId="typeName"
+         formControlName="typeName" itemId="typeName"
         [required]="true" [nzErrorTip]="errorTpl">코드분류명
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="8">
       <app-nz-input-number-custom
-        [parentFormGroup]="this.fg" formControlName="sequence" itemId="sequence"
+         formControlName="sequence" itemId="sequence"
         [required]="true"
         [nzErrorTip]="errorTpl">순번
       </app-nz-input-number-custom>
@@ -39,7 +39,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-select
-        [parentFormGroup]="fg"  formControlName="bizType"
+          formControlName="bizType"
         [itemId]="'bizType'"
         [options]="bizTypeList" [opt_value]="'value'" [opt_label]="'label'"
         [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="true">시스템
@@ -51,7 +51,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+         formControlName="comment" itemId="comment"
         placeholder="비고를 입력해주세요."
         [rows]="24"
         [required]="false" [nzErrorTip]="errorTpl">비고

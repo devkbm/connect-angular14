@@ -60,6 +60,7 @@ import { NzInputRregnoComponent } from './nz-input-rregno/nz-input-rregno.compon
 import { NzListRoadAddressComponent } from './nz-list-road-address/nz-list-road-address.component';
 import { RoadAddressService } from './nz-list-road-address/road-address.service';
 import { NzInputSelectStaffComponent } from './nz-input-select-staff/nz-input-select-staff.component';
+import { NzInputMobileComponent } from './nz-input-mobile/nz-input-mobile.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 const nzModules = [
@@ -125,7 +126,8 @@ const matModules = [
     NzInputDeptSelectComponent,
     NzInputRregnoComponent,
     NzListRoadAddressComponent,
-    NzInputSelectStaffComponent
+    NzInputSelectStaffComponent,
+    NzInputMobileComponent
    ],
   providers: [
     DeptHierarchyService,
@@ -154,8 +156,8 @@ const matModules = [
     NzInputDeptSelectComponent,
     NzInputRregnoComponent,
     NzListRoadAddressComponent,
-
-    NzInputSelectStaffComponent
+    NzInputSelectStaffComponent,
+    NzInputMobileComponent
   ]
 })
 export class SharedModule { }

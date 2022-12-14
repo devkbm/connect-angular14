@@ -35,7 +35,6 @@ import { Dept, DeptSelectService } from './DeptSelect.service';
 })
 export class NzInputDeptSelectComponent implements ControlValueAccessor, OnInit {
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

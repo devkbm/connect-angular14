@@ -16,65 +16,69 @@
   </ng-template>
 
   <app-nz-input-text
-    [parentFormGroup]="this.fg" formControlName="input_text" itemId="data1"
+    formControlName="input_text" itemId="data1"
     placeholder="필수 입력 항목입니다."
     [required]="true" [nzErrorTip]="errorTpl">label1
   </app-nz-input-text>
 
   <app-nz-input-textarea
-    [parentFormGroup]="this.fg" formControlName="input_textarea" itemId="data2"
+     formControlName="input_textarea" itemId="data2"
     placeholder="필수 입력 항목입니다."
     [required]="true" [nzErrorTip]="errorTpl">label2
   </app-nz-input-textarea>
 
   <app-nz-input-date
-    [parentFormGroup]="this.fg" formControlName="input_date" itemId="data3"
+     formControlName="input_date" itemId="data3"
     [required]="true" [nzErrorTip]="errorTpl">label3
   </app-nz-input-date>
 
   <app-nz-input-datetime
-    [parentFormGroup]="this.fg" formControlName="input_date" itemId="data3"
+     formControlName="input_date" itemId="data3"
     [required]="true" [nzErrorTip]="errorTpl">label3
   </app-nz-input-datetime>
 
   <app-nz-input-number-custom
-    [parentFormGroup]="this.fg" formControlName="input_number" itemId="data4"
+     formControlName="input_number" itemId="data4"
     [required]="true" [nzErrorTip]="errorTpl">label4
   </app-nz-input-number-custom>
 
   <!-- [opt_label]="'label'" -->
   <!-- [custom_label]="custom_label" -->
   <app-nz-input-select
-    [parentFormGroup]="fg" formControlName="input_select" itemId="data5"
+     formControlName="input_select" itemId="data5"
     [options]="selectList" [opt_value]="'value'" [opt_label]="'label'"
     placeholder="Please select"
     [required]="true" [nzErrorTip]="errorTpl">label5
   </app-nz-input-select>
 
   <app-nz-input-tree-select
-    [parentFormGroup]="fg" formControlName="input_treeselect" itemId="data6"
+     formControlName="input_treeselect" itemId="data6"
     [nodes]="treeList"
     placeholder="please selec'"
     [required]="true" [nzErrorTip]="errorTpl">label6
   </app-nz-input-tree-select>
 
   <app-nz-input-checkbox
-    [parentFormGroup]="fg" formControlName="input_text"
+     formControlName="input_text"
     checkboxText="asdfdsf"
     [required]="true">asfsaf
   </app-nz-input-checkbox>
 
   <app-nz-input-dept-select
-    [parentFormGroup]="fg" formControlName="input_deptselect" itemId="input_deptselect"
+     formControlName="input_deptselect" itemId="input_deptselect"
     placeholder="Please select" opt_value="deptCode"
     [required]="true" [nzErrorTip]="errorTpl">label5
   </app-nz-input-dept-select>
 
   <app-nz-input-ckeditor
-    [parentFormGroup]="fg" formControlName="input_text" itemId="data1"
+     formControlName="input_text" itemId="data1"
     rows="10">
     Editor
   </app-nz-input-ckeditor>
+
+  <app-nz-input-mobile formControlName="input_text" itemId="data1">
+
+  </app-nz-input-mobile>
 
   <app-nz-buttons [buttons]="btns"></app-nz-buttons>
 

@@ -16,7 +16,7 @@
     <div nz-col nzSpan="12">
       <!--휴일 필드-->
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="date" itemId="date"
+         formControlName="date" itemId="date"
         [required]="true" [nzErrorTip]="errorTpl">휴일
       </app-nz-input-date>
     </div>
@@ -24,7 +24,7 @@
     <div nz-col nzSpan="12">
       <!--휴일명 필드 -->
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="holidayName" itemId="holidayName"
+         formControlName="holidayName" itemId="holidayName"
         placeholder="휴일명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">휴일명
       </app-nz-input-text>
@@ -37,7 +37,7 @@
     <div nz-col nzSpan="24">
       <!--설명 필드-->
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+         formControlName="comment" itemId="comment"
         placeholder="설명을 입력해주세요."
         [rows]="25"
         [required]="false" [nzErrorTip]="errorTpl">설명

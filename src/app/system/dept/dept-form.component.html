@@ -15,7 +15,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptId" itemId="deptId"
+         formControlName="deptId" itemId="deptId"
         placeholder=""
         [readonly]="true" [required]="true" [nzErrorTip]="errorTpl">부서ID
       </app-nz-input-text>
@@ -46,7 +46,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text #deptCode
-        [parentFormGroup]="fg" formControlName="deptCode" itemId="deptCode"
+         formControlName="deptCode" itemId="deptCode"
         placeholder="부서코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드
       </app-nz-input-text>
@@ -54,7 +54,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptNameKorean" itemId="deptNameKorean"
+         formControlName="deptNameKorean" itemId="deptNameKorean"
         placeholder="부서코드명(한글)을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드명(한글)
       </app-nz-input-text>
@@ -62,7 +62,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptAbbreviationKorean" itemId="deptAbbreviationKorean"
+         formControlName="deptAbbreviationKorean" itemId="deptAbbreviationKorean"
         placeholder="부서코드명(한글) 약어를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">부서코드명(한글) 약어
       </app-nz-input-text>
@@ -73,7 +73,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptNameEnglish" itemId="deptNameEnglish"
+         formControlName="deptNameEnglish" itemId="deptNameEnglish"
         placeholder="부서코드명(영문)을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">부서코드명(영문)
       </app-nz-input-text>
@@ -81,7 +81,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="deptAbbreviationEnglish" itemId="deptAbbreviationEnglish"
+         formControlName="deptAbbreviationEnglish" itemId="deptAbbreviationEnglish"
         placeholder="부서코드명(영문) 약어를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">부서코드명(영문) 약어
       </app-nz-input-text>
@@ -92,21 +92,21 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="fromDate" itemId="fromDate"
+         formControlName="fromDate" itemId="fromDate"
         [required]="true" [nzErrorTip]="errorTpl">시작일
       </app-nz-input-date>
     </div>
 
     <div nz-col nzSpan="8">
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="toDate" itemId="toDate"
+         formControlName="toDate" itemId="toDate"
         [required]="true" [nzErrorTip]="errorTpl">종료일
       </app-nz-input-date>
     </div>
 
     <div nz-col nzSpan="8">
       <app-nz-input-number-custom
-        [parentFormGroup]="this.fg" formControlName="seq" itemId="seq"
+         formControlName="seq" itemId="seq"
         [required]="true"
         [nzErrorTip]="errorTpl">출력 순번
       </app-nz-input-number-custom>
@@ -117,7 +117,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+         formControlName="comment" itemId="comment"
         placeholder="설명을 입력해주세요."
         [rows]="7"
         [required]="false" [nzErrorTip]="errorTpl">설명

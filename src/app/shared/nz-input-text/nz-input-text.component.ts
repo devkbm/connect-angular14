@@ -43,7 +43,6 @@ export class NzInputTextComponent implements ControlValueAccessor, OnInit, After
   @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
   @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

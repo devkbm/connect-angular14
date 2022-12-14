@@ -35,7 +35,7 @@ import { StaffContact } from './staff-contact.model';
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="8">
           <app-nz-input-text #staffId
-            [parentFormGroup]="fg" formControlName="staffId" itemId="contact_staffId"
+             formControlName="staffId" itemId="contact_staffId"
             placeholder="직원ID를 입력해주세요."
             [required]="true" [nzErrorTip]="errorTpl">직원ID
           </app-nz-input-text>
@@ -43,7 +43,7 @@ import { StaffContact } from './staff-contact.model';
 
         <div nz-col nzSpan="8">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="staffNo" itemId="contact_staffNo"
+             formControlName="staffNo" itemId="contact_staffNo"
             placeholder="직원번호를 입력해주세요."
             [required]="true" [nzErrorTip]="errorTpl">직원번호
           </app-nz-input-text>
@@ -51,7 +51,7 @@ import { StaffContact } from './staff-contact.model';
 
         <div nz-col nzSpan="8">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="staffName" itemId="contact_staffName"
+             formControlName="staffName" itemId="contact_staffName"
             placeholder="직원명을 입력해주세요."
             [required]="true" [nzErrorTip]="errorTpl">직원명
           </app-nz-input-text>
@@ -63,7 +63,7 @@ import { StaffContact } from './staff-contact.model';
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="2">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="homePostNumber" itemId="contact_homePostNumber"
+             formControlName="homePostNumber" itemId="contact_homePostNumber"
             placeholder="우편번호를 입력해주세요."
             [required]="false" [nzErrorTip]="errorTpl">우편번호
           </app-nz-input-text>
@@ -71,7 +71,7 @@ import { StaffContact } from './staff-contact.model';
 
         <div nz-col nzSpan="12">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="homeMainAddress" itemId="contact_homeMainAddress"
+             formControlName="homeMainAddress" itemId="contact_homeMainAddress"
             placeholder="기본주소를 입력해주세요."
             [required]="false" [nzErrorTip]="errorTpl">기본주소
           </app-nz-input-text>
@@ -79,7 +79,7 @@ import { StaffContact } from './staff-contact.model';
 
         <div nz-col nzSpan="10">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="homeSubAddress" itemId="contact_homeSubAddress"
+             formControlName="homeSubAddress" itemId="contact_homeSubAddress"
             placeholder="상세주소를 입력해주세요."
             [required]="false" [nzErrorTip]="errorTpl">상세주소
           </app-nz-input-text>
@@ -90,7 +90,7 @@ import { StaffContact } from './staff-contact.model';
       <div nz-row nzGutter="8">
         <div nz-col nzSpan="8">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="extensionNumber" itemId="contact_extensionNumber"
+             formControlName="extensionNumber" itemId="contact_extensionNumber"
             placeholder="내선번호를 입력해주세요."
             [required]="false" [nzErrorTip]="errorTpl">내선번호
           </app-nz-input-text>
@@ -98,7 +98,7 @@ import { StaffContact } from './staff-contact.model';
 
         <div nz-col nzSpan="8">
           <app-nz-input-text
-            [parentFormGroup]="fg" formControlName="mobileNumber" itemId="contact_mobileNumber"
+             formControlName="mobileNumber" itemId="contact_mobileNumber"
             placeholder="휴대번호를 입력해주세요."
             [required]="false" [nzErrorTip]="errorTpl">휴대번호
           </app-nz-input-text>

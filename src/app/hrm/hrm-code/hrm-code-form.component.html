@@ -15,7 +15,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="4">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="typeId" itemId="typeId"
+         formControlName="typeId" itemId="typeId"
         placeholder=""
         [required]="true" [nzErrorTip]="errorTpl">구분ID
       </app-nz-input-text>
@@ -23,7 +23,7 @@
 
     <div nz-col nzSpan="4">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="code" itemId="code"
+         formControlName="code" itemId="code"
         placeholder="코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">코드
       </app-nz-input-text>
@@ -31,7 +31,7 @@
 
     <div nz-col nzSpan="10">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="codeName" itemId="codeName"
+         formControlName="codeName" itemId="codeName"
         placeholder="코드명를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">코드명
       </app-nz-input-text>
@@ -39,14 +39,14 @@
 
     <div nz-col nzSpan="4">
       <app-nz-input-number-custom
-        [parentFormGroup]="this.fg" formControlName="sequence" itemId="sequence"
+         formControlName="sequence" itemId="sequence"
         [required]="true" [nzErrorTip]="errorTpl">출력 순번
       </app-nz-input-number-custom>
     </div>
 
     <div nz-col nzSpan="2">
       <app-nz-input-checkbox
-        [parentFormGroup]="fg" formControlName="useYn"
+         formControlName="useYn"
         checkboxText=""
         [required]="true">사용
       </app-nz-input-checkbox>
@@ -57,7 +57,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="comment" itemId="comment"
+         formControlName="comment" itemId="comment"
         placeholder="설명을 입력해주세요."
         [rows] = "10"
         [required]="false" [nzErrorTip]="errorTpl">설명
@@ -69,7 +69,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="the1AddInfo" itemId="the1AddInfo"
+         formControlName="the1AddInfo" itemId="the1AddInfo"
         placeholder="설명을 입력해주세요."
         [rows] = "5"
         [required]="false" [nzErrorTip]="errorTpl">추가정보1
@@ -77,7 +77,7 @@
     </div>
     <div nz-col nzSpan="12">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="the2AddInfo" itemId="the2AddInfo"
+         formControlName="the2AddInfo" itemId="the2AddInfo"
         placeholder="설명을 입력해주세요."
         [rows] = "5"
         [required]="false" [nzErrorTip]="errorTpl">추가정보2
@@ -89,7 +89,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="the3AddInfo" itemId="the3AddInfo"
+         formControlName="the3AddInfo" itemId="the3AddInfo"
         placeholder="설명을 입력해주세요."
         [rows] = "5"
         [required]="false" [nzErrorTip]="errorTpl">추가정보3
@@ -97,7 +97,7 @@
     </div>
     <div nz-col nzSpan="12">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="the4AddInfo" itemId="the4AddInfo"
+         formControlName="the4AddInfo" itemId="the4AddInfo"
         placeholder="설명을 입력해주세요."
         [rows] = "5"
         [required]="false" [nzErrorTip]="errorTpl">추가정보4
@@ -109,7 +109,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="the5AddInfo" itemId="the5AddInfo"
+         formControlName="the5AddInfo" itemId="the5AddInfo"
         placeholder="설명을 입력해주세요."
         [rows] = "5"
         [required]="false" [nzErrorTip]="errorTpl">추가정보5

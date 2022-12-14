@@ -39,7 +39,6 @@ export class NzInputColorPickerComponent implements ControlValueAccessor, OnInit
 
   @ViewChild('input') element?: ElementRef;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

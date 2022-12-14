@@ -15,7 +15,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text #staffNo
-        [parentFormGroup]="fg" formControlName="staffNo" itemId="staffNo"
+         formControlName="staffNo" itemId="staffNo"
         placeholder="직원번호를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">직원번호
       </app-nz-input-text>
@@ -23,7 +23,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="name" itemId="name"
+         formControlName="name" itemId="name"
         placeholder="직원명을 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">직원명
       </app-nz-input-text>
@@ -31,7 +31,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-rregno
-        [parentFormGroup]="fg" formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
+         formControlName="residentRegistrationNumber" itemId="residentRegistrationNumber"
         placeholder="주민등록번호를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">주민등록번호
       </app-nz-input-rregno>

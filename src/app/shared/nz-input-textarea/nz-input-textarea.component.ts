@@ -27,12 +27,9 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
 })
 export class NzInputTextareaComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
-  @ViewChild(NzFormControlComponent, {static: true})
-  control!: NzFormControlComponent;
-  @ViewChild('inputControl')
-  element?: ElementRef<HTMLInputElement>;
+  @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
+  @ViewChild('inputControl') element?: ElementRef<HTMLInputElement>;
 
-  @Input() parentFormGroup?: FormGroup;
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;

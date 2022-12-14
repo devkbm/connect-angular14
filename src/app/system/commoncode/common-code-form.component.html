@@ -17,7 +17,7 @@
     <!--시스템구분코드 필드-->
     <div nz-col nzSpan="4">
       <app-nz-input-select
-        [parentFormGroup]="fg" formControlName="systemTypeCode" itemId="systemTypeCode"
+         formControlName="systemTypeCode" itemId="systemTypeCode"
         [options]="systemTypeCodeList" [opt_value]="'value'" [opt_label]="'label'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">시스템구분코드
@@ -27,7 +27,7 @@
     <!--상위 공통코드 필드-->
     <div nz-col nzSpan="8">
       <app-nz-input-tree-select
-        [parentFormGroup]="fg" formControlName="parentId"
+         formControlName="parentId"
         [nodes]="nodeItems"
         [placeholder]="'Please select'" [nzErrorTip]="errorTpl" [required]="false">상위 공통코드
       </app-nz-input-tree-select>
@@ -56,7 +56,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="code" itemId="code"
+         formControlName="code" itemId="code"
         placeholder="코드를 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">코드
       </app-nz-input-text>
@@ -64,7 +64,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="codeName" itemId="codeName"
+         formControlName="codeName" itemId="codeName"
         placeholder="코드명 입력해주세요."
         [required]="true" [nzErrorTip]="errorTpl">코드명
       </app-nz-input-text>
@@ -72,7 +72,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="codeNameAbbreviation" itemId="codeNameAbbreviation"
+         formControlName="codeNameAbbreviation" itemId="codeNameAbbreviation"
         placeholder="코드약어를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">코드약어
       </app-nz-input-text>
@@ -124,7 +124,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="24">
       <app-nz-input-textarea
-        [parentFormGroup]="fg" formControlName="cmt" itemId="cmt"
+         formControlName="cmt" itemId="cmt"
         placeholder="비고를 입력해주세요."
         [rows]="13"
         [required]="false" [nzErrorTip]="errorTpl">비고

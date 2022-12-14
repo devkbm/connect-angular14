@@ -15,7 +15,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="dutyId" itemId="dutyId"
+         formControlName="dutyId" itemId="dutyId"
         placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">근태신청ID
       </app-nz-input-text>
@@ -23,7 +23,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-select-staff
-        [parentFormGroup]="fg" formControlName="staffId" itemId="staffId"
+         formControlName="staffId" itemId="staffId"
         placeholder="비고를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">직원
       </app-nz-input-select-staff>
@@ -35,14 +35,14 @@
     <div nz-col nzSpan="12">
       <!--
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="dutyCode" itemId="dutyCode"
+         formControlName="dutyCode" itemId="dutyCode"
         placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">근태코드
       </app-nz-input-text>
       -->
 
       <app-nz-input-select
-        [parentFormGroup]="fg" formControlName="dutyCode" itemId="dutyCode"
+         formControlName="dutyCode" itemId="dutyCode"
         [options]="dutyCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">근태코드
@@ -51,7 +51,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-text
-        [parentFormGroup]="fg" formControlName="dutyReason" itemId="dutyReason"
+         formControlName="dutyReason" itemId="dutyReason"
         placeholder="근태사유를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">근태사유
       </app-nz-input-text>
@@ -62,14 +62,14 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="fromDate" itemId="fromDate"
+         formControlName="fromDate" itemId="fromDate"
         [required]="true" [nzErrorTip]="errorTpl">근태 시작일
       </app-nz-input-date>
     </div>
 
     <div nz-col nzSpan="12">
       <app-nz-input-date
-        [parentFormGroup]="this.fg" formControlName="toDate" itemId="toDate"
+         formControlName="toDate" itemId="toDate"
         [required]="true" [nzErrorTip]="errorTpl">근태 종료일
       </app-nz-input-date>
     </div>
