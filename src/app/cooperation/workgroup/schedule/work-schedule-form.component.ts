@@ -43,12 +43,12 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
     super();
 
     this.fg = this.fb.group({
-      id              : new FormControl<number | null>({value: null, disabled: true}, { validators: [Validators.required] }),
+      id              : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
       text            : new FormControl<string | null>(null, { validators: [Validators.required] }),
-      start           : new FormControl<Date | null>(null),
-      end             : new FormControl<Date | null>(null),
+      start           : new FormControl<string | null>(null),
+      end             : new FormControl<string | null>(null),
       allDay          : new FormControl<boolean | null>(null),
-      workGroupId     : new FormControl<number | null>(null, { validators: [Validators.required] })
+      workGroupId     : new FormControl<string | null>(null, { validators: [Validators.required] })
     });
   }
 
@@ -93,7 +93,7 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
   closeForm(): void {
     this.formClosed.emit(this.fg.getRawValue());
   }
-  
+
   get(id: number): void {
     this.service.getWorkGroupSchedule(id)
         .subscribe(
@@ -128,7 +128,7 @@ export class WorkScheduleFormComponent extends FormBase implements OnInit, After
               this.formDeleted.emit(this.fg.getRawValue());
             }
         );
-  }    
+  }
 
   getMyWorkGroupList(): void {
     this.workGroupService

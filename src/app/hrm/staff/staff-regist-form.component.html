@@ -38,7 +38,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text
-         formControlName="staffId" itemId="staffId"
+        formControlName="staffId" itemId="staffId"
         placeholder=""
         [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">직원ID
       </app-nz-input-text>
@@ -46,7 +46,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-         formControlName="staffNo" itemId="staffNo"
+        formControlName="staffNo" itemId="staffNo"
         placeholder=""
         [required]="true" [readonly]="true" [nzErrorTip]="errorTpl">직원번호
       </app-nz-input-text>
@@ -54,7 +54,7 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-         formControlName="name" itemId="name"
+        formControlName="name" itemId="name"
         placeholder=""
         [required]="true" [nzErrorTip]="errorTpl">직원명
       </app-nz-input-text>
@@ -64,7 +64,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="8">
       <app-nz-input-text
-         formControlName="nameEng" itemId="nameEng"
+        formControlName="nameEng" itemId="nameEng"
         placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">직원명(영문)
       </app-nz-input-text>
@@ -72,13 +72,20 @@
 
     <div nz-col nzSpan="8">
       <app-nz-input-text
-         formControlName="nameChi" itemId="nameChi"
+        formControlName="nameChi" itemId="nameChi"
         placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">직원명(한문)
       </app-nz-input-text>
     </div>
 
     <div nz-col nzSpan="8">
+      <app-nz-input-radio-group
+        formControlName="gender" itemId="gender"
+        placeholder=""
+        [options]="genderOptions"
+        [required]="false" [nzErrorTip]="errorTpl">성별
+      </app-nz-input-radio-group>
+      <!--
       <nz-form-item>
         <nz-form-label nzFor="gender">성별
         </nz-form-label>
@@ -87,6 +94,7 @@
           <label nz-radio nzValue="F">여</label>
         </nz-radio-group>
       </nz-form-item>
+      -->
     </div>
   </div>
 

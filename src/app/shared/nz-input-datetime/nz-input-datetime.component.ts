@@ -27,7 +27,7 @@ export enum TimeFormat {
           [nzDisabled]="disabled"
           [nzInputReadOnly]="readonly"
           nzAllowClear="false"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           (ngModelChange)="dateValueChange($event)"
           (blur)="onTouched()">
         </nz-date-picker>
@@ -36,7 +36,7 @@ export enum TimeFormat {
           [nzFormat]="timeFormat"
           [nzNowText]="' '"
           [nzMinuteStep]="30"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           (ngModelChange)="timeValueChange($event)">
         </nz-time-picker>
       </nz-form-control>
@@ -69,7 +69,7 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: Date | null;
+  _value: any;
 
   onChange!: (value: string | null) => void;
   onTouched!: () => void;
@@ -90,7 +90,7 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {
@@ -110,15 +110,15 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
   }
 
   dateValueChange(val: Date) {
-    this.value = val;
+    this._value = val;
     const nativeValue = this.dateElement?.pickerInput?.nativeElement.value as string;
     // keyboard로 8자리 숫자입력 받을 경우 Date로 변환 처리
     if (nativeValue.length === 8) {
-      this.value = this.convertDate(nativeValue);
+      this._value = this.convertDate(nativeValue);
     }
 
-    if (this.value !== null) {
-      this.onChange(formatDate(this.value,'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
+    if (this._value !== null) {
+      this.onChange(formatDate(this._value,'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
     } else {
       this.onChange(null);
       this.focus();
@@ -126,12 +126,12 @@ export class NzInputDateTimeComponent implements ControlValueAccessor, OnInit, A
   }
 
   timeValueChange(val: any) {
-    this.value = val;
+    this._value = val;
     const nativeValue = this.timeElement?.inputRef.nativeElement.value as string;
     console.log(nativeValue);
 
-    if (this.value !== null) {
-      this.onChange(formatDate(this.value,'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
+    if (this._value !== null) {
+      this.onChange(formatDate(this._value,'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
     }
   }
 

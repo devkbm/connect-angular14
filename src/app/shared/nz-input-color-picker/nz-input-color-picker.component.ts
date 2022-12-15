@@ -15,9 +15,9 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
       <input #input nz-input
             [cpPresetColors]="preset_colors"
-            [(ngModel)]="value"
-            [(colorPicker)]="value"
-            [style.background]="value"
+            [(ngModel)]="_value"
+            [(colorPicker)]="_value"
+            [style.background]="_value"
             [cpAlphaChannel]="'always'"
             [cpOutputFormat]="'hex'"
             [cpOKButton]="true"
@@ -50,7 +50,7 @@ export class NzInputColorPickerComponent implements ControlValueAccessor, OnInit
   color: any;
   preset_colors = ['#fff', '#000', '#2889e9', '#e920e9', '#fff500', 'rgb(236,64,64)'];
 
-  value!: string;
+  _value: any;
 
   onChange!: (value: any) => void;
   onTouched!: () => void;
@@ -66,7 +66,7 @@ export class NzInputColorPickerComponent implements ControlValueAccessor, OnInit
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {
@@ -86,7 +86,7 @@ export class NzInputColorPickerComponent implements ControlValueAccessor, OnInit
   }
 
   valueChange(val: any) {
-    this.value = val;
+    this._value = val;
     //const nativeValue = this.element?.pickerInput?.nativeElement.value;
     //console.log('nativeValue: ' + nativeValue);
   }

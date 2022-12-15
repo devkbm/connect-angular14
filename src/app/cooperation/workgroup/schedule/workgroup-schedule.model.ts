@@ -1,9 +1,9 @@
 export interface WorkGroupSchedule {
-  id: number;
-  text: string;
-  start: Date;
-  end: Date;
-  allDay: boolean;
-  workGroupId: number;
-  color: string;
+  id: string | null;
+  text: string | null;
+  start: string | null;
+  end: string | null;
+  allDay: boolean | null;
+  workGroupId: string | null;
+  color?: string;
 }

@@ -4,7 +4,8 @@ import { AbstractControl, ControlValueAccessor, FormControl, FormGroup, NgModel,
 import { NzSelectModeType } from 'ng-zorro-antd/select';
 
 import { ResponseList } from 'src/app/core/model/response-list';
-import { Dept, DeptSelectService } from './DeptSelect.service';
+import { NzInputDeptSelectModel } from './nz-input-dept-select.model';
+import { NzInputDeptSelectService } from './nz-input-dept-select.service';
 
 @Component({
   selector: 'app-nz-input-dept-select',
@@ -16,7 +17,7 @@ import { Dept, DeptSelectService } from './DeptSelect.service';
     <nz-form-control [nzErrorTip]="nzErrorTip">
       <nz-select
           [nzId]="itemId"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           [nzDisabled]="disabled"
           [nzPlaceHolder]="placeholder"
           [nzMode]="mode"
@@ -48,12 +49,12 @@ export class NzInputDeptSelectComponent implements ControlValueAccessor, OnInit 
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  value!: string;
+  _value: any;
 
-  deptList: Dept[] = [];
+  deptList: NzInputDeptSelectModel[] = [];
 
   constructor(@Self()  @Optional() private ngControl: NgControl
-             ,private service: DeptSelectService ) {
+             ,private service: NzInputDeptSelectService ) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
@@ -64,7 +65,7 @@ export class NzInputDeptSelectComponent implements ControlValueAccessor, OnInit 
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   setDisabledState(isDisabled: boolean): void {
@@ -87,7 +88,7 @@ export class NzInputDeptSelectComponent implements ControlValueAccessor, OnInit 
     this.service
          .getDeptList(params)
          .subscribe(
-          (model: ResponseList<Dept>) => {
+          (model: ResponseList<NzInputDeptSelectModel>) => {
             this.deptList = model.data;
           }
       );

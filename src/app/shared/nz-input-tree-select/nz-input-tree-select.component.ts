@@ -12,7 +12,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
        <nz-tree-select
             [nzId]="itemId"
-            [(ngModel)]="value"
+            [(ngModel)]="_value"
             [nzNodes]="nodes"
             [nzDisabled]="disabled"
             [nzPlaceHolder]="placeholder"
@@ -36,7 +36,7 @@ export class NzInputTreeSelectComponent implements ControlValueAccessor, OnInit,
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: string;
+  _value: any;
 
   onChange!: (value: string) => void;
   onTouched!: () => void;
@@ -57,7 +57,7 @@ export class NzInputTreeSelectComponent implements ControlValueAccessor, OnInit,
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;

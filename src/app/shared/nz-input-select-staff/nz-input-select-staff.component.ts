@@ -16,7 +16,7 @@ import { Staff, StaffSelectService } from './StaffSelect.service';
     <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
       <nz-select
           [nzId]="itemId"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           [nzDisabled]="disabled"
           [nzPlaceHolder]="placeholder"
           [nzMode]="mode"
@@ -53,7 +53,7 @@ export class NzInputSelectStaffComponent implements ControlValueAccessor, OnInit
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  value!: string;
+  _value: any;
 
   constructor(@Self()  @Optional() private ngControl: NgControl,
               private service: StaffSelectService) {
@@ -75,7 +75,7 @@ export class NzInputSelectStaffComponent implements ControlValueAccessor, OnInit
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   setDisabledState(isDisabled: boolean): void {

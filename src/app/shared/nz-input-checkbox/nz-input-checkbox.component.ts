@@ -13,7 +13,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
         <label nz-checkbox
           [nzId]="itemId"
           [nzDisabled]="disabled"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           (ngModelChange)="onChange($event)"
           (ngModelChange)="valueChange($event)"
           (blur)="onTouched()">{{checkboxText}}
@@ -34,7 +34,7 @@ export class NzInputCheckboxComponent implements ControlValueAccessor, OnInit {
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: string;
+  _value: any;
 
   onChange!: (value: string) => void;
   onTouched!: () => void;
@@ -49,7 +49,7 @@ export class NzInputCheckboxComponent implements ControlValueAccessor, OnInit {
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {

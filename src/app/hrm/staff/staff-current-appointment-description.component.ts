@@ -6,9 +6,9 @@ export interface StaffCurrentAppointment {
 	staffId: string;
 	organizationCode: string;
 	staffNo: string;
-	blngDeptCode: string;
+	blngDeptId: string;
 	blngDeptName: string;
-	workDeptCode: string;
+	workDeptId: string;
 	workDeptName: string;
 	jobGroupCode: string;
 	jobGroupName: string;

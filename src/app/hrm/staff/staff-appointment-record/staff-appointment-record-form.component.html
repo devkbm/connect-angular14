@@ -103,14 +103,14 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-dept-tree-select
-         formControlName="blngDeptCode"
+        formControlName="blngDeptId"
         placeholder="부서 없음">소속부서
       </app-nz-dept-tree-select>
     </div>
 
     <div nz-col nzSpan="12">
       <app-nz-dept-tree-select
-         formControlName="workDeptCode"
+        formControlName="workDeptId"
         placeholder="부서 없음">근무부서
       </app-nz-dept-tree-select>
     </div>
@@ -122,7 +122,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="jobGroupCode" itemId="jobGroupCode"
+        formControlName="jobGroupCode" itemId="jobGroupCode"
         [options]="groupJobCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직군
@@ -131,7 +131,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="jobPositionCode" itemId="jobPositionCode"
+        formControlName="jobPositionCode" itemId="jobPositionCode"
         [options]="jobPositionCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직위
@@ -143,7 +143,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="occupationCode" itemId="occupationCode"
+        formControlName="occupationCode" itemId="occupationCode"
         [options]="occupationCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직종
@@ -152,7 +152,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="jobGradeCode" itemId="jobGradeCode"
+        formControlName="jobGradeCode" itemId="jobGradeCode"
         [options]="jobGradeCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직급
@@ -164,7 +164,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="payStepCode" itemId="payStepCode"
+        formControlName="payStepCode" itemId="payStepCode"
         [options]="payStepCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">호봉
@@ -173,7 +173,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="jobCode" itemId="jobCode"
+        formControlName="jobCode" itemId="jobCode"
         [options]="jobCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직무
@@ -185,7 +185,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-select
-         formControlName="dutyResponsibilityCode" itemId="dutyResponsibilityCode"
+        formControlName="dutyResponsibilityCode" itemId="dutyResponsibilityCode"
         [options]="dutyResponsibilityCodeList" [opt_value]="'code'" [opt_label]="'codeName'"
         [placeholder]="'Please select'"
         [nzErrorTip]="errorTpl" [required]="true">직책
@@ -198,9 +198,9 @@
 
 <div class="footer">
   <app-nz-crud-button-group
-    (searchClick)="get(fg.controls.staffId.value!, fg.controls.seq.value!)"
+    (searchClick)="get(fg.value.staffId!, fg.value.seq!)"
     (closeClick)="closeForm()"
     (saveClick)="save()"
-    (deleteClick)="remove(fg.controls.staffId.value!, fg.controls.seq.value!)">
+    (deleteClick)="remove(fg.value.staffId!, fg.value.seq!)">
   </app-nz-crud-button-group>
 </div>

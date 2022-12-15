@@ -39,6 +39,7 @@ import { NzInputColorPickerComponent } from './nz-input-color-picker/nz-input-co
 import { NzInputCkeditorComponent } from './nz-input-ckeditor/nz-input-ckeditor.component';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzMessageModule } from 'ng-zorro-antd/message';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 import { ColorPickerModule } from 'ngx-color-picker';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
@@ -61,6 +62,8 @@ import { NzListRoadAddressComponent } from './nz-list-road-address/nz-list-road-
 import { RoadAddressService } from './nz-list-road-address/road-address.service';
 import { NzInputSelectStaffComponent } from './nz-input-select-staff/nz-input-select-staff.component';
 import { NzInputMobileComponent } from './nz-input-mobile/nz-input-mobile.component';
+import { NzInputRadioGroupComponent } from './nz-input-radio-group/nz-input-radio-group.component';
+import { NzInputDeptTreeSelectComponent } from './nz-input-dept-tree-select/nz-input-dept-tree-select.component';
 export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 const nzModules = [
@@ -84,7 +87,8 @@ const nzModules = [
   NzMessageModule,
   NzListModule,
   NzTypographyModule,
-  NzPaginationModule
+  NzPaginationModule,
+  NzRadioModule
 ]
 
 const matModules = [
@@ -127,7 +131,9 @@ const matModules = [
     NzInputRregnoComponent,
     NzListRoadAddressComponent,
     NzInputSelectStaffComponent,
-    NzInputMobileComponent
+    NzInputMobileComponent,
+    NzInputRadioGroupComponent,
+    NzInputDeptTreeSelectComponent
    ],
   providers: [
     DeptHierarchyService,
@@ -157,7 +163,9 @@ const matModules = [
     NzInputRregnoComponent,
     NzListRoadAddressComponent,
     NzInputSelectStaffComponent,
-    NzInputMobileComponent
+    NzInputMobileComponent,
+    NzInputRadioGroupComponent,
+    NzInputDeptTreeSelectComponent
   ]
 })
 export class SharedModule { }

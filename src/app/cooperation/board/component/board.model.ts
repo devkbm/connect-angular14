@@ -1,11 +1,7 @@
 export interface Board {
-  pkBoard: number;
-  ppkBoard: number;
-  boardType: string;
-  boardName: string;
-  boardDescription: string;
-  useYn: string;
-  articleCount: number;
-  sequence: number;
-  pwdYn: string;
+  boardId: string | null;
+  boardParentId: string | null;
+  boardName: string | null;
+  boardType: string | null;
+  boardDescription: string | null;
 }

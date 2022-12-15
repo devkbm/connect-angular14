@@ -27,7 +27,7 @@ import { MyUploadAdapter } from './my-upload-adapter';
           [editor]="Editor"
           [config]="editorConfig"
           [disabled]="disabled"
-          [ngModel]="value"
+          [ngModel]="_value"
           (change)="textChange($event)"
           (blur)="onTouched()"
           (ready)="onReady($event)">
@@ -59,7 +59,7 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, OnInit, A
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: string;
+  _value: any;
 
   onChange!: (value: string) => void;
   onTouched!: () => void;
@@ -133,7 +133,7 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, OnInit, A
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {
@@ -149,8 +149,8 @@ export class NzInputCkeditorComponent implements ControlValueAccessor, OnInit, A
   }
 
   textChange( {editor}: ChangeEvent): void {
-    this.value = editor.getData();
-    this.onChange(this.value);
+    this._value = editor.getData();
+    this.onChange(this._value);
   }
 
 }

@@ -80,8 +80,8 @@ export class WorkCalendarComponent implements AfterViewInit {
               model.data.forEach(e => data.push({
                 id: e.id,
                 text: e.text,
-                start: new DayPilot.Date(e.start),
-                end: new DayPilot.Date(e.end),
+                start: new DayPilot.Date(e.start as string),
+                end: new DayPilot.Date(e.end as string),
                 barColor: e.color
               }));
               this.eventData = data;

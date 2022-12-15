@@ -9,8 +9,8 @@ export interface StaffAppointmentRecord {
   recordName: string | null;
   comment: string | null;
   isCompleted: boolean | null;
-  blngDeptCode: string | null;
-  workDeptCode: string | null;
+  blngDeptId: string | null;
+  workDeptId: string | null;
   jobGroupCode: string | null;
   jobPositionCode: string | null;
   occupationCode: string | null;

@@ -92,7 +92,7 @@ export class BoardService extends DataService {
   }
 
   deleteBoard(board: Board): Observable<ResponseObject<Board>> {
-    const url = `${this.API_URL}/board/${board.pkBoard}`;
+    const url = `${this.API_URL}/board/${board.boardId}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
       withCredentials: true

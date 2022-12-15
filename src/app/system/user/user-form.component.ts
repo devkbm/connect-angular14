@@ -60,7 +60,7 @@ export class UserFormComponent extends FormBase implements OnInit, AfterViewInit
     staffNo: new FormControl<string | null>(null),
     name: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.required }),
     enabled: new FormControl<boolean>(true),
-    deptCode: new FormControl<string | null>(null),
+    deptId: new FormControl<string | null>(null),
     mobileNum: new FormControl<string | null>(null),
     email: new FormControl<string | null>({ value: null, disabled: false }, { validators: Validators.email }),
     imageBase64: new FormControl<string | null>(null),

@@ -15,7 +15,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
               [disabled]="disabled"
               [id]="itemId"
               [placeholder]="placeholder"
-              [(ngModel)]="value"
+              [(ngModel)]="_value"
               [nzAutosize]="nzAutoSize"
               [rows]="rows"
               (ngModelChange)="onChange($event)"
@@ -39,7 +39,7 @@ export class NzInputTextareaComponent implements ControlValueAccessor, OnInit, A
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: string;
+  _value: any;
 
   onChange!: (value: string) => void;
   onTouched!: () => void;
@@ -64,7 +64,7 @@ export class NzInputTextareaComponent implements ControlValueAccessor, OnInit, A
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {

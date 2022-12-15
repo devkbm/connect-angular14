@@ -1,41 +1,36 @@
-import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit, AfterViewInit } from '@angular/core';
+import { Self, Optional, Component, ElementRef, Input, TemplateRef, ViewChild, OnInit } from '@angular/core';
 import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } from '@angular/forms';
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 @Component({
-  selector: 'app-nz-input-mobile',
+  selector: 'app-nz-input-radio-group',
   template: `
    <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
-        <input #inputElement nz-input
-              [required]="required"
-              [disabled]="disabled"
-              [id]="itemId"
-              [placeholder]="placeholder"
-              [(ngModel)]="_value"
-              [readonly]="readonly"
-              mask="000-0000-0000"
-              (ngModelChange)="onChange($event)"
-              (ngModelChange)="valueChange($event)"
-              (blur)="onTouched()"/>
+        <nz-radio-group
+          [nzDisabled]="disabled"
+          [(ngModel)]="_value"
+          (ngModelChange)="onChange($event)"
+          (ngModelChange)="valueChange($event)"
+          (blur)="onTouched()">
+          <label nz-radio [nzValue]="o.value" *ngFor="let o of options">{{ o.label }}</label>
+        </nz-radio-group>
       </nz-form-control>
     </nz-form-item>
   `,
   styles: []
 })
-export class NzInputMobileComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class NzInputRadioGroupComponent implements ControlValueAccessor, OnInit {
 
   @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
-  @ViewChild('inputElement') element?: ElementRef<HTMLInputElement>;
 
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
-  @Input() placeholder: string = '';
-  @Input() readonly: boolean = false;
+  @Input() options?: {label: string, value: string}[];
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -49,14 +44,8 @@ export class NzInputMobileComponent implements ControlValueAccessor, OnInit, Aft
       this.ngControl.valueAccessor = this;
     }
   }
-
   ngOnInit(): void {
-  }
-
-  ngAfterViewInit(): void {
-    if (this.control) {
-      this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
-    }
+    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
   }
 
   writeValue(obj: any): void {
@@ -73,10 +62,6 @@ export class NzInputMobileComponent implements ControlValueAccessor, OnInit, Aft
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
-  }
-
-  focus(): void {
-    this.element?.nativeElement.focus();
   }
 
   valueChange(val: any) {

@@ -16,7 +16,7 @@ import { NzFormControlComponent } from 'ng-zorro-antd/form';
           [required]="required"
           [nzDisabled]="disabled"
           placeholder="placeholder"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           [nzMin]="1" [nzMax]="9999" [nzStep]="1"
           (ngModelChange)="onChange($event)"
           (blur)="onTouched()">
@@ -37,7 +37,7 @@ export class NzInputNumberCustomComponent implements ControlValueAccessor, OnIni
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: string;
+  _value: any;
 
   onChange!: (value: string) => void;
   onTouched!: () => void;
@@ -53,7 +53,7 @@ export class NzInputNumberCustomComponent implements ControlValueAccessor, OnIni
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {

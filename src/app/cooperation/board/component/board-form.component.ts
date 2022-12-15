@@ -23,23 +23,23 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
 
   boardTypeList: any;
 
+  override fg = this.fb.group({
+    boardId         : new FormControl<string | null>(null),
+    boardParentId   : new FormControl<string | null>(null),
+    boardName       : new FormControl<string | null>('', { validators: [Validators.required] }),
+    boardType       : new FormControl<string | null>('', { validators: [Validators.required] }),
+    boardDescription: new FormControl<string | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: BoardService) {
     super();
-
-    this.fg = this.fb.group({
-      boardId         : new FormControl<number | null>(null),
-      boardParentId   : new FormControl<number | null>(null),
-      boardName       : new FormControl<string | null>('', { validators: [Validators.required] }),
-      boardType       : new FormControl<string | null>('', { validators: [Validators.required] }),
-      boardDescription: new FormControl<number | null>(null)
-    });
-
-    this.getboardHierarchy();
-    this.getBoardTypeList();
   }
 
   ngOnInit() {
+    this.getboardHierarchy();
+    this.getBoardTypeList();
+
     if (this.initLoadId) {
       this.get(this.initLoadId);
     } else {
@@ -66,12 +66,12 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
     this.fg.get('boardId')?.disable();
 
     this.fg.patchValue(formData);
-  }  
+  }
 
   closeForm() {
     this.formClosed.emit(this.fg.getRawValue());
   }
-  
+
   get(id: string): void {
     this.service.getBoard(id)
         .subscribe(
@@ -105,7 +105,7 @@ export class BoardFormComponent extends FormBase implements OnInit, AfterViewIni
             this.formDeleted.emit(this.fg.getRawValue());
           }
         );
-  }    
+  }
 
   getboardHierarchy(): void {
     this.service

@@ -3,39 +3,36 @@ import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } 
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 
 @Component({
-  selector: 'app-nz-input-mobile',
+  selector: 'app-nz-input-dept-tree-select',
   template: `
    <nz-form-item>
       <nz-form-label [nzFor]="itemId" [nzRequired]="required">
         <ng-content></ng-content>
       </nz-form-label>
       <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
-        <input #inputElement nz-input
-              [required]="required"
-              [disabled]="disabled"
-              [id]="itemId"
-              [placeholder]="placeholder"
-              [(ngModel)]="_value"
-              [readonly]="readonly"
-              mask="000-0000-0000"
-              (ngModelChange)="onChange($event)"
-              (ngModelChange)="valueChange($event)"
-              (blur)="onTouched()"/>
+       <nz-tree-select
+            [nzId]="itemId"
+            [(ngModel)]="_value"
+            [nzNodes]="nodes"
+            [nzDisabled]="disabled"
+            [nzPlaceHolder]="placeholder"
+            (blur)="onTouched()"
+            (ngModelChange)="onChange($event)">
+        </nz-tree-select>
       </nz-form-control>
     </nz-form-item>
   `,
   styles: []
 })
-export class NzInputMobileComponent implements ControlValueAccessor, OnInit, AfterViewInit {
+export class NzInputDeptTreeSelectComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
   @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
-  @ViewChild('inputElement') element?: ElementRef<HTMLInputElement>;
 
   @Input() itemId: string = '';
   @Input() required: boolean = false;
   @Input() disabled: boolean = false;
   @Input() placeholder: string = '';
-  @Input() readonly: boolean = false;
+  @Input() nodes!: any[];
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
@@ -62,25 +59,16 @@ export class NzInputMobileComponent implements ControlValueAccessor, OnInit, Aft
   writeValue(obj: any): void {
     this._value = obj;
   }
-
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled;
+  }
   registerOnChange(fn: any): void {
     this.onChange = fn;
   }
-
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
-    this.disabled = isDisabled;
-  }
-
-  focus(): void {
-    this.element?.nativeElement.focus();
-  }
-
-  valueChange(val: any) {
-    //console.log(val);
-  }
+  compareFn = (o1: any, o2: any) => (o1 && o2 ? o1.value === o2.value : o1 === o2);
 
 }

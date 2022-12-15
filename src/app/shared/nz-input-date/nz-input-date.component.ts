@@ -21,7 +21,7 @@ import * as dateFns from "date-fns";
               [nzDisabled]="disabled"
               [nzInputReadOnly]="readonly"
               nzAllowClear="false"
-              [(ngModel)]="value"
+              [(ngModel)]="_value"
               (ngModelChange)="valueChange($event)"
               (blur)="onTouched()">
         </nz-date-picker>
@@ -36,10 +36,8 @@ import * as dateFns from "date-fns";
 })
 export class NzInputDateComponent implements ControlValueAccessor, OnInit, AfterViewInit {
 
-  @ViewChild(NzFormControlComponent, {static: true})
-  control!: NzFormControlComponent;
-  @ViewChild('inputControl')
-  element?: NzDatePickerComponent;
+  @ViewChild(NzFormControlComponent) control!: NzFormControlComponent;
+  @ViewChild('inputControl') element?: NzDatePickerComponent;
 
   @Input() itemId: string = '';
   @Input() required: boolean = false;
@@ -49,7 +47,7 @@ export class NzInputDateComponent implements ControlValueAccessor, OnInit, After
 
   @Input() nzErrorTip?: string | TemplateRef<{$implicit: AbstractControl | NgModel;}>;
 
-  value!: Date | null;
+  _value: any;
 
   onChange!: (value: string | null) => void;
   onTouched!: () => void;
@@ -70,7 +68,7 @@ export class NzInputDateComponent implements ControlValueAccessor, OnInit, After
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   registerOnChange(fn: any): void {
@@ -90,15 +88,15 @@ export class NzInputDateComponent implements ControlValueAccessor, OnInit, After
   }
 
   valueChange(val: Date) {
-    this.value = val;
+    this._value = val;
     const nativeValue = this.element?.pickerInput?.nativeElement.value as string;
     // keyboard로 8자리 숫자입력 받을 경우 Date로 변환 처리
     if (nativeValue.length === 8) {
-      this.value = this.convert(nativeValue);
+      this._value = this.convert(nativeValue);
     }
 
-    if (this.value !== null) {
-      this.onChange(dateFns.format(this.value, "yyyy-MM-dd"));
+    if (this._value !== null) {
+      this.onChange(dateFns.format(this._value, "yyyy-MM-dd"));
     } else {
       this.onChange(null);
       this.focus();

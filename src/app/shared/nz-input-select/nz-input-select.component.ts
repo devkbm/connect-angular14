@@ -14,7 +14,7 @@ import { NzSelectModeType } from 'ng-zorro-antd/select';
     <nz-form-control nzHasFeedback [nzErrorTip]="nzErrorTip">
       <nz-select
           [nzId]="itemId"
-          [(ngModel)]="value"
+          [(ngModel)]="_value"
           [nzDisabled]="disabled"
           [nzPlaceHolder]="placeholder"
           [nzMode]="mode"
@@ -50,7 +50,7 @@ export class NzInputSelectComponent implements ControlValueAccessor, OnInit, Aft
   onChange!: (value: string) => void;
   onTouched!: () => void;
 
-  value!: string;
+  _value: any;
 
   constructor(@Self()  @Optional() private ngControl: NgControl) {
     if (this.ngControl) {
@@ -69,7 +69,7 @@ export class NzInputSelectComponent implements ControlValueAccessor, OnInit, Aft
   }
 
   writeValue(obj: any): void {
-    this.value = obj;
+    this._value = obj;
   }
 
   setDisabledState(isDisabled: boolean): void {

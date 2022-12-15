@@ -28,6 +28,11 @@ export class StaffRegistFormComponent extends FormBase implements OnInit {
     data: null
   }
 
+  genderOptions = [
+    {label: '남', value: 'M'},
+    {label: '여', value: 'F'}
+  ];
+
   override fg = this.fb.group({
     staffId                     : new FormControl<string | null>(null, { validators: Validators.required }),
     staffNo                     : new FormControl<string | null>(null, { validators: Validators.required }),
