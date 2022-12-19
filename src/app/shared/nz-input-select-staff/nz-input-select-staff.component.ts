@@ -3,7 +3,7 @@ import { AbstractControl, ControlValueAccessor, FormGroup, NgModel, NgControl } 
 import { NzFormControlComponent } from 'ng-zorro-antd/form';
 import { NzSelectModeType } from 'ng-zorro-antd/select';
 import { ResponseList } from 'src/app/core/model/response-list';
-import { Staff, StaffSelectService } from './StaffSelect.service';
+import { Staff, NzInputSelectStaffService } from './nz-input-select-staff.service';
 
 @Component({
   selector: 'app-nz-input-select-staff',
@@ -56,15 +56,13 @@ export class NzInputSelectStaffComponent implements ControlValueAccessor, OnInit
   _value: any;
 
   constructor(@Self()  @Optional() private ngControl: NgControl,
-              private service: StaffSelectService) {
+              private service: NzInputSelectStaffService) {
     if (this.ngControl) {
       this.ngControl.valueAccessor = this;
     }
   }
 
   ngOnInit(): void {
-    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
-
     this.getStaffList();
   }
 

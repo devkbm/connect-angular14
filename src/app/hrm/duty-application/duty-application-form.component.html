@@ -15,7 +15,7 @@
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
       <app-nz-input-text
-         formControlName="dutyId" itemId="dutyId"
+        formControlName="dutyId" itemId="dutyId"
         placeholder=""
         [required]="false" [nzErrorTip]="errorTpl">근태신청ID
       </app-nz-input-text>
@@ -23,7 +23,7 @@
 
     <div nz-col nzSpan="12">
       <app-nz-input-select-staff
-         formControlName="staffId" itemId="staffId"
+        formControlName="staffId" itemId="staffId"
         placeholder="비고를 입력해주세요."
         [required]="false" [nzErrorTip]="errorTpl">직원
       </app-nz-input-select-staff>
@@ -78,7 +78,7 @@
   <!-- 4 row -->
   <div nz-row nzGutter="8">
     <div nz-col nzSpan="12">
-      <app-duty-date-list [_data]="this.fg.get('selectedDate')?.value" [height]="'100px'">
+      <app-duty-date-list [data]="this.fg.get('selectedDate')?.value!" [height]="'100px'">
       </app-duty-date-list>
     </div>
   </div>
@@ -88,9 +88,9 @@
 <app-nz-crud-button-group
   [isSavePopupConfirm]="false"
   [deleteVisible]="true"
-  (searchClick)="get(fg.get('dutyId')?.value)"
+  (searchClick)="get(fg.value.dutyId!)"
   (saveClick)="save()"
-  (deleteClick)="remove(fg.get('dutyId')?.value)"
+  (deleteClick)="remove()"
   (closeClick)="closeForm()">
 </app-nz-crud-button-group>
 

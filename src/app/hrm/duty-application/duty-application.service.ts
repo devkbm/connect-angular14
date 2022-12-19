@@ -7,7 +7,7 @@ import { map, tap, catchError } from 'rxjs/operators';
 import { DataService } from 'src/app/core/service/data.service';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
-import { DutyApplication } from './duty-application';
+import { DutyApplication } from './duty-application.model';
 import { DutyDate } from './duty-application.model';
 
 @Injectable({
@@ -23,7 +23,7 @@ export class DutyApplicationService extends DataService {
    * 근태신청정보를 조회한다.
    * @param params 조회조건
    */
-  getDutyApplicationList(params: any): Observable<ResponseList<DutyApplication>> {
+  getList(params: any): Observable<ResponseList<DutyApplication>> {
     const url = `${this.API_URL}/dutyapplication`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -40,7 +40,7 @@ export class DutyApplicationService extends DataService {
    * 근태신청정보를 조회한다.
    * @param id 근태신청Id
    */
-  getDutyApplication(id: string): Observable<ResponseObject<DutyApplication>> {
+  get(id: string): Observable<ResponseObject<DutyApplication>> {
     const url = `${this.API_URL}/dutyapplication/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -56,7 +56,7 @@ export class DutyApplicationService extends DataService {
    * 근태신청정보를 저장한다.
    * @param dutyApplication 근태신청정보
    */
-  saveDutyApplication(dutyApplication: DutyApplication): Observable<ResponseObject<DutyApplication>> {
+  save(dutyApplication: DutyApplication): Observable<ResponseObject<DutyApplication>> {
     const url = `${this.API_URL}/dutyapplication`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),
@@ -71,7 +71,7 @@ export class DutyApplicationService extends DataService {
    * 근태신청정보를 저장한다.
    * @param id 근태신청Id
    */
-  deleteDutyApplication(id: string): Observable<ResponseObject<DutyApplication>> {
+  remove(id: string): Observable<ResponseObject<DutyApplication>> {
     const url = `${this.API_URL}/dutyapplication/${id}`;
     const options = {
       headers: this.getAuthorizedHttpHeaders(),

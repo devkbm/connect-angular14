@@ -7,11 +7,9 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 
-import { HrmCoreService } from 'src/app/hrm/hrm-core/service/hrm-core.service';
 import { HrmCode } from '../hrm-code/hrm-code.model';
 import { HrmCodeService } from '../hrm-code/hrm-code.service';
-import { DutyApplication } from './duty-application';
-import { DutyDate } from './duty-application.model';
+import { DutyDate, DutyApplication } from './duty-application.model';
 import { DutyApplicationService } from './duty-application.service';
 import { DutyCodeService } from './duty-code.service';
 
@@ -27,39 +25,23 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
    */
   dutyCodeList: HrmCode[] = [];
 
+  override fg = this.fb.group({
+    dutyId            : new FormControl<string | null>(null, { validators: Validators.required }),
+    staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
+    dutyCode          : new FormControl<string | null>(null),
+    dutyReason        : new FormControl<string | null>(null),
+    fromDate          : new FormControl<string | null>(null),
+    toDate            : new FormControl<string | null>(null),
+    selectedDate      : new FormControl<DutyDate[] | null>(null),
+    dutyTime          : new FormControl<number | null>(null)
+  });
+
   constructor(private fb: FormBuilder,
               private service: DutyApplicationService,
               private hrmCodeService: HrmCodeService,
-              private dutyCodeService: DutyCodeService,
-              private hrmCoreService: HrmCoreService,
               private appAlarmService: AppAlarmService) {  super(); }
 
   ngOnInit() {
-    this.fg = this.fb.group({
-      dutyId            : new FormControl<string | null>(null, { validators: Validators.required }),
-      staffId           : new FormControl<string | null>(null, { validators: Validators.required }),
-      dutyCode          : new FormControl<string | null>(null),
-      dutyReason        : new FormControl<string | null>(null),
-      fromDate          : new FormControl<Date | null>(null),
-      toDate            : new FormControl<Date | null>(null),
-      selectedDate      : new FormControl<DutyDate[] | null>(null),
-      dutyTime          : new FormControl<number | null>(null)
-    });
-
-    this.fg.get('fromDate')?.valueChanges.subscribe(x => {
-      if (x) {
-        const toDate = this.fg.get('toDate')?.value;
-        this.getDutyDateList(x, toDate);
-      }
-    });
-
-    this.fg.get('toDate')?.valueChanges.subscribe(x => {
-      if (x) {
-        const fromDate = this.fg.get('fromDate')?.value;
-        this.getDutyDateList(fromDate, x);
-      }
-    });
-
     this.getDutyCodeList();
     this.newForm();
   }
@@ -68,20 +50,20 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
     this.formType = FormType.NEW;
 
     this.fg.reset();
-    this.fg.get('staffId')?.enable();
-    //this.fg.get('fromDate')?.setValue(new Date().toLocaleString());
-    this.fg.get('fromDate')?.setValue(formatDate(new Date(),'YYYY-MM-ddTHH:mm:ss.SSS','ko-kr'));
-    //this.fg.get('fromDate')?.setValue(formatDate(new Date(),'YYYY-MM-dd','ko-kr'));
-    this.fg.get('toDate')?.setValue(formatDate(new Date(),'YYYY-MM-dd','ko-kr'));
-    /*
-      date: Date;
-      isSelected: boolean;
-      isHoliday: boolean;
-      isSaturday: boolean;
-      isSunday: boolean;
-    */
-    this.fg.get('selectedDate')?.setValue([{ date: new Date(), isSelected: false}]);
-    this.fg.get('dutyTime')?.setValue(8);
+    this.fg.controls.staffId.enable();
+    this.fg.patchValue({
+      fromDate: formatDate(new Date(),'YYYY-MM-dd','ko-kr'),
+      toDate: formatDate(new Date(),'YYYY-MM-dd','ko-kr'),
+      dutyTime: 8
+    });
+
+    this.fg.get('fromDate')?.valueChanges.subscribe(x => {
+      if (x) this.getDutyDateList(x, formatDate(this.fg.value.toDate!,'YYYY-MM-dd','ko-kr'));
+    });
+    this.fg.get('toDate')?.valueChanges.subscribe(x => {
+      if (x) this.getDutyDateList(formatDate(this.fg.value.fromDate!,'YYYY-MM-dd','ko-kr'), x);
+    });
+    this.getDutyDateList(formatDate(this.fg.value.fromDate!,'YYYY-MM-dd','ko-kr'), formatDate(this.fg.value.fromDate!,'YYYY-MM-dd','ko-kr'));
   }
 
   modifyForm(formData: DutyApplication) {
@@ -97,7 +79,7 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
 
   get(id: string) {
     this.service
-        .getDutyApplication(id)
+        .get(id)
         .subscribe(
           (model: ResponseObject<DutyApplication>) => {
             if ( model.total > 0 ) {
@@ -113,7 +95,7 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
   save() {
     console.log('save');
     this.service
-        .saveDutyApplication(this.fg.getRawValue())
+        .save(this.fg.getRawValue())
         .subscribe(
           (model: ResponseObject<DutyApplication>) => {
             this.appAlarmService.changeMessage(model.message);
@@ -122,9 +104,9 @@ export class DutyApplicationFormComponent extends FormBase  implements OnInit {
         );
   }
 
-  remove(id: string) {
+  remove() {
     this.service
-        .deleteDutyApplication(id)
+        .remove(this.fg.value.dutyId!)
         .subscribe(
           (model: ResponseObject<DutyApplication>) => {
             this.appAlarmService.changeMessage(model.message);

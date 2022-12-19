@@ -64,7 +64,7 @@ import { NzInputSelectStaffComponent } from './nz-input-select-staff/nz-input-se
 import { NzInputMobileComponent } from './nz-input-mobile/nz-input-mobile.component';
 import { NzInputRadioGroupComponent } from './nz-input-radio-group/nz-input-radio-group.component';
 import { NzInputDeptTreeSelectComponent } from './nz-input-dept-tree-select/nz-input-dept-tree-select.component';
-export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
+//export const options: Partial<null|IConfig> | (() => Partial<IConfig>) = null;
 
 const nzModules = [
   NzPageHeaderModule,

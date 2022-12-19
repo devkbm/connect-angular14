@@ -25,7 +25,7 @@ export interface Staff {
 @Injectable({
   providedIn: 'root'
 })
-export class StaffSelectService extends DataService {
+export class NzInputSelectStaffService extends DataService {
 
   constructor(http: HttpClient, tokenExtractor: HttpXsrfTokenExtractor) {
     super('/api/hrm/staff', http, tokenExtractor);

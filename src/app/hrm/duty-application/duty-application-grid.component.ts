@@ -3,8 +3,8 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { AggridFunction } from 'src/app/core/grid/aggrid-function';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { ResponseList } from 'src/app/core/model/response-list';
-import { DutyApplication } from './duty-application';
 import { DutyApplicationService } from './duty-application.service';
+import { DutyApplication } from './duty-application.model';
 
 @Component({
   selector: 'app-duty-application-grid',
@@ -58,7 +58,7 @@ export class DutyApplicationGridComponent extends AggridFunction implements OnIn
         cellStyle: {'text-align': 'center'}
       },
       { headerName: '근태신청ID',         field: 'dutyId',              width: 150 },
-      { headerName: '사원번호',           field: 'employeeId',          width: 80 },
+      { headerName: '사원번호',           field: 'staffId',             width: 80 },
       { headerName: '근태코드',           field: 'dutyCode',            width: 80 },
       { headerName: '근태사유',           field: 'dutyReason',          width: 80 },
       { headerName: '근태시작일시',       field: 'dutyStartDateTime',   width: 80 },
@@ -85,7 +85,7 @@ export class DutyApplicationGridComponent extends AggridFunction implements OnIn
     };
 
     this.dutyApplicationService
-        .getDutyApplicationList(params)
+        .getList(params)
         .subscribe(
           (model: ResponseList<DutyApplication>) => {
             if (model?.total > 0) {
