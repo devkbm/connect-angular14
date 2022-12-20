@@ -85,10 +85,10 @@ import { StaffCardListComponent } from './staff-card/staff-card-list.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SystemManagementModule,
     nzModules,
     AgGridModule,
-    SharedModule
+    SharedModule,
+    SystemManagementModule
   ],
   declarations: [
     StaffRegistFormComponent,

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ContentChild, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AppBase } from 'src/app/core/app/app-base';
@@ -18,7 +18,7 @@ import { ButtonTemplate } from 'src/app/shared/nz-buttons/nz-buttons.component';
 export class AuthorityComponent extends AppBase implements AfterViewInit {
 
   @ViewChild(AuthorityGridComponent) grid!: AuthorityGridComponent;
-  
+
   queryKey = 'authority';
   queryValue = '';
   queryOptionList = [
@@ -29,7 +29,7 @@ export class AuthorityComponent extends AppBase implements AfterViewInit {
   drawerAuthority: { visible: boolean, initLoadId: any } = {
     visible: false,
     initLoadId: null
-  }    
+  }
 
   buttons: ButtonTemplate[] = [{
     text: '조회',

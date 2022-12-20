@@ -1,8 +1,7 @@
-import { Directive } from '@angular/core';
-import { NG_ASYNC_VALIDATORS, AbstractControl, ValidationErrors, AsyncValidator, AsyncValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors, AsyncValidatorFn } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 import { AuthorityService } from './authority.service';
 

@@ -6,9 +6,9 @@ import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
 import { DeptService } from 'src/app/system/dept/dept.service';
+import { HrmCode } from '../../hrm-code/hrm-code.model';
+import { HrmCodeService } from '../../hrm-code/hrm-code.service';
 
-import { HrmTypeDetailCode } from '../../appointment/model/hrm-type-detail-code';
-import { HrmCodeService } from '../../appointment/service/hrm-code.service';
 import { StaffAppointmentRecord } from './staff-appointment-record.model';
 import { StaffAppointmentRecordService } from './staff-appointment-record.service';
 
@@ -32,35 +32,35 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
   /**
    * 발령분류코드 - HR0000
    */
-  appointmentTypeList: HrmTypeDetailCode[] = [];
+  appointmentTypeList: HrmCode[] = [];
   /**
    * 직군코드 - HR0001
    */
-  groupJobCodeList: HrmTypeDetailCode[] = [];
+  groupJobCodeList: HrmCode[] = [];
   /**
    * 직위코드 - HR0002
    */
-  jobPositionCodeList: HrmTypeDetailCode[] = [];
+  jobPositionCodeList: HrmCode[] = [];
   /**
    * 직종코드 - HR0003
    */
-  occupationCodeList: HrmTypeDetailCode[] = [];
+  occupationCodeList: HrmCode[] = [];
   /**
    * 직급코드 - HR0004
    */
-  jobGradeCodeList: HrmTypeDetailCode[] = [];
+  jobGradeCodeList: HrmCode[] = [];
   /**
    * 호봉코드 - HR0005
    */
-  payStepCodeList: HrmTypeDetailCode[] = [];
+  payStepCodeList: HrmCode[] = [];
   /**
    * 직무코드 - HR0006
    */
-  jobCodeList: HrmTypeDetailCode[] = [];
+  jobCodeList: HrmCode[] = [];
   /**
    * 직책코드 - HR0007
    */
-  dutyResponsibilityCodeList: HrmTypeDetailCode[] = [];
+  dutyResponsibilityCodeList: HrmCode[] = [];
 
   override fg = this.fb.group({
       staffId                 : new FormControl<string | null>(null, { validators: Validators.required }),
@@ -185,9 +185,9 @@ export class StaffAppointmentRecordFormComponent extends FormBase implements OnI
     };
 
     this.hrmCodeService
-        .getHrmTypeDetailCodeList(params)
+        .getList(params)
         .subscribe(
-          (model: ResponseList<HrmTypeDetailCode>) => {
+          (model: ResponseList<HrmCode>) => {
             if ( model.total > 0 ) {
               this[propertyName] = model.data;
             } else {

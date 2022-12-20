@@ -3,12 +3,11 @@ import { Injector, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { CommonModule, DatePipe, registerLocaleData } from '@angular/common';
+import { CommonModule, registerLocaleData } from '@angular/common';
 import ko from '@angular/common/locales/ko';
 
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import * as AllIcons from '@ant-design/icons-angular/icons';
 
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
@@ -26,10 +25,6 @@ import { BoardModule } from './cooperation/board/board.module';
 import { CommunicationModule } from './cooperation/communication/communication.module';
 import { SurveyModule } from './cooperation/survey/survey.module';
 import { WorkgroupModule } from './cooperation/workgroup/workgroup.module';
-import { AppointmentModule } from './hrm/appointment/appointment.module';
-import { DutyModule } from './hrm/duty/duty.module';
-import { EmployeeModule } from './hrm/employee/employee.module';
-import { PayitemModule } from './hrm/payitem/payitem.module';
 import { StaffModule } from './hrm/staff/staff.module';
 import { TodoModule } from './cooperation/todo/todo.module';
 import { HrmCodeModule } from './hrm/hrm-code/hrm-code.module';
@@ -37,10 +32,16 @@ import { DutyApplicationModule } from './hrm/duty-application/duty-application.m
 
 registerLocaleData(ko);
 
+/*
+import * as AllIcons from '@ant-design/icons-angular/icons';
 const antDesignIcons = AllIcons as {
      [key: string]: IconDefinition;
 };
 const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesignIcons[key])
+*/
+
+import { AccountBookFill, AlertFill, AlertOutline, MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, MenuFoldOutline, MenuUnfoldOutline ];
 
 
 @NgModule({
@@ -66,10 +67,6 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
     CommunicationModule,
     SurveyModule,
     WorkgroupModule,
-    AppointmentModule,
-    EmployeeModule,
-    DutyModule,
-    PayitemModule,
     HrmCodeModule,
     StaffModule,
     TodoModule,
@@ -77,8 +74,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
-    GlobalProperty,
-    DatePipe
+    GlobalProperty
   ],
   bootstrap: [AppComponent]
 })

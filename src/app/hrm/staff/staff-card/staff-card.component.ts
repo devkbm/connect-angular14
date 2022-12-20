@@ -5,7 +5,7 @@ import { StaffCardModel } from './staff-card.model';
 @Component({
   selector: 'app-staff-card',
   template: `
-    <nz-card class="card" nzHoverable nz-card-grid>
+    <nz-card class="card" nzHoverable nz-card-grid nzSize="small">
       <nz-card-meta
         [nzAvatar]="avatarTemplate"
         [nzTitle]="this.data?.staffName!"
@@ -22,10 +22,12 @@ import { StaffCardModel } from './staff-card.model';
   styles: [`
     .card {
       width: 200px;
-      height: 100px;
+      height: 80px;
       margin-top: 16px;
       margin-right: 8px;
-      text-align: center;
+      padding-top: 8px;
+      padding-left: 0px;
+      text-align: left;
     }
   `]
 })

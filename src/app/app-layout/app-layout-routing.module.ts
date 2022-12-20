@@ -20,15 +20,6 @@ import { SurveyFormComponent } from '../cooperation/survey/component/survey-form
 import { WorkgroupComponent } from '../cooperation/workgroup/workgroup.component';
 import { TodosComponent } from '../cooperation/todo/todos.component';
 
-import { AppointmentCodeComponent } from '../hrm/appointment/component/appointment-code/appointment-code.component';
-import { HrmRelationCodeComponent } from '../hrm/appointment/component/hrm-type/hrm-relation-code.component';
-
-import { LedgerComponent } from '../hrm/appointment/component/ledger/ledger.component';
-import { DutyCodeComponent } from '../hrm/duty/component/duty-code/duty-code.component';
-import { EmployeeMasterComponent } from '../hrm/employee/component/basic-info/employee-master.component';
-import { DeptEmployeeListComponent } from '../hrm/employee/component/dept-employee-list/dept-employee-list.component';
-import { PayitemComponent } from './../hrm/payitem/component/pay-item/payitem.component';
-import { PayTableComponent } from '../hrm/payitem/component/paytable/pay-table.component';
 import { StaffManagementComponent } from '../hrm/staff/staff-management.component';
 import { HrmCodeComponent } from '../hrm/hrm-code/hrm-code.component';
 import { DutyApplicationComponent } from '../hrm/duty-application/duty-application.component';
@@ -58,15 +49,7 @@ const layoutroutes: Routes = [
 
       /* 인사시스템 */
       {path: 'hrmtype',           component: HrmCodeComponent},
-      {path: 'relationcode',      component: HrmRelationCodeComponent},
-      {path: 'appointmentcode',   component: AppointmentCodeComponent},
-      {path: 'appointmentledger', component: LedgerComponent},
-      {path: 'employee',          component: EmployeeMasterComponent},
-      {path: 'deptemployeelist',  component: DeptEmployeeListComponent},
-      {path: 'dutycode',          component: DutyCodeComponent},
       {path: 'dutyapplication',   component: DutyApplicationComponent},
-      {path: 'payitem',           component: PayitemComponent},
-      {path: 'paytable',          component: PayTableComponent},
       {path: 'staff',             component: StaffManagementComponent}
     ]
   }

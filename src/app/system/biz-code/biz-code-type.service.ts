@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
+import { HttpClient, HttpXsrfTokenExtractor } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
-import { map, tap, catchError } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 
 import { DataService } from '../../core/service/data.service';
 
@@ -32,7 +32,7 @@ export class BizCodeTypeService extends DataService {
     );
   }
 
-  
+
 
   getList(): Observable<ResponseList<BizCodeType>> {
     const url = `${this.API_URL}`;

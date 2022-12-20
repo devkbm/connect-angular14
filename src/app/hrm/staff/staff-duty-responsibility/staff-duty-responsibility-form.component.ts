@@ -5,11 +5,9 @@ import { FormBase, FormType } from 'src/app/core/form/form-base';
 import { ResponseList } from 'src/app/core/model/response-list';
 import { ResponseObject } from 'src/app/core/model/response-object';
 import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
-import { BizCode } from 'src/app/system/biz-code/biz-code.model';
 
-import { DeptService } from 'src/app/system/dept/dept.service';
-import { HrmTypeDetailCode } from '../../appointment/model/hrm-type-detail-code';
-import { HrmCodeService } from '../../appointment/service/hrm-code.service';
+import { HrmCode } from '../../hrm-code/hrm-code.model';
+import { HrmCodeService } from '../../hrm-code/hrm-code.service';
 import { StaffDutyResponsibility } from './staff-duty-responsibility.model';
 import { StaffDutyResponsibilityService } from './staff-duty-responsibility.service';
 
@@ -25,7 +23,7 @@ export class StaffDutyResponsibilityFormComponent extends FormBase implements On
   /**
    * 직책코드 - HR0007
    */
-  dutyResponsibilityCodeList: HrmTypeDetailCode[] = [];
+  dutyResponsibilityCodeList: HrmCode[] = [];
 
   override fg = this.fb.group({
       staffId                 : new FormControl<string | null>({value: null, disabled: true}, { validators: [Validators.required] }),
@@ -139,9 +137,9 @@ export class StaffDutyResponsibilityFormComponent extends FormBase implements On
     };
 
     this.hrmCodeService
-        .getHrmTypeDetailCodeList(params)
+        .getList(params)
         .subscribe(
-          (model: ResponseList<HrmTypeDetailCode>) => {
+          (model: ResponseList<HrmCode>) => {
             if ( model.total > 0 ) {
               this.dutyResponsibilityCodeList = model.data;
             }
