@@ -45,7 +45,7 @@ export class NzInputCheckboxComponent implements ControlValueAccessor, OnInit {
     }
   }
   ngOnInit(): void {
-    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+    //this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
   }
 
   writeValue(obj: any): void {

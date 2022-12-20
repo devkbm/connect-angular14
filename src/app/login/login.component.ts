@@ -7,7 +7,7 @@ import {
 } from '@angular/forms';
 import { LoginService } from './login.service';
 import { UserToken } from './user-token.model';
-import { ResponseObject } from '../../core/model/response-object';
+import { ResponseObject } from '../core/model/response-object';
 import { SessionManager } from 'src/app/core/session-manager';
 import { WindowRef } from 'src/app/core/window-ref';
 

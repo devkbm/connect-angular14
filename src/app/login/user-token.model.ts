@@ -1,5 +1,5 @@
-import { MenuGroup } from '../menu/menu-group.model';
-import { Authority } from '../authority/authority.model';
+import { MenuGroup } from '../system/menu/menu-group.model';
+import { Authority } from '../system/authority/authority.model';
 
 export interface UserToken {
   token: string;

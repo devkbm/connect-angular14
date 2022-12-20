@@ -59,7 +59,7 @@ export class NzInputSelectComponent implements ControlValueAccessor, OnInit, Aft
   }
 
   ngOnInit(): void {
-    this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
+    //this.control.nzValidateStatus = this.ngControl.control as AbstractControl;
   }
 
   ngAfterViewInit(): void {

@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule, COMPOSITION_BUFFER_MODE } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { CustomHttpInterceptor } from '../../core/interceptor/custom-http-interceptor';
@@ -33,8 +31,6 @@ import { CalendarModule } from 'src/app/shared/calendar/calendar.module';
 
 const angularModules = [
   CommonModule,
-  BrowserModule,
-  BrowserAnimationsModule,
   FormsModule,
   ReactiveFormsModule,
   HttpClientModule,

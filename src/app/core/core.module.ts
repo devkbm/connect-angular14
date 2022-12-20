@@ -1,19 +1,24 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 /* AG-GRID */
 import { AgGridModule } from 'ag-grid-angular';
 
-/* NG-ZORRO */
-import { NzButtonModule } from 'ng-zorro-antd/button';
-import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-
 import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.component';
+
+/* NG-ZORRO */
+import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
+import { IconDefinition } from '@ant-design/icons-angular';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
+
+import { AccountBookFill } from '@ant-design/icons-angular/icons';
+import { UserSessionService } from './service/user-session.service';
+import { AuthGuardService } from './service/auth-guard.service';
+const icons: IconDefinition[] = [ AccountBookFill ];
 
 const nzModules = [
   NzIconModule,
@@ -24,8 +29,6 @@ const nzModules = [
 @NgModule({
   imports: [
     CommonModule,
-    BrowserModule,
-    BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
     AgGridModule,
@@ -34,6 +37,11 @@ const nzModules = [
   declarations: [
     ButtonRendererComponent,
     CheckboxRendererComponent
+  ],
+  providers: [
+    { provide: NZ_I18N, useValue: ko_KR },
+    UserSessionService,
+    AuthGuardService
   ],
   exports: [
     ButtonRendererComponent,

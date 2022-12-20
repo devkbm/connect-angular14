@@ -14,7 +14,6 @@ import { DeptComponent } from '../system/dept/dept.component';
 import { HolidayComponent } from '../system/holiday/holiday.component';
 import { BizCodeComponent } from '../system/biz-code/biz-code.component';
 
-import { TeamComponent } from '../cooperation/communication/component/team.component';
 import { BoardComponent } from '../cooperation/board/board.component';
 import { SurveyFormComponent } from '../cooperation/survey/component/survey-form.component';
 import { WorkgroupComponent } from '../cooperation/workgroup/workgroup.component';
@@ -23,6 +22,7 @@ import { TodosComponent } from '../cooperation/todo/todos.component';
 import { StaffManagementComponent } from '../hrm/staff/staff-management.component';
 import { HrmCodeComponent } from '../hrm/hrm-code/hrm-code.component';
 import { DutyApplicationComponent } from '../hrm/duty-application/duty-application.component';
+import { TeamComponent } from '../cooperation/team/team.component';
 
 
 const layoutroutes: Routes = [

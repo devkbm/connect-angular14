@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { UserToken } from '../system/login/user-token.model';
+import { UserToken } from '../login/user-token.model';
 
 export interface MenuBreadCrumb {
   name: string;

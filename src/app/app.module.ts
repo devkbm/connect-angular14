@@ -41,6 +41,9 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 */
 
 import { AccountBookFill, AlertFill, AlertOutline, MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
+import { TeamModule } from './cooperation/team/team.module';
+import { LoginModule } from './login/login.module';
+import { CoreModule } from './core/core.module';
 const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, MenuFoldOutline, MenuUnfoldOutline ];
 
 
@@ -51,13 +54,14 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, Menu
   imports: [
     BrowserModule,
     CommonModule,
-    AppRoutingModule,
     NzIconModule.forRoot(icons),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN'}),
     BrowserAnimationsModule,
+    LoginModule,
+    CoreModule,
     NzLayoutModule,
     NzMenuModule,
     AppRoutingModule,
@@ -70,7 +74,8 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, Menu
     HrmCodeModule,
     StaffModule,
     TodoModule,
-    DutyApplicationModule
+    DutyApplicationModule,
+    TeamModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },

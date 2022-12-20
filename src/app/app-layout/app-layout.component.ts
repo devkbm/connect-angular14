@@ -100,6 +100,7 @@ export class AppLayoutComponent implements OnInit  {
   }
 
   selectMenuItem(url: string): void {
+    console.log(url);
     sessionStorage.setItem('selectedMenu', url);
     // '/home/' +
     this.router.navigate([url]);

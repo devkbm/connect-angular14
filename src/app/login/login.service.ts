@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams, HttpXsrfTokenExtractor } from '@angular/common/http';
 
-import { DataService } from '../../core/service/data.service';
+import { DataService } from '../core/service/data.service';
 
 import { UserToken } from './user-token.model';
 
 import { Observable } from 'rxjs';
 import { map, tap, catchError } from 'rxjs/operators';
 import { GlobalProperty } from 'src/app/core/global-property';
-import { ResponseList } from '../../core/model/response-list';
-import { ResponseObject } from '../../core/model/response-object';
+import { ResponseList } from '../core/model/response-list';
+import { ResponseObject } from '../core/model/response-object';
 
 @Injectable()
 export class LoginService extends DataService {
