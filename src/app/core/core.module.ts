@@ -18,6 +18,7 @@ import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
 import { AccountBookFill } from '@ant-design/icons-angular/icons';
 import { UserSessionService } from './service/user-session.service';
 import { AuthGuardService } from './service/auth-guard.service';
+import { AppAlarmService } from './service/app-alarm.service';
 const icons: IconDefinition[] = [ AccountBookFill ];
 
 const nzModules = [
@@ -41,7 +42,8 @@ const nzModules = [
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },
     UserSessionService,
-    AuthGuardService
+    AuthGuardService,
+    AppAlarmService
   ],
   exports: [
     ButtonRendererComponent,

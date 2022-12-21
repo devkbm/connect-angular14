@@ -16,15 +16,12 @@ import { AppLayoutRoutingModule } from './app-layout-routing.module';
 import { AppAlarmService } from '../core/service/app-alarm.service';
 import { AuthGuardService } from '../core/service/auth-guard.service';
 
-import { MenuService } from '../system/menu/menu.service';
-import { WebResourceService } from '../system/webresource/web-resource.service';
-import { TermService } from '../system/terms/term.service';
-
 import { AppLayoutComponent } from './app-layout.component';
 import { UserPopupComponent } from '../system/user/user-popup.component';
 import { UserProfileComponent } from './../system/user/user-profile.component';
 import { UserModule } from '../system/user/user.module';
 
+import { AppLayoutService } from './app-layout.service';
 
 const nzModules = [
   NzLayoutModule,
@@ -52,10 +49,8 @@ const nzModules = [
     UserProfileComponent
   ],
   providers: [
+    AppLayoutService,
     AppAlarmService,
-    MenuService,
-    WebResourceService,
-    TermService,
     AuthGuardService
   ],
   exports: [

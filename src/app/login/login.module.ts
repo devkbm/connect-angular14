@@ -5,10 +5,6 @@ import { HttpClientModule, HttpClientXsrfModule, HTTP_INTERCEPTORS } from '@angu
 import { CustomHttpInterceptor } from '../core/interceptor/custom-http-interceptor';
 import { SharedModule } from 'src/app/shared/shared.module';
 
-/* AG-GRID */
-import { AgGridModule } from 'ag-grid-angular';
-import { ButtonRendererComponent } from '../core/grid/renderer/button-renderer.component';
-import { CheckboxRendererComponent } from '../core/grid/renderer/checkbox-renderer.component';
 
 /* Inner Component */
 import { LoginComponent } from './login.component';
@@ -21,7 +17,6 @@ import { LoginService } from './login.service';
     ReactiveFormsModule,
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN'}),
-    AgGridModule,
     SharedModule
   ],
   declarations: [

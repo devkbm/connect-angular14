@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SystemManagementModule } from '../../system/system-management.module';
 
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
@@ -63,7 +62,6 @@ const nzModules = [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    SystemManagementModule,
     nzModules,
     AgGridModule,
     CKEditorModule,

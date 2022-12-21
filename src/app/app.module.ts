@@ -17,9 +17,7 @@ import { ko_KR } from 'ng-zorro-antd/i18n';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GlobalProperty } from './core/global-property';
-import { AppLayoutModule } from './app-layout/app-layout.module';
 import { AppInjector } from './core/app/app-injector.service';
-import { SystemManagementModule } from './system/system-management.module';
 
 import { BoardModule } from './cooperation/board/board.module';
 import { CommunicationModule } from './cooperation/communication/communication.module';
@@ -29,6 +27,9 @@ import { StaffModule } from './hrm/staff/staff.module';
 import { TodoModule } from './cooperation/todo/todo.module';
 import { HrmCodeModule } from './hrm/hrm-code/hrm-code.module';
 import { DutyApplicationModule } from './hrm/duty-application/duty-application.module';
+import { TeamModule } from './cooperation/team/team.module';
+import { LoginModule } from './login/login.module';
+import { CoreModule } from './core/core.module';
 
 registerLocaleData(ko);
 
@@ -41,9 +42,7 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 */
 
 import { AccountBookFill, AlertFill, AlertOutline, MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
-import { TeamModule } from './cooperation/team/team.module';
-import { LoginModule } from './login/login.module';
-import { CoreModule } from './core/core.module';
+import { AppLayoutRoutingModule } from './app-layout/app-layout-routing.module';
 const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, MenuFoldOutline, MenuUnfoldOutline ];
 
 
@@ -60,13 +59,12 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, Menu
     HttpClientModule,
     HttpClientXsrfModule.withOptions({cookieName: 'XSRF-TOKEN', headerName: 'X-XSRF-TOKEN'}),
     BrowserAnimationsModule,
-    LoginModule,
     CoreModule,
     NzLayoutModule,
+    LoginModule,
     NzMenuModule,
     AppRoutingModule,
-    AppLayoutModule,
-    SystemManagementModule,
+    AppLayoutRoutingModule,
     BoardModule,
     CommunicationModule,
     SurveyModule,

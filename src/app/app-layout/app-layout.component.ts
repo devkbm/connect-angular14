@@ -2,14 +2,15 @@ import { Component, OnInit, ViewChild, TemplateRef, ViewContainerRef } from '@an
 import { ActivatedRoute, Router } from '@angular/router';
 import { NzFormatEmitEvent, NzTreeNodeOptions } from 'ng-zorro-antd/tree';
 
-import { AppAlarmService } from '../core/service/app-alarm.service';
-import { MenuService } from '../system/menu/menu.service';
+import { AppAlarmService } from 'src/app/core/service/app-alarm.service';
+import { AppLayoutService } from './app-layout.service';
 
-import { MenuHierarchy } from '../system/menu/menu-hierarchy.model';
 import { ResponseList } from '../core/model/response-list';
 import { UserSessionService } from '../core/service/user-session.service';
 import { UserPopupComponent } from '../system/user/user-popup.component';
 import { SelectControlModel } from '../core/model/select-control.model.ts';
+import { MenuHierarchy } from './app-layout.model';
+
 
 
 @Component({
@@ -33,7 +34,7 @@ export class AppLayoutComponent implements OnInit  {
 
   constructor(private appAlarmService: AppAlarmService,
               private sessionService: UserSessionService,
-              private menuService: MenuService,
+              private service: AppLayoutService,
               private viewContainerRef: ViewContainerRef,
               private route: ActivatedRoute,
               private router: Router) { }
@@ -73,22 +74,22 @@ export class AppLayoutComponent implements OnInit  {
 
     sessionStorage.setItem('selectedMenuGroup', value);
 
-    this.menuService
-      .getMenuHierarchy(value)
-      .subscribe(
-        (model: ResponseList<MenuHierarchy>) => {
-          if ( model.total > 0 ) {
-            this.menuItems = model.data;
-            sessionStorage.setItem('menuList', JSON.stringify(model.data));
-          } else {
-            this.menuItems = [];
-            sessionStorage.setItem('menuList', '');
-          }
+    this.service
+        .getMenuHierarchy(value)
+        .subscribe(
+          (model: ResponseList<MenuHierarchy>) => {
+            if ( model.total > 0 ) {
+              this.menuItems = model.data;
+              sessionStorage.setItem('menuList', JSON.stringify(model.data));
+            } else {
+              this.menuItems = [];
+              sessionStorage.setItem('menuList', '');
+            }
 
-          const seledtedMenu = sessionStorage.getItem('selectedMenu');
-          this.selectMenuItem(seledtedMenu as string);
-        }
-      );
+            const seledtedMenu = sessionStorage.getItem('selectedMenu');
+            this.selectMenuItem(seledtedMenu as string);
+          }
+        );
   }
 
   selectMenu(event: NzFormatEmitEvent): void {

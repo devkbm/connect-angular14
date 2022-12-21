@@ -2,8 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { SystemManagementModule } from 'src/app/system/system-management.module';
-
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
 import { NzIconModule } from 'ng-zorro-antd/icon';
@@ -87,8 +85,7 @@ import { StaffCardListComponent } from './staff-card/staff-card-list.component';
     ReactiveFormsModule,
     nzModules,
     AgGridModule,
-    SharedModule,
-    SystemManagementModule
+    SharedModule
   ],
   declarations: [
     StaffRegistFormComponent,
