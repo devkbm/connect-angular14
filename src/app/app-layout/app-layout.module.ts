@@ -11,8 +11,6 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 
-import { AppLayoutRoutingModule } from './app-layout-routing.module';
-
 import { AppAlarmService } from '../core/service/app-alarm.service';
 import { AuthGuardService } from '../core/service/auth-guard.service';
 
@@ -22,6 +20,7 @@ import { UserProfileComponent } from './../system/user/user-profile.component';
 import { UserModule } from '../system/user/user.module';
 
 import { AppLayoutService } from './app-layout.service';
+import { RouterModule } from '@angular/router';
 
 const nzModules = [
   NzLayoutModule,
@@ -37,7 +36,7 @@ const nzModules = [
   imports: [
     CommonModule,
     FormsModule,
-    AppLayoutRoutingModule,
+    RouterModule,
     UserModule,
     nzModules
   ],

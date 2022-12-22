@@ -42,7 +42,6 @@ const icons: IconDefinition[] = Object.keys(antDesignIcons).map(key => antDesign
 */
 
 import { AccountBookFill, AlertFill, AlertOutline, MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
-import { AppLayoutRoutingModule } from './app-layout/app-layout-routing.module';
 const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, MenuFoldOutline, MenuUnfoldOutline ];
 
 
@@ -63,8 +62,8 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, Menu
     NzLayoutModule,
     LoginModule,
     NzMenuModule,
-    AppRoutingModule,
-    AppLayoutRoutingModule,
+    AppRoutingModule
+    /*
     BoardModule,
     CommunicationModule,
     SurveyModule,
@@ -74,6 +73,7 @@ const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, Menu
     TodoModule,
     DutyApplicationModule,
     TeamModule
+    */
   ],
   providers: [
     { provide: NZ_I18N, useValue: ko_KR },

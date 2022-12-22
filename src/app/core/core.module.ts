@@ -8,18 +8,18 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ButtonRendererComponent } from './grid/renderer/button-renderer.component';
 import { CheckboxRendererComponent } from './grid/renderer/checkbox-renderer.component';
 
+import { UserSessionService } from './service/user-session.service';
+import { AuthGuardService } from './service/auth-guard.service';
+import { AppAlarmService } from './service/app-alarm.service';
+
 /* NG-ZORRO */
 import { NZ_I18N, ko_KR } from 'ng-zorro-antd/i18n';
 import { IconDefinition } from '@ant-design/icons-angular';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCheckboxModule } from 'ng-zorro-antd/checkbox';
-
-import { AccountBookFill } from '@ant-design/icons-angular/icons';
-import { UserSessionService } from './service/user-session.service';
-import { AuthGuardService } from './service/auth-guard.service';
-import { AppAlarmService } from './service/app-alarm.service';
-const icons: IconDefinition[] = [ AccountBookFill ];
+import { AccountBookFill, AlertFill, AlertOutline, MenuFoldOutline, MenuUnfoldOutline } from '@ant-design/icons-angular/icons';
+const icons: IconDefinition[] = [ AccountBookFill, AlertOutline, AlertFill, MenuFoldOutline, MenuUnfoldOutline ];
 
 const nzModules = [
   NzIconModule,

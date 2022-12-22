@@ -1,13 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators
-} from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 import { UserToken } from './user-token.model';
-import { ResponseObject } from '../core/model/response-object';
 import { SessionManager } from 'src/app/core/session-manager';
 import { WindowRef } from 'src/app/core/window-ref';
 
@@ -17,7 +12,12 @@ import { WindowRef } from 'src/app/core/window-ref';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup = new FormGroup({});
+  form = this.fb.group({
+    organizationCode  : new FormControl<string | null>('001', { validators: Validators.required }),
+    staffNo           : new FormControl<string | null>(null, { validators: Validators.required }),
+    password          : new FormControl<string | null>(null, { validators: Validators.required }),
+    remember          : new FormControl<boolean>(false, { validators: Validators.required })
+  });
 
   constructor(
     private fb: FormBuilder,
@@ -27,17 +27,9 @@ export class LoginComponent implements OnInit {
     private winRef: WindowRef
     ) {
       console.log(winRef);
-
-    }
+  }
 
   ngOnInit(): void {
-    this.loginForm = this.fb.group({
-      organizationCode: [ '001', [ Validators.required ] ],
-      staffNo: [ null, [ Validators.required ] ],
-      password: [ null, [ Validators.required ] ],
-      remember: [ true ]
-    });
-
     const token = this.route.snapshot.params['id'];
 
     console.log(token);
@@ -50,7 +42,7 @@ export class LoginComponent implements OnInit {
             (model: UserToken) => {
               this.setItemSessionStorage(model);
 
-              this.router.navigate(['/home']);
+              this.router.navigate(['/system']);
             }
           );
     }
@@ -58,19 +50,22 @@ export class LoginComponent implements OnInit {
 
   submitForm(): void {
     // tslint:disable-next-line:forin
+    /*
     for (const i in this.loginForm.controls) {
       this.loginForm.controls[ i ].markAsDirty();
       this.loginForm.controls[ i ].updateValueAndValidity();
     }
-    console.log(this.loginForm.get('staffNo')?.value);
+    */
 
-    this.loginService.doLogin('001', this.loginForm.get('staffNo')?.value, this.loginForm.get('password')?.value)
+    this.loginService
+        .doLogin('001', this.form.value.staffNo!, this.form.value.password!)
+        .subscribe(
+          (model: UserToken) => {
+          this.setItemSessionStorage(model);
 
-      .subscribe((model: UserToken) => {
-        this.setItemSessionStorage(model);
-
-        this.router.navigate(['/home']);
-      });
+          this.router.navigate(['/system']);
+          }
+        );
   }
 
   private setItemSessionStorage(data: UserToken) {
@@ -79,11 +74,13 @@ export class LoginComponent implements OnInit {
 
   socialLogin(): void {
     // tslint:disable-next-line:forin
+    /*
     for (const i in this.loginForm.controls) {
       this.loginForm.controls[ i ].markAsDirty();
       this.loginForm.controls[ i ].updateValueAndValidity();
     }
-    console.log(this.loginForm.get('userName')?.value);
+    */
+    console.log(this.form.get('userName')?.value);
 
 
     window.location.href = 'http://localhost:8090/oauth2/authorization/google';
@@ -123,7 +120,6 @@ export class LoginComponent implements OnInit {
               sessionStorage.setItem('imageUrl', model.imageUrl);
               sessionStorage.setItem('menuGroupList', JSON.stringify(model.menuGroupList));
               sessionStorage.setItem('authorityList', JSON.stringify(model.authorities));
-
 
               this.router.navigate(['/home']);
             }
